@@ -35,8 +35,37 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = ConfigurationManager.AppSettings["Hoge01"];
+      zoomInRatio = double.Parse(ConfigurationManager.AppSettings["ZoomInRatio"]);
+      zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
+      defaultZoomRatio = double.Parse(ConfigurationManager.AppSettings["DefaultZoomRatio"]);
     }
+    #endregion
+
+    #region 宣言
+
+    // 表示する画像
+    private Bitmap currentImage;
+    // 初期表示ズーム倍率
+    private double defaultZoomRatio = 1;
+    // ズームイン倍率
+    private double zoomInRatio = 1;
+    // ズームアウト倍率
+    private double zoomOutRatio = 1;
+    // 倍率変更後の画像のサイズと位置
+    private Rectangle drawRectangle;
+    // 
+    Dictionary<int, string> dicPath = new Dictionary<int, string>();
+
+    int currentImageWidth;
+    int currentImageHeight;
+
+    // 
+    int pointX = 0;
+    int pointY = 0;
+
+    //
+    int currentImageKry = 0;
+
     #endregion
 
 
@@ -74,69 +103,211 @@ namespace WFA
     #region フォームドラッグドロップイベント
     private void Form1_DragDrop(object sender, DragEventArgs e)
     {
-      //ドラッグ&ドロップされたファイルの取得
-      string[] args = (string[])e.Data.GetData(DataFormats.FileDrop);
+      //ドラッグ&ドロップされたファイルの一つ目を取得
+      string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
 
-      // 単純表示
-      //pictureBox1.ImageLocation = args[0];
+      // ファイルの場合
+      if (!Directory.Exists(dropItem))
+      {
+        // 
+        dropItem = System.IO.Path.GetDirectoryName(dropItem);
+      }
 
-      //表示する画像を読み込む
+      //
+      string[] files = System.IO.Directory.GetFiles(dropItem, "*", System.IO.SearchOption.AllDirectories);
+      // 大文字小文字を区別しない序数比較で並び替える
+      StringComparer cmp = StringComparer.OrdinalIgnoreCase;
+      Array.Sort(files, cmp);
+
+      // 
+      int i = 0;
+      foreach (string x in files)
+      {
+        i = i + 1;
+        dicPath.Add(i, x);
+      }
+
+      // 表示する画像を読み込む
       if (currentImage != null)
       {
         currentImage.Dispose();
       }
-      currentImage = new Bitmap(args[0]);
+
+      // 
+      currentImageKry = currentImageKry + 1;
+
+      // 
+      currentImage = new Bitmap(dicPath[currentImageKry]);
+
+      // 
+      currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
+      currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
+
       //初期化
-      drawRectangle = new Rectangle(0, 0, currentImage.Width, currentImage.Height);
-      zoomRatio = 1d;
+      drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
+
       //画像を表示する
       pictureBox1.Invalidate();
-
     }
     #endregion
 
     #endregion
 
+    #region キー押下イベント
+    private void Form1_KeyDown(object sender, KeyEventArgs e)
+    {
+      // コントロール押下の場合
+      if (e.Control)
+      {
+        // Ctrl + ↑
+        if (e.KeyCode == Keys.Up)
+        {
+          // 
+          currentImageWidth = (int)Math.Round(currentImageWidth * zoomInRatio);
+          currentImageHeight = (int)Math.Round(currentImageHeight * zoomInRatio);
+        }
 
-    //表示する画像
-    private Bitmap currentImage;
-    //倍率
-    private double zoomRatio = 1d;
-    //倍率変更後の画像のサイズと位置
-    private Rectangle drawRectangle;
-    private void ZoomIn()
+        // Ctrl + ↓
+        if (e.KeyCode == Keys.Down)
+        {
+          // 
+          currentImageWidth = (int)Math.Round(currentImageWidth * zoomOutRatio);
+          currentImageHeight = (int)Math.Round(currentImageHeight * zoomOutRatio);
+        }
+
+        // ズームメソッドの実行有無
+        if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+        {
+          // ズーム
+          Zoom(currentImageWidth, currentImageHeight);
+        }
+
+        // Ctrl + →
+        if (e.KeyCode == Keys.Right)
+        {
+          // 
+          currentImageKry = currentImageKry + 1;
+
+          // 
+          currentImage = new Bitmap(dicPath[currentImageKry]);
+
+          // 
+          currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
+          currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
+
+          //初期化
+          drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
+
+          //画像を表示する
+          pictureBox1.Invalidate();
+
+          //
+          pointX = 0;
+          pointY = 0;
+        }
+
+        // Ctrl + ←
+        if (e.KeyCode == Keys.Left)
+        {
+          // 
+          currentImageKry = currentImageKry - 1;
+
+          // 
+          currentImage = new Bitmap(dicPath[currentImageKry]);
+
+          // 
+          currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
+          currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
+
+          //初期化
+          drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
+
+          //画像を表示する
+          pictureBox1.Invalidate();
+
+          //
+          pointX = 0;
+          pointY = 0;
+        }
+
+        return;
+      }
+
+      // 押下キー振り分け
+      switch (e.KeyCode)
+      {
+        case Keys.Up:
+          // 上に移動
+          pointX = pointX + 0;
+          pointY = pointY + 100;
+          break;
+        case Keys.Down:
+          // 下に移動
+          pointX = pointX + 0;
+          pointY = pointY - 100;
+          break;
+        case Keys.Right:
+          // 右に移動
+          pointX = pointX - 100;
+          pointY = pointY + 0;
+          break;
+        case Keys.Left:
+          // 左に移動
+          pointX = pointX + 100;
+          pointY = pointY + 0;
+          break;
+        default:
+          break;
+      }
+
+      // 移動メソッド
+      MoveImg(pointX, pointY);
+
+      //switch (e.KeyData)
+      //{
+      //  case Keys.Up:
+      //    // コントロールと同時押しの場合
+      //    if (e.KeyData == Keys.Up && e.Control)
+      //      break;
+      //}
+    }
+    #endregion
+
+
+    #region ズームメソッド
+    private void Zoom(int currentImageWudth, int currentImageHeight)
     {
       PictureBox pb = pictureBox1;
-
-      zoomRatio *= 2d;
 
       // 倍率変更後の画像のサイズと位置を計算する
-      drawRectangle.Width = (int)Math.Round(currentImage.Width * zoomRatio);
-      drawRectangle.Height = (int)Math.Round(currentImage.Height * zoomRatio);
+      drawRectangle.Width = currentImageWudth;
+      drawRectangle.Height = currentImageHeight;
       drawRectangle.X = (int)Math.Round(0d);
       drawRectangle.Y = (int)Math.Round(0d);
+
+      // 移動位置をリセット
+      pointX = 0;
+      pointY = 0;
 
       //画像を表示する
       pictureBox1.Invalidate();
     }
+    #endregion
 
-    private void ZoomOut()
+    #region 移動メソッド
+    private void MoveImg(int pointX, int pointY)
     {
       PictureBox pb = pictureBox1;
 
-      zoomRatio *= 0.5d;
-
-      //倍率変更後の画像のサイズと位置を計算する
-      drawRectangle.Width = (int)Math.Round(currentImage.Width * zoomRatio);
-      drawRectangle.Height = (int)Math.Round(currentImage.Height * zoomRatio);
-      drawRectangle.X = (int)Math.Round(0d);
-      drawRectangle.Y = (int)Math.Round(0d);
+      drawRectangle.X = pointX;
+      drawRectangle.Y = pointY;
 
       //画像を表示する
       pictureBox1.Invalidate();
     }
+    #endregion
 
-    //PictureBox1のPaintイベントハンドラ
+    #region Paintイベント
     private void pictureBox1_Paint(object sender, PaintEventArgs e)
     {
       if (currentImage != null)
@@ -145,50 +316,8 @@ namespace WFA
         e.Graphics.DrawImage(currentImage, drawRectangle);
       }
     }
+    #endregion
 
-    private void Up()
-    {
-      PictureBox pb = pictureBox1;
-
-      drawRectangle.X = (int)Math.Round(0d);
-      drawRectangle.Y = (int)Math.Round(0d);
-
-      //画像を表示する
-      pictureBox1.Invalidate();
-    }
-
-    private void Down()
-    {
-      PictureBox pb = pictureBox1;
-
-      drawRectangle.X = (int)Math.Round(0d);
-      drawRectangle.Y = (int)Math.Round(100d);
-
-      //画像を表示する
-      pictureBox1.Invalidate();
-    }
-
-    private void Right()
-    {
-      PictureBox pb = pictureBox1;
-
-      drawRectangle.X = (int)Math.Round(-100d);
-      drawRectangle.Y = (int)Math.Round(0d);
-
-      //画像を表示する
-      pictureBox1.Invalidate();
-    }
-
-    private void Left()
-    {
-      PictureBox pb = pictureBox1;
-
-      drawRectangle.X = (int)Math.Round(100d);
-      drawRectangle.Y = (int)Math.Round(0d);
-
-      //画像を表示する
-      pictureBox1.Invalidate();
-    }
 
     #region 雛形メソッド
     public void template()
@@ -196,77 +325,5 @@ namespace WFA
 
     }
     #endregion
-
-    private void Form1_KeyDown(object sender, KeyEventArgs e)
-    {
-
-      if (e.KeyCode == Keys.Up && e.Control)
-      {
-        // ズーム
-        ZoomIn();
-      }
-      else if (e.KeyCode == Keys.Up)
-      {
-        // 
-        Up();
-      }
-
-      if (e.KeyCode == Keys.Down && e.Control)
-      {
-        // ズームアウト
-        ZoomOut();
-      }
-      else if (e.KeyCode == Keys.Down)
-      {
-        // 
-        Down();
-      }
-
-      if (e.KeyCode == Keys.Right)
-      {
-        // 
-        Right();
-      }
-
-      if (e.KeyCode == Keys.Left)
-      {
-        // 
-        Left();
-      }
-
-
-
-      //switch (e.KeyData)
-      //{
-      //  case Keys.Up:
-      //    // コントロールと同時押しの場合
-      //    if (e.KeyData == Keys.Up && e.Control)
-      //    {
-      //      // ズーム
-      //      ZoomIn();
-      //      break;
-      //    }
-
-      //    break;
-      //  case Keys.Down:
-      //    if (e.Control)
-      //    {
-      //      // ズームアウト
-      //      ZoomOut();
-      //      break;
-      //    }
-
-      //    // 
-      //    Down();
-      //    break;
-      //  case Keys.Right:
-      //    break;
-      //  case Keys.Left:
-      //    break;
-      //  default:
-      //    break;
-      //}
-    }
-
   }
 }
