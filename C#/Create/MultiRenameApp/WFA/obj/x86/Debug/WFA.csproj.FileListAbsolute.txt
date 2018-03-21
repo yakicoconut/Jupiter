@@ -33,3 +33,13 @@ E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WF
 E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.Form1.resources
 E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
 E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\bin\Debug\WFA.exe.config
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\bin\Debug\WFA.exe
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\bin\Debug\WFA.pdb
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\bin\Debug\Azuki.xml
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.Form1.resources
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.exe
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.pdb
