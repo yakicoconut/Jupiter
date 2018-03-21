@@ -40,22 +40,6 @@ namespace WFA
     #endregion
 
 
-    #region ボタン1押下イベント
-    private void button1_Click(object sender, EventArgs e)
-    {
-
-    }
-    #endregion
-
-    #region ボタン2押下イベント
-    private void button2_Click(object sender, EventArgs e)
-    {
-
-    }
-    #endregion
-
-
-
     #region マウスインされるファイルを開くイベント
 
     #region フォームドラッグエンターイベント
@@ -120,19 +104,27 @@ namespace WFA
     private double zoomRatio = 1d;
     //倍率変更後の画像のサイズと位置
     private Rectangle drawRectangle;
-    private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+    private void ZoomIn()
     {
-      PictureBox pb = (PictureBox)sender;
+      PictureBox pb = pictureBox1;
 
-      //倍率を変更する
-      if (e.Button == MouseButtons.Left)
-      {
-        zoomRatio *= 2d;
-      }
-      else if (e.Button == MouseButtons.Right)
-      {
-        zoomRatio *= 0.5d;
-      }
+      zoomRatio *= 2d;
+
+      // 倍率変更後の画像のサイズと位置を計算する
+      drawRectangle.Width = (int)Math.Round(currentImage.Width * zoomRatio);
+      drawRectangle.Height = (int)Math.Round(currentImage.Height * zoomRatio);
+      drawRectangle.X = (int)Math.Round(0d);
+      drawRectangle.Y = (int)Math.Round(0d);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+
+    private void ZoomOut()
+    {
+      PictureBox pb = pictureBox1;
+
+      zoomRatio *= 0.5d;
 
       //倍率変更後の画像のサイズと位置を計算する
       drawRectangle.Width = (int)Math.Round(currentImage.Width * zoomRatio);
@@ -153,6 +145,51 @@ namespace WFA
         e.Graphics.DrawImage(currentImage, drawRectangle);
       }
     }
+
+    private void Up()
+    {
+      PictureBox pb = pictureBox1;
+
+      drawRectangle.X = (int)Math.Round(0d);
+      drawRectangle.Y = (int)Math.Round(0d);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+
+    private void Down()
+    {
+      PictureBox pb = pictureBox1;
+
+      drawRectangle.X = (int)Math.Round(0d);
+      drawRectangle.Y = (int)Math.Round(100d);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+
+    private void Right()
+    {
+      PictureBox pb = pictureBox1;
+
+      drawRectangle.X = (int)Math.Round(-100d);
+      drawRectangle.Y = (int)Math.Round(0d);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+
+    private void Left()
+    {
+      PictureBox pb = pictureBox1;
+
+      drawRectangle.X = (int)Math.Round(100d);
+      drawRectangle.Y = (int)Math.Round(0d);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+
     #region 雛形メソッド
     public void template()
     {
@@ -162,19 +199,74 @@ namespace WFA
 
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
-      switch (e.KeyData)
+
+      if (e.KeyCode == Keys.Up && e.Control)
       {
-        case Keys.Up:
-          break;
-        case Keys.Down:
-          break;
-        case Keys.Right:
-          break;
-        case Keys.Left:
-          break;
-        default:
-          break;
+        // ズーム
+        ZoomIn();
       }
+      else if (e.KeyCode == Keys.Up)
+      {
+        // 
+        Up();
+      }
+
+      if (e.KeyCode == Keys.Down && e.Control)
+      {
+        // ズームアウト
+        ZoomOut();
+      }
+      else if (e.KeyCode == Keys.Down)
+      {
+        // 
+        Down();
+      }
+
+      if (e.KeyCode == Keys.Right)
+      {
+        // 
+        Right();
+      }
+
+      if (e.KeyCode == Keys.Left)
+      {
+        // 
+        Left();
+      }
+
+
+
+      //switch (e.KeyData)
+      //{
+      //  case Keys.Up:
+      //    // コントロールと同時押しの場合
+      //    if (e.KeyData == Keys.Up && e.Control)
+      //    {
+      //      // ズーム
+      //      ZoomIn();
+      //      break;
+      //    }
+
+      //    break;
+      //  case Keys.Down:
+      //    if (e.Control)
+      //    {
+      //      // ズームアウト
+      //      ZoomOut();
+      //      break;
+      //    }
+
+      //    // 
+      //    Down();
+      //    break;
+      //  case Keys.Right:
+      //    break;
+      //  case Keys.Left:
+      //    break;
+      //  default:
+      //    break;
+      //}
     }
+
   }
 }

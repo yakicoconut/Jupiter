@@ -16,3 +16,4 @@ E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.Pr
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\WFA.exe
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\WFA.pdb
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
