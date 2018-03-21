@@ -22,8 +22,6 @@ namespace WFA
     #region プロパティ
 
     public Form1 form1 { get; set; }
-    public ListViewItem lvItem { get; set; }
-    public ListView lvCtrl { get; set; }
 
     #endregion
 

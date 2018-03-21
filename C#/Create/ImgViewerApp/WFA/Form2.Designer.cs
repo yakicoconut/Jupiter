@@ -29,56 +29,15 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.cbIsFunctionShift = new System.Windows.Forms.CheckBox();
+      this.cbIsFunctionCtrl = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.不透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.上げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.閉じるToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.cbIsFunctionShift = new System.Windows.Forms.CheckBox();
-      this.cbIsFunctionCtrl = new System.Windows.Forms.CheckBox();
-      this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
-      // 
-      // contextMenuStrip1
-      // 
-      this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.不透明度ToolStripMenuItem,
-            this.閉じるToolStripMenuItem});
-      this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(123, 48);
-      // 
-      // 不透明度ToolStripMenuItem
-      // 
-      this.不透明度ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.上げToolStripMenuItem,
-            this.下げToolStripMenuItem});
-      this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-      this.不透明度ToolStripMenuItem.Text = "不透明度";
-      this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
-      // 
-      // 上げToolStripMenuItem
-      // 
-      this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
-      this.上げToolStripMenuItem.Text = "上げ";
-      this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
-      // 
-      // 下げToolStripMenuItem
-      // 
-      this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
-      this.下げToolStripMenuItem.Text = "下げ";
-      this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
-      // 
-      // 閉じるToolStripMenuItem
-      // 
-      this.閉じるToolStripMenuItem.Name = "閉じるToolStripMenuItem";
-      this.閉じるToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-      this.閉じるToolStripMenuItem.Text = "閉じる";
-      this.閉じるToolStripMenuItem.Click += new System.EventHandler(this.閉じるToolStripMenuItem_Click);
       // 
       // panel1
       // 
@@ -112,6 +71,37 @@
       this.cbIsFunctionCtrl.UseVisualStyleBackColor = true;
       this.cbIsFunctionCtrl.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
       // 
+      // contextMenuStrip1
+      // 
+      this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.不透明度ToolStripMenuItem});
+      this.contextMenuStrip1.Name = "contextMenuStrip1";
+      this.contextMenuStrip1.Size = new System.Drawing.Size(123, 48);
+      // 
+      // 不透明度ToolStripMenuItem
+      // 
+      this.不透明度ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.上げToolStripMenuItem,
+            this.下げToolStripMenuItem});
+      this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
+      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+      this.不透明度ToolStripMenuItem.Text = "不透明度";
+      this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
+      // 
+      // 上げToolStripMenuItem
+      // 
+      this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
+      this.上げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+      this.上げToolStripMenuItem.Text = "上げ";
+      this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
+      // 
+      // 下げToolStripMenuItem
+      // 
+      this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
+      this.下げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+      this.下げToolStripMenuItem.Text = "下げ";
+      this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
+      // 
       // Form2
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -127,7 +117,6 @@
       this.Text = "Form2";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
       this.Load += new System.EventHandler(this.Form2_Load);
-      this.contextMenuStrip1.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.ResumeLayout(false);
@@ -136,13 +125,12 @@
 
     #endregion
 
+    private System.Windows.Forms.Panel panel1;
+    public System.Windows.Forms.CheckBox cbIsFunctionCtrl;
+    public System.Windows.Forms.CheckBox cbIsFunctionShift;
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     private System.Windows.Forms.ToolStripMenuItem 不透明度ToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem 上げToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem 下げToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem 閉じるToolStripMenuItem;
-    private System.Windows.Forms.Panel panel1;
-    public System.Windows.Forms.CheckBox cbIsFunctionCtrl;
-    public System.Windows.Forms.CheckBox cbIsFunctionShift;
   }
 }
