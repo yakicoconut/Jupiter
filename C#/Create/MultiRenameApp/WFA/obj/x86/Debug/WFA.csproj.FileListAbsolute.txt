@@ -1,0 +1,35 @@
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\bin\Debug\WFA.exe
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\bin\Debug\WFA.pdb
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\obj\x86\Debug\WFA.exe
+D:\Calacala_ActualFolder\書籍\PG\C#\DEV2\WFA_App\WFA\obj\x86\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\obj\x86\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\obj\x86\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\bin\Debug\WFA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\bin\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\bin\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template - コピー\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\bin\Debug\WFA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\bin\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\bin\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\WFA_template\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\bin\Debug\WFA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\bin\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\bin\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\bin\Debug\Azuki.dll
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\bin\Debug\Azuki.xml
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\CreateApp\MultiRenameApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
