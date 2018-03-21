@@ -29,12 +29,34 @@ namespace WFA
 
       // コンフィグ取得メソッド使用
       GetConfig();
+
+      // コマンドライン引数取得
+      string[] cmdArgs = Environment.GetCommandLineArgs();
+      // 引数がある場合(自身のexeパスが1つ目なので2以上のとき)
+      if (cmdArgs.Length >= 2)
+      {
+        // ドラッグ&ドロップされたファイルの一つ目を取得
+        string dropItem = Environment.GetCommandLineArgs()[1];
+        // ファイル読み込みメソッド使用
+        ReadFile(dropItem);
+      }
     }
     #endregion
 
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
+      // 初期フォーム位置
+      defaultLocationX = int.Parse(ConfigurationManager.AppSettings["DefaultLocationX"]);
+      defaultLocationY = int.Parse(ConfigurationManager.AppSettings["DefaultLocationY"]);
+      // 初期フォームサイズ
+      defaultWidth = int.Parse(ConfigurationManager.AppSettings["DefaultWidth"]);
+      defaultHeight = int.Parse(ConfigurationManager.AppSettings["DefaultHeight"]);
+      // 移動距離
+      upMoveDistance = int.Parse(ConfigurationManager.AppSettings["UpMoveDistance"]);
+      downMoveDistance = int.Parse(ConfigurationManager.AppSettings["DownMoveDistance"]);
+      rightMoveDistance = int.Parse(ConfigurationManager.AppSettings["RightMoveDistance"]);
+      leftMoveDistance = int.Parse(ConfigurationManager.AppSettings["LeftMoveDistance"]);
       // 倍率関連
       zoomInRatio = double.Parse(ConfigurationManager.AppSettings["ZoomInRatio"]);
       zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
@@ -61,6 +83,18 @@ namespace WFA
     // 
     string functionKey;
 
+    //
+    int defaultLocationX;
+    int defaultLocationY;
+    //
+    int defaultWidth;
+    int defaultHeight;
+    //
+    int upMoveDistance;
+    int downMoveDistance;
+    int rightMoveDistance;
+    int leftMoveDistance;
+
     int currentImageWidth;
     int currentImageHeight;
 
@@ -75,6 +109,15 @@ namespace WFA
 
     #endregion
 
+
+    #region ロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      this.Location = new Point(defaultLocationX, defaultLocationY);
+      this.Width = defaultWidth;
+      this.Height = defaultHeight;
+    }
+    #endregion
 
     #region マウスインされるファイルを開くイベント
 
@@ -110,61 +153,11 @@ namespace WFA
     #region フォームドラッグドロップイベント
     private void Form1_DragDrop(object sender, DragEventArgs e)
     {
-      //ドラッグ&ドロップされたファイルの一つ目を取得
+      // ドラッグ&ドロップされたファイルの一つ目を取得
       string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-      string targetDirPath = string.Empty;
 
-      // フォルダの場合
-      if (Directory.Exists(dropItem))
-      {
-        // 
-        targetDirPath = dropItem;
-      }
-      else
-      {
-        // 
-        targetDirPath = System.IO.Path.GetDirectoryName(dropItem);
-      }
-
-      //
-      string[] files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
-      // 大文字小文字を区別しない序数比較で並び替える
-      StringComparer cmp = StringComparer.OrdinalIgnoreCase;
-      Array.Sort(files, cmp);
-
-      // 
-      int i = 0;
-      foreach (string x in files)
-      {
-        i = i + 1;
-        dicPath.Add(i, x);
-      }
-      //
-      maxImageKey = files.Length;
-
-      // 表示する画像を読み込む
-      if (currentImage != null)
-      {
-        currentImage.Dispose();
-      }
-
-      // フォルダの場合
-      if (Directory.Exists(dropItem))
-      {
-        //
-        currentImageKey = 1;
-      }
-      else
-      {
-        //
-        currentImageKey = dicPath.First(x => x.Value == dropItem).Key;
-      }
-
-      //// 
-      //currentImageKey = currentImageKey + 1;
-
-      // 画像初期化メソッド使用
-      InitImade();
+      // ファイル読み込みメソッド使用
+      ReadFile(dropItem);
     }
     #endregion
 
@@ -267,21 +260,21 @@ namespace WFA
         case Keys.Up:
           // 上に移動
           pointX = pointX + 0;
-          pointY = pointY + 100;
+          pointY = pointY + upMoveDistance;
           break;
         case Keys.Down:
           // 下に移動
           pointX = pointX + 0;
-          pointY = pointY - 100;
+          pointY = pointY - downMoveDistance;
           break;
         case Keys.Right:
           // 右に移動
-          pointX = pointX - 100;
+          pointX = pointX - rightMoveDistance;
           pointY = pointY + 0;
           break;
         case Keys.Left:
           // 左に移動
-          pointX = pointX + 100;
+          pointX = pointX + leftMoveDistance;
           pointY = pointY + 0;
           break;
         default:
@@ -301,6 +294,62 @@ namespace WFA
     }
     #endregion
 
+
+    #region ファイル読み込みメソッド
+    private void ReadFile(string dropItem)
+    {
+      string targetDirPath = string.Empty;
+
+      // フォルダの場合
+      if (Directory.Exists(dropItem))
+      {
+        // 
+        targetDirPath = dropItem;
+      }
+      else
+      {
+        // 
+        targetDirPath = System.IO.Path.GetDirectoryName(dropItem);
+      }
+
+      //
+      string[] files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
+      // 大文字小文字を区別しない序数比較で並び替える
+      StringComparer cmp = StringComparer.OrdinalIgnoreCase;
+      Array.Sort(files, cmp);
+
+      // 
+      int i = 0;
+      foreach (string x in files)
+      {
+        i = i + 1;
+        dicPath.Add(i, x);
+      }
+      //
+      maxImageKey = files.Length;
+
+      // 表示する画像を読み込む
+      if (currentImage != null)
+      {
+        currentImage.Dispose();
+      }
+
+      // フォルダの場合
+      if (Directory.Exists(dropItem))
+      {
+        //
+        currentImageKey = 1;
+      }
+      else
+      {
+        //
+        currentImageKey = dicPath.First(x => x.Value == dropItem).Key;
+      }
+
+      // 画像初期化メソッド使用
+      InitImade();
+    }
+    #endregion
 
     #region 画像初期化メソッド
     private void InitImade()
