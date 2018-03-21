@@ -27,6 +27,9 @@ namespace WFA
       Text = WFACL.GetAppName();
       #endregion
 
+      // 他クラスのプロパティに本クラスを設定
+      form2.form1 = this;
+
       // コンフィグ取得メソッド使用
       GetConfig();
 
@@ -61,12 +64,14 @@ namespace WFA
       zoomInRatio = double.Parse(ConfigurationManager.AppSettings["ZoomInRatio"]);
       zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
       defaultZoomRatio = double.Parse(ConfigurationManager.AppSettings["DefaultZoomRatio"]);
-      //
-      functionKey = ConfigurationManager.AppSettings["FunctionKey"].ToLower();
+      zoomZoomRatio = double.Parse(ConfigurationManager.AppSettings["ZoomZoomRatio"]);
     }
     #endregion
 
     #region 宣言
+
+    //フォーム2インスタンス生成
+    Form2 form2 = new Form2();
 
     // 表示する画像
     private Bitmap currentImage;
@@ -76,12 +81,12 @@ namespace WFA
     private double zoomInRatio = 1;
     // ズームアウト倍率
     private double zoomOutRatio = 1;
+    // Shift押下時の倍率の倍率
+    private double zoomZoomRatio = 2;
     // 倍率変更後の画像のサイズと位置
     private Rectangle drawRectangle;
     // 
     Dictionary<int, string> dicPath = new Dictionary<int, string>();
-    // 
-    string functionKey;
 
     //
     int defaultLocationX;
@@ -107,6 +112,8 @@ namespace WFA
     //
     int maxImageKey = 0;
 
+    public bool ctrlCheck { get; set; }
+
     #endregion
 
 
@@ -116,6 +123,11 @@ namespace WFA
       this.Location = new Point(defaultLocationX, defaultLocationY);
       this.Width = defaultWidth;
       this.Height = defaultHeight;
+
+      //常にメインフォームの手前に表示
+      form2.Owner = this;
+      //フォーム2呼び出し
+      form2.Show();
     }
     #endregion
 
@@ -167,22 +179,23 @@ namespace WFA
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
       // 
-      bool isFunctionOn = false;
-      switch (functionKey)
+      if (e.Control)
       {
-        case "ctrl":
-          isFunctionOn = e.Control;
-          break;
-        case "shift":
-          isFunctionOn = e.Shift;
-          break;
+        // 
+        form2.cbIsFunctionCtrl.Checked = !form2.cbIsFunctionCtrl.Checked;
+        return;
+      }
 
-        default:
-          break;
+      // 
+      if (e.Shift)
+      {
+        // 
+        form2.cbIsFunctionShift.Checked = !form2.cbIsFunctionShift.Checked;
+        return;
       }
 
       // コントロール押下の場合
-      if (isFunctionOn)
+      if (form2.cbIsFunctionCtrl.Checked)
       {
         // Ctrl + ↑
         if (e.KeyCode == Keys.Up)
@@ -355,11 +368,24 @@ namespace WFA
     private void InitImade()
     {
       // 
+      double initZoomRatio;
+
+      // コントロール押下の場合
+      if (form2.cbIsFunctionShift.Checked)
+      {
+        initZoomRatio = zoomZoomRatio;
+      }
+      else
+      {
+        initZoomRatio = defaultZoomRatio;
+      }
+
+      // 
       currentImage = new Bitmap(dicPath[currentImageKey]);
 
       // 
-      currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
-      currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
+      currentImageWidth = (int)Math.Round(currentImage.Width * initZoomRatio);
+      currentImageHeight = (int)Math.Round(currentImage.Height * initZoomRatio);
 
       //初期化
       drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
