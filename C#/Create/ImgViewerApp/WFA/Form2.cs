@@ -67,8 +67,8 @@ namespace WFA
     {
       try
       {
-          ////基底パネル削除メソッド使用
-          //form1.CloseBasePanel(form1.Controls[x.SubItems[1].Text]);
+        ////基底パネル削除メソッド使用
+        //form1.CloseBasePanel(form1.Controls[x.SubItems[1].Text]);
       }
       catch
       {
@@ -89,10 +89,28 @@ namespace WFA
     }
     #endregion
 
+    #region コントロールチェックボックスチェックチェンジイベント
     private void checkBox1_CheckedChanged(object sender, EventArgs e)
     {
-      //基底パネル削除メソッド使用
-      form1.ctrlCheck = true;
+      // チェック済の場合
+      if (cbIsFunctionCtrl.Checked)
+      {
+        // シフトチェックをはずす
+        cbIsFunctionShift.Checked = false;
+      }
     }
+    #endregion
+
+    #region シフトチェックボックスチェックチェンジイベント
+    private void cbIsFunctionShift_CheckedChanged(object sender, EventArgs e)
+    {
+      // チェック済の場合
+      if (cbIsFunctionShift.Checked)
+      {
+        // コントロールチェックをはずす
+        cbIsFunctionCtrl.Checked = false;
+      }
+    }
+    #endregion
   }
 }

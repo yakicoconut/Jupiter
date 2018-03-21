@@ -35,8 +35,8 @@
       this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.閉じるToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
-      this.cbIsFunctionCtrl = new System.Windows.Forms.CheckBox();
       this.cbIsFunctionShift = new System.Windows.Forms.CheckBox();
+      this.cbIsFunctionCtrl = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
@@ -90,26 +90,27 @@
       this.panel1.Size = new System.Drawing.Size(149, 285);
       this.panel1.TabIndex = 1;
       // 
+      // cbIsFunctionShift
+      // 
+      this.cbIsFunctionShift.AutoSize = true;
+      this.cbIsFunctionShift.Location = new System.Drawing.Point(20, 15);
+      this.cbIsFunctionShift.Name = "cbIsFunctionShift";
+      this.cbIsFunctionShift.Size = new System.Drawing.Size(48, 16);
+      this.cbIsFunctionShift.TabIndex = 1;
+      this.cbIsFunctionShift.Text = "Shift";
+      this.cbIsFunctionShift.UseVisualStyleBackColor = true;
+      this.cbIsFunctionShift.CheckedChanged += new System.EventHandler(this.cbIsFunctionShift_CheckedChanged);
+      // 
       // cbIsFunctionCtrl
       // 
       this.cbIsFunctionCtrl.AutoSize = true;
-      this.cbIsFunctionCtrl.Location = new System.Drawing.Point(24, 23);
+      this.cbIsFunctionCtrl.Location = new System.Drawing.Point(20, 37);
       this.cbIsFunctionCtrl.Name = "cbIsFunctionCtrl";
       this.cbIsFunctionCtrl.Size = new System.Drawing.Size(43, 16);
       this.cbIsFunctionCtrl.TabIndex = 0;
       this.cbIsFunctionCtrl.Text = "Ctrl";
       this.cbIsFunctionCtrl.UseVisualStyleBackColor = true;
       this.cbIsFunctionCtrl.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-      // 
-      // cbIsFunctionShift
-      // 
-      this.cbIsFunctionShift.AutoSize = true;
-      this.cbIsFunctionShift.Location = new System.Drawing.Point(24, 45);
-      this.cbIsFunctionShift.Name = "cbIsFunctionShift";
-      this.cbIsFunctionShift.Size = new System.Drawing.Size(48, 16);
-      this.cbIsFunctionShift.TabIndex = 1;
-      this.cbIsFunctionShift.Text = "Shift";
-      this.cbIsFunctionShift.UseVisualStyleBackColor = true;
       // 
       // Form2
       // 

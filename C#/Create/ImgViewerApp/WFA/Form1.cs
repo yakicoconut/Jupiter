@@ -85,8 +85,8 @@ namespace WFA
     private double zoomZoomRatio = 2;
     // 倍率変更後の画像のサイズと位置
     private Rectangle drawRectangle;
-    // 
-    Dictionary<int, string> dicPath = new Dictionary<int, string>();
+    // 画像パスディクショナリ
+    Dictionary<int, string> dicImgPath = new Dictionary<int, string>();
 
     //
     int defaultLocationX;
@@ -103,14 +103,18 @@ namespace WFA
     int currentImageWidth;
     int currentImageHeight;
 
-    // 
-    int pointX = 0;
-    int pointY = 0;
+    // 移動用変数
+    int movePointX = 0;
+    int movePointY = 0;
 
     //
     int currentImageKey = 0;
     //
     int maxImageKey = 0;
+
+    //
+    int pictureBoxLocationX;
+    int pictureBoxLocationY;
 
     public bool ctrlCheck { get; set; }
 
@@ -120,7 +124,9 @@ namespace WFA
     #region ロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // アプリの開始位置
       this.Location = new Point(defaultLocationX, defaultLocationY);
+      // アプリの開始サイズ
       this.Width = defaultWidth;
       this.Height = defaultHeight;
 
@@ -178,124 +184,147 @@ namespace WFA
     #region キー押下イベント
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
-      // 
+      // コントロールの場合
       if (e.Control)
       {
-        // 
+        // チェック
         form2.cbIsFunctionCtrl.Checked = !form2.cbIsFunctionCtrl.Checked;
         return;
       }
 
-      // 
+      // シフトの場合
       if (e.Shift)
       {
-        // 
         form2.cbIsFunctionShift.Checked = !form2.cbIsFunctionShift.Checked;
-        return;
-      }
-
-      // コントロール押下の場合
-      if (form2.cbIsFunctionCtrl.Checked)
-      {
-        // Ctrl + ↑
-        if (e.KeyCode == Keys.Up)
-        {
-          // 
-          currentImageWidth = (int)Math.Round(currentImageWidth * zoomInRatio);
-          currentImageHeight = (int)Math.Round(currentImageHeight * zoomInRatio);
-        }
-
-        // Ctrl + ↓
-        if (e.KeyCode == Keys.Down)
-        {
-          // 
-          currentImageWidth = (int)Math.Round(currentImageWidth * zoomOutRatio);
-          currentImageHeight = (int)Math.Round(currentImageHeight * zoomOutRatio);
-        }
-
-        // ズームメソッドの実行有無
-        if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
-        {
-          // ズーム
-          Zoom(currentImageWidth, currentImageHeight);
-        }
-
-        // Ctrl + →
-        if (e.KeyCode == Keys.Right)
-        {
-          // 
-          if (currentImageKey == maxImageKey)
-          {
-            currentImageKey = 1;
-          }
-          else
-          {
-            // 
-            currentImageKey = currentImageKey + 1;
-          }
-
-          // 画像初期化メソッド使用
-          InitImade();
-
-          //
-          pointX = 0;
-          pointY = 0;
-        }
-
-        // Ctrl + ←
-        if (e.KeyCode == Keys.Left)
-        {
-          // 
-          if (currentImageKey == 1)
-          {
-            currentImageKey = maxImageKey;
-          }
-          else
-          {
-            // 
-            currentImageKey = currentImageKey - 1;
-          }
-
-          // 画像初期化メソッド使用
-          InitImade();
-
-          //
-          pointX = 0;
-          pointY = 0;
-        }
-
         return;
       }
 
       // 押下キー振り分け
       switch (e.KeyCode)
       {
+        #region ↑
         case Keys.Up:
-          // 上に移動
-          pointX = pointX + 0;
-          pointY = pointY + upMoveDistance;
+          // シフトチェックの場合
+          if (form2.cbIsFunctionShift.Checked)
+          {
+            // ズーム値設定
+            currentImageWidth = (int)Math.Round(currentImageWidth * zoomInRatio);
+            currentImageHeight = (int)Math.Round(currentImageHeight * zoomInRatio);
+
+            // 画像ズームメソッド使用
+            ImgZoom(currentImageWidth, currentImageHeight);
+          }
+          else
+          {
+            // 上に移動
+            movePointX = movePointX + 0;
+            movePointY = movePointY + upMoveDistance;
+
+            // 移動メソッド使用
+            MoveImg(movePointX, movePointY);
+          }
           break;
+        #endregion
+
+        #region ↓
         case Keys.Down:
-          // 下に移動
-          pointX = pointX + 0;
-          pointY = pointY - downMoveDistance;
+          // シフトチェックの場合
+          if (form2.cbIsFunctionShift.Checked)
+          {
+            currentImageWidth = (int)Math.Round(currentImageWidth * zoomOutRatio);
+            currentImageHeight = (int)Math.Round(currentImageHeight * zoomOutRatio);
+
+            ImgZoom(currentImageWidth, currentImageHeight);
+          }
+          else
+          {
+            // 下に移動
+            movePointX = movePointX + 0;
+            movePointY = movePointY - downMoveDistance;
+
+            MoveImg(movePointX, movePointY);
+          }
           break;
+        #endregion
+
+        #region →
         case Keys.Right:
-          // 右に移動
-          pointX = pointX - rightMoveDistance;
-          pointY = pointY + 0;
+          // コントロールチェックの場合
+          if (form2.cbIsFunctionCtrl.Checked)
+          {
+            // 現ページが最後の場合
+            if (currentImageKey == maxImageKey)
+            {
+              // 最初のページへ
+              currentImageKey = 1;
+            }
+            else
+            {
+              // 次のページへ
+              currentImageKey = currentImageKey + 1;
+            }
+
+            // 表示画像取得
+            currentImage = new Bitmap(dicImgPath[currentImageKey]);
+            // 画像サイズ設定
+            currentImageWidth = currentImage.Width;
+            currentImageHeight = currentImage.Height;
+
+            // 画像初期化メソッド使用
+            InitImg(currentImage);
+            //// 移動用の変数も初期化
+            //movePointX = 0;
+            //movePointY = 0;
+          }
+          else
+          {
+            // 右に移動
+            movePointX = movePointX - rightMoveDistance;
+            movePointY = movePointY + 0;
+
+            MoveImg(movePointX, movePointY);
+          }
           break;
+        #endregion
+
+        #region ←
         case Keys.Left:
-          // 左に移動
-          pointX = pointX + leftMoveDistance;
-          pointY = pointY + 0;
+          // コントロールチェックの場合
+          if (form2.cbIsFunctionCtrl.Checked)
+          {
+            // 現ページが最初の場合
+            if (currentImageKey == 1)
+            {
+              currentImageKey = maxImageKey;
+            }
+            else
+            {
+              // 左のページへ
+              currentImageKey = currentImageKey - 1;
+            }
+
+            currentImage = new Bitmap(dicImgPath[currentImageKey]);
+            currentImageWidth = currentImage.Width;
+            currentImageHeight = currentImage.Height;
+
+            InitImg(currentImage);
+            movePointX = 0;
+            movePointY = 0;
+          }
+          else
+          {
+            // 左に移動
+            movePointX = movePointX + leftMoveDistance;
+            movePointY = movePointY + 0;
+
+            MoveImg(movePointX, movePointY);
+          }
           break;
+        #endregion
+
         default:
           break;
       }
-
-      // 移動メソッド
-      MoveImg(pointX, pointY);
 
       //switch (e.KeyData)
       //{
@@ -316,29 +345,29 @@ namespace WFA
       // フォルダの場合
       if (Directory.Exists(dropItem))
       {
-        // 
+        // ドロップされたアイテムをそのまま使用
         targetDirPath = dropItem;
       }
       else
       {
-        // 
+        // ドロップされたアイテムからフォルダを取得
         targetDirPath = System.IO.Path.GetDirectoryName(dropItem);
       }
 
-      //
+      // 対象フォルダの中身をすべて取得
       string[] files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
       // 大文字小文字を区別しない序数比較で並び替える
       StringComparer cmp = StringComparer.OrdinalIgnoreCase;
       Array.Sort(files, cmp);
 
-      // 
+      // 画像パスディクショナリに変換
       int i = 0;
       foreach (string x in files)
       {
         i = i + 1;
-        dicPath.Add(i, x);
+        dicImgPath.Add(i, x);
       }
-      //
+      // 最終ページ数を設定
       maxImageKey = files.Length;
 
       // 表示する画像を読み込む
@@ -347,56 +376,41 @@ namespace WFA
         currentImage.Dispose();
       }
 
-      // フォルダの場合
+      // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
       {
-        //
+        // 表示するファイルのページを1に設定
         currentImageKey = 1;
       }
       else
       {
-        //
-        currentImageKey = dicPath.First(x => x.Value == dropItem).Key;
+        // 表示するファイルにドロップしたファイルを設定
+        currentImageKey = dicImgPath.First(x => x.Value == dropItem).Key;
       }
 
+      // 表示画像取得
+      currentImage = new Bitmap(dicImgPath[currentImageKey]);
+      // 画像サイズ設定
+      currentImageWidth = currentImage.Width;
+      currentImageHeight = currentImage.Height;
+
       // 画像初期化メソッド使用
-      InitImade();
+      InitImg(currentImage);
     }
     #endregion
 
     #region 画像初期化メソッド
-    private void InitImade()
+    private void InitImg(Bitmap currentImage)
     {
-      // 
-      double initZoomRatio;
-
-      // コントロール押下の場合
-      if (form2.cbIsFunctionShift.Checked)
-      {
-        initZoomRatio = zoomZoomRatio;
-      }
-      else
-      {
-        initZoomRatio = defaultZoomRatio;
-      }
-
-      // 
-      currentImage = new Bitmap(dicPath[currentImageKey]);
-
-      // 
-      currentImageWidth = (int)Math.Round(currentImage.Width * initZoomRatio);
-      currentImageHeight = (int)Math.Round(currentImage.Height * initZoomRatio);
-
-      //初期化
+      // 初期化
       drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
-
-      //画像を表示する
+      // 画像を表示する
       pictureBox1.Invalidate();
     }
     #endregion
 
-    #region ズームメソッド
-    private void Zoom(int currentImageWudth, int currentImageHeight)
+    #region 画像ズームメソッド
+    private void ImgZoom(int currentImageWudth, int currentImageHeight)
     {
       PictureBox pb = pictureBox1;
 
@@ -407,8 +421,8 @@ namespace WFA
       drawRectangle.Y = (int)Math.Round(0d);
 
       // 移動位置をリセット
-      pointX = 0;
-      pointY = 0;
+      movePointX = 0;
+      movePointY = 0;
 
       //画像を表示する
       pictureBox1.Invalidate();
