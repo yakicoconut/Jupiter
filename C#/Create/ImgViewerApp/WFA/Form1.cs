@@ -35,9 +35,12 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
+      // 倍率関連
       zoomInRatio = double.Parse(ConfigurationManager.AppSettings["ZoomInRatio"]);
       zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
       defaultZoomRatio = double.Parse(ConfigurationManager.AppSettings["DefaultZoomRatio"]);
+      //
+      functionKey = ConfigurationManager.AppSettings["FunctionKey"].ToLower();
     }
     #endregion
 
@@ -55,6 +58,8 @@ namespace WFA
     private Rectangle drawRectangle;
     // 
     Dictionary<int, string> dicPath = new Dictionary<int, string>();
+    // 
+    string functionKey;
 
     int currentImageWidth;
     int currentImageHeight;
@@ -64,7 +69,9 @@ namespace WFA
     int pointY = 0;
 
     //
-    int currentImageKry = 0;
+    int currentImageKey = 0;
+    //
+    int maxImageKey = 0;
 
     #endregion
 
@@ -88,8 +95,8 @@ namespace WFA
       //ねずみ返し_ファイルのみを条件とする
       foreach (string d in drags)
       {
-        //ファイル以外であればイベント・ハンドラを抜ける
-        if (!System.IO.File.Exists(d))
+        //ファイルまたはフォルダ以外であればイベント・ハンドラを抜ける
+        if (!(File.Exists(d) || Directory.Exists(d)))
         {
           return;
         }
@@ -105,16 +112,22 @@ namespace WFA
     {
       //ドラッグ&ドロップされたファイルの一つ目を取得
       string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+      string targetDirPath = string.Empty;
 
-      // ファイルの場合
-      if (!Directory.Exists(dropItem))
+      // フォルダの場合
+      if (Directory.Exists(dropItem))
       {
         // 
-        dropItem = System.IO.Path.GetDirectoryName(dropItem);
+        targetDirPath = dropItem;
+      }
+      else
+      {
+        // 
+        targetDirPath = System.IO.Path.GetDirectoryName(dropItem);
       }
 
       //
-      string[] files = System.IO.Directory.GetFiles(dropItem, "*", System.IO.SearchOption.AllDirectories);
+      string[] files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
       // 大文字小文字を区別しない序数比較で並び替える
       StringComparer cmp = StringComparer.OrdinalIgnoreCase;
       Array.Sort(files, cmp);
@@ -126,6 +139,8 @@ namespace WFA
         i = i + 1;
         dicPath.Add(i, x);
       }
+      //
+      maxImageKey = files.Length;
 
       // 表示する画像を読み込む
       if (currentImage != null)
@@ -133,21 +148,23 @@ namespace WFA
         currentImage.Dispose();
       }
 
-      // 
-      currentImageKry = currentImageKry + 1;
+      // フォルダの場合
+      if (Directory.Exists(dropItem))
+      {
+        //
+        currentImageKey = 1;
+      }
+      else
+      {
+        //
+        currentImageKey = dicPath.First(x => x.Value == dropItem).Key;
+      }
 
-      // 
-      currentImage = new Bitmap(dicPath[currentImageKry]);
+      //// 
+      //currentImageKey = currentImageKey + 1;
 
-      // 
-      currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
-      currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
-
-      //初期化
-      drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
-
-      //画像を表示する
-      pictureBox1.Invalidate();
+      // 画像初期化メソッド使用
+      InitImade();
     }
     #endregion
 
@@ -156,8 +173,23 @@ namespace WFA
     #region キー押下イベント
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
+      // 
+      bool isFunctionOn = false;
+      switch (functionKey)
+      {
+        case "ctrl":
+          isFunctionOn = e.Control;
+          break;
+        case "shift":
+          isFunctionOn = e.Shift;
+          break;
+
+        default:
+          break;
+      }
+
       // コントロール押下の場合
-      if (e.Control)
+      if (isFunctionOn)
       {
         // Ctrl + ↑
         if (e.KeyCode == Keys.Up)
@@ -186,20 +218,18 @@ namespace WFA
         if (e.KeyCode == Keys.Right)
         {
           // 
-          currentImageKry = currentImageKry + 1;
+          if (currentImageKey == maxImageKey)
+          {
+            currentImageKey = 1;
+          }
+          else
+          {
+            // 
+            currentImageKey = currentImageKey + 1;
+          }
 
-          // 
-          currentImage = new Bitmap(dicPath[currentImageKry]);
-
-          // 
-          currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
-          currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
-
-          //初期化
-          drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
-
-          //画像を表示する
-          pictureBox1.Invalidate();
+          // 画像初期化メソッド使用
+          InitImade();
 
           //
           pointX = 0;
@@ -210,20 +240,18 @@ namespace WFA
         if (e.KeyCode == Keys.Left)
         {
           // 
-          currentImageKry = currentImageKry - 1;
+          if (currentImageKey == 1)
+          {
+            currentImageKey = maxImageKey;
+          }
+          else
+          {
+            // 
+            currentImageKey = currentImageKey - 1;
+          }
 
-          // 
-          currentImage = new Bitmap(dicPath[currentImageKry]);
-
-          // 
-          currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
-          currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
-
-          //初期化
-          drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
-
-          //画像を表示する
-          pictureBox1.Invalidate();
+          // 画像初期化メソッド使用
+          InitImade();
 
           //
           pointX = 0;
@@ -273,6 +301,24 @@ namespace WFA
     }
     #endregion
 
+
+    #region 画像初期化メソッド
+    private void InitImade()
+    {
+      // 
+      currentImage = new Bitmap(dicPath[currentImageKey]);
+
+      // 
+      currentImageWidth = (int)Math.Round(currentImage.Width * defaultZoomRatio);
+      currentImageHeight = (int)Math.Round(currentImage.Height * defaultZoomRatio);
+
+      //初期化
+      drawRectangle = new Rectangle(0, 0, currentImageWidth, currentImageHeight);
+
+      //画像を表示する
+      pictureBox1.Invalidate();
+    }
+    #endregion
 
     #region ズームメソッド
     private void Zoom(int currentImageWudth, int currentImageHeight)
