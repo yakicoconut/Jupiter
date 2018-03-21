@@ -41,6 +41,8 @@
       this.btReference = new System.Windows.Forms.Button();
       this.tbTargetPathText = new System.Windows.Forms.TextBox();
       this.btCallBackup = new System.Windows.Forms.Button();
+      this.btAssist = new System.Windows.Forms.Button();
+      this.btOpenLogDir = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -224,9 +226,31 @@
       this.btCallBackup.Name = "btCallBackup";
       this.btCallBackup.Size = new System.Drawing.Size(75, 23);
       this.btCallBackup.TabIndex = 14;
-      this.btCallBackup.Text = "前回呼出";
+      this.btCallBackup.Text = "前回変更値";
       this.btCallBackup.UseVisualStyleBackColor = true;
       this.btCallBackup.Click += new System.EventHandler(this.btCallBackup_Click);
+      // 
+      // btAssist
+      // 
+      this.btAssist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.btAssist.Location = new System.Drawing.Point(480, 538);
+      this.btAssist.Name = "btAssist";
+      this.btAssist.Size = new System.Drawing.Size(75, 23);
+      this.btAssist.TabIndex = 15;
+      this.btAssist.Text = "アシスト";
+      this.btAssist.UseVisualStyleBackColor = true;
+      this.btAssist.Click += new System.EventHandler(this.btAssist_Click);
+      // 
+      // btOpenLogDir
+      // 
+      this.btOpenLogDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.btOpenLogDir.Location = new System.Drawing.Point(399, 538);
+      this.btOpenLogDir.Name = "btOpenLogDir";
+      this.btOpenLogDir.Size = new System.Drawing.Size(75, 23);
+      this.btOpenLogDir.TabIndex = 16;
+      this.btOpenLogDir.Text = "ログフォルダ";
+      this.btOpenLogDir.UseVisualStyleBackColor = true;
+      this.btOpenLogDir.Click += new System.EventHandler(this.btOpenLogDir_Click);
       // 
       // Form1
       // 
@@ -234,6 +258,8 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(732, 573);
+      this.Controls.Add(this.btOpenLogDir);
+      this.Controls.Add(this.btAssist);
       this.Controls.Add(this.btCallBackup);
       this.Controls.Add(this.btOpenExplorer);
       this.Controls.Add(this.lbTargetPath);
@@ -269,6 +295,8 @@
     private System.Windows.Forms.Button btReference;
     private System.Windows.Forms.TextBox tbTargetPathText;
     private System.Windows.Forms.Button btCallBackup;
+    private System.Windows.Forms.Button btAssist;
+    private System.Windows.Forms.Button btOpenLogDir;
   }
 }
 

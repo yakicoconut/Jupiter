@@ -43,3 +43,4 @@ D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.Properties.Reso
 D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.exe
 D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.pdb
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.Form2.resources

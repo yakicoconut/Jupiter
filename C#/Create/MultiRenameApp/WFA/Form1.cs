@@ -10,6 +10,7 @@ using System.Reflection;
 using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace WFA
 {
@@ -152,12 +153,28 @@ namespace WFA
     #region 前回呼出ボタン押下イベント
     private void btCallBackup_Click(object sender, EventArgs e)
     {
-      //バックアップに値がある場合
-      if (changedBk.Length >= 1)
-      {
-        //バックアップの値を復元する
-        azkChangedFileName.Text = changedBk;
-      }
+      //フォーム2インスタンス
+      Form2 fm2 = new Form2(changedBk);
+      //フォーム表示
+      fm2.Show();
+    }
+    #endregion
+
+    #region アシストボタン押下イベント
+    private void btAssist_Click(object sender, EventArgs e)
+    {
+      //フォーム2インスタンス
+      Form2 fm2 = new Form2(ConfigurationManager.AppSettings["AssistContents"]);
+      //フォーム表示
+      fm2.Show();
+    }
+    #endregion
+
+    #region ログフォルダボタン押下イベント
+    private void btOpenLogDir_Click(object sender, EventArgs e)
+    {
+      //対象フォルダラベルのフォルダをエクスプローラで開く
+      Process.Start("Log");
     }
     #endregion
 

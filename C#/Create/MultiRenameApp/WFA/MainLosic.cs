@@ -13,8 +13,10 @@ namespace WFA
     #region コンストラクタ
     public MainLosic()
     {
+      //ログフォルダの作成
+      Directory.CreateDirectory(@"Log");
       //ログ名称にタイムスタンプを使用
-      logName = DateTime.Now.ToString("yyyyMMdd");   
+      logName = DateTime.Now.ToString("yyyyMMdd");
     }
     #endregion
 
@@ -86,7 +88,7 @@ namespace WFA
       return targetList;
     }
     #endregion
-    
+
     #region フォルダファイル一覧表示メソッド
     /// <summary>
     /// フォルダファイル一覧表示メソッド
@@ -162,15 +164,14 @@ namespace WFA
           if (Directory.Exists(target))
           {
             Directory.Move(target, changed);
-            //ログ出力_実行済みフォルダ
-            WriteLog(target + "\t→\t" + changed);
           }
           else
           {
             File.Move(target, changed);
-            //ログ出力_実行済みファイル
-            WriteLog(target + "\t→\t" + changed);
           }
+
+          //ログ出力_実行済みフォルダ
+          WriteLog(targetDoc.GetLineContent(i) + "\t→\t" + changedDoc.GetLineContent(i));
         }
         catch (Exception e)
         {
@@ -199,8 +200,8 @@ namespace WFA
     #region ログ出力メソッド
     public void WriteLog(string message)
     {
-      using(StreamWriter sw = new StreamWriter(
-                             logName + ".log",
+      using (StreamWriter sw = new StreamWriter(
+                             @"Log\" + logName + ".log",
                              true,
                              System.Text.Encoding.GetEncoding("shift_jis")))
       {
