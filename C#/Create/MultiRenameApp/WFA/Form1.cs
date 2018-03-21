@@ -25,19 +25,20 @@ namespace WFA
       //アプリ名設定
       Text = WFACL.GetAppName();
       #endregion
-
-      //対象Azukiエディタのドキュメント型を取得
-      targetDoc = azkTargetFileName.Document;
-      //変更後Azukiエディタのドキュメント型を取得
-      changedDoc = azkChangedFileName.Document;
     }
+    #endregion
+
+    #region インスタンス
+
+    //処理クラス
+    MainLosic mLogic = new MainLosic();
+
     #endregion
 
     #region プロパティ
 
-    //Azukiエディタのドキュメント型
-    Sgry.Azuki.Document targetDoc { get; set; }
-    Sgry.Azuki.Document changedDoc { get; set; }
+    //変更後値のバックアップ用
+    public string changedBk { get; set; }
 
     #endregion
 
@@ -45,158 +46,120 @@ namespace WFA
     #region 参照ボタン押下イベント
     private void btReference_Click(object sender, EventArgs e)
     {
-      //選択されたフォルダをbinパスに表示する
-      tbTargetPathText.Text = ReferenceFolder("対象のフォルダを指定してください");
-    }
-    #endregion
+      //退避
+      string evacuation = tbTargetPathText.Text;
+      //フォルダ参照メソッド使用
+      string reference = mLogic.ReferenceFolder(this);
 
-    #region 位置確定ボタン押下イベント
-    private void btPathConfirm_Click(object sender, EventArgs e)
-    {
-      //ねずみ返し_対象フォルダがない場合
-      if (Directory.Exists(lbTargetPath.Text))
+      //ねずみ返し_参照指定していない場合
+      if (reference == null)
       {
-        MessageBox.Show("対象フォルダが存在しません");
+        //退避値を戻して終了
+        tbTargetPathText.Text = evacuation;
         return;
       }
 
-      //フォルダ内容取得メソッド使用
-      GetDirectoryContents();
+      //参照値を設定
+      tbTargetPathText.Text = reference;
     }
     #endregion
 
     #region 開くボタン押下イベント
     private void btOpenExplorer_Click(object sender, EventArgs e)
     {
-      //ねずみ返し_初期状態なら開かず終了
-      if (lbTargetPath.Text == "-")
-      {
-        MessageBox.Show("フォルダを指定してください");
-        return;
-      }
       //ねずみ返し_対象フォルダがない場合
-      if (Directory.Exists(lbTargetPath.Text))
+      if (!Directory.Exists(lbTargetPath.Text))
       {
         MessageBox.Show("対象フォルダが存在しません");
         return;
       }
 
-      //対象フォルダラベルのフォルダをエクスプローラーで開く
+      //対象フォルダラベルのフォルダをエクスプローラで開く
       Process.Start(lbTargetPath.Text);
     }
     #endregion
 
-    #region コミットボタン押下イベント
-    private void btCommit_Click(object sender, EventArgs e)
+    #region 位置確定ボタン押下イベント
+    private void btPathConfirm_Click(object sender, EventArgs e)
     {
-      //ねずみ返し_対象フォルダがない場合
-      if (Directory.Exists(lbTargetPath.Text))
+      //ねずみ返し_対象フォルダテキストの値が有効でない場合
+      if (!Directory.Exists(tbTargetPathText.Text))
       {
         MessageBox.Show("対象フォルダが存在しません");
         return;
       }
 
-      //フォルダパスを取得
-      string targetFolderPath = lbTargetPath.Text + @"\";
+      //対象Azukiエディタのドキュメント型を設定
+      mLogic.targetDoc = azkTargetFileName.Document;
+      //変更後Azukiエディタのドキュメント型を設定
+      mLogic.changedDoc = azkChangedFileName.Document;
+      //フォルダファイル一覧表示メソッド使用
+      mLogic.ForlderAndFileDisplay(tbTargetPathText.Text);
 
-      //対象Azukiエディタのドキュメント型を取得
-      Sgry.Azuki.Document targetDoc = azkTargetFileName.Document;
-      //変更後Azukiエディタのドキュメント型を取得
-      Sgry.Azuki.Document changedDoc = azkChangedFileName.Document;
+      //対象フォルダを表示
+      lbTargetPath.Text = tbTargetPathText.Text;
+    }
+    #endregion
 
+    #region 実行ボタン押下イベント
+    private void btExec_Click(object sender, EventArgs e)
+    {
+      //ねずみ返し_対象フォルダがない場合
+      if (!Directory.Exists(lbTargetPath.Text))
+      {
+        MessageBox.Show("対象フォルダが存在しません");
+        return;
+      }
       //ねずみ返し_対象がない場合、終了
-      if (targetDoc.Length == 0)
+      if (azkTargetFileName.Document.Length == 0)
       {
         MessageBox.Show("対象となるファイルがありません");
         return;
       }
 
-      //実処理
-      for (int i = 0; i < targetDoc.LineCount; i++)
+      //確認メッセージ
+      DialogResult result = MessageBox.Show("リネーム処理を行います", "実施", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+      if (result == DialogResult.Yes)
       {
-        //置換え対象取得
-        string target = targetFolderPath + targetDoc.GetLineContent(i);
-        string changed = targetFolderPath + changedDoc.GetLineContent(i);
-
-        //フォルダかファイルか判断
-        if (Directory.Exists(target))
+        //変更後値バックアップを設定
+        changedBk = azkChangedFileName.Text;
+        //対象Azukiエディタのドキュメント型を設定
+        mLogic.targetDoc = azkTargetFileName.Document;
+        //変更後Azukiエディタのドキュメント型を設定
+        mLogic.changedDoc = azkChangedFileName.Document;
+        //リネーム処理メソッド使用
+        if (!mLogic.RenameProcess(lbTargetPath.Text))
         {
-          Directory.Move(target, changed);
+          //エラーからの中断の場合
+          MessageBox.Show("処理が終了しました");
+          //フォルダファイル一覧表示メソッド使用
+          mLogic.ForlderAndFileDisplay(lbTargetPath.Text);
+
+          return;
         }
-        else
-        {
-          File.Move(target, changed);
-        }
+
+        MessageBox.Show("処理を完了しました");
+        //フォルダファイル一覧表示メソッド使用
+        mLogic.ForlderAndFileDisplay(lbTargetPath.Text);
+      }
+      else if (result == DialogResult.No)
+      {
+
       }
     }
     #endregion
 
-
-    #region フォルダ参照メソッド
-    private string ReferenceFolder(string fbd_Desc)
+    #region 前回呼出ボタン押下イベント
+    private void btCallBackup_Click(object sender, EventArgs e)
     {
-      //インスタンス作成
-      FolderBrowserDialog fbd = new FolderBrowserDialog();
-
-      //上部に表示する説明テキストを指定する
-      fbd.Description = fbd_Desc;
-      //ルートフォルダを指定する
-      fbd.RootFolder = Environment.SpecialFolder.Desktop;
-
-      //OKが押下された場合
-      if (fbd.ShowDialog(this) == DialogResult.OK)
+      //バックアップに値がある場合
+      if (changedBk.Length >= 1)
       {
-        //取得したフォルダパスを返す
-        return fbd.SelectedPath;
-      }
-      else
-      {
-        return null;
+        //バックアップの値を復元する
+        azkChangedFileName.Text = changedBk;
       }
     }
     #endregion
-
-    #region フォルダ内容取得メソッド
-    private void GetDirectoryContents()
-    {
-      //フォルダパスを取得
-      string targetFolderPath = lbTargetPath.Text;
-
-      //対象ディレクトリ内の一覧取得
-      string[] targetFolderList = Directory.GetDirectories(targetFolderPath, "*", SearchOption.TopDirectoryOnly);
-      string[] targetFileList = Directory.GetFiles(targetFolderPath, "*", SearchOption.TopDirectoryOnly);
-
-      //ねずみ返し_対象がない場合、終了
-      if (targetFolderList.Length == 0 && targetFileList.Length == 0)
-      {
-        MessageBox.Show("対象フォルダにファイルがありません");
-        return;
-      }
-
-      //対象フォルダの表示
-      foreach (string x in targetFolderList)
-      {
-        //ディレクトリ名に変換
-        string y = System.IO.Path.GetFileName(x);
-        //Azukiエディタに追記
-        targetDoc.Replace(y + "\r\n", targetDoc.Length, targetDoc.Length);
-        changedDoc.Replace(y + "\r\n", changedDoc.Length, changedDoc.Length);
-      }
-      //対象ファイルの表示
-      foreach (string x in targetFileList)
-      {
-        //ファイル名に変換
-        string y = System.IO.Path.GetFileName(x);
-        //Azukiエディタに追記
-        targetDoc.Replace(y + "\r\n", targetDoc.Length, targetDoc.Length);
-        changedDoc.Replace(y + "\r\n", changedDoc.Length, changedDoc.Length);
-      }
-
-      //対象フォルダ表示
-      lbTargetPath.Text = targetFolderPath;
-    }
-    #endregion
-
 
     #region 共通ドラッグエンターイベント
     private void CommonDropEnterEv(object sender, DragEventArgs e)
@@ -212,7 +175,7 @@ namespace WFA
       //ドラッグ中のファイルの取得
       string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-      //ねずみ返し_ファイルのみを条件とする
+      //ねずみ返し_フォルダかファイルを条件とする
       foreach (string d in drags)
       {
         //フォルダでもファイルでもない場合
@@ -236,13 +199,28 @@ namespace WFA
       //フォルダかファイルか判断
       if (Directory.Exists(dropItem))
       {
-        tbTargetPathText.Text = dropItem;
+        //対象フォルダ欄に表示
+        lbTargetPath.Text = dropItem;
       }
       else
       {
-        //対象フォルダ入力欄に表示
-        tbTargetPathText.Text = System.IO.Path.GetDirectoryName(dropItem);
+        lbTargetPath.Text = System.IO.Path.GetDirectoryName(dropItem);
       }
+
+      //対象Azukiエディタのドキュメント型を設定
+      mLogic.targetDoc = azkTargetFileName.Document;
+      //変更後Azukiエディタのドキュメント型を設定
+      mLogic.changedDoc = azkChangedFileName.Document;
+      //フォルダファイル一覧表示メソッド使用
+      //対象フォルダ欄を使用
+      mLogic.ForlderAndFileDisplay(lbTargetPath.Text);
+    }
+    #endregion
+
+    #region スクロールイベント
+    private void azkChangedFileName_VScroll(object sender, EventArgs e)
+    {
+      azkTargetFileName.ScrollPos = azkChangedFileName.ScrollPos;
     }
     #endregion
 
