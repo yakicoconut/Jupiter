@@ -87,33 +87,42 @@ namespace WFA
     }
     #endregion
 
-    #region コントロールチェックボックスチェックチェンジイベント
-    private void checkBox1_CheckedChanged(object sender, EventArgs e)
-    {
-      // チェック済の場合
-      if (cbIsModePageEject.Checked)
-      {
-        // シフトチェックをはずす
-        cbIsModeZoom.Checked = false;
-      }
-    }
-    #endregion
-
-    #region シフトチェックボックスチェックチェンジイベント
-    private void cbIsFunctionShift_CheckedChanged(object sender, EventArgs e)
+    #region 拡大/縮小チェックボックスチェックチェンジイベント
+    private void cbIsModeZoom_CheckedChanged(object sender, EventArgs e)
     {
       // チェック済の場合
       if (cbIsModeZoom.Checked)
       {
-        // コントロールチェックをはずす
+        // ページ送りチェックをはずす
         cbIsModePageEject.Checked = false;
       }
     }
     #endregion
 
+    #region ページ送りチェックボックスチェックチェンジイベント
+    private void cbIsModePageEject_CheckedChanged(object sender, EventArgs e)
+    {
+      // チェック済の場合
+      if (cbIsModePageEject.Checked)
+      {
+        // 拡大/縮小チェックをはずす
+        cbIsModeZoom.Checked = false;
+      }
+    }
+    #endregion
+
+
+    #region 【要調査】キーダウンイベント
     private void Form2_KeyDown(object sender, KeyEventArgs e)
     {
+      /*
+       * フォームにチェックボックスを配置すると
+       * フォームのキーダウンイベントが発生しない
+       * →keypreviewプロパティも効果なし(要調査)
+       */
+
       //form1.Form1_KeyDown(sender, e);
     }
+    #endregion
   }
 }

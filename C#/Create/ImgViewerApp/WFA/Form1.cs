@@ -1,4 +1,4 @@
-﻿#define TEST01 // ロードイベント参照
+﻿//#define TEST01 // ロードイベント参照
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,9 +55,6 @@ namespace WFA
     {
       // 初期フォーム位置
       currentZeroPoint = new Point(int.Parse(ConfigurationManager.AppSettings["DefaultLocationX"]), int.Parse(ConfigurationManager.AppSettings["DefaultLocationY"]));
-      // 初期フォームサイズ
-      defaultFormWidth = int.Parse(ConfigurationManager.AppSettings["DefaultFormWidth"]);
-      defaultFormHeight = int.Parse(ConfigurationManager.AppSettings["DefaultFormHeight"]);
       // 移動距離
       upMoveDistance = int.Parse(ConfigurationManager.AppSettings["UpMoveDistance"]);
       downMoveDistance = int.Parse(ConfigurationManager.AppSettings["DownMoveDistance"]);
@@ -69,11 +66,11 @@ namespace WFA
       zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
 
       // 拡大/縮小モードキー
-      modeZoomKey = ConfigurationManager.AppSettings["ModeZoomKey"];
+      modeZoomKey = ConfigurationManager.AppSettings["ModeZoomKey"].ToLower();
       // モードページ送りキー
-      modePageEjectKey = ConfigurationManager.AppSettings["ModePageEjectKey"];
+      modePageEjectKey = ConfigurationManager.AppSettings["ModePageEjectKey"].ToLower();
       // モード0ポイントキー
-      modeZeroPointKey = ConfigurationManager.AppSettings["ModeZeroPointKey"];
+      modeZeroPointKey = ConfigurationManager.AppSettings["ModeZeroPointKey"].ToLower();
     }
     #endregion
 
@@ -81,6 +78,10 @@ namespace WFA
 
     //フォーム2インスタンス生成
     Form2 form2 = new Form2();
+
+    // 初期位置
+    int defaultLocationX;
+    int defaultLocationY;
 
     // 初期フォームサイズ
     int defaultFormWidth;
@@ -127,13 +128,33 @@ namespace WFA
     #region コントロール初期設定メソッド
     public void ControlInitSeting()
     {
+      // アプリの開始位置
+      // 開始位置をロケーションプロパティ
+      this.StartPosition = FormStartPosition.Manual;
+      this.Location = new Point(int.Parse(ConfigurationManager.AppSettings["DefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["DefaultLocationY"]));
+
       // フォームサイズの変更
+      if (!int.TryParse(ConfigurationManager.AppSettings["DefaultFormWidth"], out defaultFormWidth))
+      {
+        // 画面サイズを取得
+        defaultFormWidth = Screen.PrimaryScreen.Bounds.Width + 16;
+      }
+      if (!int.TryParse(ConfigurationManager.AppSettings["DefaultFormHeight"], out defaultFormHeight))
+      {
+        defaultFormHeight = Screen.PrimaryScreen.Bounds.Height - 30;
+      }
       this.Width = defaultFormWidth;
       this.Height = defaultFormHeight;
+
       // モードキーチェックボックステキスト設定
       form2.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
       form2.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
       form2.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
+
+      // フォーム2の開始位置
+      // 開始位置をロケーションプロパティ
+      form2.StartPosition = FormStartPosition.Manual;
+      form2.Location = new Point(int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationY"]));
     }
     #endregion
 
@@ -215,18 +236,25 @@ namespace WFA
     #region キー押下イベント
     public void Form1_KeyDown(object sender, KeyEventArgs e)
     {
-      // コントロールの場合
-      if (e.Control)
+      // 拡大/縮小キー押下判断メソッド使用
+      if (IsModeZoomKey(e))
       {
         // チェック
+        form2.cbIsModeZoom.Checked = !form2.cbIsModeZoom.Checked;
+        return;
+      }
+
+      // ページ送りキー押下判断メソッド使用
+      if (IsModePageEjectKey(e))
+      {
         form2.cbIsModePageEject.Checked = !form2.cbIsModePageEject.Checked;
         return;
       }
 
-      // シフトの場合
-      if (e.Shift)
+      // 0ポイントキー押下判断メソッド使用
+      if (IsModeZeroPointKey(e))
       {
-        form2.cbIsModeZoom.Checked = !form2.cbIsModeZoom.Checked;
+        form2.cbIsModeZeroPoint.Checked = !form2.cbIsModeZeroPoint.Checked;
         return;
       }
 
@@ -235,7 +263,7 @@ namespace WFA
       {
         #region ↑
         case Keys.Up:
-          // シフトチェックの場合
+          // 拡大/縮小チェック
           if (form2.cbIsModeZoom.Checked)
           {
             // 現在倍率を倍にする
@@ -243,6 +271,13 @@ namespace WFA
 
             // 現在の(0, 0)の位置を拡大後も引き継ぐ
             currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomInRatio), (int)(currentZeroPoint.Y * zoomInRatio));
+
+            // 0ポイントチェック
+            if (form2.cbIsModeZeroPoint.Checked)
+            {
+              // ページ送りに伴い画像を左上に設定
+              currentZeroPoint = new Point(0, 0);
+            }
 
             // 画像ズームメソッド使用
             ImgZoom();
@@ -260,7 +295,7 @@ namespace WFA
 
         #region ↓
         case Keys.Down:
-          // シフトチェックの場合
+          // 拡大/縮小チェック
           if (form2.cbIsModeZoom.Checked)
           {
             // 現在倍率にズームアウト倍率を掛ける
@@ -276,6 +311,13 @@ namespace WFA
             {
               // 現在の(0, 0)の位置を縮小後も引き継ぐ
               currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomOutRatio), (int)(currentZeroPoint.Y * zoomOutRatio));
+            }
+
+            // 0ポイントチェック
+            if (form2.cbIsModeZeroPoint.Checked)
+            {
+              // ページ送りに伴い画像を左上に設定
+              currentZeroPoint = new Point(0, 0);
             }
 
             // 画像ズームメソッド使用
@@ -294,7 +336,7 @@ namespace WFA
 
         #region →
         case Keys.Right:
-          // コントロールチェックの場合
+          // ページ送りチェック
           if (form2.cbIsModePageEject.Checked)
           {
             // 現ページが最後の場合
@@ -311,6 +353,9 @@ namespace WFA
 
             // 表示画像取得
             currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+            // ページ送りに伴い画像を左上に設定
+            currentZeroPoint = new Point(0, 0);
 
             // 画像初期化メソッド使用
             ImgInit();
@@ -345,6 +390,9 @@ namespace WFA
             // 表示画像取得
             currentImage = new Bitmap(dicImgPath[currentImageKey]);
 
+            // ページ送りに伴い画像を左上に設定
+            currentZeroPoint = new Point(0, 0);
+
             // 画像初期化メソッド使用
             ImgInit();
           }
@@ -370,6 +418,79 @@ namespace WFA
       //    if (e.KeyData == Keys.Up && e.Control)
       //      break;
       //}
+    }
+    #endregion
+
+
+    #region 拡大/縮小キー押下判断メソッド
+    public bool IsModeZoomKey(KeyEventArgs e)
+    {
+      bool isFunctionOn = false;
+      switch (modeZoomKey)
+      {
+        case "ctrl":
+          isFunctionOn = e.Control;
+          break;
+        case "shift":
+          isFunctionOn = e.Shift;
+          break;
+        case "alt":
+          isFunctionOn = e.Alt;
+          break;
+
+        default:
+          break;
+      }
+
+      return isFunctionOn;
+    }
+    #endregion
+
+    #region ページ送りキー押下判断メソッド
+    public bool IsModePageEjectKey(KeyEventArgs e)
+    {
+      bool isFunctionOn = false;
+      switch (modePageEjectKey)
+      {
+        case "ctrl":
+          isFunctionOn = e.Control;
+          break;
+        case "shift":
+          isFunctionOn = e.Shift;
+          break;
+        case "alt":
+          isFunctionOn = e.Alt;
+          break;
+
+        default:
+          break;
+      }
+
+      return isFunctionOn;
+    }
+    #endregion
+
+    #region 0ポイントキー押下判断メソッド
+    public bool IsModeZeroPointKey(KeyEventArgs e)
+    {
+      bool isFunctionOn = false;
+      switch (modeZeroPointKey)
+      {
+        case "ctrl":
+          isFunctionOn = e.Control;
+          break;
+        case "shift":
+          isFunctionOn = e.Shift;
+          break;
+        case "alt":
+          isFunctionOn = e.Alt;
+          break;
+
+        default:
+          break;
+      }
+
+      return isFunctionOn;
     }
     #endregion
 
@@ -444,8 +565,10 @@ namespace WFA
       // 表示対象画像取得
       currentImage = new Bitmap(dicImgPath[currentImageKey]);
 
+      form2.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
+
       // 初期化用設定
-      drawRectangle = new Rectangle(currentZeroPoint.X, currentZeroPoint.Y, (int)Math.Round(currentImage.Width * initZoomRatio), (int)Math.Round(currentImage.Height * initZoomRatio));
+      drawRectangle = new Rectangle(currentZeroPoint.X, currentZeroPoint.Y, (int)Math.Round(currentImage.Width * currentZoomRatio), (int)Math.Round(currentImage.Height * currentZoomRatio));
 
       // 画像を表示する
       pictureBox1.Invalidate();
