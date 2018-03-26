@@ -38,35 +38,30 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = ConfigurationManager.AppSettings["Hoge01"];
+      //対象拡張子
+      targetExtension = ConfigurationManager.AppSettings["TargetExtension"].Split(',');
+      //デフォルトエンコード
+      defaultOpenEncode = ConfigurationManager.AppSettings["DefaultOpenEncode"];
+      //デフォルトサイズ
+      DefaultSizeWidth = int.Parse(ConfigurationManager.AppSettings["DefaultSizeWidth"]);
+      DefaultSizeHeight = int.Parse(ConfigurationManager.AppSettings["DefaultSizeHeight"]);
     }
     #endregion
 
 
-    #region 共通変数
+    #region 宣言
 
     /*コンフィグ*/
     //対象拡張子
-    string[] targetExtension = ConfigurationManager.AppSettings["TargetExtension"].Split(',');
+    string[] targetExtension;
     //デフォルトエンコード
-    string defaultOpenEncode = ConfigurationManager.AppSettings["DefaultOpenEncode"];
+    string defaultOpenEncode;
+    //デフォルトサイズ
+    int DefaultSizeWidth;
+    int DefaultSizeHeight;
 
     #endregion
 
-
-    #region ボタン1押下イベント
-    private void button1_Click(object sender, EventArgs e)
-    {
-
-    }
-    #endregion
-
-    #region ボタン2押下イベント
-    private void button2_Click(object sender, EventArgs e)
-    {
-
-    }
-    #endregion
 
     #region ファイル読み込み関連イベント一覧
 
@@ -155,7 +150,6 @@ namespace WFA
     #endregion
 
     #endregion
-
 
     #region パネルサイズ変更・移動メソッド一覧
 
@@ -297,8 +291,51 @@ namespace WFA
 
     #endregion
 
+    #region 基底パネルイベント一覧
 
-    #region 基底パネルボタンイベント一覧
+    #region 基底パネル内コントロール共通イベント
+    private void BasePanelChildrenControl_MouseDown(object sender, EventArgs e)
+    {
+      //イベントを発生させたコントロールを取得
+      Control iventControl = (Control)sender;
+
+      //コントロールを最前面へ
+      iventControl.Parent.BringToFront();
+    }
+    #endregion
+
+    #region 最大化ボタン押下イベント
+    private void MaxButton_MouseUp(object sender, MouseEventArgs e)
+    {
+      //括り番号の取得メソッド使用
+      string iventControlLumpingNum = GetLumpingNumber(sender);
+
+      //括り番号から対象基底パネルのコントロールを取得
+      Control targetBasePanel = Controls["basePanel" + iventControlLumpingNum];
+
+      #region テスト
+      ////基底パネル名の表示
+      //MessageBox.Show(targetBasePanel.Name);
+      #endregion
+
+      //対象基底パネルの大きさが既にフォームいっぱいの場合
+      if (targetBasePanel.Size.Width == this.Size.Width - 16 && targetBasePanel.Size.Height == this.Size.Height - 38)
+      {
+        //サイズをデフォルトに戻す
+        targetBasePanel.Size = new Size(DefaultSizeWidth, DefaultSizeHeight);
+      }
+      else
+      {
+        //サイズを現在のフォームいっぱいにする
+        targetBasePanel.Size = new Size(this.Size.Width - 16, this.Size.Height - 38);
+        //位置を0,0に変更する
+        targetBasePanel.Location = new Point(0, 0);
+      }
+
+      //コントロールを最前面へ
+      targetBasePanel.BringToFront();
+    }
+    #endregion
 
     #region 閉じるボタン押下イベント
     private void CloseButton_MouseUp(object sender, MouseEventArgs e)
@@ -309,15 +346,15 @@ namespace WFA
       //括り番号から対象基底パネルのコントロールを取得
       Control targetBasePanel = Controls["basePanel" + iventControlLumpingNum];
       //括り番号と対象基底パネルから対象テキストボックスを取得
-      Control targetTextBox = targetBasePanel.Controls["textBox" + iventControlLumpingNum];
+      Control targetTextBox = targetBasePanel.Controls["RichTextBox" + iventControlLumpingNum];
       //括り番号と対象基底パネルから対象タイトルパネルを取得
       Control targetTitlePanel = targetBasePanel.Controls["titlePanel" + iventControlLumpingNum];
       //括り番号と対象タイトルパネルから対象ファイル名ラベルを取得
       Control targetFileNameLabel = targetTitlePanel.Controls["fileNameLabel" + iventControlLumpingNum];
 
       #region テスト
-      //基底パネル名の表示
-      MessageBox.Show(targetBasePanel.Name);
+      ////基底パネル名の表示
+      //MessageBox.Show(targetBasePanel.Name);
       #endregion
 
       //対象テキストボックスからファイル内容を取得
@@ -363,17 +400,6 @@ namespace WFA
 
     #endregion
 
-    #region 基底パネル内コントロール共通イベント
-    private void BasePanelChildrenControl_MouseDown(object sender, EventArgs e)
-    {
-      //イベントを発生させたコントロールを取得
-      Control iventControl = (Control)sender;
-
-      //コントロールを最前面へ
-      iventControl.Parent.BringToFront();
-    }
-    #endregion
-
     #region メインメソッド一覧
 
     #region 括り番号の取得メソッド
@@ -389,6 +415,19 @@ namespace WFA
     }
     #endregion
 
+    #region ログファイル出力メソッド
+    private void outputLogFile(string logOutputFileName, string logContents)
+    {
+      //StreamWriterクラスの新しいインスタンスを生成(上書き許可)
+      //☆出力位置は標準で初期設定を使用
+      StreamWriter writetxt = new StreamWriter(logOutputFileName + ".log", true, Encoding.UTF8);
+      //文字列配置した位置データをlogに書き出し
+      writetxt.Write(logContents);
+      //StreamWriterのクローズ
+      writetxt.Close();
+    }
+    #endregion
+
     #region 基底パネル閉じるメソッド
     public void CloseBasePanel(Control sender)
     {
@@ -400,17 +439,7 @@ namespace WFA
 
     #endregion
 
-
     #region コントロール自動生成メソッド一覧
-
-    #region **共通引数**
-
-
-    //基底パネルのサイズ(各コントロールの元となる値)
-    int basePanelBaseSizeX = 300;
-    int basePanelBaseSizeY = 200;
-
-    #endregion
 
     #region 共通変数
 
@@ -432,6 +461,9 @@ namespace WFA
         //拡張子が設定したもののときだけコントロールを作成
         if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) > -1)
         {
+          //ログ出力_ファイル名
+          outputLogFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), x + "\r\n");
+
           //コントロール括り番号のインクリメント
           IncrementI_Lumping = ++IncrementI_Lumping;
           //括り番号の作成
@@ -450,7 +482,7 @@ namespace WFA
           //タイトルバー
           autoControlBasePanelName.Add(TitlePanelCreate(LumpingNum));
           //テキストボックス
-          autoControlBasePanelName.Add(TextBoxCreate(LumpingNum, File.ReadAllText(x, Encoding.GetEncoding(defaultOpenEncode))));
+          autoControlBasePanelName.Add(RichTextBoxCreate(LumpingNum, File.ReadAllText(x, Encoding.GetEncoding(defaultOpenEncode))));
 
           //親パネルの作成
           BasePanelCreate(LumpingNum);
@@ -477,11 +509,11 @@ namespace WFA
       int basePanelFirstPointX = 0;
       int basePanelFirstPointY = 0;
       //二個目以降の出現位置
-      int addPointX = basePanelBaseSizeX + 1; //基底パネルのサイズから算出
+      int addPointX = DefaultSizeWidth + 1; //基底パネルのサイズから算出
       int addPointY = 0;
       //サイズ
-      int basePanelSizeWidth = basePanelBaseSizeX;
-      int basePanelSizeHeight = basePanelBaseSizeY;
+      int basePanelSizeWidth = DefaultSizeWidth;
+      int basePanelSizeHeight = DefaultSizeHeight;
 
       /*プロパティ設定*/
       basePanelA.Name = "basePanel" + nameNum;
@@ -503,6 +535,13 @@ namespace WFA
         basePanelA.Controls.Add(Controls[x]);
       }
 
+      //ログ出力_コントロール名
+      outputLogFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), basePanelA.Name + "\r\n");
+      //ログ出力_出力X位置
+      outputLogFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "出力X位置:" + (basePanelFirstPointX + basePanelPointX).ToString() + "\r\n");
+      //ログ出力_出力Y位置
+      outputLogFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "出力Y位置:" + (basePanelFirstPointY + basePanelPointY).ToString() + "\r\n");
+
       /*イベントの追加*/
       basePanelA.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BasePanel_MouseMove);
       basePanelA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanel_MouseDown);
@@ -516,7 +555,7 @@ namespace WFA
         //Xの値を0に戻す
         basePanelPointX = 0;
         //Yの値を規定サイズ分下に下げる
-        basePanelPointY += basePanelBaseSizeY;
+        basePanelPointY += DefaultSizeHeight;
       }
 
 
@@ -538,7 +577,7 @@ namespace WFA
       int titlePanelFirstPointX = 3;
       int titlePanelFirstPointY = 3;
       //サイズ
-      int titlePanelSizeWidth = basePanelBaseSizeX + 16; //基底パネルのサイズにあわせる
+      int titlePanelSizeWidth = DefaultSizeWidth + 16; //基底パネルのサイズにあわせる
       int titlePanelSizeHeight = 27;
 
       /*プロパティ設定*/
@@ -583,7 +622,7 @@ namespace WFA
       int labelFirstPointX = 0; //基底パネルのサイズから算出
       int labelFirstPointY = 0;
       //サイズ
-      int labelSizeWidth = basePanelBaseSizeX + 16; //タイトルパネルにあわせる
+      int labelSizeWidth = DefaultSizeWidth + 16; //タイトルパネルにあわせる
       int labelSizeHeight = 24;
 
       /*プロパティ設定*/
@@ -625,7 +664,7 @@ namespace WFA
 
       /*設定値*/
       //一個目の出現位置
-      int buttonFirstPointX = basePanelBaseSizeX - 80; //基底パネルのサイズから算出
+      int buttonFirstPointX = DefaultSizeWidth - 80; //基底パネルのサイズから算出
       int buttonFirstPointY = 2;
       //サイズ
       int buttonSizeWidth = 26;
@@ -658,7 +697,7 @@ namespace WFA
 
       /*設定値*/
       //一個目の出現位置
-      int buttonFirstPointX = basePanelBaseSizeX - 55; //基底パネルのサイズから算出
+      int buttonFirstPointX = DefaultSizeWidth - 55; //基底パネルのサイズから算出
       int buttonFirstPointY = 2;
       //サイズ
       int buttonSizeWidth = 26;
@@ -680,6 +719,9 @@ namespace WFA
       //フォームに追加する
       Controls.Add(buttonA);
 
+      /*イベントの追加*/
+      buttonA.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MaxButton_MouseUp);
+
       //作成したコントロール名を返す
       return buttonA.Name;
     }
@@ -693,7 +735,7 @@ namespace WFA
 
       /*設定値*/
       //一個目の出現位置
-      int buttonFirstPointX = basePanelBaseSizeX - 30; //基底パネルのサイズから算出
+      int buttonFirstPointX = DefaultSizeWidth - 30; //基底パネルのサイズから算出
       int buttonFirstPointY = 2;
       //サイズ
       int buttonSizeWidth = 26;
@@ -725,48 +767,52 @@ namespace WFA
     }
     #endregion
 
-    #region テキストボックス
-    public string TextBoxCreate(string nameNum, string textValue)
+    #region リッチテキストボックス
+    public string RichTextBoxCreate(string nameNum, string textValue)
     {
       //TextBoxクラスのインスタンスを作成する
-      TextBox textBoxA = new TextBox();
+      RichTextBox RichTextBoxA = new RichTextBox();
 
       /*設定値*/
       //一個目の出現位置
       int textBoxFirstPointX = 3;
       int textBoxFirstPointY = 30;
       //サイズ
-      int textBoxSizeWidth = basePanelBaseSizeX - 6; //基底パネルのサイズから算出
-      int textBoxSizeHeight = basePanelBaseSizeY - 32; //基底パネルのサイズから算出
+      int textBoxSizeWidth = DefaultSizeWidth - 6; //基底パネルのサイズから算出
+      int textBoxSizeHeight = DefaultSizeHeight - 32; //基底パネルのサイズから算出
 
       /*プロパティ設定*/
-      textBoxA.Name = "textBox" + nameNum;
-      textBoxA.Text = textValue;
+      RichTextBoxA.Name = "RichTextBox" + nameNum;
+      RichTextBoxA.Text = textValue;
       //サイズと位置を設定する
-      textBoxA.Location = new Point(textBoxFirstPointX, textBoxFirstPointY);
-      textBoxA.Size = new Size(textBoxSizeWidth, textBoxSizeHeight);
+      RichTextBoxA.Location = new Point(textBoxFirstPointX, textBoxFirstPointY);
+      RichTextBoxA.Size = new Size(textBoxSizeWidth, textBoxSizeHeight);
       //アンカー
-      textBoxA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+      RichTextBoxA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
       | System.Windows.Forms.AnchorStyles.Left)
       | System.Windows.Forms.AnchorStyles.Right)));
       //マルチライン
-      textBoxA.Multiline = true;
+      RichTextBoxA.Multiline = true;
       //スクロールバー
-      textBoxA.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      textBoxA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
+      RichTextBoxA.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Both;
 
       /*各コントロール紐付け*/
       //フォームに追加する
-      Controls.Add(textBoxA);
+      Controls.Add(RichTextBoxA);
+
+      /*イベントの追加*/
+      RichTextBoxA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
+      RichTextBoxA.VScroll += new System.EventHandler(this.BasePanelChildrenControl_MouseDown);
 
       //作成したコントロール名を返す
-      return textBoxA.Name;
+      return RichTextBoxA.Name;
     }
     #endregion
 
     #endregion
 
     #endregion
+
 
     #region 雛形メソッド
     public void template()
