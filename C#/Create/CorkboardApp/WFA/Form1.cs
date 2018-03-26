@@ -237,8 +237,8 @@ namespace WFA
       //イベントを発生させたコントロールを取得
       Control iventControl = (Control)sender;
 
-      //コントロールを最善面へ
-      iventControl.Parent.BringToFront();
+      //コントロールを最前面へ
+      iventControl.BringToFront();
 
       SetCapture(iventControl.Handle);
       ReleaseCapture();
@@ -274,7 +274,7 @@ namespace WFA
       //括り番号から対象基底パネルのコントロールを取得
       Control iventControl = Controls["basePanel" + iventControlLumpingNum];
 
-      //コントロールを最善面へ
+      //コントロール最前面
       iventControl.BringToFront();
 
       //親のパネルを動かす
@@ -314,6 +314,11 @@ namespace WFA
       Control targetTitlePanel = targetBasePanel.Controls["titlePanel" + iventControlLumpingNum];
       //括り番号と対象タイトルパネルから対象ファイル名ラベルを取得
       Control targetFileNameLabel = targetTitlePanel.Controls["fileNameLabel" + iventControlLumpingNum];
+
+      #region テスト
+      //基底パネル名の表示
+      MessageBox.Show(targetBasePanel.Name);
+      #endregion
 
       //対象テキストボックスからファイル内容を取得
       string targetFileText = targetTextBox.Text;
@@ -358,6 +363,16 @@ namespace WFA
 
     #endregion
 
+    #region 基底パネル内コントロール共通イベント
+    private void BasePanelChildrenControl_MouseDown(object sender, EventArgs e)
+    {
+      //イベントを発生させたコントロールを取得
+      Control iventControl = (Control)sender;
+
+      //コントロールを最前面へ
+      iventControl.Parent.BringToFront();
+    }
+    #endregion
 
     #region メインメソッド一覧
 
@@ -403,15 +418,14 @@ namespace WFA
     ArrayList autoControlBasePanelName = new ArrayList();
     //タイトルパネルに追加するコントロール名を格納する配列
     ArrayList autoControlTitlePanelName = new ArrayList();
+    //コントロール括り番号(1~9999までを想定、それ以降は未検証)
+    int IncrementI_Lumping = 0;
 
     #endregion
 
     #region コントロール自動作成メソッド
     public void ControlAutoCreate(string[] args)
     {
-      //コントロールセット番号
-      int i = 0;
-
       //全ての引数を処理
       foreach (string x in args)
       {
@@ -419,9 +433,9 @@ namespace WFA
         if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) > -1)
         {
           //コントロール括り番号のインクリメント
-          i = ++i;
+          IncrementI_Lumping = ++IncrementI_Lumping;
           //括り番号の作成
-          string LumpingNum = "_" + String.Format("{0:0000}", i);
+          string LumpingNum = "_" + String.Format("{0:0000}", IncrementI_Lumping);
 
           /*コントロール自動作成*/
           //子パネル(タイトルバー)の配列に格納
@@ -551,6 +565,7 @@ namespace WFA
       /*イベントの追加*/
       titlePanelA.MouseEnter += new System.EventHandler(this.TitlePanel_MouseEnter);
       titlePanelA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
+      titlePanelA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       //作成したコントロール名を返す
       return titlePanelA.Name;
@@ -595,6 +610,7 @@ namespace WFA
       /*イベントの追加*/
       labelA.MouseEnter += new System.EventHandler(this.TitlePanel_MouseEnter);
       labelA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
+      labelA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       //作成したコントロール名を返す
       return labelA.Name;
@@ -623,6 +639,7 @@ namespace WFA
       buttonA.Size = new Size(buttonSizeWidth, buttonSizeHeight);
       //アンカー
       buttonA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      buttonA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       /*各コントロール紐付け*/
       //フォームに追加する
@@ -657,6 +674,7 @@ namespace WFA
       buttonA.Size = new Size(buttonSizeWidth, buttonSizeHeight);
       //アンカー
       buttonA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      buttonA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       /*各コントロール紐付け*/
       //フォームに追加する
@@ -693,6 +711,7 @@ namespace WFA
       buttonA.Size = new Size(buttonSizeWidth, buttonSizeHeight);
       //アンカー
       buttonA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      buttonA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       /*各コントロール紐付け*/
       //フォームに追加する
@@ -734,6 +753,7 @@ namespace WFA
       textBoxA.Multiline = true;
       //スクロールバー
       textBoxA.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      textBoxA.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasePanelChildrenControl_MouseDown);
 
       /*各コントロール紐付け*/
       //フォームに追加する
