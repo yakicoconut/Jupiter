@@ -18,3 +18,4 @@ E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Txt\WFA\bin\Debug\WFA.ex
 E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Txt\WFA\bin\Debug\WFA.pdb
 E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Txt\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
 E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Txt\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Txt\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
