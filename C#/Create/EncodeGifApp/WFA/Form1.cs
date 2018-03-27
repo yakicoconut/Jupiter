@@ -50,7 +50,7 @@ namespace WFA
 
       // 対象ファイル用配列
       ArrayList alist = new ArrayList();
-      string targetFolder = textBox1.Text;
+      string targetFolder = tbTargetPath.Text;
 
       // 対象フォルダ内のファイル読み込み
       string[] fileNames = Directory.GetFiles(targetFolder, "*");
@@ -73,7 +73,7 @@ namespace WFA
       }
 
       // GIF作成メソッド使用
-      SaveAnimatedGif(dt + @".gif", alist, Convert.ToUInt16(textBox2.Text), Convert.ToUInt16(textBox3.Text));
+      SaveAnimatedGif(dt + @".gif", alist, Convert.ToUInt16(tbDelayTime.Text), Convert.ToUInt16(tbLoopCount.Text));
     }
     #endregion
 
