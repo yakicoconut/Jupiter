@@ -346,6 +346,75 @@ namespace WFA
     #endregion
 
 
+    #region 上書き確認メソッド
+
+    #region 宣言
+
+    //ファイル内容ディクショナリインスタンス生成
+    public Dictionary<string, string> dicFileValue = new Dictionary<string, string>();
+
+    #endregion
+
+    public bool ConfirmationOverwrite(Control targetBasePanel, string lumpingNum)
+    {
+      //対象テキストボックスを取得
+      Control targetTextBox = targetBasePanel.Controls["TextBox_" + lumpingNum];
+      //対象タイトルパネルを取得
+      Control targetTitlePanel = targetBasePanel.Controls["TitlePanel_" + lumpingNum];
+
+      //タイトルパネルから対象タイトルパスラベルを取得
+      Control targetTitlePathLabel = targetTitlePanel.Controls["TitlePathLabel_" + lumpingNum];
+      //タイトルパネルから対象タイトルファイル名ラベルを取得
+      Control targetTitleFileNameLabel = targetTitlePanel.Controls["TitleFileNameLabel_" + lumpingNum];
+
+      //対象テキストボックスからファイル内容を取得
+      string targetFileText = targetTextBox.Text;
+      //対象タイトルパスラベルからパスを取得
+      string targetFilePath = targetTitlePathLabel.Text;
+      //対象タイトルファイル名ラベルからファイル名を取得
+      string targetFileName = targetTitlePathLabel.Text;
+
+      //ねずみ返し_取得したファイル内容と該当のファイル内容ディクショナリの内容が一致する場合
+      if (targetFileText == dicFileValue[targetBasePanel.Name])
+      {
+        //変更点が無いためメソッド成功として返す
+        return true;
+      }
+
+      //確認メッセージボックスを表示する
+      DialogResult result = MessageBox.Show(targetFilePath + "\r\n" + targetFileName + "\r\nを上書きしてパネルを閉じますか?",
+                      "上書き",
+                      MessageBoxButtons.YesNoCancel,
+                      MessageBoxIcon.Question,
+                      MessageBoxDefaultButton.Button1);
+      //[はい]押下
+      if (result == DialogResult.Yes)
+      {
+        /*テキストファイルコミット*/
+        //上書き
+        System.IO.StreamWriter sw = new System.IO.StreamWriter(
+            targetFileName,
+            false,
+            System.Text.Encoding.GetEncoding(ctrlCreateClass.defaultOpenEncode));
+        //対象コントロールの内容を書き込む
+        sw.Write(targetFileText);
+        sw.Close();
+      }
+      //[いいえ]押下
+      else if (result == DialogResult.No)
+      {
+        //[はい][いいえ]はどちらも最終的に下で基底パネルを削除する
+      }
+      //[キャンセル]押下
+      else if (result == DialogResult.Cancel)
+      {
+        return false;
+      }
+
+      return true;
+    }
+    #endregion
+    
     #region 基底パネルを閉じるメソッド
     public void CloseBasePanel(Control targetCtrl)
     {
@@ -493,60 +562,6 @@ namespace WFA
 
     #endregion
 
-    #endregion
-
-    #region 上書き確認メソッド
-    public bool ConfirmationOverwrite(Control targetBasePanel, string lumpingNum)
-    {
-      //対象テキストボックスを取得
-      Control targetTextBox = targetBasePanel.Controls["RichTextBox_" + lumpingNum];
-      //対象タイトルパネルを取得
-      Control targetTitlePanel = targetBasePanel.Controls["TitlePanel_" + lumpingNum];
-
-      //タイトルパネルから対象タイトルパスラベルを取得
-      Control targetTitlePathLabel = targetTitlePanel.Controls["TitlePathLabel_" + lumpingNum];
-      //タイトルパネルから対象タイトルファイル名ラベルを取得
-      Control targetTitleFileNameLabel = targetTitlePanel.Controls["TitleFileNameLabel_" + lumpingNum];
-
-      //対象テキストボックスからファイル内容を取得
-      string targetFileText = targetTextBox.Text;
-      //対象タイトルパスラベルからパスを取得
-      string targetFilePath = targetTitlePathLabel.Text;
-      //対象タイトルファイル名ラベルからファイル名を取得
-      string targetFileName = targetTitlePathLabel.Text;
-
-      //確認メッセージボックスを表示する
-      DialogResult result = MessageBox.Show(targetFilePath + "\r\n" + targetFileName + "\r\nを上書きしてパネルを閉じますか?",
-                      "上書き",
-                      MessageBoxButtons.YesNoCancel,
-                      MessageBoxIcon.Question,
-                      MessageBoxDefaultButton.Button1);
-      //[はい]押下
-      if (result == DialogResult.Yes)
-      {
-        /*テキストファイルコミット*/
-        //上書き
-        System.IO.StreamWriter sw = new System.IO.StreamWriter(
-            targetFileName,
-            false,
-            System.Text.Encoding.GetEncoding(ctrlCreateClass.defaultOpenEncode));
-        //対象コントロールの内容を書き込む
-        sw.Write(targetFileText);
-        sw.Close();
-      }
-      //[いいえ]押下
-      else if (result == DialogResult.No)
-      {
-        //[はい][いいえ]はどちらも最終的に下で基底パネルを削除する
-      }
-      //[キャンセル]押下
-      else if (result == DialogResult.Cancel)
-      {
-        return false;
-      }
-
-      return true;
-    }
     #endregion
 
 
@@ -719,6 +734,9 @@ namespace WFA
       //基底パネル作成メソッド使用
       Panel basePanelA = BasePanelCreate();
 
+      //テキスト内容をディクショナリに追加
+      form1.dicFileValue.Add(basePanelA.Name, textValue);
+
       return basePanelA;
     }
     #endregion
@@ -745,7 +763,7 @@ namespace WFA
 
       /*子コントロールの作成*/
       TitlePanelCreate(ctrlA);
-      RichTextBoxCreate(ctrlA);
+      TextBoxCreate(ctrlA);
 
       /*イベントの追加*/
       ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(form1.CursorChangeTwiceArrow);
@@ -988,25 +1006,27 @@ namespace WFA
     }
     #endregion
 
-    #region リッチテキストボックス作成メソッド
-    public void RichTextBoxCreate(Control ctrlP)
+    #region テキストボックス作成メソッド
+    public void TextBoxCreate(Control ctrlP)
     {
       /*共通設定プロパティ*/
-      ctrlName = "RichTextBox_" + ctrlNum;
+      ctrlName = "TextBox_" + ctrlNum;
       commonAppeaX = 3;
       commonAppeaY = 32;
       commonSizeW = ctrlP.Size.Width - 7;
       commonSizeH = ctrlP.Size.Height - 35;
 
       //作成コントロールインスタンス生成
-      RichTextBox ctrlA = new RichTextBox();
+      TextBox ctrlA = new TextBox();
       //基底コントロール設定メソッド使用
-      ctrlA = (RichTextBox)ACC_CommonCtrlSetting(ctrlA);
+      ctrlA = (TextBox)ACC_CommonCtrlSetting(ctrlA);
 
       /*個別設定*/
       //アンカー
       ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
       ctrlA.Text = textValue;
+      //マルチラインオン
+      ctrlA.Multiline = true;
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
