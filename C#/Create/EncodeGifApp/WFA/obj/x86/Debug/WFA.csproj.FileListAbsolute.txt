@@ -15,3 +15,4 @@ E:\Cal_Git_Master\C#\Create\EncodeGifApp\WFA\obj\x86\Debug\WFA.Properties.Resour
 E:\Cal_Git_Master\C#\Create\EncodeGifApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\EncodeGifApp\WFA\bin\Debug\WFA.exe
 E:\Cal_Git_Master\C#\Create\EncodeGifApp\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Create\EncodeGifApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache

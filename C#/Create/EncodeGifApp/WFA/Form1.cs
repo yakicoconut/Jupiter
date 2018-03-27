@@ -45,13 +45,18 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
+      // 現在日時取得
+      var dt = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+      // 対象ファイル用配列
       ArrayList alist = new ArrayList();
       string targetFolder = textBox1.Text;
 
       // 対象フォルダ内のファイル読み込み
       string[] fileNames = Directory.GetFiles(targetFolder, "*");
-      // ファイルのソート
-      Array.Sort(fileNames);
+      // 大文字小文字を区別しない序数比較で並び替える
+      StringComparer cmp = StringComparer.OrdinalIgnoreCase;
+      Array.Sort(fileNames, cmp);
 
       // ファイルを一つ一つBitmapに変換
       for (int i = 0; i < fileNames.Length; i++)
@@ -66,13 +71,9 @@ namespace WFA
           // 対象ファイルが画像でない場合
         }
       }
-      // 文末から最初の「\」+1の位置
-      int LastYenIndex = targetFolder.LastIndexOf(@"\") + 1;
-      // 一つ上の階層のパスを取得
-      targetFolder = targetFolder.Substring(0, LastYenIndex - 1);
 
       // GIF作成メソッド使用
-      SaveAnimatedGif(targetFolder + @"\新しいギフ画像.gif", alist, Convert.ToUInt16(textBox2.Text), Convert.ToUInt16(textBox3.Text));
+      SaveAnimatedGif(dt + @".gif", alist, Convert.ToUInt16(textBox2.Text), Convert.ToUInt16(textBox3.Text));
     }
     #endregion
 
@@ -85,6 +86,13 @@ namespace WFA
 
 
     #region GIF作成メソッド
+    /// <summary>
+    /// GIF作成メソッド
+    /// </summary>
+    /// <param name="fileName">出力ファイル名称</param>
+    /// <param name="alist">対象ファイル</param>
+    /// <param name="delayTime">画像ごとの停止時間</param>
+    /// <param name="loopCount">ループ回数</param>
     public static void SaveAnimatedGif(string fileName, ArrayList alist, UInt16 delayTime, UInt16 loopCount)
     {
       // 書き込み先のファイルを開く
