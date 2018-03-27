@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define TEST_ReceiveItemShow //【テスト】送るコマンド
+#define TEST_CtrlCreateMain //【テスト】コントロール自動生成実行
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,6 +42,125 @@ namespace WFA
     #endregion
 
 
+    #region 宣言
+
+    //コントロール自動作成クラスインスタンス生成
+    ACC_CtrlCreateClass ctrlCreateClass = new ACC_CtrlCreateClass();
+
+    #endregion
+
+
+    #region ファイル読み込み関連イベント一覧
+
+    #region フォームショウイベント(送るで渡されるファイルを開く)
+    private void Form1_Shown(object sender, EventArgs e)
+    {
+      //送るで渡されるコマンドライン引数を配列で取得
+      string[] args = Environment.GetCommandLineArgs();
+
+#if TEST_ReceiveItemShow
+      //【テスト】とりあえず表示
+      TEST_ReceiveItemShow(args);
+#endif
+#if TEST_CtrlCreateMain
+      //【テスト】コントロール自動生成実行
+      TEST_CtrlCreateMain(3);
+#endif
+
+      //ねずみ返し
+      //引数が渡されなくても本アプリ自身のパスを配列に格納するので総数が1つの場合は終了
+      if (args.Length == 1)
+      {
+        return;
+      }
+
+      ////コントロール自動作成作成メソッド使用
+      //ControlAutoCreate(args);
+    }
+
+    #endregion
+
+    #region マウスインされるファイルを開くイベント
+
+    #region フォームドラッグエンターイベント
+    private void Form1_DragEnter(object sender, DragEventArgs e)
+    {
+      //AllowDropプロパティの許可が必要
+
+      //ねずみ返し_マウスがファイルを持っていない場合、イベント・ハンドラを抜ける
+      if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+      {
+        return;
+      }
+
+      //ドラッグ中のファイルの取得
+      string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+      //ねずみ返し_ファイルのみを条件とする
+      foreach (string d in drags)
+      {
+        //ファイル以外であればイベント・ハンドラを抜ける
+        if (!System.IO.File.Exists(d))
+        {
+          return;
+        }
+      }
+
+      //マウスの表示を「+」に変更する
+      e.Effect = DragDropEffects.Copy;
+    }
+    #endregion
+
+    #region フォームドラッグドロップイベント
+    private void Form1_DragDrop(object sender, DragEventArgs e)
+    {
+      //ドラッグ&ドロップされたファイルの取得
+      string[] args = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+#if TEST_ReceiveItemShow
+      //【テスト】とりあえず表示
+      TEST_ReceiveItemShow(args);
+#endif
+
+      ////コントロール自動作成作成メソッド使用
+      //ControlAutoCreate(args);
+    }
+    #endregion
+
+    #endregion
+
+    #region 【テスト】送るで受け取ったファイルのとりあえず表示
+    [Conditional("TEST_ReceiveItemShow")]
+    private void TEST_ReceiveItemShow(string[] args)
+    {
+      int i = 0;
+      foreach (string x in args)
+      {
+        i = ++i;
+        MessageBox.Show(i.ToString() + "/" + args.Length.ToString() + "\r\n" + x, "TEST_ReceiveItemShow");
+      }
+    }
+    #endregion
+
+    #region 【テスト】コントロール自動生成実行
+    [Conditional("TEST_CtrlCreateMain")]
+    private void TEST_CtrlCreateMain(int num)
+    {
+      //コントロール自動作成クラスインスタンス生成
+      ACC_CtrlCreateClass TEST_ctrlCreateClass = new ACC_CtrlCreateClass();
+
+      for (int i = 0; i < num; i++)
+      {
+        //コントロール自動作成メインメソッド使用
+        Panel panelA = TEST_ctrlCreateClass.CtrlCreateMain(String.Format("{0:0000}", i));
+        //フォームに追加
+        Controls.Add(panelA);
+      }
+    }
+    #endregion
+
+    #endregion
+
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
@@ -49,7 +170,7 @@ namespace WFA
       for (int i = 0; i < 5; i++)
       {
         //テキストボックス自動作成メソッド使用
-        Panel panelA = ctrlCreateClass.MainCtrlCreate(i.ToString());
+        Panel panelA = ctrlCreateClass.CtrlCreateMain(i.ToString());
         //フォームに追加
         Controls.Add(panelA);
       }
@@ -142,12 +263,12 @@ namespace WFA
       //基底パネル出現位置
       basePanelAppeaX = 0;
       basePanelAppeaY = 0;
-      //基底パネル二個目以降の出現位置調整
-      basePanelAddX = 100;
-      basePanelAddY = 0;
       //基底パネルサイズ
-      basePanelSizeW = 100;
-      basePanelSizeH = 100;
+      basePanelSizeW = 200;
+      basePanelSizeH = 200;
+      //基底パネル二個目以降の出現位置調整
+      basePanelAddX = basePanelSizeW + 1;
+      basePanelAddY = 0;
     }
     #endregion
 
@@ -208,12 +329,13 @@ namespace WFA
 
 
     #region コントロール自動作成メインメソッド
-    public Panel MainCtrlCreate(string ctrlNum)
+    public Panel CtrlCreateMain(string ctrlNum)
     {
       //基底パネル作成メソッド使用
       Panel panelA = BasePanelCreate(ctrlNum);
 
-      //リッチテキストボックス作成メソッド使用
+      //各自動作成メソッド使用
+      panelA.Controls.Add(TitlePanelCreate(ctrlNum));
       panelA.Controls.Add(RichTextBoxCreate(ctrlNum));
 
       return panelA;
@@ -243,13 +365,155 @@ namespace WFA
     }
     #endregion
 
+    #region タイトルパネル作成メソッド
+    public Panel TitlePanelCreate(string ctrlNum)
+    {
+      //共通設定プロパティ
+      ctrlName = "TitlePanel_" + ctrlNum;
+      commonAppeaX = 4;
+      commonAppeaY = 4;
+      commonSizeW = basePanelSizeW - 7;
+      commonSizeH = 27;
+
+      //作成コントロールインスタンス生成
+      Panel ctrlA = new Panel();
+
+      //基底コントロール設定メソッド使用
+      ctrlA = (Panel)ACC_CommonCtrlSetting(ctrlA);
+
+      //アンカー
+      ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+      //背景色
+      ctrlA.BackColor = System.Drawing.Color.Transparent;
+
+      //子コントロールを紐付ける
+      ctrlA.Controls.Add(ButtonPanelCreate(ctrlNum));
+
+      //作成したコントロールを返す
+      return ctrlA;
+    }
+    #endregion
+
+    #region ボタンパネル作成メソッド
+    public Panel ButtonPanelCreate(string ctrlNum)
+    {
+      //共通設定プロパティ
+      ctrlName = "ButtonPanel_" + ctrlNum;
+      commonAppeaX = basePanelSizeW - 100;
+      commonAppeaY = 4;
+      commonSizeW = 100;
+      commonSizeH = 27;
+
+      //作成コントロールインスタンス生成
+      Panel ctrlA = new Panel();
+
+      //基底コントロール設定メソッド使用
+      ctrlA = (Panel)ACC_CommonCtrlSetting(ctrlA);
+
+      //アンカー
+      ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+      //背景色
+      ctrlA.BackColor = System.Drawing.Color.AliceBlue;
+
+      //子コントロールを紐付ける
+      //ctrlA.Controls.Add(MinButtonCreate(ctrlNum, ctrlA));
+      //ctrlA.Controls.Add(MaxButtonCreate(ctrlNum, ctrlA));
+      ctrlA.Controls.Add(CloseButtonCreate(ctrlNum, ctrlA));
+
+      //作成したコントロールを返す
+      return ctrlA;
+    }
+    #endregion
+
+    #region 最小化ボタン作成メソッド
+    public Button MinButtonCreate(string ctrlNum, Control ctrlP)
+    {
+      //共通設定プロパティ
+      ctrlName = "MinButton_" + ctrlNum;
+      commonAppeaX = basePanelSizeW - 85;
+      commonAppeaY = 0;
+      commonSizeW = 26;
+      commonSizeH = 23;
+
+      //作成コントロールインスタンス生成
+      Button ctrlA = new Button();
+
+      //基底コントロール設定メソッド使用
+      ctrlA = (Button)ACC_CommonCtrlSetting(ctrlA);
+
+      //表示文字
+      ctrlA.Text = "_";
+      //アンカー
+      ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+
+      //作成したコントロールを返す
+      return ctrlA;
+    }
+    #endregion
+
+    #region 最大化ボタン作成メソッド
+    public Button MaxButtonCreate(string ctrlNum, Control ctrlP)
+    {
+      //共通設定プロパティ
+      ctrlName = "MaxButton_" + ctrlNum;
+      commonAppeaX = basePanelSizeW - 60;
+      commonAppeaY = 0;
+      commonSizeW = 26;
+      commonSizeH = 23;
+
+      //作成コントロールインスタンス生成
+      Button ctrlA = new Button();
+
+      //基底コントロール設定メソッド使用
+      ctrlA = (Button)ACC_CommonCtrlSetting(ctrlA);
+
+      //表示文字
+      ctrlA.Text = "□";
+      //アンカー
+      ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+
+      //作成したコントロールを返す
+      return ctrlA;
+    }
+    #endregion
+
+    #region 閉じるボタン作成メソッド
+    public Button CloseButtonCreate(string ctrlNum, Control ctrlP)
+    {
+      //共通設定プロパティ
+      ctrlName = "CloseButton" + ctrlNum;
+      commonAppeaX = ctrlP.Size.Width - 35;
+      commonAppeaY = 0;
+      commonSizeW = 26;
+      commonSizeH = 23;
+
+      //作成コントロールインスタンス生成
+      Button ctrlA = new Button();
+
+      //基底コントロール設定メソッド使用
+      ctrlA = (Button)ACC_CommonCtrlSetting(ctrlA);
+
+      //表示文字
+      ctrlA.Text = "×";
+      //アンカー
+      ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      //色
+      ctrlA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+
+      //作成したコントロールを返す
+      return ctrlA;
+    }
+    #endregion
+
     #region リッチテキストボックス作成メソッド
     public RichTextBox RichTextBoxCreate(string ctrlNum)
     {
       //共通設定プロパティ
       ctrlName = "RichTextBox_" + ctrlNum;
-      commonAppeaX = 2;
-      commonAppeaY = 2;
+      commonAppeaX = 3;
+      commonAppeaY = 30;
       commonSizeW = basePanelSizeW - 6;
       commonSizeH = basePanelSizeH - 32;
 
