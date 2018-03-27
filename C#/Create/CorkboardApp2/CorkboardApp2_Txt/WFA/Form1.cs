@@ -33,8 +33,9 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      //コントロール自動生成クラスのプロパティに本クラスを設定
+      //他クラスのプロパティに本クラスを設定
       ctrlCreateClass.form1 = this;
+      form2.form1 = this;
     }
     #endregion
 
@@ -56,6 +57,8 @@ namespace WFA
 
     //コントロール自動作成クラスインスタンス生成
     ACC_CtrlCreateClass ctrlCreateClass = new ACC_CtrlCreateClass();
+    //フォーム2インスタンス生成
+    Form2 form2 = new Form2();
 
     //コントロール括り番号(1~9999までを想定、それ以降は未検証)
     int incI_Lumping = 0;
@@ -67,7 +70,7 @@ namespace WFA
     //デフォルトサイズ
     int DefaultSizeWidth;
     int DefaultSizeHeight;
-    
+
     #endregion
 
 
@@ -96,6 +99,50 @@ namespace WFA
 
     #endregion
 
+    #region コントロール自動生成呼び出しメソッド
+    public void CallACC(string[] args)
+    {
+      //デフォルト基底パネル出現位置のリセット
+      ctrlCreateClass.basePanelAppeaX = 0;
+      ctrlCreateClass.basePanelAppeaY = 0;
+
+      //全ての引数を処理
+      foreach (string x in args)
+      {
+        //ねずみ返し_拡張子が設定したものではないとき次のループへ
+        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
+        {
+          continue;
+        }
+
+        //インクリメントしてコントロール括り番号を作成
+        string LumpingNum = String.Format("{0:0000}", incI_Lumping++);
+
+        //基底パネルの作成
+        Panel panelA = ctrlCreateClass.CtrlCreateMain(LumpingNum, x);
+
+        //作成したパネルをフォームに追加
+        this.Controls.Add(panelA);
+
+        //フォーム2のリストビューに作成したファイル名を追加
+        form2.lvItem = form2.lvCtrl.Items.Add(System.IO.Path.GetFileName(x));
+        //サブアイテムにパネル名を追加
+        form2.lvItem.SubItems.Add(panelA.Name);
+
+        //最前に表示
+        panelA.BringToFront();
+      }
+    }
+    #endregion
+
+
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
     #region ファイル読み込み関連イベント一覧
 
     #region フォームショウイベント(送るで渡されるファイルを開く)
@@ -113,17 +160,18 @@ namespace WFA
       TEST_CtrlCreateMain(3);
 #endif
 
-      //ねずみ返し
-      //引数が渡されなくても本アプリ自身のパスを配列に格納するので総数が1つの場合は終了
-      if (args.Length == 1)
+      //引数が渡されなくても本アプリ自身のパスを配列に格納するので対象は2以上
+      if (args.Length > 1)
       {
-        return;
+        //コントロール自動生成呼び出しメソッド使用
+        CallACC(args);
       }
 
-      //コントロール自動生成呼び出しメソッド使用
-      CallACC(args);
+      //常にメインフォームの手前に表示
+      form2.Owner = this;
+      //フォーム2呼び出し
+      form2.Show();
     }
-
     #endregion
 
     #region マウスインされるファイルを開くイベント
@@ -206,38 +254,250 @@ namespace WFA
     }
     #endregion
 
-    #region コントロール自動生成呼び出しメソッド
-    public void CallACC(string[] args)
+    #region 機能ボタンイベント一覧
+
+    #region 最小化ボタン押上イベント
+
+    public void MinButton_MouseUp(object sender, MouseEventArgs e)
     {
-      //全ての引数を処理
-      foreach (string x in args)
-      {
-        //ねずみ返し_拡張子が設定したものではないとき次のループへ
-        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
-        {
-          continue;
-        }
+      Control eventCtrl = (Control)sender;
+      //括り番号の取得
+      string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      //対象基底パネルのコントロールを取得
+      Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
 
-        //インクリメントしてコントロール括り番号を作成
-        string LumpingNum = String.Format("{0:0000}", incI_Lumping++);
-
-        //基底パネルの作成
-        Panel panelA = ctrlCreateClass.CtrlCreateMain(LumpingNum, x);
-
-        //作成したパネルをフォームに追加
-        this.Controls.Add(panelA);
-      }
+      //非表示にする
+      targetBasePanel.Visible = false;
     }
     #endregion
 
-    #region 閉じるボタン機能メソッド
-    public void CloseButtonFunc(Control eventCtrl)
+    #region 最大化ボタン押上イベント
+
+    #region 宣言
+
+    //退避用
+    int beforeMaxW;
+    int beforeMaxH;
+    int beforeMaxX;
+    int beforeMaxY;
+
+    #endregion
+
+    public void MaxButton_MouseUp(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+      //括り番号の取得
+      string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      //対象基底パネルのコントロールを取得
+      Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
+
+      //フォーム全体を指定
+      Size sz = this.Size;
+
+      //既に最大化している場合
+      if (targetBasePanel.Location == new Point(0, 0) && targetBasePanel.Width == sz.Width - 16 && targetBasePanel.Height == sz.Height - 37)
+      {
+        //サイズと位置を元に戻す
+        targetBasePanel.Width = beforeMaxW;
+        targetBasePanel.Height = beforeMaxH;
+        targetBasePanel.Location = new Point(beforeMaxX, beforeMaxY);
+
+        return;
+      }
+
+      //現在の大きさと位置を退避
+      beforeMaxW = targetBasePanel.Width;
+      beforeMaxH = targetBasePanel.Height;
+      beforeMaxX = targetBasePanel.Location.X;
+      beforeMaxY = targetBasePanel.Location.Y;
+
+      //位置を左上へ
+      targetBasePanel.Location = new Point(0, 0);
+      //サイズの変更
+      targetBasePanel.Width = sz.Width - 16;
+      targetBasePanel.Height = sz.Height - 37;
+
+      //コントロールを最前面へ
+      targetBasePanel.BringToFront();
+    }
+    #endregion
+
+    #region 閉じるボタン押上イベント
+    public void CloseButton_MouseUp(object sender, MouseEventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+
       //括り番号の取得
       string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
 
       //対象基底パネルのコントロールを取得
       Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
+
+      //上書き確認メソッド使用
+      if (!ConfirmationOverwrite(targetBasePanel, lumpingNum))
+        //キャンセルの場合
+        return;
+
+      //基底パネル削除メソッド使用
+      CloseBasePanel(targetBasePanel);
+    }
+    #endregion
+
+    #endregion
+
+
+    #region 基底パネルを閉じるメソッド
+    public void CloseBasePanel(Control targetCtrl)
+    {
+      //イベントを発生させたコントロールを閉じる
+      this.Controls.Remove(targetCtrl);
+
+      //管理フォームの該当パネルを削除
+      form2.lvCtrl.FindItemWithText(targetCtrl.Name, true, 0, true).Remove();
+    }
+    #endregion
+
+    #region 親コントロール最前面化メソッド
+    public void CtrlBringToFront(object sender, EventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+
+      //括り番号から対象基底パネルのコントロールを取得
+      Control parentCtrl = this.Controls["BasePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
+
+      //コントロール最前面
+      parentCtrl.BringToFront();
+    }
+    #endregion
+
+    #region 基底パネルサイズ変更メソッド一覧
+
+    #region マウスカーソル両矢印変更メソッド
+    public void CursorChangeTwiceArrow(object sender, MouseEventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+
+      //パネルの枠にマウスカーソルがきたらサイズ変更カーソルにする
+
+      //イベントのXYの値によってフラグを変更
+      int flag = 0;
+      if (e.X < 10)
+      {
+        flag += 0x0001;
+      }
+      if (eventCtrl.Width - 10 < e.X)
+      {
+        flag += 0x0002;
+      }
+      if (e.Y < 10)
+      {
+        flag += 0x0003;
+      }
+      if (eventCtrl.Height - 10 < e.Y)
+      {
+        flag += 0x0006;
+      }
+
+      //フラグによってカーソルを変更
+      switch (flag)
+      {
+        case 0:
+          eventCtrl.Cursor = Cursors.Default;
+          break;
+        case 1:
+        case 2:
+          eventCtrl.Cursor = Cursors.SizeWE;
+          break;
+        case 3:
+        case 6:
+          eventCtrl.Cursor = Cursors.SizeNS;
+          break;
+        case 4:
+        case 8:
+          eventCtrl.Cursor = Cursors.SizeNWSE;
+          break;
+        case 5:
+        case 7:
+          eventCtrl.Cursor = Cursors.SizeNESW;
+          break;
+      }
+    }
+    #endregion
+
+    #region 基底パネルサイズ変更メソッド
+    public void BasePanelChangeSize(object sender, MouseEventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+
+      //コントロールを最前面へ
+      eventCtrl.BringToFront();
+
+      SetCapture(eventCtrl.Handle);
+      ReleaseCapture();
+
+      int flag = 0;
+      if (e.X < 10)
+      {
+        flag += 0x0001;
+      }
+      if (eventCtrl.Width - 10 < e.X)
+      {
+        flag += 0x0002;
+      }
+      if (e.Y < 10)
+      {
+        flag += 0x0003;
+      }
+      if (eventCtrl.Height - 10 < e.Y)
+      {
+        flag += 0x0006;
+      }
+
+      //引数1:対象コントロールのハンドル番号
+      //引数2:
+      //引数3:
+      //引数4:
+      SendMessage(eventCtrl.Handle, WM_SYSCOMMAND, SC_SIZE | flag, 0);
+    }
+    #endregion
+
+    #endregion
+
+    #region 基底パネル移動メソッド一覧
+
+    #region マウスカーソルデフォルト変更メソッド
+    public void CursorChangeDefault(object sender, EventArgs e)
+    {
+      //カーソルをデフォルトに戻す
+      ((Control)sender).Cursor = Cursors.Default;
+    }
+    #endregion
+
+    #region 基底パネル移動メソッド
+    public void MoveBasePanel(object sender, MouseEventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+
+      //括り番号から対象基底パネルのコントロールを取得
+      Control parentCtrl = this.Controls["basePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
+
+      //コントロールを最前面へ
+      parentCtrl.BringToFront();
+
+      //親のパネルを動かす
+      SetCapture(parentCtrl.Handle);
+      ReleaseCapture();
+      SendMessage(parentCtrl.Handle, WM_SYSCOMMAND, SC_MOVE | 2, 0);
+    }
+    #endregion
+
+    #endregion
+
+    #endregion
+
+    #region 上書き確認メソッド
+    public bool ConfirmationOverwrite(Control targetBasePanel, string lumpingNum)
+    {
       //対象テキストボックスを取得
       Control targetTextBox = targetBasePanel.Controls["RichTextBox_" + lumpingNum];
       //対象タイトルパネルを取得
@@ -282,151 +542,11 @@ namespace WFA
       //[キャンセル]押下
       else if (result == DialogResult.Cancel)
       {
-        return;
+        return false;
       }
 
-      //基底パネル削除メソッド使用
-      CloseBasePanel(targetBasePanel);
+      return true;
     }
-    #endregion
-
-    #region 基底パネルを閉じるメソッド
-    public void CloseBasePanel(Control targetCtrl)
-    {
-      //イベントを発生させたコントロールを閉じる
-      this.Controls.Remove(targetCtrl);
-    }
-    #endregion
-
-
-    #region 親コントロール最前面化メソッド
-    public void CtrlBringToFront(Control eventCtrl)
-    {
-      //括り番号から対象基底パネルのコントロールを取得
-      Control parentCtrl = this.Controls["basePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
-
-      //コントロール最前面
-      parentCtrl.BringToFront();
-    }
-    #endregion
-
-    #region 基底パネルサイズ変更メソッド一覧
-
-    #region マウスカーソル両矢印変更メソッド
-    public void CursorChangeTwiceArrow(Control eventCtrl, int mouseX, int mouseY)
-    {
-      //パネルの枠にマウスカーソルがきたらサイズ変更カーソルにする
-
-      //イベントのXYの値によってフラグを変更
-      int flag = 0;
-      if (mouseX < 10)
-      {
-        flag += 0x0001;
-      }
-      if (eventCtrl.Width - 10 < mouseX)
-      {
-        flag += 0x0002;
-      }
-      if (mouseY < 10)
-      {
-        flag += 0x0003;
-      }
-      if (eventCtrl.Height - 10 < mouseY)
-      {
-        flag += 0x0006;
-      }
-
-      //フラグによってカーソルを変更
-      switch (flag)
-      {
-        case 0:
-          eventCtrl.Cursor = Cursors.Default;
-          break;
-        case 1:
-        case 2:
-          eventCtrl.Cursor = Cursors.SizeWE;
-          break;
-        case 3:
-        case 6:
-          eventCtrl.Cursor = Cursors.SizeNS;
-          break;
-        case 4:
-        case 8:
-          eventCtrl.Cursor = Cursors.SizeNWSE;
-          break;
-        case 5:
-        case 7:
-          eventCtrl.Cursor = Cursors.SizeNESW;
-          break;
-      }
-    }
-    #endregion
-
-    #region 基底パネルサイズ変更メソッド
-    public void BasePanelChangeSize(Control eventCtrl, int mouseX, int mouseY)
-    {
-      //コントロールを最前面へ
-      eventCtrl.BringToFront();
-
-      SetCapture(eventCtrl.Handle);
-      ReleaseCapture();
-
-      int flag = 0;
-      if (mouseX < 10)
-      {
-        flag += 0x0001;
-      }
-      if (eventCtrl.Width - 10 < mouseX)
-      {
-        flag += 0x0002;
-      }
-      if (mouseY < 10)
-      {
-        flag += 0x0003;
-      }
-      if (eventCtrl.Height - 10 < mouseY)
-      {
-        flag += 0x0006;
-      }
-
-      //引数1:対象コントロールのハンドル番号
-      //引数2:
-      //引数3:
-      //引数4:
-      SendMessage(eventCtrl.Handle, WM_SYSCOMMAND, SC_SIZE | flag, 0);
-    }
-    #endregion
-
-    #endregion
-
-    #region 基底パネル移動メソッド一覧
-
-    #region マウスカーソルデフォルト変更メソッド
-    public void CursorChangeDefault(Control eventCtrl)
-    {
-      //カーソルをデフォルトに戻す
-      eventCtrl.Cursor = Cursors.Default;
-    }
-    #endregion
-
-    #region 基底パネル移動メソッド
-    public void MoveBasePanel(Control eventCtrl)
-    {
-      //括り番号から対象基底パネルのコントロールを取得
-      Control parentCtrl = this.Controls["basePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
-
-      //コントロールを最前面へ
-      parentCtrl.BringToFront();
-
-      //親のパネルを動かす
-      SetCapture(parentCtrl.Handle);
-      ReleaseCapture();
-      SendMessage(parentCtrl.Handle, WM_SYSCOMMAND, SC_MOVE | 2, 0);
-    }
-    #endregion
-
-    #endregion
-    
     #endregion
 
 
@@ -508,7 +628,7 @@ namespace WFA
       defaultOpenEncode = ConfigurationManager.AppSettings["DefaultOpenEncode"];
 
 
-      //基底パネル出現位置
+      //デフォルト基底パネル出現位置
       basePanelAppeaX = 0;
       basePanelAppeaY = 0;
       //基底パネルサイズ
@@ -628,8 +748,8 @@ namespace WFA
       RichTextBoxCreate(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(BasePanel_MouseMove);
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(BasePanel_MouseDown);
+      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(form1.CursorChangeTwiceArrow);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.BasePanelChangeSize);
 
       //作成したコントロールを返す
       return ctrlA;
@@ -666,8 +786,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(TitlePanel_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -697,8 +817,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(TitlePanel_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -710,7 +830,7 @@ namespace WFA
       commonAppeaX = 0;
       commonAppeaY = 12;
       commonSizeW = ctrlP.Size.Width;
-      commonSizeH = 10;
+      commonSizeH = 14;
 
       //作成コントロールインスタンス生成
       Label ctrlA = new Label();
@@ -728,8 +848,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(TitlePanel_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -792,6 +912,9 @@ namespace WFA
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
+
+      /*イベントの追加*/
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.MinButton_MouseUp);
     }
     #endregion
 
@@ -824,6 +947,9 @@ namespace WFA
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
+
+      /*イベントの追加*/
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.MaxButton_MouseUp);
     }
     #endregion
 
@@ -858,7 +984,7 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(CloseButton_MouseUp);
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.CloseButton_MouseUp);
     }
     #endregion
 
@@ -868,9 +994,9 @@ namespace WFA
       /*共通設定プロパティ*/
       ctrlName = "RichTextBox_" + ctrlNum;
       commonAppeaX = 3;
-      commonAppeaY = 28;
+      commonAppeaY = 32;
       commonSizeW = ctrlP.Size.Width - 7;
-      commonSizeH = ctrlP.Size.Height - 32;
+      commonSizeH = ctrlP.Size.Height - 35;
 
       //作成コントロールインスタンス生成
       RichTextBox ctrlA = new RichTextBox();
@@ -886,7 +1012,7 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(Ctrl_MouseUp);
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.CtrlBringToFront);
     }
     #endregion
 
@@ -894,66 +1020,6 @@ namespace WFA
 
 
     #region イベント一覧
-
-    #region コントロールクリックイベント
-    private void Ctrl_MouseUp(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス閉じるボタン機能メソッド使用
-      form1.CtrlBringToFront(((Control)sender));
-    }
-    #endregion
-
-    #region ボタンイベント一覧
-
-    #region 閉じるボタン押上イベント
-    private void CloseButton_MouseUp(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス閉じるボタン機能メソッド使用
-      form1.CloseButtonFunc(((Control)sender));
-    }
-    #endregion
-
-    #endregion
-
-    #region パネルサイズ変更イベント一覧
-
-    #region 基底パネルマウスムーヴイベント(マウスカーソルを両矢印に変更する)
-    private void BasePanel_MouseMove(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラスマウスカーソル両矢印変更メソッド使用
-      form1.CursorChangeTwiceArrow((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
-    #region 基底パネルマウスダウンイベント(パネルサイズ変更)
-    private void BasePanel_MouseDown(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス基底パネルサイズ変更メソッド使用
-      form1.BasePanelChangeSize((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
-    #endregion
-
-    #region パネル移動イベント一覧
-
-    #region タイトルパネルマウスダウンイベント(基底パネル移動)
-    private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス基底パネル移動メソッド使用
-      form1.MoveBasePanel((Control)sender);
-    }
-    #endregion
-
-    #region タイトルパネルマウスエンター(マウスカーソルをデフォルトに戻す)
-    private void TitlePanel_MouseEnter(object sender, EventArgs e)
-    {
-      //フォーム1クラスマウスカーソルデフォルト変更メソッド使用
-      form1.CursorChangeDefault((Control)sender);
-    }
-    #endregion
-
-    #endregion
 
     #endregion
   }

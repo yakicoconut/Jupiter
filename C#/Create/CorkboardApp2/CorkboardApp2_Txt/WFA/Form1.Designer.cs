@@ -39,6 +39,7 @@
           this.ClientSize = new System.Drawing.Size(499, 461);
           this.Name = "Form1";
           this.Text = "Form1";
+          this.Load += new System.EventHandler(this.Form1_Load);
           this.Shown += new System.EventHandler(this.Form1_Shown);
           this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
           this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
