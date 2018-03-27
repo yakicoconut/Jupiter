@@ -75,10 +75,10 @@ namespace WFA
   /// <summary>
   /// 基底クラス_コントロール自動作成
   /// </summary>
-  class ACC_BaseClass
+  class ACC_BaseCreateClass
   {
     #region コンストラクタ
-    public ACC_BaseClass()
+    public ACC_BaseCreateClass()
     {
       //プロパティ初期値設定メソッド使用
       PropDefault();
@@ -104,55 +104,93 @@ namespace WFA
 
     #region 宣言
 
-    //出現位置
-    public int pointLocationX { get; set; }
-    public int pointLocationY { get; set; }
+    //名称
+    public string ctrlName { get; set; }
 
-    //二個目以降の出現位置調整
-    public int pointAddX { get; set; }
-    public int pointAddY { get; set; }
 
-    //サイズ
-    public int sizeWidth { get; set; }
-    public int sizeHeight { get; set; }
+    //共通出現位置
+    public int commonAppeaX { get; set; }
+    public int commonAppeaY { get; set; }
+    //共通サイズ
+    public int commonSizeW { get; set; }
+    public int commonSizeH { get; set; }
+
+
+    //基底パネル出現位置
+    public int basePanelAppeaX { get; set; }
+    public int basePanelAppeaY { get; set; }
+    //基底パネル二個目以降の出現位置調整
+    public int basePanelAddX { get; set; }
+    public int basePanelAddY { get; set; }
+    //基底パネルサイズ
+    public int basePanelSizeW { get; set; }
+    public int basePanelSizeH { get; set; }
 
     #endregion
 
     #region プロパティ初期値設定メソッド
     void PropDefault()
     {
-      //出現位置
-      pointLocationX = 0;
-      pointLocationY = 0;
-      //二個目以降の出現位置調整
-      pointAddX = 100 + 1;
-      pointAddY = 0;
-      //サイズ
-      sizeWidth = 100;
-      sizeHeight = 100;
+      //共通出現位置
+      commonAppeaX = 0;
+      commonAppeaY = 0;
+      //共通サイズ
+      commonSizeW = 98;
+      commonSizeH = 98;
+
+
+      //基底パネル出現位置
+      basePanelAppeaX = 0;
+      basePanelAppeaY = 0;
+      //基底パネル二個目以降の出現位置調整
+      basePanelAddX = 100;
+      basePanelAddY = 0;
+      //基底パネルサイズ
+      basePanelSizeW = 100;
+      basePanelSizeH = 100;
     }
     #endregion
 
     #endregion
 
 
-    #region 基底コントロール設定メソッド
+    #region 基底パネル設定メソッド
     /// <summary>
-    /// コントロール設定
+    /// 基底パネル設定メソッド
     /// </summary>
-    /// <param name="ctrl"></param>
-    /// <param name="ctrlName">名称</param>
-    public virtual Control ACC_Setting(Control ctrl)
+    /// <param name="ctrlA"></param>
+    /// <returns></returns>
+    public virtual Control ACC_BasePanelSetting(Control ctrlA)
     {
+      //名称設定
+      ctrlA.Name = ctrlName;
       //サイズと位置を設定する(実際の基準出現位置+出現位置実態)
-      ctrl.Location = new Point(pointLocationX, pointLocationY);
+      ctrlA.Location = new Point(basePanelAppeaX, basePanelAppeaY);
       //位置調整
-      pointLocationX += pointAddX;
-      pointLocationY += pointAddY;
+      basePanelAppeaX += basePanelAddX;
+      basePanelAppeaY += basePanelAddY;
 
-      ctrl.Size = new Size(sizeWidth, sizeHeight);
+      ctrlA.Size = new Size(basePanelSizeW, basePanelSizeH);
 
-      return ctrl;
+      return ctrlA;
+    }
+    #endregion
+
+    #region 汎用コントロール設定メソッド
+    /// <summary>
+    /// 汎用コントロール設定メソッド
+    /// </summary>
+    /// <param name="ctrlA"></param>
+    /// <returns></returns>
+    public virtual Control ACC_CommonCtrlSetting(Control ctrlA)
+    {
+      //名称設定
+      ctrlA.Name = ctrlName;
+      //サイズと位置を設定する(実際の基準出現位置+出現位置実態)
+      ctrlA.Location = new Point(commonAppeaX, commonAppeaY);
+      ctrlA.Size = new Size(commonSizeW, commonSizeH);
+
+      return ctrlA;
     }
     #endregion
   }
@@ -161,7 +199,7 @@ namespace WFA
   /// <summary>
   /// テキストボックス自動生成クラス
   /// </summary>
-  class ACC_CtrlCreateClass : ACC_BaseClass
+  class ACC_CtrlCreateClass : ACC_BaseCreateClass
   {
     #region プロパティ
 
@@ -185,17 +223,15 @@ namespace WFA
     #region 基底パネル作成メソッド
     public Panel BasePanelCreate(string ctrlNum)
     {
-      //事前準備
-      ctrlNum = "BasePanel_" + ctrlNum;
+      //共通設定プロパティ
+      ctrlName = "BasePanel_" + ctrlNum;
 
       //作成コントロールインスタンス生成
       Panel ctrlA = new Panel();
 
       //基底コントロール設定メソッド使用
-      ctrlA = (Panel)ACC_Setting(ctrlA);
+      ctrlA = (Panel)ACC_BasePanelSetting(ctrlA);
 
-      //名称
-      ctrlA.Name = ctrlNum;
       //色
       ctrlA.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
       //アンカー
@@ -210,20 +246,21 @@ namespace WFA
     #region リッチテキストボックス作成メソッド
     public RichTextBox RichTextBoxCreate(string ctrlNum)
     {
-      //事前準備
-      ctrlNum = "RichTextBox_" + ctrlNum;
+      //共通設定プロパティ
+      ctrlName = "RichTextBox_" + ctrlNum;
+      commonAppeaX = 2;
+      commonAppeaY = 2;
+      commonSizeW = basePanelSizeW - 6;
+      commonSizeH = basePanelSizeH - 32;
 
       //作成コントロールインスタンス生成
       RichTextBox ctrlA = new RichTextBox();
 
-      //名称
-      ctrlA.Name = ctrlNum;
-      //サイズと位置を設定する(実際の基準出現位置+出現位置実態)
-      ctrlA.Location = new Point(2, 2);
-      //サイズ
-      ctrlA.Size = new Size(sizeWidth - 6, sizeHeight - 32);
-      //アンカー
-      ctrlA.Anchor = System.Windows.Forms.AnchorStyles.None;
+      //基底コントロール設定メソッド使用
+      ctrlA = (RichTextBox)ACC_CommonCtrlSetting(ctrlA);
+
+      ////アンカー
+      //ctrlA.Anchor = System.Windows.Forms.AnchorStyles.None;
 
       //作成したコントロールを返す
       return ctrlA;
