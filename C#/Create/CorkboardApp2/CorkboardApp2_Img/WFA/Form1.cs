@@ -35,6 +35,9 @@ namespace WFA
 
       // コンフィグ取得メソッド使用
       GetConfig();
+
+      //コントロール自動生成クラスのプロパティに本クラスを設定
+      ctrlCreateClass.form1 = this;
     }
     #endregion
 
@@ -396,15 +399,15 @@ namespace WFA
     #region 宣言
 
     //表示するBitmap  
-    private Bitmap bmp = null;
+    public Bitmap bmp = null;
     //描画用Graphicsオブジェクト  
-    private Graphics g = null;
+    public Graphics g = null;
     //マウスダウンフラグ  
     public bool mouseDownFlg { get; set; }
     //マウスをクリックした位置の保持用  
-    private PointF oldPoint;
+    public PointF oldPoint;
     //アフィン変換行列  
-    private System.Drawing.Drawing2D.Matrix mat;
+    public System.Drawing.Drawing2D.Matrix mat;
 
     #endregion
 
@@ -429,8 +432,7 @@ namespace WFA
       if (mouseDownFlg == true)
       {
         //画像の移動  
-        mat.Translate(mouseX - oldPoint.X, mouseY - oldPoint.Y,
-            System.Drawing.Drawing2D.MatrixOrder.Append);
+        mat.Translate(mouseX - oldPoint.X, mouseY - oldPoint.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
         //画像の描画  
         DrawImage((PictureBox)eventCtrl);
 
@@ -473,8 +475,8 @@ namespace WFA
     }
     #endregion
 
-    #region ビットマップの描画メソッド
-    private void DrawImage(PictureBox eventCtrl)
+    #region ビットマップ描画メソッド
+    public void DrawImage(PictureBox eventCtrl)
     {
       if (bmp == null) return;
 
@@ -944,6 +946,33 @@ namespace WFA
       //アンカー
       ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
       ctrlA.Image = targetImage;
+      /*描画事前処理*/
+      //Graphicsオブジェクトの作成(FromImageを使う) 
+      //Bitmapの確保  
+      if (form1.bmp != null)
+      {
+        form1.bmp.Dispose();
+      }
+      form1.bmp = new Bitmap(targetImage);
+
+      //アフィン変換行列の初期化  
+      if (form1.mat != null)
+      {
+        form1.mat.Dispose();
+      }
+      form1.mat = new System.Drawing.Drawing2D.Matrix();
+
+      form1.g = Graphics.FromImage(targetImage);
+      //アフィン変換行列の設定  
+      if (form1.mat != null)
+      {
+        form1.g.Transform = form1.mat;
+      }
+      //補間モードの設定（このサンプルではNearestNeighborに設定）  
+      form1.g.InterpolationMode
+          = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+      //フォーム1クラスのビットマップ描画メソッド使用
+      form1.DrawImage(ctrlA);
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
