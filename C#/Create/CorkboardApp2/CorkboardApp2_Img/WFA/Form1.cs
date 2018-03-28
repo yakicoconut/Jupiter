@@ -508,7 +508,7 @@ namespace WFA
     public void ImageFormat(Control targetCtrl)
     {
       /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
-      Bitmap targetBmp = dicBmp[targetCtrl.Name];
+      //Bitmap targetBmp = dicBmp[targetCtrl.Name];
       Graphics targetGra = dicGra[targetCtrl.Name];
       System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
 
@@ -520,11 +520,11 @@ namespace WFA
       }
 
       //PictureBoxにImage指定
-      ((PictureBox)targetCtrl).Image = new Bitmap(targetBmp.Width, targetBmp.Height);
+      ((PictureBox)targetCtrl).Image = new Bitmap(ctrlCreateClass.basePanelSizeW - 1, ctrlCreateClass.basePanelSizeH - 1);
 
       //Graphicsオブジェクトの作成(FromImageを使う)  
       targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
-      //アフィン変換行列の設定  
+      //アフィン変換行列の設定
       if (targetMat != null)
       {
         targetGra.Transform = targetMat;
@@ -534,7 +534,7 @@ namespace WFA
       targetGra.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
       /*変更値のコミット*/
-      dicMat[targetCtrl.Name] = targetMat;
+      //dicMat[targetCtrl.Name] = targetMat;
       dicGra[targetCtrl.Name] = targetGra;
     }
     #endregion
@@ -576,6 +576,25 @@ namespace WFA
 
     }
     #endregion
+
+    private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      Graphics targetGra = dicGra["PictureBox_0000"];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat["PictureBox_0000"];
+
+      Control ctrl = this.Controls["BasePanel_0000"].Controls["PictureBox_0000"];
+      //PictureBoxにImage指定
+      ((PictureBox)ctrl).Image = new Bitmap(500, 500);
+
+      //Graphicsオブジェクトの作成(FromImageを使う)  
+      targetGra = Graphics.FromImage(((PictureBox)ctrl).Image);
+
+      /*変更値のコミット*/
+      dicGra["PictureBox_0000"] = targetGra;
+
+      //描画
+      DrawImage(ctrl);
+    }
   }
 
   /// <summary>

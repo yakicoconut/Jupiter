@@ -42,6 +42,7 @@
       this.Shown += new System.EventHandler(this.Form1_Shown);
       this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
       this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+      this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDoubleClick);
       this.ResumeLayout(false);
 
     }
