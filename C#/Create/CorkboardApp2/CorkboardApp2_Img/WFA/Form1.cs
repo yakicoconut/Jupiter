@@ -230,8 +230,10 @@ namespace WFA
 
 
     #region 閉じるボタン機能メソッド
-    public void CloseButtonFunc(Control eventCtrl)
+    public void CloseButtonFunc(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
       //括り番号の取得
       string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
 
@@ -267,8 +269,10 @@ namespace WFA
 
 
     #region 親コントロール最前面化メソッド
-    public void CtrlBringToFront(Control eventCtrl)
+    public void CtrlBringToFront(object sender, EventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
       //括り番号から対象基底パネルのコントロールを取得
       Control parentCtrl = this.Controls["basePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
 
@@ -280,25 +284,29 @@ namespace WFA
     #region 基底パネルサイズ変更メソッド一覧
 
     #region マウスカーソル両矢印変更メソッド
-    public void CursorChangeTwiceArrow(Control eventCtrl, int mouseX, int mouseY)
+
+    #region マウスカーソル両矢印変更メソッド
+    public void CursorChangeTwiceArrow(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
       //パネルの枠にマウスカーソルがきたらサイズ変更カーソルにする
 
       //イベントのXYの値によってフラグを変更
       int flag = 0;
-      if (mouseX < 10)
+      if (e.X < 10)
       {
         flag += 0x0001;
       }
-      if (eventCtrl.Width - 10 < mouseX)
+      if (eventCtrl.Width - 10 < e.X)
       {
         flag += 0x0002;
       }
-      if (mouseY < 10)
+      if (e.Y < 10)
       {
         flag += 0x0003;
       }
-      if (eventCtrl.Height - 10 < mouseY)
+      if (eventCtrl.Height - 10 < e.Y)
       {
         flag += 0x0006;
       }
@@ -330,8 +338,10 @@ namespace WFA
     #endregion
 
     #region 基底パネルサイズ変更メソッド
-    public void BasePanelChangeSize(Control eventCtrl, int mouseX, int mouseY)
+    public void BasePanelChangeSize(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
       //コントロールを最前面へ
       eventCtrl.BringToFront();
 
@@ -339,19 +349,19 @@ namespace WFA
       ReleaseCapture();
 
       int flag = 0;
-      if (mouseX < 10)
+      if (e.X < 10)
       {
         flag += 0x0001;
       }
-      if (eventCtrl.Width - 10 < mouseX)
+      if (eventCtrl.Width - 10 < e.X)
       {
         flag += 0x0002;
       }
-      if (mouseY < 10)
+      if (e.Y < 10)
       {
         flag += 0x0003;
       }
-      if (eventCtrl.Height - 10 < mouseY)
+      if (eventCtrl.Height - 10 < e.Y)
       {
         flag += 0x0006;
       }
@@ -369,16 +379,18 @@ namespace WFA
     #region 基底パネル移動メソッド一覧
 
     #region マウスカーソルデフォルト変更メソッド
-    public void CursorChangeDefault(Control eventCtrl)
+    public void CursorChangeDefault(object sender, EventArgs e)
     {
       //カーソルをデフォルトに戻す
-      eventCtrl.Cursor = Cursors.Default;
+      ((Control)sender).Cursor = Cursors.Default;
     }
     #endregion
 
     #region 基底パネル移動メソッド
-    public void MoveBasePanel(Control eventCtrl)
+    public void MoveBasePanel(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
       //括り番号から対象基底パネルのコントロールを取得
       Control parentCtrl = this.Controls["basePanel_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4)];
 
@@ -398,103 +410,165 @@ namespace WFA
 
     #region 宣言
 
-    //表示するBitmap  
-    public Bitmap bmp = null;
-    //描画用Graphicsオブジェクト  
-    public Graphics g = null;
+    //ビットマップディクショナリインスタンス生成
+    public Dictionary<string, Bitmap> dicBmp = new Dictionary<string, Bitmap>();
+    //アフィン変換行列ディクショナリインスタンス生成
+    public Dictionary<string, System.Drawing.Drawing2D.Matrix> dicMat = new Dictionary<string, System.Drawing.Drawing2D.Matrix>();
+    //描画用Graphicsオブジェクトディクショナリインスタンス生成
+    public Dictionary<string, Graphics> dicGra = new Dictionary<string, Graphics>();
+
     //マウスダウンフラグ  
-    public bool mouseDownFlg { get; set; }
+    public bool mouseDownFlg = false;
     //マウスをクリックした位置の保持用  
-    public PointF oldPoint;
-    //アフィン変換行列  
-    public System.Drawing.Drawing2D.Matrix mat;
+    public PointF OldPoint;
 
     #endregion
 
     #region ピクチャボックスマウスダウンメソッド
-    public void MouseDownPictureBox(Control eventCtrl, int mouseX, int mouseY)
+    public void MouseDownPictureBox(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
+
       //フォーカスの設定  
       //（クリックしただけではMouseWheelイベントが有効にならない）  
-      eventCtrl.Focus();
+      (eventCtrl).Focus();
       //マウスをクリックした位置の記録  
-      oldPoint.X = mouseX;
-      oldPoint.Y = mouseY;
+      OldPoint.X = e.X;
+      OldPoint.Y = e.Y;
       //マウスダウンフラグ  
       mouseDownFlg = true;
     }
     #endregion
 
     #region ピクチャボックスマウスムーブメソッド
-    public void MouseMovePictureBox(Control eventCtrl, int mouseX, int mouseY)
+    public void MouseMovePictureBox(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
+
       //マウスをクリックしながら移動中のとき  
       if (mouseDownFlg == true)
       {
         //画像の移動  
-        mat.Translate(mouseX - oldPoint.X, mouseY - oldPoint.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
+        targetMat.Translate(e.X - OldPoint.X, e.Y - OldPoint.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
+
         //画像の描画  
-        DrawImage((PictureBox)eventCtrl);
+        DrawImage(eventCtrl);
 
         //ポインタ位置の保持  
-        oldPoint.X = mouseX;
-        oldPoint.Y = mouseY;
+        OldPoint.X = e.X;
+        OldPoint.Y = e.Y;
       }
     }
     #endregion
 
     #region マウスホイール動作メソッド
-    public void MouseWheelPictureBox(Control eventCtrl, MouseEventArgs e)
+    public void MouseWheelPictureBox(object sender, MouseEventArgs e)
     {
+      Control eventCtrl = (Control)sender;
+
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
+
       //ポインタの位置→原点へ移動  
-      mat.Translate(-e.X, -e.Y,
-          System.Drawing.Drawing2D.MatrixOrder.Append);
+      targetMat.Translate(-e.X, -e.Y, System.Drawing.Drawing2D.MatrixOrder.Append);
       if (e.Delta > 0)
       {
         //拡大  
-        if (mat.Elements[0] < 100)  //X方向の倍率を代表してチェック  
+        if (targetMat.Elements[0] < 100)  //X方向の倍率を代表してチェック  
         {
-          mat.Scale(1.5f, 1.5f,
+          targetMat.Scale(1.5f, 1.5f,
               System.Drawing.Drawing2D.MatrixOrder.Append);
         }
       }
       else
       {
         //縮小  
-        if (mat.Elements[0] > 0.01)  //X方向の倍率を代表してチェック  
+        if (targetMat.Elements[0] > 0.01)  //X方向の倍率を代表してチェック  
         {
-          mat.Scale(1.0f / 1.5f, 1.0f / 1.5f,
+          targetMat.Scale(1.0f / 1.5f, 1.0f / 1.5f,
               System.Drawing.Drawing2D.MatrixOrder.Append);
         }
       }
       //原点→ポインタの位置へ移動(元の位置へ戻す)  
-      mat.Translate(e.X, e.Y,
+      targetMat.Translate(e.X, e.Y,
           System.Drawing.Drawing2D.MatrixOrder.Append);
+
       //画像の描画  
-      DrawImage((PictureBox)eventCtrl);
+      DrawImage(eventCtrl);
+    }
+    #endregion
+
+    #region イメージフォーマットメソッド
+    public void ImageFormat(Control targetCtrl)
+    {
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Bitmap targetBmp = dicBmp[targetCtrl.Name];
+      Graphics targetGra = dicGra[targetCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
+
+      if (targetGra != null)
+      {
+        targetMat = targetGra.Transform;
+        targetGra.Dispose();
+        targetGra = null;
+      }
+
+      //PictureBoxにImage指定
+      ((PictureBox)targetCtrl).Image = new Bitmap(targetBmp.Width, targetBmp.Height);
+
+      //Graphicsオブジェクトの作成(FromImageを使う)  
+      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
+      //アフィン変換行列の設定  
+      if (targetMat != null)
+      {
+        targetGra.Transform = targetMat;
+      }
+
+      //補間モードの設定（このサンプルではNearestNeighborに設定）  
+      targetGra.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+
+      /*変更値のコミット*/
+      dicMat[targetCtrl.Name] = targetMat;
+      dicGra[targetCtrl.Name] = targetGra;
     }
     #endregion
 
     #region ビットマップ描画メソッド
-    public void DrawImage(PictureBox eventCtrl)
+    public void DrawImage(Control eventCtrl)
     {
-      if (bmp == null) return;
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Bitmap targetBmp = dicBmp[eventCtrl.Name];
+      Graphics targetGra = dicGra[eventCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
 
       //アフィン変換行列の設定  
-      if ((mat != null))
+      if ((targetMat != null))
       {
-        g.Transform = mat;
+        targetGra.Transform = targetMat;
       }
+
       //ピクチャボックスのクリア  
-      g.Clear(eventCtrl.BackColor);
+      targetGra.Clear(eventCtrl.BackColor);
       //描画  
-      g.DrawImage(bmp, 0, 0);
+      targetGra.DrawImage(targetBmp, 0, 0);
       //再描画  
       eventCtrl.Refresh();
+
+      /*変更値のコミット*/
+      dicGra[eventCtrl.Name] = targetGra;
     }
     #endregion
 
     #endregion
+
+    #endregion
+
 
     #region 雛形メソッド
     public void template()
@@ -541,8 +615,6 @@ namespace WFA
     public string ctrlNum { get; set; }
     //タイトル
     public string titleFullPath { get; set; }
-    //対象イメージ
-    public Image targetImage { get; set; }
     //デフォルトエンコード
     public string defaultOpenEncode { get; set; }
 
@@ -658,8 +730,6 @@ namespace WFA
       //共通プロパティに値を設定
       ctrlNum = argCtrlNum;
       titleFullPath = filePath;
-      //テキスト内容を取得
-      targetImage = System.Drawing.Image.FromFile(filePath);
 
       //基底パネル作成メソッド使用
       Panel basePanelA = BasePanelCreate();
@@ -693,8 +763,8 @@ namespace WFA
       PictureBoxCreate(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(BasePanel_MouseMove);
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(BasePanel_MouseDown);
+      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(form1.CursorChangeTwiceArrow);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.BasePanelChangeSize);
 
       //作成したコントロールを返す
       return ctrlA;
@@ -731,8 +801,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(Ctrl_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -762,8 +832,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(Ctrl_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -793,8 +863,8 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(TitlePanel_MouseDown);
-      ctrlA.MouseEnter += new System.EventHandler(Ctrl_MouseEnter);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MoveBasePanel);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -923,7 +993,7 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(CloseButton_MouseUp);
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.CloseButtonFunc);
     }
     #endregion
 
@@ -945,44 +1015,38 @@ namespace WFA
       /*個別設定*/
       //アンカー
       ctrlA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-      ctrlA.Image = targetImage;
-      /*描画事前処理*/
-      //Graphicsオブジェクトの作成(FromImageを使う) 
-      //Bitmapの確保  
-      if (form1.bmp != null)
-      {
-        form1.bmp.Dispose();
-      }
-      form1.bmp = new Bitmap(targetImage);
 
-      //アフィン変換行列の初期化  
-      if (form1.mat != null)
-      {
-        form1.mat.Dispose();
-      }
-      form1.mat = new System.Drawing.Drawing2D.Matrix();
+      //ビットマップ作成
+      Bitmap bmp = new Bitmap(titleFullPath);
+      //ビットマップディクショナリに追加
+      form1.dicBmp.Add(ctrlA.Name, bmp);
 
-      form1.g = Graphics.FromImage(targetImage);
-      //アフィン変換行列の設定  
-      if (form1.mat != null)
-      {
-        form1.g.Transform = form1.mat;
-      }
-      //補間モードの設定（このサンプルではNearestNeighborに設定）  
-      form1.g.InterpolationMode
-          = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-      //フォーム1クラスのビットマップ描画メソッド使用
+      //アフィン変換行列作成
+      System.Drawing.Drawing2D.Matrix mat = new System.Drawing.Drawing2D.Matrix();
+      //アフィン変換行列ディクショナリに追加
+      form1.dicMat.Add(ctrlA.Name, mat);
+
+      //描画用Graphicsオブジェクト作成
+      Graphics gra = null;
+      //アフィン変換行列ディクショナリに追加
+      form1.dicGra.Add(ctrlA.Name, gra);
+
+      //Graphicsオブジェクトの作成メソッド
+      form1.ImageFormat(ctrlA);
+
+      //画像の描画
       form1.DrawImage(ctrlA);
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(PictureBox_MouseDown);
-      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(PictureBox_MouseMove);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.MouseDownPictureBox);
+      ctrlA.MouseDown += new System.Windows.Forms.MouseEventHandler(form1.CtrlBringToFront);
+      ctrlA.MouseMove += new System.Windows.Forms.MouseEventHandler(form1.MouseMovePictureBox);
       ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(PictureBox_MouseUp);
-      ctrlA.MouseWheel += new System.Windows.Forms.MouseEventHandler(PictureBox_MouseWheel);
-      ctrlA.MouseEnter += new System.EventHandler(Ctrl_MouseEnter);
+      ctrlA.MouseWheel += new System.Windows.Forms.MouseEventHandler(form1.MouseWheelPictureBox);
+      ctrlA.MouseEnter += new System.EventHandler(form1.CursorChangeDefault);
     }
     #endregion
 
@@ -991,98 +1055,12 @@ namespace WFA
 
     #region イベント一覧
 
-    #region コントロールクリックイベント
-    private void Ctrl_MouseUp(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス閉じるボタン機能メソッド使用
-      form1.CtrlBringToFront(((Control)sender));
-    }
-    #endregion
-
-    #region コントロールマウスエンター(マウスカーソルをデフォルトに戻す)
-    private void Ctrl_MouseEnter(object sender, EventArgs e)
-    {
-      //フォーム1クラスマウスカーソルデフォルト変更メソッド使用
-      form1.CursorChangeDefault((Control)sender);
-    }
-    #endregion
-
-    #region ボタンイベント一覧
-
-    #region 閉じるボタン押上イベント
-    private void CloseButton_MouseUp(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス閉じるボタン機能メソッド使用
-      form1.CloseButtonFunc(((Control)sender));
-    }
-    #endregion
-
-    #endregion
-
-    #region パネルサイズ変更イベント一覧
-
-    #region 基底パネルマウスムーヴイベント(マウスカーソルを両矢印に変更する)
-    private void BasePanel_MouseMove(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラスマウスカーソル両矢印変更メソッド使用
-      form1.CursorChangeTwiceArrow((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
-    #region 基底パネルマウスダウンイベント(パネルサイズ変更)
-    private void BasePanel_MouseDown(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス基底パネルサイズ変更メソッド使用
-      form1.BasePanelChangeSize((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
-    #endregion
-
-
-    #region タイトルパネルマウスダウンイベント(基底パネル移動)
-    private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラス基底パネル移動メソッド使用
-      form1.MoveBasePanel((Control)sender);
-    }
-    #endregion
-
-
-    #region 画像拡大・移動イベント
-
-    #region ピクチャボックスマウスダウンイベント
-    private void PictureBox_MouseDown(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラスピクチャボックスマウスダウンメソッド使用
-      form1.MouseDownPictureBox((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
-    #region ピクチャボックスマウスムーブイベント
-    private void PictureBox_MouseMove(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラスピクチャボックスマウスムーブメソッド使用
-      form1.MouseMovePictureBox((Control)sender, e.X, e.Y);
-    }
-    #endregion
-
     #region ピクチャボックスマウスアップイベント
     private void PictureBox_MouseUp(object sender, MouseEventArgs e)
     {
       //フォーム1クラスマウスダウンフラグを設定
       form1.mouseDownFlg = false;
     }
-    #endregion
-
-    #region マウスホイールイベント
-    private void PictureBox_MouseWheel(object sender, MouseEventArgs e)
-    {
-      //フォーム1クラスマウスホイール動作メソッド使用
-      form1.MouseWheelPictureBox((Control)sender, e);
-    }
-    #endregion
-
     #endregion
 
     #endregion
