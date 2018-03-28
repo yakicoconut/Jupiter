@@ -90,6 +90,37 @@ namespace WFA
     #endregion
 
 
+    #region コントロール自動生成呼び出しメソッド
+    public void CallACC(string[] args)
+    {
+      //デフォルト基底パネル出現位置のリセット
+      ctrlCreateClass.basePanelAppeaX = 0;
+      ctrlCreateClass.basePanelAppeaY = 0;
+
+      //全ての引数を処理
+      foreach (string x in args)
+      {
+        //ねずみ返し_拡張子が設定したものではないとき次のループへ
+        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
+        {
+          continue;
+        }
+
+        //インクリメントしてコントロール括り番号を作成
+        string LumpingNum = String.Format("{0:0000}", incI_Lumping++);
+
+        //基底パネルの作成
+        Panel panelA = ctrlCreateClass.CtrlCreateMain(LumpingNum, x);
+
+        //作成したパネルをフォームに追加
+        this.Controls.Add(panelA);
+
+        //
+        panelA.BringToFront();
+      }
+    }
+    #endregion
+    
     #region ファイル読み込み関連イベント一覧
 
     #region フォームショウイベント(送るで渡されるファイルを開く)
@@ -204,37 +235,62 @@ namespace WFA
     #endregion
 
 
-    #region コントロール自動生成呼び出しメソッド
-    public void CallACC(string[] args)
+    #region 最大化ボタン押上イベント
+
+    #region 宣言
+
+    //退避用
+    int beforeMaxW;
+    int beforeMaxH;
+    int beforeMaxX;
+    int beforeMaxY;
+
+    #endregion
+
+    public void MaxButton_MouseUp(object sender, MouseEventArgs e)
     {
-      //基底パネル出現位置のリセット
-      ctrlCreateClass.basePanelAppeaX = 0;
-      ctrlCreateClass.basePanelAppeaY = 0;
+      Control eventCtrl = (Control)sender;
+      //括り番号の取得
+      string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      //対象基底パネルのコントロールを取得
+      Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
 
-      //全ての引数を処理
-      foreach (string x in args)
+      //フォーム全体を指定
+      Size sz = this.Size;
+
+      //既に最大化している場合
+      if (targetBasePanel.Location == new Point(0, 0) && targetBasePanel.Width == sz.Width - 16 && targetBasePanel.Height == sz.Height - 37)
       {
-        //ねずみ返し_拡張子が設定したものではないとき次のループへ
-        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
-        {
-          continue;
-        }
+        //サイズと位置を元に戻す
+        targetBasePanel.Width = beforeMaxW;
+        targetBasePanel.Height = beforeMaxH;
+        targetBasePanel.Location = new Point(beforeMaxX, beforeMaxY);
 
-        //インクリメントしてコントロール括り番号を作成
-        string LumpingNum = String.Format("{0:0000}", incI_Lumping++);
-
-        //基底パネルの作成
-        Panel panelA = ctrlCreateClass.CtrlCreateMain(LumpingNum, x);
-
-        //作成したパネルをフォームに追加
-        this.Controls.Add(panelA);
+        return;
       }
+
+      //現在の大きさと位置を退避
+      beforeMaxW = targetBasePanel.Width;
+      beforeMaxH = targetBasePanel.Height;
+      beforeMaxX = targetBasePanel.Location.X;
+      beforeMaxY = targetBasePanel.Location.Y;
+
+      //位置を左上へ
+      targetBasePanel.Location = new Point(0, 0);
+      //サイズの変更
+      targetBasePanel.Width = sz.Width - 16;
+      targetBasePanel.Height = sz.Height - 37;
+
+      //ピクチャボックスリサイズメソッド使用
+      ResizePictureBox(targetBasePanel);
+
+      //コントロールを最前面へ
+      targetBasePanel.BringToFront();
     }
     #endregion
 
-
-    #region 閉じるボタン機能メソッド
-    public void CloseButtonFunc(object sender, MouseEventArgs e)
+    #region 閉じるボタン押上イベント
+    public void CloseButton_MouseUp(object sender, MouseEventArgs e)
     {
       Control eventCtrl = (Control)sender;
 
@@ -243,20 +299,6 @@ namespace WFA
 
       //対象基底パネルのコントロールを取得
       Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
-      //対象テキストボックスを取得
-      Control targetTextBox = targetBasePanel.Controls["RichTextBox_" + lumpingNum];
-      //対象タイトルパネルを取得
-      Control targetTitlePanel = targetBasePanel.Controls["TitlePanel_" + lumpingNum];
-
-      //タイトルパネルから対象タイトルパスラベルを取得
-      Control targetTitlePathLabel = targetTitlePanel.Controls["TitlePathLabel_" + lumpingNum];
-      //タイトルパネルから対象タイトルファイル名ラベルを取得
-      Control targetTitleFileNameLabel = targetTitlePanel.Controls["TitleFileNameLabel_" + lumpingNum];
-
-      //対象タイトルパスラベルからパスを取得
-      string targetFilePath = targetTitlePathLabel.Text;
-      //対象タイトルファイル名ラベルからファイル名を取得
-      string targetFileName = targetTitlePathLabel.Text;
 
       //基底パネル削除メソッド使用
       CloseBasePanel(targetBasePanel);
@@ -282,6 +324,31 @@ namespace WFA
 
       //コントロール最前面
       parentCtrl.BringToFront();
+    }
+    #endregion
+
+    #region ピクチャボックスリサイズメソッド
+    public void ResizePictureBox(Control eventCtrl)
+    {
+      //ピクチャボックス名称取得
+      string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      Control targetCtrl = eventCtrl.Controls["PictureBox_" + lumpingNum];
+
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Graphics targetGra = dicGra[targetCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
+
+      //PictureBoxに新しいピクチャボックスのサイズで設定
+      ((PictureBox)targetCtrl).Image = new Bitmap(targetCtrl.Size.Width, targetCtrl.Size.Height);
+
+      //Graphicsオブジェクトの作成(FromImageを使う)  
+      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
+
+      /*変更値のコミット*/
+      dicGra[targetCtrl.Name] = targetGra;
+
+      //描画
+      DrawImage(targetCtrl);
     }
     #endregion
 
@@ -376,26 +443,8 @@ namespace WFA
       //引数4:
       SendMessage(eventCtrl.Handle, WM_SYSCOMMAND, SC_SIZE | flag, 0);
 
-      /*ピクチャボックスのリサイズ*/
-      //ピクチャボックス名称取得
-      string targetPBName = "PictureBox_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
-      Control targetCtrl = eventCtrl.Controls[targetPBName];
-
-      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
-      Graphics targetGra = dicGra[targetCtrl.Name];
-      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
-
-      //PictureBoxに新しいピクチャボックスのサイズで設定
-      ((PictureBox)targetCtrl).Image = new Bitmap(targetCtrl.Size.Width, targetCtrl.Size.Height);
-
-      //Graphicsオブジェクトの作成(FromImageを使う)  
-      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
-
-      /*変更値のコミット*/
-      dicGra[targetCtrl.Name] = targetGra;
-
-      //描画
-      DrawImage(targetCtrl);
+      //ピクチャボックスリサイズメソッド使用
+      ResizePictureBox(eventCtrl);
     }
     #endregion
 
@@ -976,6 +1025,9 @@ namespace WFA
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
+
+      /*イベントの追加*/
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.MaxButton_MouseUp);
     }
     #endregion
 
@@ -1010,7 +1062,7 @@ namespace WFA
       ctrlP.Controls.Add(ctrlA);
 
       /*イベントの追加*/
-      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.CloseButtonFunc);
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.CloseButton_MouseUp);
     }
     #endregion
 
