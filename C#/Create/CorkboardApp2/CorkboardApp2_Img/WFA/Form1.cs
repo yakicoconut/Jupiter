@@ -207,6 +207,10 @@ namespace WFA
     #region コントロール自動生成呼び出しメソッド
     public void CallACC(string[] args)
     {
+      //基底パネル出現位置のリセット
+      ctrlCreateClass.basePanelAppeaX = 0;
+      ctrlCreateClass.basePanelAppeaY = 0;
+
       //全ての引数を処理
       foreach (string x in args)
       {
@@ -371,6 +375,27 @@ namespace WFA
       //引数3:
       //引数4:
       SendMessage(eventCtrl.Handle, WM_SYSCOMMAND, SC_SIZE | flag, 0);
+
+      /*ピクチャボックスのリサイズ*/
+      //ピクチャボックス名称取得
+      string targetPBName = "PictureBox_" + eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      Control targetCtrl = eventCtrl.Controls[targetPBName];
+
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Graphics targetGra = dicGra[targetCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
+
+      //PictureBoxに新しいピクチャボックスのサイズで設定
+      ((PictureBox)targetCtrl).Image = new Bitmap(targetCtrl.Size.Width, targetCtrl.Size.Height);
+
+      //Graphicsオブジェクトの作成(FromImageを使う)  
+      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
+
+      /*変更値のコミット*/
+      dicGra[targetCtrl.Name] = targetGra;
+
+      //描画
+      DrawImage(targetCtrl);
     }
     #endregion
 
@@ -422,6 +447,59 @@ namespace WFA
     //マウスをクリックした位置の保持用  
     public PointF OldPoint;
 
+    #endregion
+
+    #region イメージフォーマットメソッド
+    public void ImageFormat(Control targetCtrl)
+    {
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Bitmap targetBmp = dicBmp[targetCtrl.Name];
+      Graphics targetGra = dicGra[targetCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
+
+      //PictureBoxにImage指定
+      ((PictureBox)targetCtrl).Image = new Bitmap(targetCtrl.Width, targetCtrl.Height);
+
+      //Graphicsオブジェクトの作成(FromImageを使う)  
+      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
+      //アフィン変換行列の設定
+      if (targetMat != null)
+      {
+        targetGra.Transform = targetMat;
+      }
+
+      //補間モードの設定（このサンプルではNearestNeighborに設定）  
+      targetGra.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+
+      /*変更値のコミット*/
+      dicGra[targetCtrl.Name] = targetGra;
+    }
+    #endregion
+
+    #region ビットマップ描画メソッド
+    public void DrawImage(Control eventCtrl)
+    {
+      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
+      Bitmap targetBmp = dicBmp[eventCtrl.Name];
+      Graphics targetGra = dicGra[eventCtrl.Name];
+      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
+
+      //アフィン変換行列の設定  
+      if ((targetMat != null))
+      {
+        targetGra.Transform = targetMat;
+      }
+
+      //ピクチャボックスのクリア  
+      targetGra.Clear(System.Drawing.SystemColors.ActiveCaption);
+      //描画  
+      targetGra.DrawImage(targetBmp, 0, 0);
+      //再描画  
+      eventCtrl.Refresh();
+
+      /*変更値のコミット*/
+      dicGra[eventCtrl.Name] = targetGra;
+    }
     #endregion
 
     #region ピクチャボックスマウスダウンメソッド
@@ -504,67 +582,6 @@ namespace WFA
     }
     #endregion
 
-    #region イメージフォーマットメソッド
-    public void ImageFormat(Control targetCtrl)
-    {
-      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
-      //Bitmap targetBmp = dicBmp[targetCtrl.Name];
-      Graphics targetGra = dicGra[targetCtrl.Name];
-      System.Drawing.Drawing2D.Matrix targetMat = dicMat[targetCtrl.Name];
-
-      if (targetGra != null)
-      {
-        targetMat = targetGra.Transform;
-        targetGra.Dispose();
-        targetGra = null;
-      }
-
-      //PictureBoxにImage指定
-      ((PictureBox)targetCtrl).Image = new Bitmap(ctrlCreateClass.basePanelSizeW - 1, ctrlCreateClass.basePanelSizeH - 1);
-
-      //Graphicsオブジェクトの作成(FromImageを使う)  
-      targetGra = Graphics.FromImage(((PictureBox)targetCtrl).Image);
-      //アフィン変換行列の設定
-      if (targetMat != null)
-      {
-        targetGra.Transform = targetMat;
-      }
-
-      //補間モードの設定（このサンプルではNearestNeighborに設定）  
-      targetGra.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-
-      /*変更値のコミット*/
-      //dicMat[targetCtrl.Name] = targetMat;
-      dicGra[targetCtrl.Name] = targetGra;
-    }
-    #endregion
-
-    #region ビットマップ描画メソッド
-    public void DrawImage(Control eventCtrl)
-    {
-      /*各ディクショナリからコントロール名をキーに値を取得(値の変更がある場合、別途コミットが必要)*/
-      Bitmap targetBmp = dicBmp[eventCtrl.Name];
-      Graphics targetGra = dicGra[eventCtrl.Name];
-      System.Drawing.Drawing2D.Matrix targetMat = dicMat[eventCtrl.Name];
-
-      //アフィン変換行列の設定  
-      if ((targetMat != null))
-      {
-        targetGra.Transform = targetMat;
-      }
-
-      //ピクチャボックスのクリア  
-      targetGra.Clear(eventCtrl.BackColor);
-      //描画  
-      targetGra.DrawImage(targetBmp, 0, 0);
-      //再描画  
-      eventCtrl.Refresh();
-
-      /*変更値のコミット*/
-      dicGra[eventCtrl.Name] = targetGra;
-    }
-    #endregion
-
     #endregion
 
     #endregion
@@ -576,25 +593,6 @@ namespace WFA
 
     }
     #endregion
-
-    private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
-    {
-      Graphics targetGra = dicGra["PictureBox_0000"];
-      System.Drawing.Drawing2D.Matrix targetMat = dicMat["PictureBox_0000"];
-
-      Control ctrl = this.Controls["BasePanel_0000"].Controls["PictureBox_0000"];
-      //PictureBoxにImage指定
-      ((PictureBox)ctrl).Image = new Bitmap(500, 500);
-
-      //Graphicsオブジェクトの作成(FromImageを使う)  
-      targetGra = Graphics.FromImage(((PictureBox)ctrl).Image);
-
-      /*変更値のコミット*/
-      dicGra["PictureBox_0000"] = targetGra;
-
-      //描画
-      DrawImage(ctrl);
-    }
   }
 
   /// <summary>
