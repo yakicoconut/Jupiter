@@ -36,8 +36,9 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      //コントロール自動生成クラスのプロパティに本クラスを設定
+      //他クラスのプロパティに本クラスを設定
       ctrlCreateClass.form1 = this;
+      form2.form1 = this;
     }
     #endregion
 
@@ -54,6 +55,8 @@ namespace WFA
 
     //コントロール自動作成クラスインスタンス生成
     ACC_CtrlCreateClass ctrlCreateClass = new ACC_CtrlCreateClass();
+    //フォーム2インスタンス生成
+    Form2 form2 = new Form2();
 
     //コントロール括り番号(1~9999までを想定、それ以降は未検証)
     int incI_Lumping = 0;
@@ -115,12 +118,24 @@ namespace WFA
         //作成したパネルをフォームに追加
         this.Controls.Add(panelA);
 
-        //
+        //フォーム2のリストビューに作成したファイル名を追加
+        form2.lvItem = form2.lvCtrl.Items.Add(System.IO.Path.GetFileName(x));
+        //サブアイテムにパネル名を追加
+        form2.lvItem.SubItems.Add(panelA.Name);
+
+        //最前に表示
         panelA.BringToFront();
       }
     }
     #endregion
-    
+
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
     #region ファイル読み込み関連イベント一覧
 
     #region フォームショウイベント(送るで渡されるファイルを開く)
@@ -138,15 +153,17 @@ namespace WFA
       TEST_CtrlCreateMain(3);
 #endif
 
-      //ねずみ返し
-      //引数が渡されなくても本アプリ自身のパスを配列に格納するので総数が1つの場合は終了
-      if (args.Length == 1)
+      //引数が渡されなくても本アプリ自身のパスを配列に格納するので対象は2以上
+      if (args.Length > 1)
       {
-        return;
+        //コントロール自動生成呼び出しメソッド使用
+        CallACC(args);
       }
 
-      //コントロール自動生成呼び出しメソッド使用
-      CallACC(args);
+      //常にメインフォームの手前に表示
+      form2.Owner = this;
+      //フォーム2呼び出し
+      form2.Show();
     }
 
     #endregion
@@ -235,6 +252,20 @@ namespace WFA
     #endregion
 
 
+    #region 最小化ボタン押上イベント
+    public void MinButton_MouseUp(object sender, MouseEventArgs e)
+    {
+      Control eventCtrl = (Control)sender;
+      //括り番号の取得
+      string lumpingNum = eventCtrl.Name.Substring(eventCtrl.Name.Length - 4, 4);
+      //対象基底パネルのコントロールを取得
+      Control targetBasePanel = this.Controls["BasePanel_" + lumpingNum];
+
+      //非表示にする
+      targetBasePanel.Visible = false;
+    }
+    #endregion
+
     #region 最大化ボタン押上イベント
 
     #region 宣言
@@ -310,6 +341,9 @@ namespace WFA
     {
       //イベントを発生させたコントロールを閉じる
       this.Controls.Remove(targetCtrl);
+
+      //管理フォームの該当パネルを削除
+      form2.lvCtrl.FindItemWithText(targetCtrl.Name, true, 0, true).Remove();
     }
     #endregion
 
@@ -911,7 +945,7 @@ namespace WFA
       commonAppeaX = 0;
       commonAppeaY = 12;
       commonSizeW = ctrlP.Size.Width;
-      commonSizeH = 10;
+      commonSizeH = 14;
 
       //作成コントロールインスタンス生成
       Label ctrlA = new Label();
@@ -993,6 +1027,9 @@ namespace WFA
 
       /*親コントロールに紐付ける*/
       ctrlP.Controls.Add(ctrlA);
+
+      /*イベントの追加*/
+      ctrlA.MouseUp += new System.Windows.Forms.MouseEventHandler(form1.MinButton_MouseUp);
     }
     #endregion
 
@@ -1072,9 +1109,9 @@ namespace WFA
       /*共通設定プロパティ*/
       ctrlName = "PictureBox_" + ctrlNum;
       commonAppeaX = 3;
-      commonAppeaY = 28;
+      commonAppeaY = 32;
       commonSizeW = ctrlP.Size.Width - 7;
-      commonSizeH = ctrlP.Size.Height - 32;
+      commonSizeH = ctrlP.Size.Height - 35;
 
       //作成コントロールインスタンス生成
       PictureBox ctrlA = new PictureBox();
