@@ -57,6 +57,7 @@
       this.btCopy006 = new System.Windows.Forms.Button();
       this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
       this.btSaveVal = new System.Windows.Forms.Button();
+      this.btOpenExplorer = new System.Windows.Forms.Button();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -314,14 +315,26 @@
       // btSaveVal
       // 
       this.btSaveVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btSaveVal.Location = new System.Drawing.Point(12, 315);
+      this.btSaveVal.Location = new System.Drawing.Point(84, 317);
       this.btSaveVal.Name = "btSaveVal";
-      this.btSaveVal.Size = new System.Drawing.Size(75, 23);
+      this.btSaveVal.Size = new System.Drawing.Size(51, 23);
       this.btSaveVal.TabIndex = 21;
       this.btSaveVal.TabStop = false;
       this.btSaveVal.Text = "値保存";
       this.btSaveVal.UseVisualStyleBackColor = true;
       this.btSaveVal.Click += new System.EventHandler(this.btSaveVal_Click);
+      // 
+      // btOpenExplorer
+      // 
+      this.btOpenExplorer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btOpenExplorer.Location = new System.Drawing.Point(141, 317);
+      this.btOpenExplorer.Name = "btOpenExplorer";
+      this.btOpenExplorer.Size = new System.Drawing.Size(51, 23);
+      this.btOpenExplorer.TabIndex = 22;
+      this.btOpenExplorer.TabStop = false;
+      this.btOpenExplorer.Text = "開く";
+      this.btOpenExplorer.UseVisualStyleBackColor = true;
+      this.btOpenExplorer.Click += new System.EventHandler(this.btOpenExplorer_Click);
       // 
       // Form1
       // 
@@ -329,6 +342,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(204, 347);
       this.ContextMenuStrip = this.contextMenuStrip1;
+      this.Controls.Add(this.btOpenExplorer);
       this.Controls.Add(this.btSaveVal);
       this.Controls.Add(this.tbCopy010);
       this.Controls.Add(this.btCopy010);
@@ -390,6 +404,7 @@
         private System.Windows.Forms.Button btCopy006;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Button btSaveVal;
+        private System.Windows.Forms.Button btOpenExplorer;
     }
 }
 

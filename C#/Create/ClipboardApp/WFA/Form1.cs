@@ -191,6 +191,13 @@ namespace WFA
     }
     #endregion
 
+    #region 開くボタン押下イベント
+    private void btOpenExplorer_Click(object sender, EventArgs e)
+    {
+      Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+    }
+    #endregion
+
 
     #region コンテキスト不透明度押下イベント
     private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
