@@ -56,6 +56,7 @@
       this.tbCopy006 = new System.Windows.Forms.TextBox();
       this.btCopy006 = new System.Windows.Forms.Button();
       this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+      this.btSaveVal = new System.Windows.Forms.Button();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -310,12 +311,25 @@
       this.notifyIcon1.Visible = true;
       this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
       // 
+      // btSaveVal
+      // 
+      this.btSaveVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btSaveVal.Location = new System.Drawing.Point(12, 315);
+      this.btSaveVal.Name = "btSaveVal";
+      this.btSaveVal.Size = new System.Drawing.Size(75, 23);
+      this.btSaveVal.TabIndex = 21;
+      this.btSaveVal.TabStop = false;
+      this.btSaveVal.Text = "値保存";
+      this.btSaveVal.UseVisualStyleBackColor = true;
+      this.btSaveVal.Click += new System.EventHandler(this.btSaveVal_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(204, 331);
+      this.ClientSize = new System.Drawing.Size(204, 347);
       this.ContextMenuStrip = this.contextMenuStrip1;
+      this.Controls.Add(this.btSaveVal);
       this.Controls.Add(this.tbCopy010);
       this.Controls.Add(this.btCopy010);
       this.Controls.Add(this.tbCopy009);
@@ -375,6 +389,7 @@
         private System.Windows.Forms.TextBox tbCopy006;
         private System.Windows.Forms.Button btCopy006;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Button btSaveVal;
     }
 }
 

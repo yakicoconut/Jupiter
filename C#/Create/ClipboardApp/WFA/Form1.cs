@@ -47,8 +47,15 @@ namespace WFA
       copyTarget010 = ConfigurationManager.AppSettings["CopyTarget010"];
 
       // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
-      normalHeight = 300;
-      normalWidth = 300;
+      normalHeight = int.Parse(ConfigurationManager.AppSettings["DefaultNormalHeight"]);
+      normalWidth = int.Parse(ConfigurationManager.AppSettings["DefaultNormalWidth"]);
+
+      // デフォルト不透明度
+      defaultOpacity = double.Parse(ConfigurationManager.AppSettings["DefaultOpacity"]);
+      // 不透明度増加値
+      opacityUp = double.Parse(ConfigurationManager.AppSettings["OpacityUp"]);
+      // 不透明度減少値
+      opacityDown = double.Parse(ConfigurationManager.AppSettings["OpacityDown"]);
     }
     #endregion
 
@@ -70,6 +77,13 @@ namespace WFA
     // コンパクトモードではないサイズ
     int normalHeight;
     int normalWidth;
+
+    // デフォルト不透明度
+    double defaultOpacity;
+    // 不透明度増加値
+    double opacityUp;
+    // 不透明度減少値
+    double opacityDown;
 
     #endregion
 
@@ -124,10 +138,6 @@ namespace WFA
       // 最小化の場合
       if (this.WindowState == FormWindowState.Minimized)
       {
-        // 現在のサイズを退避
-        normalHeight = this.Size.Height;
-        normalWidth = this.Size.Width;
-
         // 完全に隠す
         this.Hide();
       }
@@ -161,12 +171,32 @@ namespace WFA
     }
     #endregion
 
+    #region 値保存ボタン押下イベント
+    private void btSaveVal_Click(object sender, EventArgs e)
+    {
+      // テキストボックスを全て取得する
+      for (int i = 1; i <= 10; i++)
+      {
+        // 対象のテキストボックス取得
+        TextBox targetCtrl = (TextBox)this.Controls["tbCopy" + i.ToString("000")];
+        // ねずみ返し_テキストに値がない場合
+        if (targetCtrl.Text == string.Empty)
+        {
+          continue;
+        }
+
+        // コピー対象値出力メソッド使用
+        OutputCopyValue(targetCtrl.Text);
+      }
+    }
+    #endregion
+
 
     #region コンテキスト不透明度押下イベント
     private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
     {
       // デフォルトに戻す
-      this.Opacity = 0;
+      this.Opacity = defaultOpacity;
     }
     #endregion
 
@@ -174,7 +204,7 @@ namespace WFA
     private void 上げToolStripMenuItem_Click(object sender, EventArgs e)
     {
       // 不透明度を上げる
-      this.Opacity += 0.2;
+      this.Opacity += opacityUp;
     }
     #endregion
 
@@ -182,7 +212,7 @@ namespace WFA
     private void 下げToolStripMenuItem_Click(object sender, EventArgs e)
     {
       // 不透明度を下げる
-      this.Opacity -= 0.2;
+      this.Opacity -= opacityDown;
     }
     #endregion
 
@@ -191,6 +221,34 @@ namespace WFA
     {
       // フォームの最前面フラグを変更
       this.TopMost = !this.TopMost;
+    }
+    #endregion
+
+    #region コピー対象値出力メソッド
+    /// <summary>
+    /// コピー対象値出力メソッド
+    /// </summary>
+    /// <param name="logText">ログ出力文字列</param>
+    private void OutputCopyValue(string logText)
+    {
+      try
+      {
+        // フォルダを使用する場合
+        string dirPath = "SaveValue";
+        if (!Directory.Exists(dirPath))
+        {
+          Directory.CreateDirectory(dirPath);
+        }
+
+        // コピー対象値を出力
+        DateTime now = DateTime.Now;
+        string fileName = now.ToString("yyyyMMddHHmmss") + "SaveValue.log";
+        File.AppendAllText(Path.Combine(dirPath, fileName), logText + Environment.NewLine, Encoding.UTF8);
+      }
+      catch (Exception e)
+      {
+
+      }
     }
     #endregion
 
