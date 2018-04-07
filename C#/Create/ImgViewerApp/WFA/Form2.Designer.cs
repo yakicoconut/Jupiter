@@ -30,6 +30,8 @@
     {
       this.components = new System.ComponentModel.Container();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.tbFileName = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
       this.cbIsModeZeroPoint = new System.Windows.Forms.CheckBox();
       this.cbIsModeZoom = new System.Windows.Forms.CheckBox();
@@ -38,8 +40,8 @@
       this.不透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.上げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.label2 = new System.Windows.Forms.Label();
-      this.tbFileName = new System.Windows.Forms.TextBox();
+      this.btEjectLeft = new System.Windows.Forms.Button();
+      this.btEjectRight = new System.Windows.Forms.Button();
       this.panel1.SuspendLayout();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -47,6 +49,8 @@
       // panel1
       // 
       this.panel1.BackColor = System.Drawing.Color.White;
+      this.panel1.Controls.Add(this.btEjectRight);
+      this.panel1.Controls.Add(this.btEjectLeft);
       this.panel1.Controls.Add(this.tbFileName);
       this.panel1.Controls.Add(this.label2);
       this.panel1.Controls.Add(this.label1);
@@ -57,6 +61,27 @@
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(149, 285);
       this.panel1.TabIndex = 1;
+      // 
+      // tbFileName
+      // 
+      this.tbFileName.BackColor = System.Drawing.Color.White;
+      this.tbFileName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.tbFileName.ForeColor = System.Drawing.Color.Black;
+      this.tbFileName.Location = new System.Drawing.Point(20, 111);
+      this.tbFileName.Name = "tbFileName";
+      this.tbFileName.ReadOnly = true;
+      this.tbFileName.Size = new System.Drawing.Size(126, 12);
+      this.tbFileName.TabIndex = 5;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.label2.Location = new System.Drawing.Point(3, 96);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(35, 12);
+      this.label2.TabIndex = 4;
+      this.label2.Text = "INFO";
       // 
       // label1
       // 
@@ -131,26 +156,25 @@
       this.下げToolStripMenuItem.Text = "下げ";
       this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
       // 
-      // label2
+      // btEjectLeft
       // 
-      this.label2.AutoSize = true;
-      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label2.Location = new System.Drawing.Point(3, 96);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(35, 12);
-      this.label2.TabIndex = 4;
-      this.label2.Text = "INFO";
+      this.btEjectLeft.Location = new System.Drawing.Point(3, 259);
+      this.btEjectLeft.Name = "btEjectLeft";
+      this.btEjectLeft.Size = new System.Drawing.Size(70, 23);
+      this.btEjectLeft.TabIndex = 6;
+      this.btEjectLeft.Text = "|⇠";
+      this.btEjectLeft.UseVisualStyleBackColor = true;
+      this.btEjectLeft.Click += new System.EventHandler(this.btEjectLeft_Click);
       // 
-      // tbFileName
+      // btEjectRight
       // 
-      this.tbFileName.BackColor = System.Drawing.Color.White;
-      this.tbFileName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.tbFileName.ForeColor = System.Drawing.Color.Black;
-      this.tbFileName.Location = new System.Drawing.Point(20, 111);
-      this.tbFileName.Name = "tbFileName";
-      this.tbFileName.ReadOnly = true;
-      this.tbFileName.Size = new System.Drawing.Size(126, 12);
-      this.tbFileName.TabIndex = 5;
+      this.btEjectRight.Location = new System.Drawing.Point(76, 259);
+      this.btEjectRight.Name = "btEjectRight";
+      this.btEjectRight.Size = new System.Drawing.Size(70, 23);
+      this.btEjectRight.TabIndex = 7;
+      this.btEjectRight.Text = "→|";
+      this.btEjectRight.UseVisualStyleBackColor = true;
+      this.btEjectRight.Click += new System.EventHandler(this.btEjectRight_Click);
       // 
       // Form2
       // 
@@ -188,5 +212,7 @@
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     public System.Windows.Forms.TextBox tbFileName;
+    private System.Windows.Forms.Button btEjectRight;
+    private System.Windows.Forms.Button btEjectLeft;
   }
 }

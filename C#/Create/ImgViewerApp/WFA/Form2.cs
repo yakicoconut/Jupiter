@@ -111,6 +111,22 @@ namespace WFA
     }
     #endregion
 
+    #region 左ページ送りボタン押下イベント
+    private void btEjectLeft_Click(object sender, EventArgs e)
+    {
+      // メイン_左ページ送りメソッド使用
+      form1.PageEjectLeft();
+    }
+    #endregion
+
+    #region 右ページ送りボタン押下イベント
+    private void btEjectRight_Click(object sender, EventArgs e)
+    {
+      // メイン_右ページ送りメソッド使用
+      form1.PageEjectRight();
+    }
+    #endregion
+
 
     #region 【要調査】キーダウンイベント
     private void Form2_KeyDown(object sender, KeyEventArgs e)

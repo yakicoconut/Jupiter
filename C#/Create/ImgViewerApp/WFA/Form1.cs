@@ -339,26 +339,8 @@ namespace WFA
           // ページ送りチェック
           if (form2.cbIsModePageEject.Checked)
           {
-            // 現ページが最後の場合
-            if (currentImageKey == maxImageKey)
-            {
-              // 最初のページへ
-              currentImageKey = 1;
-            }
-            else
-            {
-              // 次のページへ
-              currentImageKey = currentImageKey + 1;
-            }
-
-            // 表示画像取得
-            currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-            // ページ送りに伴い画像を左上に設定
-            currentZeroPoint = new Point(0, 0);
-
-            // 画像初期化メソッド使用
-            ImgInit();
+            // 右ページ送りメソッド使用
+            PageEjectRight();
           }
           else
           {
@@ -376,25 +358,8 @@ namespace WFA
           // コントロールチェックの場合
           if (form2.cbIsModePageEject.Checked)
           {
-            // 現ページが最初の場合
-            if (currentImageKey == 1)
-            {
-              currentImageKey = maxImageKey;
-            }
-            else
-            {
-              // 左のページへ
-              currentImageKey = currentImageKey - 1;
-            }
-
-            // 表示画像取得
-            currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-            // ページ送りに伴い画像を左上に設定
-            currentZeroPoint = new Point(0, 0);
-
-            // 画像初期化メソッド使用
-            ImgInit();
+            // 左ページ送りメソッド使用
+            PageEjectLeft();
           }
           else
           {
@@ -598,6 +563,57 @@ namespace WFA
       drawRectangle.Y = currentZeroPoint.Y;
       //画像を表示する
       pictureBox1.Invalidate();
+    }
+    #endregion
+
+    #region 右ページ送りメソッド
+    public void PageEjectRight()
+    {
+      // 現ページが最後の場合
+      if (currentImageKey == maxImageKey)
+      {
+        // 最初のページへ
+        currentImageKey = 1;
+      }
+      else
+      {
+        // 次のページへ
+        currentImageKey = currentImageKey + 1;
+      }
+
+      // 表示画像取得
+      currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+      // ページ送りに伴い画像を左上に設定
+      currentZeroPoint = new Point(0, 0);
+
+      // 画像初期化メソッド使用
+      ImgInit();
+    }
+    #endregion
+
+    #region 左ページ送りメソッド
+    public void PageEjectLeft()
+    {
+      // 現ページが最初の場合
+      if (currentImageKey == 1)
+      {
+        currentImageKey = maxImageKey;
+      }
+      else
+      {
+        // 左のページへ
+        currentImageKey = currentImageKey - 1;
+      }
+
+      // 表示画像取得
+      currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+      // ページ送りに伴い画像を左上に設定
+      currentZeroPoint = new Point(0, 0);
+
+      // 画像初期化メソッド使用
+      ImgInit();
     }
     #endregion
 
