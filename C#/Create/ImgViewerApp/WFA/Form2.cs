@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 namespace WFA
 {
@@ -75,6 +78,15 @@ namespace WFA
     }
     #endregion
 
+
+    #region コンテキスト_開く
+    private void 開くToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      // アセンブリフォルダ開く
+      Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+    }
+    #endregion
+
     #endregion
 
 
@@ -107,6 +119,43 @@ namespace WFA
       {
         // 拡大/縮小チェックをはずす
         cbIsModeZoom.Checked = false;
+      }
+    }
+    #endregion
+
+
+    #region 設定コントロール値変更共通イベント
+    private void Common_tb_ValueChanged(object sender, EventArgs e)
+    {
+      // イベント発生コントロール取得
+      Control ctrl = (Control)sender;
+      string ctrlName = ctrl.Name;
+
+      // コントロール名称で分岐
+      switch (ctrlName)
+      {
+        case "nudZoomInRatio":
+          // コントロールの内容をプロパティに設定
+          form1.zoomInRatio = double.Parse(ctrl.Text);
+          break;
+        case "nudZoomOutRatio":
+          form1.zoomOutRatio = double.Parse(ctrl.Text);
+          break;
+        case "nudUpDist":
+          form1.upMoveDistance = int.Parse(ctrl.Text);
+          break;
+        case "nudDownDist":
+          form1.downMoveDistance = int.Parse(ctrl.Text);
+          break;
+        case "nudRightDist":
+          form1.rightMoveDistance = int.Parse(ctrl.Text);
+          break;
+        case "nudLeftDist":
+          form1.leftMoveDistance = int.Parse(ctrl.Text);
+          break;
+
+        default:
+          break;
       }
     }
     #endregion

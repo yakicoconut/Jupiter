@@ -79,10 +79,6 @@ namespace WFA
     //フォーム2インスタンス生成
     Form2 form2 = new Form2();
 
-    // 初期位置
-    int defaultLocationX;
-    int defaultLocationY;
-
     // 初期フォームサイズ
     int defaultFormWidth;
     int defaultFormHeight;
@@ -106,15 +102,15 @@ namespace WFA
     // 現在のズーム倍率
     double currentZoomRatio = 1;
     //ズームイン倍率
-    double zoomInRatio;
+    public double zoomInRatio { get; set; }
     //ズームアウト倍率
-    double zoomOutRatio;
+    public double zoomOutRatio { get; set; }
 
     // 各移動距離
-    int upMoveDistance;
-    int downMoveDistance;
-    int rightMoveDistance;
-    int leftMoveDistance;
+    public int upMoveDistance { get; set; }
+    public int downMoveDistance { get; set; }
+    public int rightMoveDistance { get; set; }
+    public int leftMoveDistance { get; set; }
 
     // 拡大/縮小モードキー
     string modeZoomKey;
@@ -164,6 +160,15 @@ namespace WFA
     {
       //常にメインフォームの手前に表示
       form2.Owner = this;
+
+      // テキストボックス設定
+      form2.nudZoomInRatio.Text = zoomInRatio.ToString();
+      form2.nudZoomOutRatio.Text = zoomOutRatio.ToString();
+      form2.nudUpDist.Text = upMoveDistance.ToString();
+      form2.nudDownDist.Text = downMoveDistance.ToString();
+      form2.nudLeftDist.Text = leftMoveDistance.ToString();
+      form2.nudRightDist.Text = rightMoveDistance.ToString();
+
       //フォーム2呼び出し
       form2.Show();
 
