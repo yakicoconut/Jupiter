@@ -28,6 +28,12 @@ namespace WFA
       Text = WFACL.GetAppName();
       #endregion
 
+      // コンフィグ取得メソッド使用
+      GetConfig();
+
+      // コントロール初期設定メソッド使用
+      ControlInitSeting();
+
       // 他クラスのプロパティに本クラスを設定
       form2.form1 = this;
 
@@ -38,15 +44,9 @@ namespace WFA
       {
         // ドラッグ&ドロップされたファイルの一つ目を取得
         string dropItem = Environment.GetCommandLineArgs()[1];
-        //// ファイル読み込みメソッド使用
-        //ReadFile(dropItem);
+        // ファイル読み込みメソッド使用
+        ReadFile(dropItem);
       }
-
-      // コンフィグ取得メソッド使用
-      GetConfig();
-
-      // コントロール初期設定メソッド使用
-      ControlInitSeting();
     }
     #endregion
 
@@ -380,6 +380,7 @@ namespace WFA
       // すでに読み込まれているものがある場合
       if (dicImgPath.Count >= 1)
       {
+        // 初期化
         dicImgPath = new Dictionary<int, string>();
       }
 
