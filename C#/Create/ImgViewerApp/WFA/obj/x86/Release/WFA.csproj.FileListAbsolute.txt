@@ -15,3 +15,4 @@ E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.Properties.Reso
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.exe
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
