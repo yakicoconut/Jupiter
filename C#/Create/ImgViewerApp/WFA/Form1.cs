@@ -261,151 +261,25 @@ namespace WFA
       // 押下キー振り分け
       switch (e.KeyCode)
       {
-        #region ↑
         case Keys.Up:
-          // 拡大/縮小チェック
-          if (form2.cbIsModeZoom.Checked)
-          {
-            // 現在倍率を倍にする
-            currentZoomRatio = currentZoomRatio * zoomInRatio;
-
-            // 現在の(0, 0)の位置を拡大後も引き継ぐ
-            currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomInRatio), (int)(currentZeroPoint.Y * zoomInRatio));
-
-            // 0ポイントチェック
-            if (form2.cbIsModeZeroPoint.Checked)
-            {
-              // ページ送りに伴い画像を左上に設定
-              currentZeroPoint = new Point(0, 0);
-            }
-
-            // 画像ズームメソッド使用
-            ImgZoom();
-          }
-          else
-          {
-            // 上に移動
-            currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y + upMoveDistance);
-
-            // 移動メソッド使用
-            ImgMove();
-          }
+          // 上操作メソッド使用
+          UpOperation();
           break;
-        #endregion
 
-        #region ↓
         case Keys.Down:
-          // 拡大/縮小チェック
-          if (form2.cbIsModeZoom.Checked)
-          {
-            // 現在倍率にズームアウト倍率を掛ける
-            currentZoomRatio = currentZoomRatio * zoomOutRatio;
-
-            // チェックの場合
-            if (form2.cbIsModeZeroPoint.Checked)
-            {
-              // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
-              currentZeroPoint = new Point(0, 0);
-            }
-            else
-            {
-              // 現在の(0, 0)の位置を縮小後も引き継ぐ
-              currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomOutRatio), (int)(currentZeroPoint.Y * zoomOutRatio));
-            }
-
-            // 0ポイントチェック
-            if (form2.cbIsModeZeroPoint.Checked)
-            {
-              // ページ送りに伴い画像を左上に設定
-              currentZeroPoint = new Point(0, 0);
-            }
-
-            // 画像ズームメソッド使用
-            ImgZoom();
-          }
-          else
-          {
-            // 下に移動
-            currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y - downMoveDistance);
-
-            // 移動メソッド使用
-            ImgMove();
-          }
+          // 下操作メソッド使用
+          DownOperation();
           break;
-        #endregion
 
-        #region →
         case Keys.Right:
-          // ページ送りチェック
-          if (form2.cbIsModePageEject.Checked)
-          {
-            // 現ページが最後の場合
-            if (currentImageKey == maxImageKey)
-            {
-              // 最初のページへ
-              currentImageKey = 1;
-            }
-            else
-            {
-              // 次のページへ
-              currentImageKey = currentImageKey + 1;
-            }
-
-            // 表示画像取得
-            currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-            // ページ送りに伴い画像を左上に設定
-            currentZeroPoint = new Point(0, 0);
-
-            // 画像初期化メソッド使用
-            ImgInit();
-          }
-          else
-          {
-            // 右に移動
-            currentZeroPoint = new Point(currentZeroPoint.X - rightMoveDistance, currentZeroPoint.Y + 0);
-
-            // 移動メソッド使用
-            ImgMove();
-          }
+          // 右操作メソッド使用
+          RightOperation();
           break;
-        #endregion
 
-        #region ←
         case Keys.Left:
-          // コントロールチェックの場合
-          if (form2.cbIsModePageEject.Checked)
-          {
-            // 現ページが最初の場合
-            if (currentImageKey == 1)
-            {
-              currentImageKey = maxImageKey;
-            }
-            else
-            {
-              // 左のページへ
-              currentImageKey = currentImageKey - 1;
-            }
-
-            // 表示画像取得
-            currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-            // ページ送りに伴い画像を左上に設定
-            currentZeroPoint = new Point(0, 0);
-
-            // 画像初期化メソッド使用
-            ImgInit();
-          }
-          else
-          {
-            // 左に移動
-            currentZeroPoint = new Point(currentZeroPoint.X + leftMoveDistance, currentZeroPoint.Y + 0);
-
-            // 移動メソッド使用
-            ImgMove();
-          }
+          // 左操作メソッド使用
+          LeftOperation();
           break;
-        #endregion
 
         default:
           break;
@@ -598,6 +472,157 @@ namespace WFA
       drawRectangle.Y = currentZeroPoint.Y;
       //画像を表示する
       pictureBox1.Invalidate();
+    }
+    #endregion
+    
+
+    #region 上操作メソッド
+    public void UpOperation()
+    {
+      // 拡大/縮小チェック
+      if (form2.cbIsModeZoom.Checked)
+      {
+        // 現在倍率を倍にする
+        currentZoomRatio = currentZoomRatio * zoomInRatio;
+
+        // 現在の(0, 0)の位置を拡大後も引き継ぐ
+        currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomInRatio), (int)(currentZeroPoint.Y * zoomInRatio));
+
+        // 0ポイントチェック
+        if (form2.cbIsModeZeroPoint.Checked)
+        {
+          // ページ送りに伴い画像を左上に設定
+          currentZeroPoint = new Point(0, 0);
+        }
+
+        // 画像ズームメソッド使用
+        ImgZoom();
+      }
+      else
+      {
+        // 上に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y + upMoveDistance);
+
+        // 移動メソッド使用
+        ImgMove();
+      }
+    }
+    #endregion
+
+    #region 下操作メソッド
+    public void DownOperation()
+    {
+      // 拡大/縮小チェック
+      if (form2.cbIsModeZoom.Checked)
+      {
+        // 現在倍率にズームアウト倍率を掛ける
+        currentZoomRatio = currentZoomRatio * zoomOutRatio;
+
+        // チェックの場合
+        if (form2.cbIsModeZeroPoint.Checked)
+        {
+          // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
+          currentZeroPoint = new Point(0, 0);
+        }
+        else
+        {
+          // 現在の(0, 0)の位置を縮小後も引き継ぐ
+          currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomOutRatio), (int)(currentZeroPoint.Y * zoomOutRatio));
+        }
+
+        // 0ポイントチェック
+        if (form2.cbIsModeZeroPoint.Checked)
+        {
+          // ページ送りに伴い画像を左上に設定
+          currentZeroPoint = new Point(0, 0);
+        }
+
+        // 画像ズームメソッド使用
+        ImgZoom();
+      }
+      else
+      {
+        // 下に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y - downMoveDistance);
+
+        // 移動メソッド使用
+        ImgMove();
+      }
+    }
+    #endregion
+
+    #region 右操作メソッド
+    public void RightOperation()
+    {
+      // ページ送りチェック
+      if (form2.cbIsModePageEject.Checked)
+      {
+        // 現ページが最後の場合
+        if (currentImageKey == maxImageKey)
+        {
+          // 最初のページへ
+          currentImageKey = 1;
+        }
+        else
+        {
+          // 次のページへ
+          currentImageKey = currentImageKey + 1;
+        }
+
+        // 表示画像取得
+        currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+        // ページ送りに伴い画像を左上に設定
+        currentZeroPoint = new Point(0, 0);
+
+        // 画像初期化メソッド使用
+        ImgInit();
+      }
+      else
+      {
+        // 右に移動
+        currentZeroPoint = new Point(currentZeroPoint.X - rightMoveDistance, currentZeroPoint.Y + 0);
+
+        // 移動メソッド使用
+        ImgMove();
+      }
+    }
+    #endregion
+
+    #region 左操作メソッド
+    public void LeftOperation()
+    {
+      // コントロールチェックの場合
+      if (form2.cbIsModePageEject.Checked)
+      {
+        // 現ページが最初の場合
+        if (currentImageKey == 1)
+        {
+          currentImageKey = maxImageKey;
+        }
+        else
+        {
+          // 左のページへ
+          currentImageKey = currentImageKey - 1;
+        }
+
+        // 表示画像取得
+        currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+        // ページ送りに伴い画像を左上に設定
+        currentZeroPoint = new Point(0, 0);
+
+        // 画像初期化メソッド使用
+        ImgInit();
+      }
+      else
+      {
+        // 左に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + leftMoveDistance, currentZeroPoint.Y + 0);
+
+        // 移動メソッド使用
+        ImgMove();
+      }
     }
     #endregion
 

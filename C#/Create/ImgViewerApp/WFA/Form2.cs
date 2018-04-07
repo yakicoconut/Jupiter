@@ -112,6 +112,39 @@ namespace WFA
     #endregion
 
 
+    #region 上ボタン押下イベント
+    private void btUp_Click(object sender, EventArgs e)
+    {
+      // 上操作メソッド
+      form1.UpOperation();
+    }
+    #endregion
+
+    #region 下ボタン押下イベント
+    private void byDown_Click(object sender, EventArgs e)
+    {
+      // 下操作メソッド
+      form1.DownOperation();
+    }
+    #endregion
+
+    #region 右ボタン押下イベント
+    private void btRight_Click(object sender, EventArgs e)
+    {
+      // 右操作メソッド
+      form1.RightOperation();
+    }
+    #endregion
+
+    #region 左ボタン押下イベント
+    private void btLeft_Click(object sender, EventArgs e)
+    {
+      // 左操作メソッド
+      form1.LeftOperation();
+    }
+    #endregion
+
+
     #region 【要調査】キーダウンイベント
     private void Form2_KeyDown(object sender, KeyEventArgs e)
     {
