@@ -1,0 +1,38 @@
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\bin\Debug\WFA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\bin\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\bin\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\obj\x86\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template_\WFA\obj\x86\Debug\WFA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template\WFA\bin\Debug\WFA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\bin\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\bin\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WFA_template - コピー\WFA\obj\x86\Debug\WFA.FrmOption.resources
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\bin\Debug\WFA.exe
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.FrmOption.resources
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\LogicTemp\OptionForm\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\LogicTemp\Form\OptionForm\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\LogicTemp\Form\OptionForm\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\LogicTemp\Form\OptionForm\WFA\obj\x86\Debug\WFA.pdb
