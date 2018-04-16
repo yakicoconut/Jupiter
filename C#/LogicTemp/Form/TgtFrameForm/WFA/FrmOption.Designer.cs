@@ -100,7 +100,7 @@
       // lbVerticalDist
       // 
       this.lbVerticalDist.AutoSize = true;
-      this.lbVerticalDist.Location = new System.Drawing.Point(30, 68);
+      this.lbVerticalDist.Location = new System.Drawing.Point(63, 66);
       this.lbVerticalDist.Name = "lbVerticalDist";
       this.lbVerticalDist.Size = new System.Drawing.Size(35, 12);
       this.lbVerticalDist.TabIndex = 3;
@@ -109,7 +109,7 @@
       // lbHorizonDist
       // 
       this.lbHorizonDist.AutoSize = true;
-      this.lbHorizonDist.Location = new System.Drawing.Point(60, 56);
+      this.lbHorizonDist.Location = new System.Drawing.Point(33, 56);
       this.lbHorizonDist.Name = "lbHorizonDist";
       this.lbHorizonDist.Size = new System.Drawing.Size(35, 12);
       this.lbHorizonDist.TabIndex = 2;

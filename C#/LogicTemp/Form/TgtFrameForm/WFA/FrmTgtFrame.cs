@@ -230,6 +230,15 @@ namespace WFA
     #region コンテキスト_上げ押下イベント
     private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
+      // 不透明度が0.8以上なら
+      if (this.Opacity >= 0.8)
+      {
+        // ※Graphicsで黒塗りつぶしをしていると
+        //   不透明度を100%から下げたあとにとなぜか色が元に戻ってしまうため最大99%とする
+        this.Opacity = 0.99;
+        return;
+      }
+
       // 不透明度を上げる
       this.Opacity += 0.2;
     }
