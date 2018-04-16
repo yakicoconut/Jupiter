@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace WFA
 {
   /// <summary>
-  /// 
+  /// 対象画面範囲取得フォーム
   /// </summary>
   public partial class FrmTgtFrame : Form
   {
@@ -44,16 +44,18 @@ namespace WFA
     #region フォームロードイベント
     private void FrmTgtFrame_Load(object sender, EventArgs e)
     {
-      // フォームの大きさを最大に固定
-      this.WindowState = FormWindowState.Maximized;
       // フォーム不透明度設定
       this.Opacity = 0.6;
-      // タイトルバー非表示
-      this.FormBorderStyle = FormBorderStyle.None;
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
+
+      // タスクバーを覆って表示
+      this.WindowState = FormWindowState.Normal;
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      this.Bounds = Screen.PrimaryScreen.Bounds;
 
       leftTopX = 2;
       leftTopY = 2;
-
       rightBottomX = 10;
       rightBottomY = 10;
     }
@@ -79,25 +81,9 @@ namespace WFA
     #region 座標取得メソッド
     private void GetPosition()
     {
-      #region 【要調査】
-
-      /*
-       * 微妙に左上にズレる
-       */
-      //// クリック位置の座標取得
-      //int x = Cursor.Position.X;
-      //int y = Cursor.Position.Y;
-
-      #endregion
-
-      // フォーム上の座標でマウスポインタの位置を取得する
-      Point sp = Cursor.Position;
-      // 画面座標をクライアント座標に変換する
-      Point cp = this.PointToClient(sp);
-
-      //// クリック位置の座標取得
-      int x = cp.X;
-      int y = cp.Y;
+      // クリック位置の座標取得
+      int x = Cursor.Position.X;
+      int y = Cursor.Position.Y;
 
       // 背景が黒の場合
       if (this.BackColor == Color.Black)
