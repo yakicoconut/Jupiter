@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace WFA
 {
@@ -23,8 +24,8 @@ namespace WFA
 
     #region 宣言
 
-    ////調整フォーム宣言
-    //Form3 DrawRegulationFormClass;
+    // 調整フォーム宣言
+    FrmOption fmOption = new FrmOption();
 
     // 不透明度退避
     double evacuateOpacity;
@@ -32,11 +33,32 @@ namespace WFA
     // 親フォーム
     public Form1 form1 { get; set; }
 
-    // 開始/終了座標
-    int leftTopX { get; set; }
-    int leftTopY { get; set; }
-    int rightBottomX { get; set; }
-    int rightBottomY { get; set; }
+    // テストポイントモードフラグ
+    bool isTestPointMode;
+
+    #endregion
+
+    #region プロパティ
+
+    /// <summary>
+    /// 始点X座標
+    /// </summary>
+    public int LeftTopX { get; set; }
+
+    /// <summary>
+    /// 始点Y座標
+    /// </summary>
+    public int LeftTopY { get; set; }
+
+    /// <summary>
+    /// 終点X座標
+    /// </summary>
+    public int RightBottomX { get; set; }
+
+    /// <summary>
+    /// 終点Y座標
+    /// </summary>
+    public int RightBottomY { get; set; }
 
     #endregion
 
@@ -44,6 +66,13 @@ namespace WFA
     #region フォームロードイベント
     private void FrmTgtFrame_Load(object sender, EventArgs e)
     {
+      // オプションフォームのプロパティに本クラスを設定
+      fmOption.frmTgtFrame = this;
+      // 常にメインフォームの手前に表示
+      fmOption.Owner = this;
+      // フォーム2呼び出し
+      fmOption.Show();
+
       // フォーム不透明度設定
       this.Opacity = 0.6;
       // タスクバーにアイコンを表示しない
@@ -54,10 +83,18 @@ namespace WFA
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Bounds = Screen.PrimaryScreen.Bounds;
 
-      leftTopX = 2;
-      leftTopY = 2;
-      rightBottomX = 10;
-      rightBottomY = 10;
+      LeftTopX = 2;
+      LeftTopY = 2;
+      RightBottomX = 10;
+      RightBottomY = 10;
+
+      // ラジオボタンに座標を表示
+      fmOption.rbLeftTop.Text = LeftTopX.ToString() + "×" + LeftTopY.ToString();
+      fmOption.rbRightBottom.Text = RightBottomX.ToString() + "×" + RightBottomY.ToString();
+      // 水平距離
+      fmOption.lbHorizonDist.Text = Math.Abs(RightBottomX - LeftTopX).ToString();
+      // 垂直距離
+      fmOption.lbVerticalDist.Text = Math.Abs(RightBottomY - LeftTopY).ToString();
     }
     #endregion
 
@@ -85,40 +122,47 @@ namespace WFA
       int x = Cursor.Position.X;
       int y = Cursor.Position.Y;
 
-      // 背景が黒の場合
-      if (this.BackColor == Color.Black)
+      // テストポイントモードの場合
+      if (isTestPointMode)
       {
         // ポイントテスト描画メソッド使用
         DrawPointTest(x, y);
+
+        // テストポイント座標を表示
+        fmOption.lbTestPoint.Text = x.ToString() + "×" + y.ToString();
 
         return;
       }
 
       // ラジオボタンで始点か終点を判断
-      if (rbLeftTop.Checked)
+      if (fmOption.rbLeftTop.Checked)
       {
         // プロパティ設定
-        leftTopX = x;
-        leftTopY = y;
+        LeftTopX = x;
+        LeftTopY = y;
 
         // ラジオボタンに始点座標を表示
-        rbLeftTop.Text = x.ToString() + "×" + y.ToString();
+        fmOption.rbLeftTop.Text = x.ToString() + "×" + y.ToString();
 
         // 右下ラジオボタンにチェック
-        rbRightBottom.Checked = true;
+        fmOption.rbRightBottom.Checked = true;
       }
-      else if (rbRightBottom.Checked)
+      else if (fmOption.rbRightBottom.Checked)
       {
-        rightBottomX = x;
-        rightBottomY = y;
+        RightBottomX = x;
+        RightBottomY = y;
 
-        rbRightBottom.Text = x.ToString() + "×" + y.ToString();
+        fmOption.rbRightBottom.Text = x.ToString() + "×" + y.ToString();
 
-        rbLeftTop.Checked = true;
+        fmOption.rbLeftTop.Checked = true;
 
+        // 終点のみの処理
         // 対象正方形描画メソッド使用
-        // 描画処理は終点のみで行う
         DrawSquare();
+        // 水平距離
+        fmOption.lbHorizonDist.Text = Math.Abs(RightBottomX - LeftTopX).ToString();
+        // 垂直距離
+        fmOption.lbVerticalDist.Text = Math.Abs(RightBottomY - LeftTopY).ToString();
       }
 
       return;
@@ -154,23 +198,22 @@ namespace WFA
       {
         // 色を初期化
         g.Clear(SystemColors.Control);
+
         // 直線型のインスタンス生成
         Pen frontCoverPen = new Pen(Color.Green, 1);
 
         // 表紙lineの始点と終点を設定
-        Point leftTop = new Point(leftTopX, leftTopY);
-        Point rightButtom = new Point(rightBottomX, rightBottomY);
+        Point leftTop = new Point(LeftTopX, LeftTopY);
+        Point rightButtom = new Point(RightBottomX, RightBottomY);
         // 右上と左下は始点と終点の値をそのまま使用できる
-        Point rightTop = new Point(rightBottomX, leftTopY);
-        Point leftButtom = new Point(leftTopX, rightBottomY);
+        Point rightTop = new Point(RightBottomX, LeftTopY);
+        Point leftButtom = new Point(LeftTopX, RightBottomY);
 
-        // 表紙lineを描画
+        // 正方形描画
         g.DrawLine(frontCoverPen, leftTop, rightTop);
         g.DrawLine(frontCoverPen, leftTop, leftButtom);
         g.DrawLine(frontCoverPen, rightButtom, rightTop);
         g.DrawLine(frontCoverPen, rightButtom, leftButtom);
-
-        return;
       }
     }
     #endregion
@@ -204,23 +247,39 @@ namespace WFA
     private void ToolStripMenuItemPointTest_Click(object sender, EventArgs e)
     {
       // 標準色の場合
-      if (this.BackColor == SystemColors.Control)
-      {
-        // 色を黒にする
-        this.BackColor = Color.Black;
-
-        // 不透明度退避
-        evacuateOpacity = this.Opacity;
-        // 不透明度を最大に上げる
-        this.Opacity = 0.8;
-      }
-      else if (this.BackColor == Color.Black)
+      if (isTestPointMode)
       {
         // 色を元に戻す
-        this.BackColor = SystemColors.Control;
+        using (Graphics g = this.CreateGraphics())
+        {
+          g.Clear(SystemColors.Control);
+        }
+
+        // テストポイント座標を初期化
+        fmOption.lbTestPoint.Text = "";
 
         // 不透明度を戻す
         this.Opacity = evacuateOpacity;
+
+        // 対象正方形描画メソッド使用
+        DrawSquare();
+
+        isTestPointMode = false;
+      }
+      else
+      {
+        // 色を黒にする
+        using (Graphics g = this.CreateGraphics())
+        {
+          g.Clear(Color.Black);
+        }
+
+        // 不透明度退避
+        evacuateOpacity = this.Opacity;
+        // 不透明度を設定
+        this.Opacity = 0.8;
+
+        isTestPointMode = true;
       }
     }
     #endregion
