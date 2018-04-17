@@ -38,6 +38,34 @@ namespace WFA
     }
     #endregion
 
+    #region ↑ボタン押下イベント
+    private void btUp_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region ↓ボタン押下イベント
+    private void btDown_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region ←ボタン押下イベント
+    private void btLeft_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region →ボタン押下イベント
+    private void btRight_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
 
     #region コンテキスト_不透明度押下イベント
     private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
