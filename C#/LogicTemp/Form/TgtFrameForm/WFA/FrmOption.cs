@@ -41,28 +41,108 @@ namespace WFA
     #region ↑ボタン押下イベント
     private void btUp_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_テストポイントモードの場合
+      if (frmTgtFrame.isTestPointMode)
+      {
+        return;
+      }
 
+      // 移動にチェックの場合
+      if (cbIsMove.Checked)
+      {
+        // 上へ移動
+        frmTgtFrame.LeftTopY -= (int)nudMoveDist.Value;
+        frmTgtFrame.RightBottomY -= (int)nudMoveDist.Value;
+      }
+      else
+      {
+        // 底辺を上へ縮小
+        frmTgtFrame.RightBottomY -= (int)nudMoveDist.Value;
+      }
+
+      // 対象正方形描画メソッド使用
+      frmTgtFrame.DrawSquare();
     }
     #endregion
 
     #region ↓ボタン押下イベント
     private void btDown_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_テストポイントモードの場合
+      if (frmTgtFrame.isTestPointMode)
+      {
+        return;
+      }
 
+      // 移動にチェックの場合
+      if (cbIsMove.Checked)
+      {
+        // 下へ移動
+        frmTgtFrame.LeftTopY += (int)nudMoveDist.Value;
+        frmTgtFrame.RightBottomY += (int)nudMoveDist.Value;
+      }
+      else
+      {
+        // 底辺を下へ拡大
+        frmTgtFrame.RightBottomY += (int)nudMoveDist.Value;
+      }
+
+      // 対象正方形描画メソッド使用
+      frmTgtFrame.DrawSquare();
     }
     #endregion
 
     #region ←ボタン押下イベント
     private void btLeft_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_テストポイントモードの場合
+      if (frmTgtFrame.isTestPointMode)
+      {
+        return;
+      }
 
+      // 移動にチェックの場合
+      if (cbIsMove.Checked)
+      {
+        // 左へ移動
+        frmTgtFrame.LeftTopX -= (int)nudMoveDist.Value;
+        frmTgtFrame.RightBottomX -= (int)nudMoveDist.Value;
+      }
+      else
+      {
+        // 右辺を左へ縮小
+        frmTgtFrame.RightBottomX -= (int)nudMoveDist.Value;
+      }
+
+      // 対象正方形描画メソッド使用
+      frmTgtFrame.DrawSquare();
     }
     #endregion
 
     #region →ボタン押下イベント
     private void btRight_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_テストポイントモードの場合
+      if (frmTgtFrame.isTestPointMode)
+      {
+        return;
+      }
 
+      // 移動にチェックの場合
+      if (cbIsMove.Checked)
+      {
+        // 右へ移動
+        frmTgtFrame.LeftTopX += (int)nudMoveDist.Value;
+        frmTgtFrame.RightBottomX += (int)nudMoveDist.Value;
+      }
+      else
+      {
+        // 右辺を右へ拡大
+        frmTgtFrame.RightBottomX += (int)nudMoveDist.Value;
+      }
+
+      // 対象正方形描画メソッド使用
+      frmTgtFrame.DrawSquare();
     }
     #endregion
 

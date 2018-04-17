@@ -33,9 +33,6 @@ namespace WFA
     // 親フォーム
     public Form1 form1 { get; set; }
 
-    // テストポイントモードフラグ
-    bool isTestPointMode;
-
     #endregion
 
     #region プロパティ
@@ -59,6 +56,11 @@ namespace WFA
     /// 終点Y座標
     /// </summary>
     public int RightBottomY { get; set; }
+
+    /// <summary>
+    /// テストポイントモードフラグ
+    /// </summary>
+    public bool isTestPointMode { get; set; }
 
     #endregion
 
@@ -116,6 +118,9 @@ namespace WFA
 
 
     #region 座標取得メソッド
+    /// <summary>
+    /// 座標取得メソッド
+    /// </summary>
     private void GetPosition()
     {
       // クリック位置の座標取得
@@ -170,6 +175,11 @@ namespace WFA
     #endregion
 
     #region ポイントテスト描画メソッド
+    /// <summary>
+    /// ポイントテスト描画メソッド
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     private void DrawPointTest(int x, int y)
     {
       // 対象点作成
@@ -191,7 +201,10 @@ namespace WFA
     #endregion
 
     #region 対象正方形描画メソッド
-    private void DrawSquare()
+    /// <summary>
+    /// 対象正方形描画メソッド
+    /// </summary>
+    public void DrawSquare()
     {
       // Graphicsオブジェクトの作成
       using (Graphics g = this.CreateGraphics())
