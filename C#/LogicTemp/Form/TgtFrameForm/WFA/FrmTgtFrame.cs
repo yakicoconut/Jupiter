@@ -26,6 +26,8 @@ namespace WFA
 
     // 調整フォーム宣言
     FrmOption fmOption = new FrmOption();
+    // プレビュフォーム宣言
+    FrmPreview fmPreview = new FrmPreview();
 
     // 不透明度退避
     double evacuateOpacity;
@@ -74,6 +76,15 @@ namespace WFA
       fmOption.Owner = this;
       // フォーム2呼び出し
       fmOption.Show();
+
+      // プレビュフォームのプロパティに本クラスを設定
+      fmPreview.frmTgtFrame = this;
+      // 常にメインフォームの手前に表示
+      fmPreview.Owner = this;
+      // プレビュフォーム呼び出し
+      fmPreview.Show();
+      // プレビュフォームは明示的に呼び出されるまで非表示
+      fmPreview.Visible = false;
 
       // フォーム不透明度設定
       this.Opacity = 0.6;
@@ -231,6 +242,29 @@ namespace WFA
     }
     #endregion
 
+    #region スクリーンキャプチャメソッド
+    /// <summary>
+    /// スクリーンキャプチャメソッド
+    /// </summary>
+    public Bitmap CapScreen(Point top, Point bottom)
+    {
+      // 対象ポイントからサイズを取得
+      int width = bottom.X - top.X;
+      int height = bottom.Y - top.Y;
+
+      // ビットマップ作成
+      Bitmap bmp = new Bitmap(width, height);
+
+      // Graphicsオブジェクトの作成
+      using (Graphics g = Graphics.FromImage(bmp))
+      {
+        g.CopyFromScreen(top, new Point(0, 0), bmp.Size);
+      }
+      
+      return bmp;
+    }
+    #endregion
+
 
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
@@ -262,6 +296,17 @@ namespace WFA
     {
       // 不透明度を下げる
       this.Opacity -= 0.2;
+    }
+    #endregion
+
+    #region コンテキスト_プレビュ押下イベント
+    private void プレビュToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      // スクリーンキャプチャメソッド使用
+      fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+
+      // 表示する
+      fmPreview.Visible = true;
     }
     #endregion
 

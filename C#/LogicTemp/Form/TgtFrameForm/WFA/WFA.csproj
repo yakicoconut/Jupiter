@@ -59,6 +59,12 @@
     <Compile Include="FrmOption.Designer.cs">
       <DependentUpon>FrmOption.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPreview.Designer.cs">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTgtFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmOption.resx">
       <DependentUpon>FrmOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPreview.resx">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTgtFrame.resx">
       <DependentUpon>FrmTgtFrame.cs</DependentUpon>
