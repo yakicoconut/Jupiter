@@ -179,6 +179,13 @@ namespace WFA
         fmOption.lbHorizonDist.Text = Math.Abs(RightBottomX - LeftTopX).ToString();
         // 垂直距離
         fmOption.lbVerticalDist.Text = Math.Abs(RightBottomY - LeftTopY).ToString();
+
+        // プレビュフォームが表示されている場合
+        if (fmPreview.Visible)
+        {
+          // プレビュの更新
+          fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+        }
       }
 
       return;
@@ -253,15 +260,49 @@ namespace WFA
       int height = bottom.Y - top.Y;
 
       // ビットマップ作成
-      Bitmap bmp = new Bitmap(width, height);
+      Bitmap bmp = new Bitmap(width + 10, height + 10);
 
       // Graphicsオブジェクトの作成
       using (Graphics g = Graphics.FromImage(bmp))
       {
-        g.CopyFromScreen(top, new Point(0, 0), bmp.Size);
+        // コンボボックス選択色変換メソッド使用
+        g.Clear(SelectColorConversion());
+
+        // 画像表示
+        g.CopyFromScreen(top, new Point(5, 5), new Size(width, height));
       }
       
       return bmp;
+    }
+    #endregion
+
+    #region コンボボックス選択色変換メソッド
+    private Color SelectColorConversion()
+    {
+      // 初期値:緑
+      Color selectColor = Color.Green;
+
+      // コンボボックスの設定に依存した色を設定
+      switch (fmOption.cbPreviewBackColor.Text)
+      {
+        case "Green":
+          selectColor = Color.Green;
+          break;
+        case "Black":
+          selectColor = Color.Black;
+          break;
+        case "White":
+          selectColor = Color.White;
+          break;
+        case "Blue":
+          selectColor = Color.Blue;
+          break;
+
+        default:
+          break;
+      }
+
+      return selectColor;
     }
     #endregion
 

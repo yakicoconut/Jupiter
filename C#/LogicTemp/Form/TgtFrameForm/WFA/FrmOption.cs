@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
+using System.Reflection;
 
 namespace WFA
 {
@@ -35,6 +37,21 @@ namespace WFA
     {
       // テストポイント座標を初期化
       lbTestPoint.Text = "";
+
+      #region 【未使用】Drawing.Colorの内容を全て設定
+      //ArrayList ColorList = new ArrayList();
+      //Type colorType = typeof(Color);
+      //PropertyInfo[] propInfoList = colorType.GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+      //foreach (PropertyInfo x in propInfoList)
+      //{
+      //  cbReviewBackColor.Items.Add(x.Name);
+      //}
+      #endregion
+
+      // プレビュフォームバックグラウンドカラーコンボボックスのソース設定
+      string[] colorList = { "Green", "Black", "White", "Blue" };
+      cbPreviewBackColor.Items.AddRange(colorList);
+      cbPreviewBackColor.SelectedIndex = 0;
     }
     #endregion
 
@@ -165,6 +182,18 @@ namespace WFA
       // 対象正方形描画メソッド使用
       frmTgtFrame.DrawSquare();
 
+      // プレビュフォームが表示されている場合
+      if (frmTgtFrame.fmPreview.Visible)
+      {
+        // プレビュの更新
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+      }
+    }
+    #endregion
+
+    #region プレビュバックカラーコンボボックス値変更イベント
+    private void cbReviewBackColor_SelectedIndexChanged(object sender, EventArgs e)
+    {
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
