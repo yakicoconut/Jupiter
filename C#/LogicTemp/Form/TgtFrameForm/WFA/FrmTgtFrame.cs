@@ -347,14 +347,20 @@ namespace WFA
     }
     #endregion
 
-    #region コンテキスト_プレビュ押下イベント
-    private void プレビュToolStripMenuItem_Click(object sender, EventArgs e)
+    #region コンテキスト_タスクバー押下イベント
+    private void ToolStripMenuItemTaskBar_Click(object sender, EventArgs e)
     {
-      // スクリーンキャプチャメソッド使用
-      fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
-
-      // 表示する
-      fmPreview.Visible = true;
+      // タスクバー非表示の場合
+      if (this.Bounds.Height == SystemInformation.WorkingArea.Height)
+      {
+        // タスクバー非表示
+        this.Bounds = Screen.PrimaryScreen.Bounds;
+      }
+      else
+      {
+        // タスクバー表示
+        this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
+      }
     }
     #endregion
 
@@ -396,6 +402,17 @@ namespace WFA
 
         isTestPointMode = true;
       }
+    }
+    #endregion
+
+    #region コンテキスト_プレビュ押下イベント
+    private void ToolStripMenuItemPreview_Click(object sender, EventArgs e)
+    {
+      // スクリーンキャプチャメソッド使用
+      fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+
+      // 表示する
+      fmPreview.Visible = true;
     }
     #endregion
 
