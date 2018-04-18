@@ -27,7 +27,7 @@ namespace WFA
     // 調整フォーム宣言
     FrmOption fmOption = new FrmOption();
     // プレビュフォーム宣言
-    FrmPreview fmPreview = new FrmPreview();
+    public FrmPreview fmPreview = new FrmPreview();
 
     // 不透明度退避
     double evacuateOpacity;

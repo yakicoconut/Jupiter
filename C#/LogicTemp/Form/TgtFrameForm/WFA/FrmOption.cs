@@ -62,6 +62,13 @@ namespace WFA
 
       // 対象正方形描画メソッド使用
       frmTgtFrame.DrawSquare();
+
+      // プレビュフォームが表示されている場合
+      if (frmTgtFrame.fmPreview.Visible)
+      {
+        // プレビュの更新
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+      }
     }
     #endregion
 
@@ -89,6 +96,13 @@ namespace WFA
 
       // 対象正方形描画メソッド使用
       frmTgtFrame.DrawSquare();
+
+      // プレビュフォームが表示されている場合
+      if (frmTgtFrame.fmPreview.Visible)
+      {
+        // プレビュの更新
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+      }
     }
     #endregion
 
@@ -116,6 +130,13 @@ namespace WFA
 
       // 対象正方形描画メソッド使用
       frmTgtFrame.DrawSquare();
+
+      // プレビュフォームが表示されている場合
+      if (frmTgtFrame.fmPreview.Visible)
+      {
+        // プレビュの更新
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+      }
     }
     #endregion
 
@@ -143,6 +164,13 @@ namespace WFA
 
       // 対象正方形描画メソッド使用
       frmTgtFrame.DrawSquare();
+
+      // プレビュフォームが表示されている場合
+      if (frmTgtFrame.fmPreview.Visible)
+      {
+        // プレビュの更新
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+      }
     }
     #endregion
 

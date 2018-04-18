@@ -68,6 +68,5 @@ namespace WFA
       this.Opacity -= 0.2;
     }
     #endregion
-
   }
 }
