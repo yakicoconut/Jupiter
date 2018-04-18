@@ -296,6 +296,13 @@ namespace WFA
     {
       // 不透明度を下げる
       this.Opacity -= 0.2;
+
+      // 不透明度が0.1以下なら
+      if (this.Opacity <= 0.1)
+      {
+        // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+        this.Opacity = 0.01;
+      }
     }
     #endregion
 
