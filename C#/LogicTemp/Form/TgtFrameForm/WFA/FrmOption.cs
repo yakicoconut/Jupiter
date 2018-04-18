@@ -40,6 +40,8 @@ namespace WFA
 
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
+      // 始点ラジオボックスにチェック
+      rbLeftTop.Checked = true;
 
       #region 【未使用】Drawing.Colorの内容を全て設定
       //ArrayList ColorList = new ArrayList();

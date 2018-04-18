@@ -88,13 +88,12 @@ namespace WFA
 
       // フォーム不透明度設定
       this.Opacity = 0.6;
-      // タスクバーにアイコンを表示しない
-      this.ShowInTaskbar = false;
 
       // タスクバーを覆って表示
       this.WindowState = FormWindowState.Normal;
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-      this.Bounds = Screen.PrimaryScreen.Bounds;
+      // タスクバー表示
+      this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
 
       LeftTopX = 2;
       LeftTopY = 2;
@@ -344,6 +343,14 @@ namespace WFA
         // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
         this.Opacity = 0.01;
       }
+    }
+    #endregion
+
+    #region 最下押下イベント
+    private void ToolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
+    {
+      // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+      this.Opacity = 0.01;
     }
     #endregion
 

@@ -33,10 +33,11 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPointTest = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPreview = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
-      this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -55,7 +56,8 @@
       // 
       this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacityGain,
-            this.toolStripMenuItemOpacityDec});
+            this.toolStripMenuItemOpacityDec,
+            this.ToolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
       this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(160, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
@@ -64,16 +66,23 @@
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
+      // 
+      // ToolStripMenuItemTaskBar
+      // 
+      this.ToolStripMenuItemTaskBar.Name = "ToolStripMenuItemTaskBar";
+      this.ToolStripMenuItemTaskBar.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemTaskBar.Text = "タスクバー";
+      this.ToolStripMenuItemTaskBar.Click += new System.EventHandler(this.ToolStripMenuItemTaskBar_Click);
       // 
       // ToolStripMenuItemPointTest
       // 
@@ -96,12 +105,12 @@
       this.toolStripMenuItemClose.Text = "閉じる";
       this.toolStripMenuItemClose.Click += new System.EventHandler(this.toolStripMenuItemClose_Click);
       // 
-      // ToolStripMenuItemTaskBar
+      // ToolStripMenuItemOpacityTransparent
       // 
-      this.ToolStripMenuItemTaskBar.Name = "ToolStripMenuItemTaskBar";
-      this.ToolStripMenuItemTaskBar.Size = new System.Drawing.Size(160, 22);
-      this.ToolStripMenuItemTaskBar.Text = "タスクバー";
-      this.ToolStripMenuItemTaskBar.Click += new System.EventHandler(this.ToolStripMenuItemTaskBar_Click);
+      this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
+      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpacityTransparent.Text = "最下";
+      this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
       // 
       // FrmTgtFrame
       // 
@@ -130,5 +139,6 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPointTest;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPreview;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemTaskBar;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
   }
 }
