@@ -38,6 +38,9 @@ namespace WFA
       // テストポイント座標を初期化
       lbTestPoint.Text = "";
 
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
+
       #region 【未使用】Drawing.Colorの内容を全て設定
       //ArrayList ColorList = new ArrayList();
       //Type colorType = typeof(Color);

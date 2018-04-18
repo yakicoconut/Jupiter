@@ -31,6 +31,15 @@ namespace WFA
 
     #endregion
 
+
+    #region フォームロードイベント
+    private void FrmPreview_Load(object sender, EventArgs e)
+    {
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
+    }
+    #endregion
+    
     #region フォームクロージングイベント
     private void FrmPreview_FormClosing(object sender, FormClosingEventArgs e)
     {
@@ -44,6 +53,7 @@ namespace WFA
       }
     }
     #endregion
+
 
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)

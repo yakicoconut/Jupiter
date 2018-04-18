@@ -100,6 +100,7 @@
       this.Name = "FrmPreview";
       this.Text = "FrmPreview";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPreview_FormClosing);
+      this.Load += new System.EventHandler(this.FrmPreview_Load);
       ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
       this.contextMenuStrip1.ResumeLayout(false);
       this.plParentPb.ResumeLayout(false);
