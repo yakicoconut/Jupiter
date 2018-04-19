@@ -34,7 +34,9 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
       this.plParentPb = new System.Windows.Forms.Panel();
+      this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
       this.contextMenuStrip1.SuspendLayout();
       this.plParentPb.SuspendLayout();
@@ -52,33 +54,42 @@
       // contextMenuStrip1
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemOpacity});
+            this.toolStripMenuItemOpacity,
+            this.ToolStripMenuItemCapture});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 26);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
       // 
       // toolStripMenuItemOpacity
       // 
       this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacityGain,
-            this.toolStripMenuItemOpacityDec});
+            this.toolStripMenuItemOpacityDec,
+            this.ToolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
+      // 
+      // ToolStripMenuItemCapture
+      // 
+      this.ToolStripMenuItemCapture.Name = "ToolStripMenuItemCapture";
+      this.ToolStripMenuItemCapture.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemCapture.Text = "キャプチャ";
+      this.ToolStripMenuItemCapture.Click += new System.EventHandler(this.ToolStripMenuItemCapture_Click);
       // 
       // plParentPb
       // 
@@ -89,6 +100,13 @@
       this.plParentPb.Name = "plParentPb";
       this.plParentPb.Size = new System.Drawing.Size(284, 262);
       this.plParentPb.TabIndex = 1;
+      // 
+      // ToolStripMenuItemOpacityTransparent
+      // 
+      this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
+      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpacityTransparent.Text = "透明";
+      this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
       // 
       // FrmPreview
       // 
@@ -120,6 +138,8 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPointTest;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPreview;
     private System.Windows.Forms.Panel plParentPb;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemCapture;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
 
   }
 }

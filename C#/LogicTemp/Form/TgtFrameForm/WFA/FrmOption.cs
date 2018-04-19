@@ -89,7 +89,7 @@ namespace WFA
       if (frmTgtFrame.fmPreview.Visible)
       {
         // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
       }
     }
     #endregion
@@ -123,7 +123,7 @@ namespace WFA
       if (frmTgtFrame.fmPreview.Visible)
       {
         // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
       }
     }
     #endregion
@@ -157,7 +157,7 @@ namespace WFA
       if (frmTgtFrame.fmPreview.Visible)
       {
         // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
       }
     }
     #endregion
@@ -191,7 +191,7 @@ namespace WFA
       if (frmTgtFrame.fmPreview.Visible)
       {
         // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
       }
     }
     #endregion
@@ -203,33 +203,57 @@ namespace WFA
       if (frmTgtFrame.fmPreview.Visible)
       {
         // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CapScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
       }
     }
     #endregion
 
 
     #region コンテキスト_不透明度押下イベント
-    private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
-      //デフォルトに戻す
+      // デフォルトに戻す
       this.Opacity = 0.8;
     }
     #endregion
 
     #region コンテキスト_上げ押下イベント
-    private void 上げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
-      //不透明度を上げる
+      // 不透明度が0.8以上なら
+      if (this.Opacity >= 0.8)
+      {
+        // ※Graphicsで黒塗りつぶしをしていると
+        //   不透明度を100%から下げたあとにとなぜか色が元に戻ってしまうため最大99%とする
+        this.Opacity = 0.99;
+        return;
+      }
+
+      // 不透明度を上げる
       this.Opacity += 0.2;
     }
     #endregion
 
     #region コンテキスト_下げ押下イベント
-    private void 下げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
-      //不透明度を下げる
+      // 不透明度を下げる
       this.Opacity -= 0.2;
+
+      // 不透明度が0.1以下なら
+      if (this.Opacity <= 0.1)
+      {
+        // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+        this.Opacity = 0.01;
+      }
+    }
+    #endregion
+
+    #region コンテキスト_透明押下イベント
+    private void ToolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
+    {
+      // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+      this.Opacity = 0.01;
     }
     #endregion
 

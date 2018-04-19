@@ -183,7 +183,7 @@ namespace WFA
         if (fmPreview.Visible)
         {
           // プレビュの更新
-          fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+          fmPreview.pbPreview.Image = CopyScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
         }
       }
 
@@ -248,11 +248,11 @@ namespace WFA
     }
     #endregion
 
-    #region スクリーンキャプチャメソッド
+    #region スクリーンコピーメソッド
     /// <summary>
-    /// スクリーンキャプチャメソッド
+    /// スクリーンコピーメソッド
     /// </summary>
-    public Bitmap CapScreen(Point top, Point bottom)
+    public Bitmap CopyScreen(Point top, Point bottom)
     {
       // 対象ポイントからサイズを取得
       int width = bottom.X - top.X;
@@ -346,7 +346,7 @@ namespace WFA
     }
     #endregion
 
-    #region 最下押下イベント
+    #region コンテキスト_透明押下イベント
     private void ToolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
     {
       // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
@@ -416,7 +416,7 @@ namespace WFA
     private void ToolStripMenuItemPreview_Click(object sender, EventArgs e)
     {
       // スクリーンキャプチャメソッド使用
-      fmPreview.pbPreview.Image = CapScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+      fmPreview.pbPreview.Image = CopyScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
 
       // 表示する
       fmPreview.Visible = true;

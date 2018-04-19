@@ -30,10 +30,12 @@
     {
       this.components = new System.ComponentModel.Container();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.不透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.上げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.label8 = new System.Windows.Forms.Label();
+      this.cbPreviewBackColor = new System.Windows.Forms.ComboBox();
       this.cbIsMove = new System.Windows.Forms.CheckBox();
       this.btDown = new System.Windows.Forms.Button();
       this.btRight = new System.Windows.Forms.Button();
@@ -52,8 +54,7 @@
       this.lbHorizonDist = new System.Windows.Forms.Label();
       this.rbRightBottom = new System.Windows.Forms.RadioButton();
       this.rbLeftTop = new System.Windows.Forms.RadioButton();
-      this.cbPreviewBackColor = new System.Windows.Forms.ComboBox();
-      this.label8 = new System.Windows.Forms.Label();
+      this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudMoveDist)).BeginInit();
@@ -62,33 +63,34 @@
       // contextMenuStrip1
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.不透明度ToolStripMenuItem});
+            this.toolStripMenuItemOpacity});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 26);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
       // 
-      // 不透明度ToolStripMenuItem
+      // toolStripMenuItemOpacity
       // 
-      this.不透明度ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.上げToolStripMenuItem,
-            this.下げToolStripMenuItem});
-      this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-      this.不透明度ToolStripMenuItem.Text = "不透明度";
-      this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpacityGain,
+            this.toolStripMenuItemOpacityDec,
+            this.ToolStripMenuItemOpacityTransparent});
+      this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacity.Text = "不透明度";
+      this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
-      // 上げToolStripMenuItem
+      // toolStripMenuItemOpacityGain
       // 
-      this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.上げToolStripMenuItem.Text = "上げ";
-      this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityGain.Text = "上げ";
+      this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
-      // 下げToolStripMenuItem
+      // toolStripMenuItemOpacityDec
       // 
-      this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.下げToolStripMenuItem.Text = "下げ";
-      this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityDec.Text = "下げ";
+      this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // panel1
       // 
@@ -118,6 +120,26 @@
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(150, 332);
       this.panel1.TabIndex = 1;
+      // 
+      // label8
+      // 
+      this.label8.AutoSize = true;
+      this.label8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.label8.Location = new System.Drawing.Point(10, 199);
+      this.label8.Name = "label8";
+      this.label8.Size = new System.Drawing.Size(29, 12);
+      this.label8.TabIndex = 19;
+      this.label8.Text = "距離";
+      // 
+      // cbPreviewBackColor
+      // 
+      this.cbPreviewBackColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbPreviewBackColor.FormattingEnabled = true;
+      this.cbPreviewBackColor.Location = new System.Drawing.Point(24, 214);
+      this.cbPreviewBackColor.Name = "cbPreviewBackColor";
+      this.cbPreviewBackColor.Size = new System.Drawing.Size(121, 20);
+      this.cbPreviewBackColor.TabIndex = 18;
+      this.cbPreviewBackColor.SelectedIndexChanged += new System.EventHandler(this.cbReviewBackColor_SelectedIndexChanged);
       // 
       // cbIsMove
       // 
@@ -305,25 +327,12 @@
       this.rbLeftTop.TabStop = true;
       this.rbLeftTop.UseVisualStyleBackColor = true;
       // 
-      // cbReviewBackColor
+      // ToolStripMenuItemOpacityTransparent
       // 
-      this.cbPreviewBackColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cbPreviewBackColor.FormattingEnabled = true;
-      this.cbPreviewBackColor.Location = new System.Drawing.Point(24, 214);
-      this.cbPreviewBackColor.Name = "cbReviewBackColor";
-      this.cbPreviewBackColor.Size = new System.Drawing.Size(121, 20);
-      this.cbPreviewBackColor.TabIndex = 18;
-      this.cbPreviewBackColor.SelectedIndexChanged += new System.EventHandler(this.cbReviewBackColor_SelectedIndexChanged);
-      // 
-      // label8
-      // 
-      this.label8.AutoSize = true;
-      this.label8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label8.Location = new System.Drawing.Point(10, 199);
-      this.label8.Name = "label8";
-      this.label8.Size = new System.Drawing.Size(29, 12);
-      this.label8.TabIndex = 19;
-      this.label8.Text = "距離";
+      this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
+      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpacityTransparent.Text = "透明";
+      this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
       // 
       // FrmOption
       // 
@@ -352,9 +361,9 @@
     #endregion
 
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-    private System.Windows.Forms.ToolStripMenuItem 不透明度ToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem 上げToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem 下げToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     private System.Windows.Forms.Panel panel1;
     public System.Windows.Forms.RadioButton rbLeftTop;
     public System.Windows.Forms.RadioButton rbRightBottom;
@@ -376,5 +385,6 @@
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label8;
     public System.Windows.Forms.ComboBox cbPreviewBackColor;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
   }
 }

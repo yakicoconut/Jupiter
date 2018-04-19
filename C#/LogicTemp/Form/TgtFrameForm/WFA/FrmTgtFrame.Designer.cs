@@ -33,11 +33,11 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPointTest = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPreview = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
-      this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -77,6 +77,13 @@
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
+      // ToolStripMenuItemOpacityTransparent
+      // 
+      this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
+      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpacityTransparent.Text = "透明";
+      this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
+      // 
       // ToolStripMenuItemTaskBar
       // 
       this.ToolStripMenuItemTaskBar.Name = "ToolStripMenuItemTaskBar";
@@ -104,13 +111,6 @@
       this.toolStripMenuItemClose.Size = new System.Drawing.Size(160, 22);
       this.toolStripMenuItemClose.Text = "閉じる";
       this.toolStripMenuItemClose.Click += new System.EventHandler(this.toolStripMenuItemClose_Click);
-      // 
-      // ToolStripMenuItemOpacityTransparent
-      // 
-      this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
-      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
-      this.ToolStripMenuItemOpacityTransparent.Text = "最下";
-      this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
       // 
       // FrmTgtFrame
       // 

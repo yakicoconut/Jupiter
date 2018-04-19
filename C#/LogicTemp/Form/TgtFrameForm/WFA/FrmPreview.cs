@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace WFA
 {
@@ -58,7 +60,7 @@ namespace WFA
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
-      //デフォルトに戻す
+      // デフォルトに戻す
       this.Opacity = 0.8;
     }
     #endregion
@@ -66,7 +68,16 @@ namespace WFA
     #region コンテキスト_上げ押下イベント
     private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
-      //不透明度を上げる
+      // 不透明度が0.8以上なら
+      if (this.Opacity >= 0.8)
+      {
+        // ※Graphicsで黒塗りつぶしをしていると
+        //   不透明度を100%から下げたあとにとなぜか色が元に戻ってしまうため最大99%とする
+        this.Opacity = 0.99;
+        return;
+      }
+
+      // 不透明度を上げる
       this.Opacity += 0.2;
     }
     #endregion
@@ -74,8 +85,41 @@ namespace WFA
     #region コンテキスト_下げ押下イベント
     private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
-      //不透明度を下げる
+      // 不透明度を下げる
       this.Opacity -= 0.2;
+
+      // 不透明度が0.1以下なら
+      if (this.Opacity <= 0.1)
+      {
+        // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+        this.Opacity = 0.01;
+      }
+    }
+    #endregion
+
+    #region コンテキスト_透明押下イベント
+    private void ToolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
+    {
+      // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+      this.Opacity = 0.01;
+    }
+    #endregion
+
+    #region コンテキスト_キャプチャ押下イベント
+    private void ToolStripMenuItemCapture_Click(object sender, EventArgs e)
+    {
+      // ファイル名用に現在時刻をミリ秒まで取得
+      string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond.ToString("000");
+
+      // 保存フォルダがない場合
+      if (!Directory.Exists("CapReview"))
+      {
+        // フォルダ作成
+        Directory.CreateDirectory("CapReview");
+      }
+
+      // 画像を保存
+      pbPreview.Image.Save(string.Format(@"CapReview\{0}.png",fileName), ImageFormat.Png);
     }
     #endregion
   }
