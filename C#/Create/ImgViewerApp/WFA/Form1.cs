@@ -35,7 +35,7 @@ namespace WFA
       ControlInitSeting();
 
       // 他クラスのプロパティに本クラスを設定
-      form2.form1 = this;
+      fmOption.form1 = this;
 
       // コマンドライン引数取得
       string[] cmdArgs = Environment.GetCommandLineArgs();
@@ -74,10 +74,11 @@ namespace WFA
     }
     #endregion
 
+
     #region 宣言
 
-    //フォーム2インスタンス生成
-    Form2 form2 = new Form2();
+    // オプションフォームインスタンス生成
+    FrmOption fmOption = new FrmOption();
 
     // 初期フォームサイズ
     int defaultFormWidth;
@@ -121,6 +122,7 @@ namespace WFA
 
     #endregion
 
+
     #region コントロール初期設定メソッド
     public void ControlInitSeting()
     {
@@ -143,14 +145,14 @@ namespace WFA
       this.Height = defaultFormHeight;
 
       // モードキーチェックボックステキスト設定
-      form2.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
-      form2.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
-      form2.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
+      fmOption.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
+      fmOption.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
+      fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
 
       // フォーム2の開始位置
       // 開始位置をロケーションプロパティ
-      form2.StartPosition = FormStartPosition.Manual;
-      form2.Location = new Point(int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationY"]));
+      fmOption.StartPosition = FormStartPosition.Manual;
+      fmOption.Location = new Point(int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationY"]));
     }
     #endregion
 
@@ -159,18 +161,18 @@ namespace WFA
     private void Form1_Load(object sender, EventArgs e)
     {
       //常にメインフォームの手前に表示
-      form2.Owner = this;
+      fmOption.Owner = this;
 
       // テキストボックス設定
-      form2.nudZoomInRatio.Text = zoomInRatio.ToString();
-      form2.nudZoomOutRatio.Text = zoomOutRatio.ToString();
-      form2.nudUpDist.Text = upMoveDistance.ToString();
-      form2.nudDownDist.Text = downMoveDistance.ToString();
-      form2.nudLeftDist.Text = leftMoveDistance.ToString();
-      form2.nudRightDist.Text = rightMoveDistance.ToString();
+      fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
+      fmOption.nudZoomOutRatio.Text = zoomOutRatio.ToString();
+      fmOption.nudUpDist.Text = upMoveDistance.ToString();
+      fmOption.nudDownDist.Text = downMoveDistance.ToString();
+      fmOption.nudLeftDist.Text = leftMoveDistance.ToString();
+      fmOption.nudRightDist.Text = rightMoveDistance.ToString();
 
       //フォーム2呼び出し
-      form2.Show();
+      fmOption.Show();
 
       #region TEST01_サンプル画像を使用したデバッグ
 #if TEST01
@@ -245,21 +247,21 @@ namespace WFA
       if (IsModeZoomKey(e))
       {
         // チェック
-        form2.cbIsModeZoom.Checked = !form2.cbIsModeZoom.Checked;
+        fmOption.cbIsModeZoom.Checked = !fmOption.cbIsModeZoom.Checked;
         return;
       }
 
       // ページ送りキー押下判断メソッド使用
       if (IsModePageEjectKey(e))
       {
-        form2.cbIsModePageEject.Checked = !form2.cbIsModePageEject.Checked;
+        fmOption.cbIsModePageEject.Checked = !fmOption.cbIsModePageEject.Checked;
         return;
       }
 
       // 0ポイントキー押下判断メソッド使用
       if (IsModeZeroPointKey(e))
       {
-        form2.cbIsModeZeroPoint.Checked = !form2.cbIsModeZeroPoint.Checked;
+        fmOption.cbIsModeZeroPoint.Checked = !fmOption.cbIsModeZeroPoint.Checked;
         return;
       }
 
@@ -445,7 +447,7 @@ namespace WFA
       // 表示対象画像取得
       currentImage = new Bitmap(dicImgPath[currentImageKey]);
 
-      form2.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
+      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
 
       // 初期化用設定
       drawRectangle = new Rectangle(currentZeroPoint.X, currentZeroPoint.Y, (int)Math.Round(currentImage.Width * currentZoomRatio), (int)Math.Round(currentImage.Height * currentZoomRatio));
@@ -486,7 +488,7 @@ namespace WFA
     public void UpOperation()
     {
       // 拡大/縮小チェック
-      if (form2.cbIsModeZoom.Checked)
+      if (fmOption.cbIsModeZoom.Checked)
       {
         // 現在倍率を倍にする
         currentZoomRatio = currentZoomRatio * zoomInRatio;
@@ -495,7 +497,7 @@ namespace WFA
         currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomInRatio), (int)(currentZeroPoint.Y * zoomInRatio));
 
         // 0ポイントチェック
-        if (form2.cbIsModeZeroPoint.Checked)
+        if (fmOption.cbIsModeZeroPoint.Checked)
         {
           // ページ送りに伴い画像を左上に設定
           currentZeroPoint = new Point(0, 0);
@@ -519,13 +521,13 @@ namespace WFA
     public void DownOperation()
     {
       // 拡大/縮小チェック
-      if (form2.cbIsModeZoom.Checked)
+      if (fmOption.cbIsModeZoom.Checked)
       {
         // 現在倍率にズームアウト倍率を掛ける
         currentZoomRatio = currentZoomRatio * zoomOutRatio;
 
         // チェックの場合
-        if (form2.cbIsModeZeroPoint.Checked)
+        if (fmOption.cbIsModeZeroPoint.Checked)
         {
           // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
           currentZeroPoint = new Point(0, 0);
@@ -537,7 +539,7 @@ namespace WFA
         }
 
         // 0ポイントチェック
-        if (form2.cbIsModeZeroPoint.Checked)
+        if (fmOption.cbIsModeZeroPoint.Checked)
         {
           // ページ送りに伴い画像を左上に設定
           currentZeroPoint = new Point(0, 0);
@@ -561,7 +563,7 @@ namespace WFA
     public void RightOperation()
     {
       // ページ送りチェック
-      if (form2.cbIsModePageEject.Checked)
+      if (fmOption.cbIsModePageEject.Checked)
       {
         // 現ページが最後の場合
         if (currentImageKey == maxImageKey)
@@ -599,7 +601,7 @@ namespace WFA
     public void LeftOperation()
     {
       // コントロールチェックの場合
-      if (form2.cbIsModePageEject.Checked)
+      if (fmOption.cbIsModePageEject.Checked)
       {
         // 現ページが最初の場合
         if (currentImageKey == 1)
