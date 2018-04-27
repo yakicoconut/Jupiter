@@ -72,7 +72,7 @@
             this.toolStripMenuItemOpacity,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -80,28 +80,28 @@
             this.toolStripMenuItemOpacityGain,
             this.toolStripMenuItemOpacityDec});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // toolStripMenuItemOpenDir
       // 
       this.toolStripMenuItemOpenDir.Name = "toolStripMenuItemOpenDir";
-      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(124, 22);
       this.toolStripMenuItemOpenDir.Text = "開く";
       this.toolStripMenuItemOpenDir.Click += new System.EventHandler(this.toolStripMenuItemOpenDir_Click);
       // 
@@ -290,6 +290,11 @@
       // nudUpDist
       // 
       this.nudUpDist.Location = new System.Drawing.Point(50, 226);
+      this.nudUpDist.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
       this.nudUpDist.Minimum = new decimal(new int[] {
             1,
             0,
@@ -308,6 +313,11 @@
       // nudDownDist
       // 
       this.nudDownDist.Location = new System.Drawing.Point(52, 268);
+      this.nudDownDist.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
       this.nudDownDist.Minimum = new decimal(new int[] {
             1,
             0,
@@ -326,6 +336,11 @@
       // nudRightDist
       // 
       this.nudRightDist.Location = new System.Drawing.Point(76, 247);
+      this.nudRightDist.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
       this.nudRightDist.Minimum = new decimal(new int[] {
             1,
             0,
@@ -344,6 +359,11 @@
       // nudLeftDist
       // 
       this.nudLeftDist.Location = new System.Drawing.Point(22, 247);
+      this.nudLeftDist.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
       this.nudLeftDist.Minimum = new decimal(new int[] {
             1,
             0,

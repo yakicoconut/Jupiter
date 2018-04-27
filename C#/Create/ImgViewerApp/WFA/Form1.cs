@@ -71,6 +71,9 @@ namespace WFA
       modePageEjectKey = ConfigurationManager.AppSettings["ModePageEjectKey"].ToLower();
       // モード0ポイントキー
       modeZeroPointKey = ConfigurationManager.AppSettings["ModeZeroPointKey"].ToLower();
+
+      // 対象拡張子
+      targetExtension = ConfigurationManager.AppSettings["TargetExtension"].Split(',');
     }
     #endregion
 
@@ -119,6 +122,9 @@ namespace WFA
     string modePageEjectKey;
     // モード0ポイントキー
     string modeZeroPointKey;
+
+    // 対象拡張子
+    string[] targetExtension;
 
     #endregion
 
@@ -410,11 +416,17 @@ namespace WFA
       int i = 0;
       foreach (string x in files)
       {
+        // ねずみ返し_拡張子が設定したものではないときは次のループへ
+        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
+        {
+          continue;
+        }
+
         i = i + 1;
         dicImgPath.Add(i, x);
       }
       // 最終ページ数を設定
-      maxImageKey = files.Length;
+      maxImageKey = files.Length - 1;
 
       // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
@@ -482,7 +494,7 @@ namespace WFA
       pictureBox1.Invalidate();
     }
     #endregion
-    
+
 
     #region 上操作メソッド
     public void UpOperation()
@@ -574,7 +586,7 @@ namespace WFA
         else
         {
           // 次のページへ
-          currentImageKey = currentImageKey + 1;
+          currentImageKey += 1;
         }
 
         // 表示画像取得
@@ -611,7 +623,7 @@ namespace WFA
         else
         {
           // 左のページへ
-          currentImageKey = currentImageKey - 1;
+          currentImageKey -= 1;
         }
 
         // 表示画像取得
