@@ -39,7 +39,7 @@ namespace WFA
 
 
     #region コンテキスト_不透明度押下イベント
-    private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
       //デフォルトに戻す
       this.Opacity = 0.8;
@@ -47,7 +47,7 @@ namespace WFA
     #endregion
 
     #region コンテキスト_上げ押下イベント
-    private void 上げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
       //不透明度を上げる
       this.Opacity += 0.2;
@@ -55,7 +55,7 @@ namespace WFA
     #endregion
 
     #region コンテキスト_下げ押下イベント
-    private void 下げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
       //不透明度を下げる
       this.Opacity -= 0.2;

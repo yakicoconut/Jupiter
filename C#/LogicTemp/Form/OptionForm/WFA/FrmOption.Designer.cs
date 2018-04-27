@@ -30,9 +30,9 @@
     {
       this.components = new System.ComponentModel.Container();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.不透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.上げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -40,33 +40,33 @@
       // contextMenuStrip1
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.不透明度ToolStripMenuItem});
+            this.toolStripMenuItemOpacity});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
       this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
       // 
       // 不透明度ToolStripMenuItem
       // 
-      this.不透明度ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.上げToolStripMenuItem,
-            this.下げToolStripMenuItem});
-      this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-      this.不透明度ToolStripMenuItem.Text = "不透明度";
-      this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpacityGain,
+            this.toolStripMenuItemOpacityDec});
+      this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
+      this.toolStripMenuItemOpacity.Text = "不透明度";
+      this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // 上げToolStripMenuItem
       // 
-      this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.上げToolStripMenuItem.Text = "上げ";
-      this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Text = "上げ";
+      this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // 下げToolStripMenuItem
       // 
-      this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.下げToolStripMenuItem.Text = "下げ";
-      this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
+      this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Text = "下げ";
+      this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // panel1
       // 
@@ -100,9 +100,9 @@
     #endregion
 
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-    private System.Windows.Forms.ToolStripMenuItem 不透明度ToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem 上げToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem 下げToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     private System.Windows.Forms.Panel panel1;
   }
 }
