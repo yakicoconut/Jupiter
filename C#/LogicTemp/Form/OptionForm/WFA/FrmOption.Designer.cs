@@ -44,7 +44,7 @@
       this.contextMenuStrip1.Name = "contextMenuStrip1";
       this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
       // 
-      // 不透明度ToolStripMenuItem
+      // toolStripMenuItemOpacity
       // 
       this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacityGain,
@@ -54,14 +54,14 @@
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
-      // 上げToolStripMenuItem
+      // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
       this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
-      // 下げToolStripMenuItem
+      // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
       this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);

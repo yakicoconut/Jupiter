@@ -33,7 +33,7 @@ namespace WFA
     #region フォームロードイベント
     private void Form2_Load(object sender, EventArgs e)
     {
-
+      this.Text = "Option";
     }
     #endregion
 
