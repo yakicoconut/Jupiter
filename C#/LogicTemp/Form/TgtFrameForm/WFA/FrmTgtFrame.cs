@@ -22,6 +22,7 @@ namespace WFA
     }
     #endregion
 
+
     #region 宣言
 
     // 調整フォーム宣言
@@ -187,8 +188,23 @@ namespace WFA
         // プレビュフォームが表示されている場合
         if (fmPreview.Visible)
         {
-          // プレビュの更新
-          fmPreview.pbPreview.Image = CopyScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+          // 画面コピー
+          Bitmap btm = CopyScreen(new Point(LeftTopX, LeftTopY), new Point(RightBottomX, RightBottomY));
+
+          // ズーム倍率初期値
+          int widthZoomRatio = 1;
+          int heightZoomRatio = 1;
+
+          // ズームフラグ
+          if (isZoom)
+          {
+            // ズーム倍率設定
+            widthZoomRatio = 2;
+            heightZoomRatio = 2;
+          }
+
+          // 画面表示
+          fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
         }
       }
 

@@ -11,6 +11,9 @@ using System.Reflection;
 
 namespace WFA
 {
+  /// <summary>
+  /// コントローラフォーム
+  /// </summary>
   public partial class FrmOption : Form
   {
     #region コンストラクタ
