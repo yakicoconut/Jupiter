@@ -88,8 +88,23 @@ namespace WFA
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
-        // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        // 画面コピー
+        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+
+        // ズーム倍率初期値
+        int widthZoomRatio = 1;
+        int heightZoomRatio = 1;
+
+        // ズームフラグ
+        if (frmTgtFrame.isZoom)
+        {
+          // ズーム倍率設定
+          widthZoomRatio = 2;
+          heightZoomRatio = 2;
+        }
+
+        // 画面表示
+        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
       }
     }
     #endregion
@@ -122,8 +137,23 @@ namespace WFA
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
-        // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        // 画面コピー
+        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+
+        // ズーム倍率初期値
+        int widthZoomRatio = 1;
+        int heightZoomRatio = 1;
+
+        // ズームフラグ
+        if (frmTgtFrame.isZoom)
+        {
+          // ズーム倍率設定
+          widthZoomRatio = 2;
+          heightZoomRatio = 2;
+        }
+
+        // 画面表示
+        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
       }
     }
     #endregion
@@ -156,8 +186,23 @@ namespace WFA
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
-        // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        // 画面コピー
+        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+
+        // ズーム倍率初期値
+        int widthZoomRatio = 1;
+        int heightZoomRatio = 1;
+
+        // ズームフラグ
+        if (frmTgtFrame.isZoom)
+        {
+          // ズーム倍率設定
+          widthZoomRatio = 2;
+          heightZoomRatio = 2;
+        }
+
+        // 画面表示
+        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
       }
     }
     #endregion
@@ -190,8 +235,23 @@ namespace WFA
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
-        // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        // 画面コピー
+        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+
+        // ズーム倍率初期値
+        int widthZoomRatio = 1;
+        int heightZoomRatio = 1;
+
+        // ズームフラグ
+        if (frmTgtFrame.isZoom)
+        {
+          // ズーム倍率設定
+          widthZoomRatio = 2;
+          heightZoomRatio = 2;
+        }
+
+        // 画面表示
+        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
       }
     }
     #endregion
@@ -202,8 +262,23 @@ namespace WFA
       // プレビュフォームが表示されている場合
       if (frmTgtFrame.fmPreview.Visible)
       {
-        // プレビュの更新
-        frmTgtFrame.fmPreview.pbPreview.Image = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+        // 画面コピー
+        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
+
+        // ズーム倍率初期値
+        int widthZoomRatio = 1;
+        int heightZoomRatio = 1;
+
+        // ズームフラグ
+        if (frmTgtFrame.isZoom)
+        {
+          // ズーム倍率設定
+          widthZoomRatio = 2;
+          heightZoomRatio = 2;
+        }
+
+        // 画面表示
+        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
       }
     }
     #endregion

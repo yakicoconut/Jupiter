@@ -64,6 +64,11 @@ namespace WFA
     /// </summary>
     public bool isTestPointMode { get; set; }
 
+    /// <summary>
+    /// ズームフラグ
+    /// </summary> 
+    public bool isZoom { get; set; }
+
     #endregion
 
 

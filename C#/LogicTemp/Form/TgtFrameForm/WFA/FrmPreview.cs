@@ -41,17 +41,15 @@ namespace WFA
       this.ShowInTaskbar = false;
     }
     #endregion
-    
-    #region フォームクロージングイベント
-    private void FrmPreview_FormClosing(object sender, FormClosingEventArgs e)
-    {
-      // クローズキャンセル
-      if (e.CloseReason == CloseReason.UserClosing)
-      {
-        e.Cancel = true;
 
-        // 非表示
-        this.Visible = false;
+    #region フォーム非表示変更イベント
+    private void FrmPreview_VisibleChanged(object sender, EventArgs e)
+    {
+      // 非表示になった場合
+      if (!this.Visible)
+      {
+        // ズームフラグを下ろす
+        frmTgtFrame.isZoom = false;
       }
     }
     #endregion
@@ -119,7 +117,62 @@ namespace WFA
       }
 
       // 画像を保存
-      pbPreview.Image.Save(string.Format(@"CapReview\{0}.png",fileName), ImageFormat.Png);
+      pbPreview.Image.Save(string.Format(@"CapReview\{0}.png", fileName), ImageFormat.Png);
+    }
+    #endregion
+
+    #region コンテキスト_拡大押下イベント
+    private void ToolStripMenuItemZoomIn_Click(object sender, EventArgs e)
+    {
+      // ズーム済みの場合
+      if (frmTgtFrame.isZoom)
+      {
+        // 追いズームはしない
+        return;
+      }
+
+      // 拡大
+      Bitmap zoomBmp = new Bitmap(pbPreview.Image, pbPreview.Image.Width * 2, pbPreview.Image.Height * 2);
+
+      pbPreview.Image = zoomBmp;
+
+      // ズームフラグを立てる
+      frmTgtFrame.isZoom = true;
+    }
+    #endregion
+
+    #region コンテキスト_縮小押下イベント
+    private void ToolStripMenuItemZoomOut_Click(object sender, EventArgs e)
+    {
+      // ズームアウト済みの場合
+      if (!frmTgtFrame.isZoom)
+      {
+        // 追いズームアウトはしない
+        return;
+      }
+
+      // 縮小
+      Bitmap zoomBmp = new Bitmap(pbPreview.Image, pbPreview.Image.Width / 2, pbPreview.Image.Height / 2);
+
+      pbPreview.Image = zoomBmp;
+
+      // ズームフラグを立てる
+      frmTgtFrame.isZoom = false;
+    }
+    #endregion
+
+
+    #region フォームクロージングイベント
+    private void FrmPreview_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      // クローズキャンセル
+      if (e.CloseReason == CloseReason.UserClosing)
+      {
+        e.Cancel = true;
+
+        // 非表示
+        this.Visible = false;
+      }
     }
     #endregion
   }
