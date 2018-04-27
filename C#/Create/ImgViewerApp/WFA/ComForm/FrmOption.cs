@@ -29,6 +29,8 @@ namespace WFA
 
     // 親フォーム
     public Form1 form1 { get; set; }
+    // ファイルリストフォームインスタンス生成
+    FrmFileList fmFileList = new FrmFileList();
 
     #endregion
 
@@ -157,6 +159,21 @@ namespace WFA
     {
       //不透明度を下げる
       this.Opacity -= 0.2;
+    }
+    #endregion
+
+    #region コンテキスト_フォルダリスト押下イベント
+    private void ToolStripMenuItemFolderList_Click(object sender, EventArgs e)
+    {
+      // ファイルディクショナリをループ処理
+      foreach (var x in form1.dicImgPath)
+      {
+        // リストビューに追加
+        fmFileList.lvFileList.Items.Add(x.Value);  
+      }
+      
+      // フォルダリストフォーム表示
+      fmFileList.ShowDialog();
     }
     #endregion
 

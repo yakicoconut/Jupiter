@@ -90,7 +90,7 @@ namespace WFA
     // 表示対象画像
     private Bitmap currentImage;
     // 画像パスディクショナリ
-    Dictionary<int, string> dicImgPath = new Dictionary<int, string>();
+    public Dictionary<int, string> dicImgPath = new Dictionary<int, string>();
     // 最大ページ数
     int maxImageKey = 0;
     // 現在表示ページ数

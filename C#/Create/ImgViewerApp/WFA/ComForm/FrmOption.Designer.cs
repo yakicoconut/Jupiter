@@ -56,6 +56,7 @@
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
+      this.ToolStripMenuItemFolderList = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -70,9 +71,10 @@
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacity,
+            this.ToolStripMenuItemFolderList,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 92);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -80,7 +82,7 @@
             this.toolStripMenuItemOpacityGain,
             this.toolStripMenuItemOpacityDec});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(160, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
@@ -101,7 +103,7 @@
       // toolStripMenuItemOpenDir
       // 
       this.toolStripMenuItemOpenDir.Name = "toolStripMenuItemOpenDir";
-      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(124, 22);
+      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(160, 22);
       this.toolStripMenuItemOpenDir.Text = "開く";
       this.toolStripMenuItemOpenDir.Click += new System.EventHandler(this.toolStripMenuItemOpenDir_Click);
       // 
@@ -422,6 +424,13 @@
       this.nudZoomOutRatio.TabIndex = 22;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
       // 
+      // ToolStripMenuItemFolderList
+      // 
+      this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
+      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemFolderList.Text = "フォルダリスト";
+      this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFolderList_Click);
+      // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -457,6 +466,7 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemFolderList;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenDir;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Label label1;
