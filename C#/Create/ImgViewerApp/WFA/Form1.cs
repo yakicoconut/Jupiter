@@ -82,7 +82,9 @@ namespace WFA
 
     // オプションフォームインスタンス生成
     FrmOption fmOption = new FrmOption();
-
+    // ファイルリストフォームインスタンス生成
+    FrmFileList fmFileList = new FrmFileList();
+    
     // 初期フォームサイズ
     int defaultFormWidth;
     int defaultFormHeight;
@@ -179,6 +181,15 @@ namespace WFA
 
       //フォーム2呼び出し
       fmOption.Show();
+
+      // ファイルリストフォームのプロパティに本クラスを設定
+      fmFileList.parentForm = this;
+      // 常にメインフォームの手前に表示
+      fmFileList.Owner = this;
+      // ファイルリストフォーム呼び出し
+      fmFileList.Show();
+      // ファイルリストフォームは明示的に呼び出されるまで非表示
+      fmFileList.Visible = false;
 
       #region TEST01_サンプル画像を使用したデバッグ
 #if TEST01
@@ -492,6 +503,33 @@ namespace WFA
       drawRectangle.Y = currentZeroPoint.Y;
       //画像を表示する
       pictureBox1.Invalidate();
+    }
+    #endregion
+
+
+    #region ファイルリストフォーム初期化メソッド
+    public void InitFileListForm()
+    {
+      // リストビュー初期化
+      fmFileList.lvFileList.Items.Clear();
+
+      // ファイルディクショナリをループ処理
+      foreach (var x in dicImgPath)
+      {
+        // リストビューにファイル名のみ追加
+        fmFileList.lvFileList.Items.Add(Path.GetFileName(x.Value));
+      }
+
+      // 表示する
+      fmFileList.Visible = true;
+    }
+    #endregion
+
+    #region ファイルリストフォーム表示メソッド
+    public void VisibleFileListForm()
+    {
+      // 表示する
+      fmFileList.Visible = true;
     }
     #endregion
 

@@ -33,6 +33,7 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemFolderList = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpenDir = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
       this.label1 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
-      this.ToolStripMenuItemFolderList = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -99,6 +99,13 @@
       this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
+      // 
+      // ToolStripMenuItemFolderList
+      // 
+      this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
+      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemFolderList.Text = "ファイルリスト";
+      this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFileList_Click);
       // 
       // toolStripMenuItemOpenDir
       // 
@@ -423,13 +430,6 @@
       this.nudZoomOutRatio.Size = new System.Drawing.Size(52, 19);
       this.nudZoomOutRatio.TabIndex = 22;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
-      // 
-      // ToolStripMenuItemFolderList
-      // 
-      this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
-      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(160, 22);
-      this.ToolStripMenuItemFolderList.Text = "フォルダリスト";
-      this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFolderList_Click);
       // 
       // FrmOption
       // 

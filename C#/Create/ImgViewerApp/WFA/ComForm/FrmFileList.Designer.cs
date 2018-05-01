@@ -34,15 +34,23 @@
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.lvFileList = new System.Windows.Forms.ListView();
+      this.ToolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemMove = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // contextMenuStrip1
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemOpacity});
+            this.toolStripMenuItemOpacity,
+            this.ToolStripMenuItemMove,
+            this.ToolStripMenuItemCopy,
+            this.ToolStripMenuItemDelete,
+            this.ToolStripMenuItemOpen});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 26);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 136);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -84,6 +92,34 @@
       this.lvFileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFileList_MouseDoubleClick);
       this.lvFileList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvFileList_MouseDown);
       // 
+      // ToolStripMenuItemMove
+      // 
+      this.ToolStripMenuItemMove.Name = "ToolStripMenuItemMove";
+      this.ToolStripMenuItemMove.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemMove.Text = "移動";
+      this.ToolStripMenuItemMove.Click += new System.EventHandler(this.ToolStripMenuItemMove_Click);
+      // 
+      // ToolStripMenuItemCopy
+      // 
+      this.ToolStripMenuItemCopy.Name = "ToolStripMenuItemCopy";
+      this.ToolStripMenuItemCopy.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemCopy.Text = "コピー";
+      this.ToolStripMenuItemCopy.Click += new System.EventHandler(this.ToolStripMenuItemCopy_Click);
+      // 
+      // 削除ToolStripMenuItem
+      // 
+      this.ToolStripMenuItemDelete.Name = "ToolStripMenuItemDelete";
+      this.ToolStripMenuItemDelete.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemDelete.Text = "削除";
+      this.ToolStripMenuItemDelete.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
+      // 
+      // ToolStripMenuItemOpen
+      // 
+      this.ToolStripMenuItemOpen.Name = "ToolStripMenuItemOpen";
+      this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpen.Text = "開く";
+      this.ToolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
+      // 
       // FrmFileList
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -92,14 +128,13 @@
       this.ClientSize = new System.Drawing.Size(170, 305);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.lvFileList);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "FrmFileList";
       this.Opacity = 0.8D;
       this.Text = "Form2";
-      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
-      this.Load += new System.EventHandler(this.Form2_Load);
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFileList_FormClosing);
+      this.Load += new System.EventHandler(this.FrmFileList_Load);
       this.contextMenuStrip1.ResumeLayout(false);
       this.ResumeLayout(false);
 
@@ -112,5 +147,9 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     public System.Windows.Forms.ListView lvFileList;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemCopy;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemMove;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDelete;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpen;
   }
 }

@@ -25,15 +25,19 @@ namespace WFA
     #region 宣言
 
     // 親フォーム
-    public Form1 form1 { get; set; }
+    public Form1 parentForm { get; set; }
 
     #endregion
 
 
     #region フォームロードイベント
-    private void Form2_Load(object sender, EventArgs e)
+    private void FrmFileList_Load(object sender, EventArgs e)
     {
-      this.Text = "Option";
+      // タイトル設定
+      this.Text = "FileList";
+
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
     }
     #endregion
 
@@ -77,13 +81,46 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_移動押下イベント
+    private void ToolStripMenuItemMove_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region コンテキスト_コピー押下イベント
+    private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region コンテキスト_削除押下イベント
+    private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region コンテキスト_開く押下イベント
+    private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
 
     #region フォームクロージングイベント
-    private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+    private void FrmFileList_FormClosing(object sender, FormClosingEventArgs e)
     {
       // クローズキャンセル
       if (e.CloseReason == CloseReason.UserClosing)
+      {
         e.Cancel = true;
+
+        // 非表示
+        this.Visible = false;
+      }
     }
     #endregion
   }
