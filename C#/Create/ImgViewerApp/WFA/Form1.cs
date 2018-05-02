@@ -176,7 +176,6 @@ namespace WFA
     {
       //常にメインフォームの手前に表示
       fmOption.Owner = this;
-
       // テキストボックス設定
       fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
       fmOption.nudZoomOutRatio.Text = zoomOutRatio.ToString();
@@ -184,7 +183,6 @@ namespace WFA
       fmOption.nudDownDist.Text = downMoveDistance.ToString();
       fmOption.nudLeftDist.Text = leftMoveDistance.ToString();
       fmOption.nudRightDist.Text = rightMoveDistance.ToString();
-
       //フォーム2呼び出し
       fmOption.Show();
 
@@ -196,6 +194,8 @@ namespace WFA
       fmFileList.Show();
       // ファイルリストフォームは明示的に呼び出されるまで非表示
       fmFileList.Visible = false;
+      // リストビュー設定
+      fmFileList.lvFileList.HideSelection = false;
 
       #region TEST01_サンプル画像を使用したデバッグ
 #if TEST01
@@ -462,6 +462,13 @@ namespace WFA
 
       // 画像初期化メソッド使用
       ImgInit();
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm();
+
+      // ファイルリストの該当ファイルを選択
+      fmFileList.lvFileList.SelectedItems.Clear();
+      fmFileList.lvFileList.Items[currentImageKey].Selected = true;
     }
     #endregion
 
@@ -635,6 +642,10 @@ namespace WFA
 
         // ページ送りメソッド使用
         FeedImg();
+
+        // ファイルリストの該当ファイルを選択
+        fmFileList.lvFileList.SelectedItems.Clear();
+        fmFileList.lvFileList.Items[currentImageKey].Selected = true;
       }
       else
       {
@@ -666,6 +677,10 @@ namespace WFA
 
         // ページ送りメソッド使用
         FeedImg();
+
+        // ファイルリストの該当ファイルを選択
+        fmFileList.lvFileList.SelectedItems.Clear();
+        fmFileList.lvFileList.Items[currentImageKey].Selected = true;
       }
       else
       {

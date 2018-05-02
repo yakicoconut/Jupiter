@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 
 namespace WFA
 {
@@ -66,6 +69,14 @@ namespace WFA
     }
     #endregion
 
+    #region 参照ボタン押下イベント
+    private void btReferenceDir_Click(object sender, EventArgs e)
+    {
+      // 選択されたフォルダをbinパスに表示する
+      tbCommitDir.Text = ReferenceFolder("コミット先フォルダを指定してください");
+    }
+    #endregion
+
 
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
@@ -115,7 +126,42 @@ namespace WFA
     #region コンテキスト_開く押下イベント
     private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_項目が選択されていない場合
+      if (lvFileList.SelectedItems.Count == 0)
+      {
+        return;
+      }
 
+      // 選択したファイルのあるフォルダを開く
+      string selectFilePath = parentForm.dicImgPath[lvFileList.SelectedItems[0].Index];
+      Process.Start(Path.GetDirectoryName(selectFilePath));
+    }
+    #endregion
+
+
+    #region フォルダ参照メソッド
+    private string ReferenceFolder(string description)
+    {
+      // インスタンス作成
+      FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+      // 上部に表示する説明テキストを指定する
+      fbd.Description = description;
+      // ルートフォルダを指定する
+      fbd.RootFolder = Environment.SpecialFolder.Desktop;
+      // 最初に選択するフォルダを指定する
+      fbd.SelectedPath = ConfigurationManager.AppSettings["DefaultReferenceDir"];
+
+      // OKが押下された場合
+      if (fbd.ShowDialog(this) == DialogResult.OK)
+      {
+        // 取得したフォルダパスを返す
+        return fbd.SelectedPath;
+      }
+      else
+      {
+        return null;
+      }
     }
     #endregion
 
