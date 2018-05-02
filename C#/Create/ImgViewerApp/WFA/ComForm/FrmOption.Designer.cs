@@ -57,6 +57,7 @@
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
+      this.cbChkImg = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -74,7 +75,7 @@
             this.ToolStripMenuItemFolderList,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 92);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 70);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -116,7 +117,11 @@
       // 
       // panel1
       // 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
+      this.panel1.Controls.Add(this.cbChkImg);
       this.panel1.Controls.Add(this.label1);
       this.panel1.Controls.Add(this.label2);
       this.panel1.Controls.Add(this.label3);
@@ -140,7 +145,7 @@
       this.panel1.Controls.Add(this.nudZoomOutRatio);
       this.panel1.Location = new System.Drawing.Point(10, 10);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(150, 390);
+      this.panel1.Size = new System.Drawing.Size(150, 412);
       this.panel1.TabIndex = 1;
       // 
       // label1
@@ -157,7 +162,7 @@
       // 
       this.label2.AutoSize = true;
       this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label2.Location = new System.Drawing.Point(3, 96);
+      this.label2.Location = new System.Drawing.Point(3, 119);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(35, 12);
       this.label2.TabIndex = 4;
@@ -167,7 +172,7 @@
       // 
       this.label3.AutoSize = true;
       this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label3.Location = new System.Drawing.Point(3, 297);
+      this.label3.Location = new System.Drawing.Point(3, 320);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(69, 12);
       this.label3.TabIndex = 10;
@@ -177,7 +182,7 @@
       // 
       this.label4.AutoSize = true;
       this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label4.Location = new System.Drawing.Point(3, 126);
+      this.label4.Location = new System.Drawing.Point(3, 149);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(29, 12);
       this.label4.TabIndex = 12;
@@ -187,7 +192,7 @@
       // 
       this.label5.AutoSize = true;
       this.label5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label5.Location = new System.Drawing.Point(18, 211);
+      this.label5.Location = new System.Drawing.Point(18, 234);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(53, 12);
       this.label5.TabIndex = 13;
@@ -197,7 +202,7 @@
       // 
       this.label6.AutoSize = true;
       this.label6.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label6.Location = new System.Drawing.Point(18, 138);
+      this.label6.Location = new System.Drawing.Point(18, 161);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(53, 12);
       this.label6.TabIndex = 17;
@@ -207,7 +212,7 @@
       // 
       this.label7.AutoSize = true;
       this.label7.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label7.Location = new System.Drawing.Point(20, 175);
+      this.label7.Location = new System.Drawing.Point(20, 198);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(53, 12);
       this.label7.TabIndex = 19;
@@ -250,7 +255,7 @@
       this.tbFileName.BackColor = System.Drawing.Color.White;
       this.tbFileName.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.tbFileName.ForeColor = System.Drawing.Color.Black;
-      this.tbFileName.Location = new System.Drawing.Point(20, 111);
+      this.tbFileName.Location = new System.Drawing.Point(20, 134);
       this.tbFileName.Name = "tbFileName";
       this.tbFileName.ReadOnly = true;
       this.tbFileName.Size = new System.Drawing.Size(126, 12);
@@ -258,7 +263,7 @@
       // 
       // btUp
       // 
-      this.btUp.Location = new System.Drawing.Point(39, 312);
+      this.btUp.Location = new System.Drawing.Point(39, 335);
       this.btUp.Name = "btUp";
       this.btUp.Size = new System.Drawing.Size(70, 23);
       this.btUp.TabIndex = 8;
@@ -268,7 +273,7 @@
       // 
       // btDown
       // 
-      this.btDown.Location = new System.Drawing.Point(39, 358);
+      this.btDown.Location = new System.Drawing.Point(39, 381);
       this.btDown.Name = "btDown";
       this.btDown.Size = new System.Drawing.Size(70, 23);
       this.btDown.TabIndex = 9;
@@ -278,7 +283,7 @@
       // 
       // btRight
       // 
-      this.btRight.Location = new System.Drawing.Point(76, 335);
+      this.btRight.Location = new System.Drawing.Point(76, 358);
       this.btRight.Name = "btRight";
       this.btRight.Size = new System.Drawing.Size(70, 23);
       this.btRight.TabIndex = 7;
@@ -288,7 +293,7 @@
       // 
       // btLeft
       // 
-      this.btLeft.Location = new System.Drawing.Point(3, 335);
+      this.btLeft.Location = new System.Drawing.Point(3, 358);
       this.btLeft.Name = "btLeft";
       this.btLeft.Size = new System.Drawing.Size(70, 23);
       this.btLeft.TabIndex = 6;
@@ -298,7 +303,7 @@
       // 
       // nudUpDist
       // 
-      this.nudUpDist.Location = new System.Drawing.Point(50, 226);
+      this.nudUpDist.Location = new System.Drawing.Point(50, 249);
       this.nudUpDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -321,7 +326,7 @@
       // 
       // nudDownDist
       // 
-      this.nudDownDist.Location = new System.Drawing.Point(52, 268);
+      this.nudDownDist.Location = new System.Drawing.Point(52, 291);
       this.nudDownDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -344,7 +349,7 @@
       // 
       // nudRightDist
       // 
-      this.nudRightDist.Location = new System.Drawing.Point(76, 247);
+      this.nudRightDist.Location = new System.Drawing.Point(76, 270);
       this.nudRightDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -367,7 +372,7 @@
       // 
       // nudLeftDist
       // 
-      this.nudLeftDist.Location = new System.Drawing.Point(22, 247);
+      this.nudLeftDist.Location = new System.Drawing.Point(22, 270);
       this.nudLeftDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -396,7 +401,7 @@
             0,
             0,
             65536});
-      this.nudZoomInRatio.Location = new System.Drawing.Point(52, 153);
+      this.nudZoomInRatio.Location = new System.Drawing.Point(52, 176);
       this.nudZoomInRatio.Minimum = new decimal(new int[] {
             1,
             0,
@@ -420,7 +425,7 @@
             0,
             0,
             65536});
-      this.nudZoomOutRatio.Location = new System.Drawing.Point(52, 189);
+      this.nudZoomOutRatio.Location = new System.Drawing.Point(52, 212);
       this.nudZoomOutRatio.Maximum = new decimal(new int[] {
             1,
             0,
@@ -431,12 +436,22 @@
       this.nudZoomOutRatio.TabIndex = 22;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
       // 
+      // cbChkImg
+      // 
+      this.cbChkImg.AutoSize = true;
+      this.cbChkImg.Location = new System.Drawing.Point(20, 99);
+      this.cbChkImg.Name = "cbChkImg";
+      this.cbChkImg.Size = new System.Drawing.Size(63, 16);
+      this.cbChkImg.TabIndex = 27;
+      this.cbChkImg.Text = "チェック()";
+      this.cbChkImg.UseVisualStyleBackColor = true;
+      // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(170, 410);
+      this.ClientSize = new System.Drawing.Size(170, 432);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -490,5 +505,6 @@
     public System.Windows.Forms.NumericUpDown nudDownDist;
     public System.Windows.Forms.NumericUpDown nudRightDist;
     public System.Windows.Forms.NumericUpDown nudLeftDist;
+    public System.Windows.Forms.CheckBox cbChkImg;
   }
 }

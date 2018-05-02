@@ -69,6 +69,8 @@ namespace WFA
       modePageEjectKey = _comLogic.GetConfigValue("ModePageEjectKey", "Ctrl").ToLower();
       // モード0ポイントキー
       modeZeroPointKey = _comLogic.GetConfigValue("ModeZeroPointKey", "Alt").ToLower();
+      // チェックキー
+      chkImgKey = _comLogic.GetConfigValue("CheckImgKey", "Enter").ToLower();
 
       // 対象拡張子
       targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
@@ -113,6 +115,8 @@ namespace WFA
     string modePageEjectKey;
     // モード0ポイントキー
     string modeZeroPointKey;
+    // チェックキー
+    string chkImgKey;
 
     // 対象拡張子
     string[] targetExtension;
@@ -147,15 +151,15 @@ namespace WFA
       // アプリの開始位置
       // 開始位置をロケーションプロパティ
       this.StartPosition = FormStartPosition.Manual;
-      this.Location = new Point(int.Parse(ConfigurationManager.AppSettings["DefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["DefaultLocationY"]));
+      this.Location = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")) - 10, int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
 
       // フォームサイズの変更
-      if (!int.TryParse(ConfigurationManager.AppSettings["DefaultFormWidth"], out defaultFormWidth))
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormWidth", "1000"), out defaultFormWidth))
       {
         // 画面サイズを取得
         defaultFormWidth = Screen.PrimaryScreen.Bounds.Width + 16;
       }
-      if (!int.TryParse(ConfigurationManager.AppSettings["DefaultFormHeight"], out defaultFormHeight))
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormHeight", "500"), out defaultFormHeight))
       {
         defaultFormHeight = Screen.PrimaryScreen.Bounds.Height - 30;
       }
@@ -166,11 +170,12 @@ namespace WFA
       fmOption.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
       fmOption.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
       fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
+      fmOption.cbChkImg.Text = string.Format("チェック({0})", chkImgKey);
 
       // フォーム2の開始位置
       // 開始位置をロケーションプロパティ
       fmOption.StartPosition = FormStartPosition.Manual;
-      fmOption.Location = new Point(int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationX"]) - 10, int.Parse(ConfigurationManager.AppSettings["FormTwoDefaultLocationY"]));
+      fmOption.Location = new Point(int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationX", "1500")) - 10, int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationY", "500")));
     }
     #endregion
 
@@ -292,6 +297,15 @@ namespace WFA
         return;
       }
 
+      // チェックキー押下判断メソッド使用
+      if (IsChkImgKey(e))
+      {
+        fmOption.cbChkImg.Checked = !fmOption.cbChkImg.Checked;
+        // ファイルリスト該当ファイルのチェックを変更する
+        fmFileList.lvFileList.Items[currentImageKey].Checked = !fmFileList.lvFileList.Items[currentImageKey].Checked;
+        return;
+      }
+
       // 押下キー振り分け
       switch (e.KeyCode)
       {
@@ -399,6 +413,27 @@ namespace WFA
       }
 
       return isFunctionOn;
+    }
+    #endregion
+
+    #region チェックキー押下判断メソッド
+    public bool IsChkImgKey(KeyEventArgs e)
+    {
+      bool isChkOn = false;
+      switch (chkImgKey)
+      {
+        case "enter":
+          isChkOn = e.KeyCode == Keys.Enter ? true : false;
+          break;
+        case "space":
+          isChkOn = e.KeyCode == Keys.Space ? true : false;
+          break;
+
+        default:
+          break;
+      }
+
+      return isChkOn;
     }
     #endregion
 
@@ -664,6 +699,9 @@ namespace WFA
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
         fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+
+        // オプションフォームのチェックを表示している画像に沿って設定
+        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
       }
       else
       {
@@ -699,6 +737,9 @@ namespace WFA
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
         fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+
+        // オプションフォームのチェックを表示している画像に沿って設定
+        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
       }
       else
       {
@@ -714,9 +755,6 @@ namespace WFA
     #region ページ送りメソッド
     public void FeedImg()
     {
-      // 表示画像取得
-      currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
       // ページ送りに伴い画像を左上に設定
       currentZeroPoint = new Point(0, 0);
 
