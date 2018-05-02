@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Collections;
 
 namespace WFA
 {
@@ -105,7 +106,25 @@ namespace WFA
     #region コンテキスト_移動押下イベント
     private void ToolStripMenuItemMove_Click(object sender, EventArgs e)
     {
+      // コミット先パスを設定
+      parentForm.commitPath = tbCommitDir.Text;
 
+      // ねずみ返し_項目がチェックされていない場合
+      if (lvFileList.CheckedItems.Count == 0)
+      {
+        MessageBox.Show("チェック項目無し");
+        return;
+      }
+
+      // チェック項目取得
+      ArrayList chk = new ArrayList();
+      foreach (ListViewItem x in lvFileList.CheckedItems)
+      {
+        chk.Add(x.Index);
+      }
+
+      // ファイル移動メソッド使用
+      parentForm.MoveFiles(chk);
     }
     #endregion
 
@@ -173,9 +192,6 @@ namespace WFA
       if (e.CloseReason == CloseReason.UserClosing)
       {
         e.Cancel = true;
-
-        // 非表示
-        this.Visible = false;
       }
     }
     #endregion

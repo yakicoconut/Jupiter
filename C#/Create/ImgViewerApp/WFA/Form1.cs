@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
+using System.Collections;
 
 namespace WFA
 {
@@ -34,9 +35,6 @@ namespace WFA
       // コントロール初期設定メソッド使用
       ControlInitSeting();
 
-      // 他クラスのプロパティに本クラスを設定
-      fmOption.form1 = this;
-
       // コマンドライン引数取得
       string[] cmdArgs = Environment.GetCommandLineArgs();
       // 引数がある場合(自身のexeパスが1つ目なので2以上のとき)
@@ -54,31 +52,34 @@ namespace WFA
     public void GetConfig()
     {
       // 初期フォーム位置
-      currentZeroPoint = new Point(int.Parse(ConfigurationManager.AppSettings["DefaultLocationX"]), int.Parse(ConfigurationManager.AppSettings["DefaultLocationY"]));
+      currentZeroPoint = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")), int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
       // 移動距離
-      upMoveDistance = int.Parse(ConfigurationManager.AppSettings["UpMoveDistance"]);
-      downMoveDistance = int.Parse(ConfigurationManager.AppSettings["DownMoveDistance"]);
-      rightMoveDistance = int.Parse(ConfigurationManager.AppSettings["RightMoveDistance"]);
-      leftMoveDistance = int.Parse(ConfigurationManager.AppSettings["LeftMoveDistance"]);
+      upMoveDistance = int.Parse(_comLogic.GetConfigValue("UpMoveDistance", "1"));
+      downMoveDistance = int.Parse(_comLogic.GetConfigValue("DownMoveDistance", "1"));
+      rightMoveDistance = int.Parse(_comLogic.GetConfigValue("RightMoveDistance", "1"));
+      leftMoveDistance = int.Parse(_comLogic.GetConfigValue("LeftMoveDistance", "1"));
       // 倍率関連
-      initZoomRatio = double.Parse(ConfigurationManager.AppSettings["InitZoomRatio"]);
-      zoomInRatio = double.Parse(ConfigurationManager.AppSettings["ZoomInRatio"]);
-      zoomOutRatio = double.Parse(ConfigurationManager.AppSettings["ZoomOutRatio"]);
+      initZoomRatio = double.Parse(_comLogic.GetConfigValue("InitZoomRatio", "1.0"));
+      zoomInRatio = double.Parse(_comLogic.GetConfigValue("ZoomInRatio", "2.0"));
+      zoomOutRatio = double.Parse(_comLogic.GetConfigValue("ZoomOutRatio", "0.5"));
 
       // 拡大/縮小モードキー
-      modeZoomKey = ConfigurationManager.AppSettings["ModeZoomKey"].ToLower();
+      modeZoomKey = _comLogic.GetConfigValue("ModeZoomKey", "Shift").ToLower();
       // モードページ送りキー
-      modePageEjectKey = ConfigurationManager.AppSettings["ModePageEjectKey"].ToLower();
+      modePageEjectKey = _comLogic.GetConfigValue("ModePageEjectKey", "Ctrl").ToLower();
       // モード0ポイントキー
-      modeZeroPointKey = ConfigurationManager.AppSettings["ModeZeroPointKey"].ToLower();
+      modeZeroPointKey = _comLogic.GetConfigValue("ModeZeroPointKey", "Alt").ToLower();
 
       // 対象拡張子
-      targetExtension = ConfigurationManager.AppSettings["TargetExtension"].Split(',');
+      targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
     }
     #endregion
 
 
     #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
 
     // オプションフォームインスタンス生成
     FrmOption fmOption = new FrmOption();
@@ -134,6 +135,9 @@ namespace WFA
     public int rightMoveDistance { get; set; }
     public int leftMoveDistance { get; set; }
 
+    // コミット先パス
+    public string commitPath { get; set; }
+
     #endregion
 
 
@@ -174,7 +178,9 @@ namespace WFA
     #region ロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-      //常にメインフォームの手前に表示
+      // オプションフォームのプロパティに本クラスを設定
+      fmOption.form1 = this;
+      // 常にメインフォームの手前に表示
       fmOption.Owner = this;
       // テキストボックス設定
       fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
@@ -183,7 +189,7 @@ namespace WFA
       fmOption.nudDownDist.Text = downMoveDistance.ToString();
       fmOption.nudLeftDist.Text = leftMoveDistance.ToString();
       fmOption.nudRightDist.Text = rightMoveDistance.ToString();
-      //フォーム2呼び出し
+      // フォーム2呼び出し
       fmOption.Show();
 
       // ファイルリストフォームのプロパティに本クラスを設定
@@ -192,8 +198,6 @@ namespace WFA
       fmFileList.Owner = this;
       // ファイルリストフォーム呼び出し
       fmFileList.Show();
-      // ファイルリストフォームは明示的に呼び出されるまで非表示
-      fmFileList.Visible = false;
       // リストビュー設定
       fmFileList.lvFileList.HideSelection = false;
 
@@ -532,17 +536,31 @@ namespace WFA
         // リストビューにファイル名のみ追加
         fmFileList.lvFileList.Items.Add(Path.GetFileName(x.Value));
       }
-
-      // 表示する
-      fmFileList.Visible = true;
     }
     #endregion
 
-    #region ファイルリストフォーム表示メソッド
-    public void VisibleFileListForm()
+    #region ファイル移動メソッド
+    public void MoveFiles(ArrayList fileIndex)
     {
-      // 表示する
-      fmFileList.Visible = true;
+      // チェックされたファイルを処理
+      foreach (int x in fileIndex)
+      {
+        // ディクショナリから画像パスを取得
+        string targetImgPath = dicImgPath[x];
+
+        try
+        {
+          // ファイル移動
+          File.Move(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
+        }
+        catch(Exception e)
+        {
+          MessageBox.Show(e.ToString());
+        }
+      }
+
+      // 現在表示している画像のフォルダを改めて読み込み
+      ReadFile(dicImgPath[currentImageKey]);
     }
     #endregion
 

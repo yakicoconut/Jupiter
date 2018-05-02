@@ -166,9 +166,6 @@ namespace WFA
     {
       // ファイルリストフォーム初期化メソッド使用
       form1.InitFileListForm();
-
-      // ファイルリストフォーム表示メソッド使用
-      form1.VisibleFileListForm();
     }
     #endregion
 
