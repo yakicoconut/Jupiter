@@ -45,7 +45,17 @@ namespace WFA
     #region リストビューダブルクリックイベント
     private void lvFileList_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+      // ねずみ返し_項目が選択されていない場合
+      if (lvFileList.SelectedItems.Count == 0)
+      {
+        return;
+      }
 
+      // 現在のページ数に選択したファイルの番号を設定
+      parentForm.currentImageKey = lvFileList.SelectedItems[0].Index;
+
+      // ページ送りメソッド使用
+      parentForm.FeedImg();
     }
     #endregion
 

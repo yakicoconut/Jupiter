@@ -95,8 +95,6 @@ namespace WFA
     public Dictionary<int, string> dicImgPath = new Dictionary<int, string>();
     // 最大ページ数
     int maxImageKey = 0;
-    // 現在表示ページ数
-    int currentImageKey = 0;
 
     // 現在の開始位置(画像の左上)
     Point currentZeroPoint;
@@ -107,16 +105,6 @@ namespace WFA
     double initZoomRatio;
     // 現在のズーム倍率
     double currentZoomRatio = 1;
-    //ズームイン倍率
-    public double zoomInRatio { get; set; }
-    //ズームアウト倍率
-    public double zoomOutRatio { get; set; }
-
-    // 各移動距離
-    public int upMoveDistance { get; set; }
-    public int downMoveDistance { get; set; }
-    public int rightMoveDistance { get; set; }
-    public int leftMoveDistance { get; set; }
 
     // 拡大/縮小モードキー
     string modeZoomKey;
@@ -127,6 +115,24 @@ namespace WFA
 
     // 対象拡張子
     string[] targetExtension;
+
+    #endregion
+
+    #region プロパティ
+
+    // 現在表示ページ数
+    public int currentImageKey { get; set; }
+
+    //ズームイン倍率
+    public double zoomInRatio { get; set; }
+    //ズームアウト倍率
+    public double zoomOutRatio { get; set; }
+
+    // 各移動距離
+    public int upMoveDistance { get; set; }
+    public int downMoveDistance { get; set; }
+    public int rightMoveDistance { get; set; }
+    public int leftMoveDistance { get; set; }
 
     #endregion
 
@@ -433,17 +439,17 @@ namespace WFA
           continue;
         }
 
-        i = i + 1;
         dicImgPath.Add(i, x);
+        i = i + 1;
       }
       // 最終ページ数を設定
-      maxImageKey = files.Length - 1;
+      maxImageKey = files.Length - 2;
 
       // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
       {
         // 表示するファイルのページを1に設定
-        currentImageKey = 1;
+        currentImageKey = 0;
       }
       else
       {
@@ -619,7 +625,7 @@ namespace WFA
         if (currentImageKey == maxImageKey)
         {
           // 最初のページへ
-          currentImageKey = 1;
+          currentImageKey = 0;
         }
         else
         {
@@ -627,14 +633,8 @@ namespace WFA
           currentImageKey += 1;
         }
 
-        // 表示画像取得
-        currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-        // ページ送りに伴い画像を左上に設定
-        currentZeroPoint = new Point(0, 0);
-
-        // 画像初期化メソッド使用
-        ImgInit();
+        // ページ送りメソッド使用
+        FeedImg();
       }
       else
       {
@@ -654,7 +654,7 @@ namespace WFA
       if (fmOption.cbIsModePageEject.Checked)
       {
         // 現ページが最初の場合
-        if (currentImageKey == 1)
+        if (currentImageKey == 0)
         {
           currentImageKey = maxImageKey;
         }
@@ -664,14 +664,8 @@ namespace WFA
           currentImageKey -= 1;
         }
 
-        // 表示画像取得
-        currentImage = new Bitmap(dicImgPath[currentImageKey]);
-
-        // ページ送りに伴い画像を左上に設定
-        currentZeroPoint = new Point(0, 0);
-
-        // 画像初期化メソッド使用
-        ImgInit();
+        // ページ送りメソッド使用
+        FeedImg();
       }
       else
       {
@@ -681,6 +675,20 @@ namespace WFA
         // 移動メソッド使用
         ImgMove();
       }
+    }
+    #endregion
+
+    #region ページ送りメソッド
+    public void FeedImg()
+    {
+      // 表示画像取得
+      currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+      // ページ送りに伴い画像を左上に設定
+      currentZeroPoint = new Point(0, 0);
+
+      // 画像初期化メソッド使用
+      ImgInit();
     }
     #endregion
 
