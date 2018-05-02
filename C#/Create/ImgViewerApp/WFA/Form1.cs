@@ -487,7 +487,13 @@ namespace WFA
       // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
       {
-        // 表示するファイルのページを1に設定
+        // 表示するファイルのページを最初のものに設定
+        currentImageKey = 0;
+      }
+      // ファイルが存在しない場合(移動等ファイルがないパターンを想定)
+      else if (!File.Exists(dropItem))
+      {
+        // 表示するファイルのページを最初のものに設定
         currentImageKey = 0;
       }
       else
@@ -577,6 +583,17 @@ namespace WFA
     #region ファイル移動メソッド
     public void MoveFiles(ArrayList fileIndex)
     {
+      // 表示中の画像を移動するときに一旦、参照をはずす必要がある
+      // 現在表示中の画像を退避する
+      Bitmap evacuationImg = (Bitmap)pictureBox1.Image;
+      // 表示中の画像を破棄
+      if (currentImage != null)
+      {
+        currentImage.Dispose();
+      }
+      // 画像ファイルを直接参照するのではなく退避した画像を使用
+      currentImage = evacuationImg;
+
       // チェックされたファイルを処理
       foreach (int x in fileIndex)
       {
@@ -588,7 +605,7 @@ namespace WFA
           // ファイル移動
           File.Move(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
           MessageBox.Show(e.ToString());
         }
