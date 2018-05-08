@@ -118,7 +118,7 @@
       this.lvFileList.ContextMenuStrip = this.contextMenuStrip1;
       this.lvFileList.Location = new System.Drawing.Point(10, 62);
       this.lvFileList.Name = "lvFileList";
-      this.lvFileList.Size = new System.Drawing.Size(166, 340);
+      this.lvFileList.Size = new System.Drawing.Size(166, 350);
       this.lvFileList.TabIndex = 0;
       this.lvFileList.UseCompatibleStateImageBehavior = false;
       this.lvFileList.View = System.Windows.Forms.View.List;
@@ -174,7 +174,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(186, 412);
+      this.ClientSize = new System.Drawing.Size(186, 422);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.lvFileList);

@@ -38,9 +38,6 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      // コントロール初期設定メソッド使用
-      ControlInitSeting();
-
       // コマンドライン引数取得
       string[] cmdArgs = Environment.GetCommandLineArgs();
       // 引数がある場合(自身のexeパスが1つ目なので2以上のとき)
@@ -58,7 +55,21 @@ namespace WFA
     private void GetConfig()
     {
       // 初期フォーム位置
-      currentZeroPoint = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")), int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
+      defLocationX = int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0"));
+      defLocationY = int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0"));
+      currentZeroPoint = new Point(defLocationX, defLocationY);
+
+      // フォームサイズ
+      // コンフィグの値が数値以外の場合
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormWidth", "1000"), out defFormWidth))
+      {
+        // タスクバーを抜いた画面サイズを設定
+        defFormWidth = SystemInformation.WorkingArea.Width;
+      }
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormHeight", "500"), out defFormHeight))
+      {
+        defFormHeight = SystemInformation.WorkingArea.Height;
+      }
       // 移動距離
       upMoveDistance = int.Parse(_comLogic.GetConfigValue("UpMoveDistance", "1"));
       downMoveDistance = int.Parse(_comLogic.GetConfigValue("DownMoveDistance", "1"));
@@ -80,6 +91,32 @@ namespace WFA
 
       // 対象拡張子
       targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
+
+          
+      // オプションフォーム
+      // コンフィグの値が数値以外の場合
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultOptionFormLocationX", "0"), out defOptionFmLocationX))
+      {
+        // 画面右下に表示されるように設定
+        defOptionFmLocationX = SystemInformation.WorkingArea.Width - fmOption.Size.Width;
+      }
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultOptionFormLocationY", "0"), out defOptionFmLocationY))
+      {
+        defOptionFmLocationY = SystemInformation.WorkingArea.Height - fmOption.Size.Height;
+      }
+
+
+      // ファイルリストフォーム
+      // コンフィグの値が数値以外の場合
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFileListFormLocationX", "500"), out defFileListFmLocationX))
+      {
+        // 画面右下にオプションフォームと並ぶように表示
+        defFileListFmLocationX = SystemInformation.WorkingArea.Width - (fmOption.Size.Width + fmFileList.Size.Width);
+      }
+      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFileListFormLocationY", "0"), out defFileListFmLocationY))
+      {
+        defFileListFmLocationY = SystemInformation.WorkingArea.Height - fmFileList.Size.Height;
+      }
     }
     #endregion
 
@@ -95,8 +132,11 @@ namespace WFA
     FrmFileList fmFileList = new FrmFileList();
 
     // 初期フォームサイズ
-    int defaultFormWidth;
-    int defaultFormHeight;
+    int defFormWidth;
+    int defFormHeight;
+    // 初期フォーム位置
+    int defLocationX;
+    int defLocationY;
 
     // 表示対象画像
     private Bitmap currentImage;
@@ -126,6 +166,14 @@ namespace WFA
 
     // 対象拡張子
     string[] targetExtension;
+
+    // オプションフォーム開始位置
+    int defOptionFmLocationX;
+    int defOptionFmLocationY;
+
+    // ファイルリストフォーム開始位置
+    int defFileListFmLocationX;
+    int defFileListFmLocationY;
 
     #endregion
 
@@ -170,49 +218,35 @@ namespace WFA
     #endregion
 
 
-    #region コントロール初期設定メソッド
-    private void ControlInitSeting()
+    #region メインフォーム初期設定メソッド
+    private void MainFormInitSeting()
     {
-      // アプリの開始位置
-      // 開始位置をロケーションプロパティ
+      // フォーム位置
       this.StartPosition = FormStartPosition.Manual;
-      this.Location = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")) - 10, int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
+      this.Location = currentZeroPoint;
 
-      // フォームサイズの変更
-      // コンフィグの値が数値以外の場合
-      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormWidth", "1000"), out defaultFormWidth))
-      {
-        // タスクバーを抜いた画面サイズを設定
-        defaultFormWidth = SystemInformation.WorkingArea.Width;
-      }
-      if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormHeight", "500"), out defaultFormHeight))
-      {
-        defaultFormHeight = SystemInformation.WorkingArea.Height;
-      }
-      this.Width = defaultFormWidth;
-      this.Height = defaultFormHeight;
-
-      // モードキーチェックボックステキスト設定
-      fmOption.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
-      fmOption.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
-      fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
-      fmOption.cbChkImg.Text = string.Format("チェック({0})", chkImgKey);
-
-      // フォーム2の開始位置
-      // 開始位置をロケーションプロパティ
-      fmOption.StartPosition = FormStartPosition.Manual;
-      fmOption.Location = new Point(int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationX", "1500")) - 10, int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationY", "500")));
+      // フォームサイズ
+      this.Width = defFormWidth;
+      this.Height = defFormHeight;
     }
     #endregion
 
-    #region ロードイベント
-    private void Form1_Load(object sender, EventArgs e)
+
+    #region サブフォーム初期設定メソッド
+    private void SubFormInitSeting()
     {
       // オプションフォームのプロパティに本クラスを設定
       fmOption.parentForm = this;
       // 常にメインフォームの手前に表示
       fmOption.Owner = this;
-      // テキストボックス設定
+      // 開始位置
+      fmOption.StartPosition = FormStartPosition.Manual;
+      fmOption.Location = new Point(defOptionFmLocationX, defOptionFmLocationY);
+      // コントロール値設定
+      fmOption.cbIsModeZoom.Text = string.Format("拡張/縮小({0})", modeZoomKey);
+      fmOption.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
+      fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
+      fmOption.cbChkImg.Text = string.Format("チェック({0})", chkImgKey);
       fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
       fmOption.nudZoomOutRatio.Text = zoomOutRatio.ToString();
       fmOption.nudUpDist.Text = upMoveDistance.ToString();
@@ -226,6 +260,9 @@ namespace WFA
       fmFileList.parentForm = this;
       // 常にメインフォームの手前に表示
       fmFileList.Owner = this;
+      // 開始位置
+      fmFileList.StartPosition = FormStartPosition.Manual;
+      fmFileList.Location = new Point(defFileListFmLocationX, defFileListFmLocationY);
       // ファイルリストフォーム呼び出し
       fmFileList.Show();
       // リストビュー設定
@@ -239,6 +276,18 @@ namespace WFA
 
 #endif
       #endregion
+    }
+    #endregion
+
+
+    #region ロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      // メインフォーム初期設定メソッド使用
+      MainFormInitSeting();
+
+      // サブフォーム初期設定メソッド使用
+      SubFormInitSeting();
     }
     #endregion
 
