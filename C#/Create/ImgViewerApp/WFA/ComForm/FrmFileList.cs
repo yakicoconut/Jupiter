@@ -82,6 +82,18 @@ namespace WFA
     }
     #endregion
 
+    #region リストビューキー押下イベント
+    private void lvFileList_KeyDown(object sender, KeyEventArgs e)
+    {
+      // リストビュー内の項目選択を無効化
+      if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+        e.Handled = true;
+
+      // 親フォームのキー押下イベント使用
+      parentForm.ComKeyDown(e);
+    }
+    #endregion
+
     #region 参照ボタン押下イベント
     private void btReferenceDir_Click(object sender, EventArgs e)
     {

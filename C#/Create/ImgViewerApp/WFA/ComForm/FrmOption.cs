@@ -79,6 +79,20 @@ namespace WFA
     #endregion
 
 
+    #region 共通キー押下イベント
+    private void FrmOption_ComKeyDown(object sender, KeyEventArgs e)
+    {
+      // デフォルトのボタン押下効果を無効化
+      // これを記述しないと本イベントが二回発生してしまう
+      if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.Control || e.Shift || e.Alt)
+        e.Handled = true;
+
+      // 親フォームのキー押下イベント使用
+      parentForm.ComKeyDown(e);
+    }
+    #endregion
+
+
     #region 上ボタン押下イベント
     private void btUp_Click(object sender, EventArgs e)
     {
@@ -199,4 +213,34 @@ namespace WFA
     }
     #endregion
   }
+
+  #region ボタンイベントオーバーライドクラス
+  /// <summary>
+  /// ボタンイベントオーバーライドクラス
+  /// </summary>
+  public class ButtonEx : Button
+  {
+    /// <summary>
+    /// キー入力イベント
+    /// </summary>
+    /// <param name="keyData"></param>
+    /// <returns></returns>
+    protected override bool IsInputKey(Keys keyData)
+    {
+      /*
+       * ボタン上で矢印キーを押下された場合、元の処理(フォーカス移動)を無効化する
+       * .Designer.csファイルのボタンコントロールの宣言を本クラス(ButtonEx)で行う
+       */
+
+      // 矢印キーが押されたときは、trueを返す
+      Keys kcode = keyData & Keys.KeyCode;
+      if (kcode == Keys.Up || kcode == Keys.Down || kcode == Keys.Left || kcode == Keys.Right)
+      {
+        return true;
+      }
+
+      return base.IsInputKey(keyData);
+    }
+  }
+  #endregion
 }

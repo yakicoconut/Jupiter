@@ -298,7 +298,20 @@ namespace WFA
     #endregion
 
     #region キー押下イベント
-    public void Form1_KeyDown(object sender, KeyEventArgs e)
+    private void Form1_KeyDown(object sender, KeyEventArgs e)
+    {
+      // 共通キー押下処理メソッド
+      ComKeyDown(e);
+    }
+    #endregion
+
+
+    #region 共通キー押下処理メソッド
+    /// <summary>
+    /// 共通キー押下処理メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    public void ComKeyDown(KeyEventArgs e)
     {
       // 拡大/縮小キー押下判断メソッド使用
       if (IsModeZoomKey(e))

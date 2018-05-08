@@ -55,7 +55,7 @@
             this.ToolStripMenuItemDelete,
             this.ToolStripMenuItemOpen});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 136);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 114);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -63,7 +63,7 @@
             this.toolStripMenuItemOpacityGain,
             this.toolStripMenuItemOpacityDec});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
@@ -84,35 +84,35 @@
       // ToolStripMenuItemMove
       // 
       this.ToolStripMenuItemMove.Name = "ToolStripMenuItemMove";
-      this.ToolStripMenuItemMove.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemMove.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItemMove.Text = "移動";
       this.ToolStripMenuItemMove.Click += new System.EventHandler(this.ToolStripMenuItemMove_Click);
       // 
       // ToolStripMenuItemCopy
       // 
       this.ToolStripMenuItemCopy.Name = "ToolStripMenuItemCopy";
-      this.ToolStripMenuItemCopy.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemCopy.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItemCopy.Text = "コピー";
       this.ToolStripMenuItemCopy.Click += new System.EventHandler(this.ToolStripMenuItemCopy_Click);
       // 
       // ToolStripMenuItemDelete
       // 
       this.ToolStripMenuItemDelete.Name = "ToolStripMenuItemDelete";
-      this.ToolStripMenuItemDelete.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemDelete.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItemDelete.Text = "削除";
       this.ToolStripMenuItemDelete.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
       // 
       // ToolStripMenuItemOpen
       // 
       this.ToolStripMenuItemOpen.Name = "ToolStripMenuItemOpen";
-      this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItemOpen.Text = "開く";
       this.ToolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
       // 
       // lvFileList
       // 
-      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lvFileList.CheckBoxes = true;
       this.lvFileList.ContextMenuStrip = this.contextMenuStrip1;
@@ -122,12 +122,13 @@
       this.lvFileList.TabIndex = 0;
       this.lvFileList.UseCompatibleStateImageBehavior = false;
       this.lvFileList.View = System.Windows.Forms.View.List;
+      this.lvFileList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvFileList_KeyDown);
       this.lvFileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFileList_MouseDoubleClick);
       this.lvFileList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvFileList_MouseDown);
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
       this.panel1.Controls.Add(this.btReferenceDir);
@@ -161,7 +162,7 @@
       // 
       // tbCommitDir
       // 
-      this.tbCommitDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbCommitDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbCommitDir.Location = new System.Drawing.Point(16, 20);
       this.tbCommitDir.Name = "tbCommitDir";

@@ -36,6 +36,7 @@
       this.ToolStripMenuItemFolderList = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpenDir = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.cbChkImg = new System.Windows.Forms.CheckBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.label3 = new System.Windows.Forms.Label();
@@ -47,17 +48,16 @@
       this.cbIsModeZoom = new System.Windows.Forms.CheckBox();
       this.cbIsModeZeroPoint = new System.Windows.Forms.CheckBox();
       this.tbFileName = new System.Windows.Forms.TextBox();
-      this.btUp = new System.Windows.Forms.Button();
-      this.btDown = new System.Windows.Forms.Button();
-      this.btRight = new System.Windows.Forms.Button();
-      this.btLeft = new System.Windows.Forms.Button();
+      this.btUp = new WFA.ButtonEx();
+      this.btDown = new WFA.ButtonEx();
+      this.btRight = new WFA.ButtonEx();
+      this.btLeft = new WFA.ButtonEx();
       this.nudUpDist = new System.Windows.Forms.NumericUpDown();
       this.nudDownDist = new System.Windows.Forms.NumericUpDown();
       this.nudRightDist = new System.Windows.Forms.NumericUpDown();
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
-      this.cbChkImg = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -117,8 +117,8 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
       this.panel1.Controls.Add(this.cbChkImg);
@@ -146,7 +146,18 @@
       this.panel1.Location = new System.Drawing.Point(10, 10);
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(150, 412);
-      this.panel1.TabIndex = 1;
+      this.panel1.TabIndex = 0;
+      // 
+      // cbChkImg
+      // 
+      this.cbChkImg.AutoSize = true;
+      this.cbChkImg.Location = new System.Drawing.Point(20, 99);
+      this.cbChkImg.Name = "cbChkImg";
+      this.cbChkImg.Size = new System.Drawing.Size(63, 16);
+      this.cbChkImg.TabIndex = 0;
+      this.cbChkImg.TabStop = false;
+      this.cbChkImg.Text = "チェック()";
+      this.cbChkImg.UseVisualStyleBackColor = true;
       // 
       // label1
       // 
@@ -155,7 +166,7 @@
       this.label1.Location = new System.Drawing.Point(3, 18);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(41, 12);
-      this.label1.TabIndex = 3;
+      this.label1.TabIndex = 0;
       this.label1.Text = "MODE";
       // 
       // label2
@@ -165,7 +176,7 @@
       this.label2.Location = new System.Drawing.Point(3, 119);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(35, 12);
-      this.label2.TabIndex = 4;
+      this.label2.TabIndex = 0;
       this.label2.Text = "INFO";
       // 
       // label3
@@ -175,7 +186,7 @@
       this.label3.Location = new System.Drawing.Point(3, 320);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(69, 12);
-      this.label3.TabIndex = 10;
+      this.label3.TabIndex = 0;
       this.label3.Text = "OPETAION";
       // 
       // label4
@@ -185,7 +196,7 @@
       this.label4.Location = new System.Drawing.Point(3, 149);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(29, 12);
-      this.label4.TabIndex = 12;
+      this.label4.TabIndex = 0;
       this.label4.Text = "SET";
       // 
       // label5
@@ -195,7 +206,7 @@
       this.label5.Location = new System.Drawing.Point(18, 234);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(53, 12);
-      this.label5.TabIndex = 13;
+      this.label5.TabIndex = 0;
       this.label5.Text = "移動距離";
       // 
       // label6
@@ -205,7 +216,7 @@
       this.label6.Location = new System.Drawing.Point(18, 161);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(53, 12);
-      this.label6.TabIndex = 17;
+      this.label6.TabIndex = 0;
       this.label6.Text = "拡大倍率";
       // 
       // label7
@@ -215,7 +226,7 @@
       this.label7.Location = new System.Drawing.Point(20, 198);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(53, 12);
-      this.label7.TabIndex = 19;
+      this.label7.TabIndex = 0;
       this.label7.Text = "縮小倍率";
       // 
       // cbIsModePageEject
@@ -225,6 +236,7 @@
       this.cbIsModePageEject.Name = "cbIsModePageEject";
       this.cbIsModePageEject.Size = new System.Drawing.Size(82, 16);
       this.cbIsModePageEject.TabIndex = 0;
+      this.cbIsModePageEject.TabStop = false;
       this.cbIsModePageEject.Text = "ページ送り()";
       this.cbIsModePageEject.UseVisualStyleBackColor = true;
       this.cbIsModePageEject.CheckedChanged += new System.EventHandler(this.cbIsModePageEject_CheckedChanged);
@@ -235,7 +247,8 @@
       this.cbIsModeZoom.Location = new System.Drawing.Point(20, 33);
       this.cbIsModeZoom.Name = "cbIsModeZoom";
       this.cbIsModeZoom.Size = new System.Drawing.Size(86, 16);
-      this.cbIsModeZoom.TabIndex = 1;
+      this.cbIsModeZoom.TabIndex = 0;
+      this.cbIsModeZoom.TabStop = false;
       this.cbIsModeZoom.Text = "拡張/縮小()";
       this.cbIsModeZoom.UseVisualStyleBackColor = true;
       this.cbIsModeZoom.CheckedChanged += new System.EventHandler(this.cbIsModeZoom_CheckedChanged);
@@ -246,7 +259,8 @@
       this.cbIsModeZeroPoint.Location = new System.Drawing.Point(20, 77);
       this.cbIsModeZeroPoint.Name = "cbIsModeZeroPoint";
       this.cbIsModeZeroPoint.Size = new System.Drawing.Size(64, 16);
-      this.cbIsModeZeroPoint.TabIndex = 2;
+      this.cbIsModeZeroPoint.TabIndex = 0;
+      this.cbIsModeZeroPoint.TabStop = false;
       this.cbIsModeZeroPoint.Text = "0Point()";
       this.cbIsModeZeroPoint.UseVisualStyleBackColor = true;
       // 
@@ -259,47 +273,51 @@
       this.tbFileName.Name = "tbFileName";
       this.tbFileName.ReadOnly = true;
       this.tbFileName.Size = new System.Drawing.Size(126, 12);
-      this.tbFileName.TabIndex = 5;
+      this.tbFileName.TabIndex = 0;
       // 
       // btUp
       // 
       this.btUp.Location = new System.Drawing.Point(39, 335);
       this.btUp.Name = "btUp";
       this.btUp.Size = new System.Drawing.Size(70, 23);
-      this.btUp.TabIndex = 8;
+      this.btUp.TabIndex = 0;
       this.btUp.Text = " ↑";
       this.btUp.UseVisualStyleBackColor = true;
-      this.btUp.Click += new System.EventHandler(this.btUp_Click);
+      this.btUp.Click += new System.EventHandler(this.btDown_Click);
+      this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // btDown
       // 
       this.btDown.Location = new System.Drawing.Point(39, 381);
       this.btDown.Name = "btDown";
       this.btDown.Size = new System.Drawing.Size(70, 23);
-      this.btDown.TabIndex = 9;
+      this.btDown.TabIndex = 0;
       this.btDown.Text = " ↓";
       this.btDown.UseVisualStyleBackColor = true;
       this.btDown.Click += new System.EventHandler(this.btDown_Click);
+      this.btDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // btRight
       // 
       this.btRight.Location = new System.Drawing.Point(76, 358);
       this.btRight.Name = "btRight";
       this.btRight.Size = new System.Drawing.Size(70, 23);
-      this.btRight.TabIndex = 7;
+      this.btRight.TabIndex = 0;
       this.btRight.Text = "→";
       this.btRight.UseVisualStyleBackColor = true;
       this.btRight.Click += new System.EventHandler(this.btRight_Click);
+      this.btRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // btLeft
       // 
       this.btLeft.Location = new System.Drawing.Point(3, 358);
       this.btLeft.Name = "btLeft";
       this.btLeft.Size = new System.Drawing.Size(70, 23);
-      this.btLeft.TabIndex = 6;
+      this.btLeft.TabIndex = 0;
       this.btLeft.Text = "←";
       this.btLeft.UseVisualStyleBackColor = true;
       this.btLeft.Click += new System.EventHandler(this.btLeft_Click);
+      this.btLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // nudUpDist
       // 
@@ -316,7 +334,7 @@
             0});
       this.nudUpDist.Name = "nudUpDist";
       this.nudUpDist.Size = new System.Drawing.Size(52, 19);
-      this.nudUpDist.TabIndex = 23;
+      this.nudUpDist.TabIndex = 0;
       this.nudUpDist.Value = new decimal(new int[] {
             1,
             0,
@@ -339,7 +357,7 @@
             0});
       this.nudDownDist.Name = "nudDownDist";
       this.nudDownDist.Size = new System.Drawing.Size(52, 19);
-      this.nudDownDist.TabIndex = 26;
+      this.nudDownDist.TabIndex = 0;
       this.nudDownDist.Value = new decimal(new int[] {
             1,
             0,
@@ -362,7 +380,7 @@
             0});
       this.nudRightDist.Name = "nudRightDist";
       this.nudRightDist.Size = new System.Drawing.Size(52, 19);
-      this.nudRightDist.TabIndex = 25;
+      this.nudRightDist.TabIndex = 0;
       this.nudRightDist.Value = new decimal(new int[] {
             1,
             0,
@@ -385,7 +403,7 @@
             0});
       this.nudLeftDist.Name = "nudLeftDist";
       this.nudLeftDist.Size = new System.Drawing.Size(52, 19);
-      this.nudLeftDist.TabIndex = 24;
+      this.nudLeftDist.TabIndex = 0;
       this.nudLeftDist.Value = new decimal(new int[] {
             1,
             0,
@@ -409,7 +427,7 @@
             0});
       this.nudZoomInRatio.Name = "nudZoomInRatio";
       this.nudZoomInRatio.Size = new System.Drawing.Size(52, 19);
-      this.nudZoomInRatio.TabIndex = 21;
+      this.nudZoomInRatio.TabIndex = 0;
       this.nudZoomInRatio.Value = new decimal(new int[] {
             1,
             0,
@@ -433,18 +451,8 @@
             0});
       this.nudZoomOutRatio.Name = "nudZoomOutRatio";
       this.nudZoomOutRatio.Size = new System.Drawing.Size(52, 19);
-      this.nudZoomOutRatio.TabIndex = 22;
+      this.nudZoomOutRatio.TabIndex = 0;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
-      // 
-      // cbChkImg
-      // 
-      this.cbChkImg.AutoSize = true;
-      this.cbChkImg.Location = new System.Drawing.Point(20, 99);
-      this.cbChkImg.Name = "cbChkImg";
-      this.cbChkImg.Size = new System.Drawing.Size(63, 16);
-      this.cbChkImg.TabIndex = 27;
-      this.cbChkImg.Text = "チェック()";
-      this.cbChkImg.UseVisualStyleBackColor = true;
       // 
       // FrmOption
       // 
@@ -455,6 +463,7 @@
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+      this.KeyPreview = true;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "FrmOption";
@@ -462,6 +471,7 @@
       this.Text = "Form2";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
       this.Load += new System.EventHandler(this.Form2_Load);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       this.contextMenuStrip1.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
@@ -495,10 +505,10 @@
     public System.Windows.Forms.CheckBox cbIsModeZoom;
     public System.Windows.Forms.CheckBox cbIsModeZeroPoint;
     public System.Windows.Forms.TextBox tbFileName;
-    private System.Windows.Forms.Button btUp;
-    private System.Windows.Forms.Button btDown;
-    private System.Windows.Forms.Button btRight;
-    private System.Windows.Forms.Button btLeft;
+    private ButtonEx btUp;
+    private ButtonEx btDown;
+    private ButtonEx btRight;
+    private ButtonEx btLeft;
     public System.Windows.Forms.NumericUpDown nudZoomInRatio;
     public System.Windows.Forms.NumericUpDown nudZoomOutRatio;
     public System.Windows.Forms.NumericUpDown nudUpDist;
