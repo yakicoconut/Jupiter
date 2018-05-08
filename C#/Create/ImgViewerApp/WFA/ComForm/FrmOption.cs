@@ -12,9 +12,15 @@ using System.Reflection;
 
 namespace WFA
 {
+  /// <summary>
+  /// 操作フォーム
+  /// </summary>
   public partial class FrmOption : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public FrmOption()
     {
       InitializeComponent();
@@ -24,8 +30,14 @@ namespace WFA
 
     #region 宣言
 
-    // 親フォーム
-    public Form1 form1 { get; set; }
+    #endregion
+
+    #region プロパティ
+
+    /// <summary>
+    /// 親フォーム
+    /// </summary>
+    public Form1 parentForm { get; set; }
 
     #endregion
 
@@ -71,7 +83,7 @@ namespace WFA
     private void btUp_Click(object sender, EventArgs e)
     {
       // 上操作メソッド
-      form1.UpOperation();
+      parentForm.UpOperation();
     }
     #endregion
 
@@ -79,7 +91,7 @@ namespace WFA
     private void btDown_Click(object sender, EventArgs e)
     {
       // 下操作メソッド
-      form1.DownOperation();
+      parentForm.DownOperation();
     }
     #endregion
 
@@ -87,7 +99,7 @@ namespace WFA
     private void btRight_Click(object sender, EventArgs e)
     {
       // 右操作メソッド
-      form1.RightOperation();
+      parentForm.RightOperation();
     }
     #endregion
 
@@ -95,7 +107,7 @@ namespace WFA
     private void btLeft_Click(object sender, EventArgs e)
     {
       // 左操作メソッド
-      form1.LeftOperation();
+      parentForm.LeftOperation();
     }
     #endregion
 
@@ -112,22 +124,22 @@ namespace WFA
       {
         case "nudZoomInRatio":
           // コントロールの内容をプロパティに設定
-          form1.zoomInRatio = double.Parse(ctrl.Text);
+          parentForm.zoomInRatio = double.Parse(ctrl.Text);
           break;
         case "nudZoomOutRatio":
-          form1.zoomOutRatio = double.Parse(ctrl.Text);
+          parentForm.zoomOutRatio = double.Parse(ctrl.Text);
           break;
         case "nudUpDist":
-          form1.upMoveDistance = int.Parse(ctrl.Text);
+          parentForm.upMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudDownDist":
-          form1.downMoveDistance = int.Parse(ctrl.Text);
+          parentForm.downMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudRightDist":
-          form1.rightMoveDistance = int.Parse(ctrl.Text);
+          parentForm.rightMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudLeftDist":
-          form1.leftMoveDistance = int.Parse(ctrl.Text);
+          parentForm.leftMoveDistance = int.Parse(ctrl.Text);
           break;
 
         default:
@@ -165,7 +177,7 @@ namespace WFA
     private void ToolStripMenuItemFileList_Click(object sender, EventArgs e)
     {
       // ファイルリストフォーム初期化メソッド使用
-      form1.InitFileListForm();
+      parentForm.InitFileListForm();
     }
     #endregion
 

@@ -16,9 +16,15 @@ using System.Collections;
 
 namespace WFA
 {
+  /// <summary>
+  /// メインフォーム
+  /// </summary>
   public partial class Form1 : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public Form1()
     {
       InitializeComponent();
@@ -49,7 +55,7 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
-    public void GetConfig()
+    private void GetConfig()
     {
       // 初期フォーム位置
       currentZeroPoint = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")), int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
@@ -87,7 +93,7 @@ namespace WFA
     FrmOption fmOption = new FrmOption();
     // ファイルリストフォームインスタンス生成
     FrmFileList fmFileList = new FrmFileList();
-    
+
     // 初期フォームサイズ
     int defaultFormWidth;
     int defaultFormHeight;
@@ -125,28 +131,47 @@ namespace WFA
 
     #region プロパティ
 
-    // 現在表示ページ数
+    /// <summary>
+    /// 現在表示ページ数
+    /// </summary>
     public int currentImageKey { get; set; }
 
-    //ズームイン倍率
+    /// <summary>
+    /// ズームイン倍率
+    /// </summary>
     public double zoomInRatio { get; set; }
-    //ズームアウト倍率
+    /// <summary>
+    /// ズームアウト倍率
+    /// </summary>
     public double zoomOutRatio { get; set; }
 
-    // 各移動距離
+    /// <summary>
+    /// 上移動距離
+    /// </summary>
     public int upMoveDistance { get; set; }
+    /// <summary>
+    /// 下移動距離
+    /// </summary>
     public int downMoveDistance { get; set; }
-    public int rightMoveDistance { get; set; }
+    /// <summary>
+    /// 左移動距離
+    /// </summary>
     public int leftMoveDistance { get; set; }
+    /// <summary>
+    /// 右移動距離
+    /// </summary>
+    public int rightMoveDistance { get; set; }
 
-    // コミット先パス
+    /// <summary>
+    /// コミット先パス
+    /// </summary>
     public string commitPath { get; set; }
 
     #endregion
 
 
     #region コントロール初期設定メソッド
-    public void ControlInitSeting()
+    private void ControlInitSeting()
     {
       // アプリの開始位置
       // 開始位置をロケーションプロパティ
@@ -184,7 +209,7 @@ namespace WFA
     private void Form1_Load(object sender, EventArgs e)
     {
       // オプションフォームのプロパティに本クラスを設定
-      fmOption.form1 = this;
+      fmOption.parentForm = this;
       // 常にメインフォームの手前に表示
       fmOption.Owner = this;
       // テキストボックス設定
@@ -345,7 +370,7 @@ namespace WFA
 
 
     #region 拡大/縮小キー押下判断メソッド
-    public bool IsModeZoomKey(KeyEventArgs e)
+    private bool IsModeZoomKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
       switch (modeZoomKey)
@@ -369,7 +394,7 @@ namespace WFA
     #endregion
 
     #region ページ送りキー押下判断メソッド
-    public bool IsModePageEjectKey(KeyEventArgs e)
+    private bool IsModePageEjectKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
       switch (modePageEjectKey)
@@ -393,7 +418,7 @@ namespace WFA
     #endregion
 
     #region 0ポイントキー押下判断メソッド
-    public bool IsModeZeroPointKey(KeyEventArgs e)
+    private bool IsModeZeroPointKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
       switch (modeZeroPointKey)
@@ -417,7 +442,7 @@ namespace WFA
     #endregion
 
     #region チェックキー押下判断メソッド
-    public bool IsChkImgKey(KeyEventArgs e)
+    private bool IsChkImgKey(KeyEventArgs e)
     {
       bool isChkOn = false;
       switch (chkImgKey)
@@ -566,6 +591,9 @@ namespace WFA
 
 
     #region ファイルリストフォーム初期化メソッド
+    /// <summary>
+    /// ファイルリストフォーム初期化メソッド
+    /// </summary>
     public void InitFileListForm()
     {
       // リストビュー初期化
@@ -581,6 +609,10 @@ namespace WFA
     #endregion
 
     #region ファイル移動メソッド
+    /// <summary>
+    /// ファイル移動メソッド
+    /// </summary>
+    /// <param name="fileIndex"></param>
     public void MoveFiles(ArrayList fileIndex)
     {
       // 表示中の画像を移動するときに一旦、参照をはずす必要がある
@@ -618,6 +650,9 @@ namespace WFA
 
 
     #region 上操作メソッド
+    /// <summary>
+    /// 上操作メソッド
+    /// </summary>
     public void UpOperation()
     {
       // 拡大/縮小チェック
@@ -651,6 +686,9 @@ namespace WFA
     #endregion
 
     #region 下操作メソッド
+    /// <summary>
+    /// 下操作メソッド
+    /// </summary>
     public void DownOperation()
     {
       // 拡大/縮小チェック
@@ -693,6 +731,9 @@ namespace WFA
     #endregion
 
     #region 右操作メソッド
+    /// <summary>
+    /// 右操作メソッド
+    /// </summary>
     public void RightOperation()
     {
       // ページ送りチェック
@@ -732,6 +773,9 @@ namespace WFA
     #endregion
 
     #region 左操作メソッド
+    /// <summary>
+    /// 左操作メソッド
+    /// </summary>
     public void LeftOperation()
     {
       // コントロールチェックの場合
@@ -770,6 +814,9 @@ namespace WFA
     #endregion
 
     #region ページ送りメソッド
+    /// <summary>
+    /// ページ送りメソッド
+    /// </summary>
     public void FeedImg()
     {
       // ページ送りに伴い画像を左上に設定
@@ -782,7 +829,7 @@ namespace WFA
 
 
     #region 雛形メソッド
-    public void template()
+    private void template()
     {
 
     }

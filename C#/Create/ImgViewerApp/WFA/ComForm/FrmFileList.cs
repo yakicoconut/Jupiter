@@ -13,9 +13,15 @@ using System.Collections;
 
 namespace WFA
 {
+  /// <summary>
+  /// ファイルリストフォーム
+  /// </summary>
   public partial class FrmFileList : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public FrmFileList()
     {
       InitializeComponent();
@@ -28,7 +34,13 @@ namespace WFA
 
     #region 宣言
 
-    // 親フォーム
+    #endregion
+
+    #region プロパティ
+
+    /// <summary>
+    /// 親フォーム
+    /// </summary>
     public Form1 parentForm { get; set; }
 
     #endregion
