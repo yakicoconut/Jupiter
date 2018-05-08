@@ -179,14 +179,15 @@ namespace WFA
       this.Location = new Point(int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0")) - 10, int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0")));
 
       // フォームサイズの変更
+      // コンフィグの値が数値以外の場合
       if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormWidth", "1000"), out defaultFormWidth))
       {
-        // 画面サイズを取得
-        defaultFormWidth = Screen.PrimaryScreen.Bounds.Width + 16;
+        // タスクバーを抜いた画面サイズを設定
+        defaultFormWidth = SystemInformation.WorkingArea.Width;
       }
       if (!int.TryParse(_comLogic.GetConfigValue("DefaultFormHeight", "500"), out defaultFormHeight))
       {
-        defaultFormHeight = Screen.PrimaryScreen.Bounds.Height - 30;
+        defaultFormHeight = SystemInformation.WorkingArea.Height;
       }
       this.Width = defaultFormWidth;
       this.Height = defaultFormHeight;
@@ -203,7 +204,6 @@ namespace WFA
       fmOption.Location = new Point(int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationX", "1500")) - 10, int.Parse(_comLogic.GetConfigValue("FormTwoDefaultLocationY", "500")));
     }
     #endregion
-
 
     #region ロードイベント
     private void Form1_Load(object sender, EventArgs e)
