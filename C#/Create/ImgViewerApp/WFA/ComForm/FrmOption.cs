@@ -50,6 +50,20 @@ namespace WFA
 
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
+
+      // タブインデックス設定
+      int incTabIndex = 1;
+      btUp.TabIndex = incTabIndex++;
+      btDown.TabIndex = incTabIndex++;
+      btLeft.TabIndex = incTabIndex++;
+      btRight.TabIndex = incTabIndex++;
+      tbFileName.TabIndex = incTabIndex++;
+      nudZoomInRatio.TabIndex = incTabIndex++;
+      nudZoomOutRatio.TabIndex = incTabIndex++;
+      nudUpDist.TabIndex = incTabIndex++;
+      nudDownDist.TabIndex = incTabIndex++;
+      nudLeftDist.TabIndex = incTabIndex++;
+      nudRightDist.TabIndex = incTabIndex++;
     }
     #endregion
 
