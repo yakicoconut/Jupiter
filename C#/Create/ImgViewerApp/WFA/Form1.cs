@@ -354,6 +354,25 @@ namespace WFA
     }
     #endregion
 
+    
+    #region コンテキスト_ファイルリスト押下イベント
+    private void ToolStripMenuItemFileListForm_Click(object sender, EventArgs e)
+    {
+      // マウスの位置にファイルリストを表示する
+      fmFileList.Left = Cursor.Position.X;
+      fmFileList.Top = Cursor.Position.Y;
+    }
+    #endregion
+
+    #region コンテキスト_操作パネル押下イベント
+    private void ToolStripMenuItemOptionForm_Click(object sender, EventArgs e)
+    {
+      // マウスの位置にオプションフォームを表示する
+      fmOption.Left = Cursor.Position.X;
+      fmOption.Top = Cursor.Position.Y;
+    }
+    #endregion
+
 
     #region 共通キー押下処理メソッド
     /// <summary>
