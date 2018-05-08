@@ -130,22 +130,9 @@ namespace WFA
     #region コンテキスト_移動押下イベント
     private void ToolStripMenuItemMove_Click(object sender, EventArgs e)
     {
-      // コミット先パスを設定
-      parentForm.commitPath = tbCommitDir.Text;
-
-      // ねずみ返し_項目がチェックされていない場合
-      if (lvFileList.CheckedItems.Count == 0)
-      {
-        MessageBox.Show("チェック項目無し");
-        return;
-      }
-
-      // チェック項目取得
+      // ファイル操作判断メソッド使用
       ArrayList chk = new ArrayList();
-      foreach (ListViewItem x in lvFileList.CheckedItems)
-      {
-        chk.Add(x.Index);
-      }
+      FileOperateDecision(chk);
 
       // ファイル移動メソッド使用
       parentForm.MoveFiles(chk);
@@ -155,7 +142,12 @@ namespace WFA
     #region コンテキスト_コピー押下イベント
     private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
     {
+      // ファイル操作判断メソッド使用
+      ArrayList chk = new ArrayList();
+      FileOperateDecision(chk);
 
+      // ファイルコピーメソッド使用
+      parentForm.CopyFiles(chk);
     }
     #endregion
 
@@ -204,6 +196,34 @@ namespace WFA
       else
       {
         return null;
+      }
+    }
+    #endregion
+
+    #region ファイル操作判断メソッド
+    private void FileOperateDecision(ArrayList chk)
+    {
+      // コミット先パスを設定
+      parentForm.commitPath = tbCommitDir.Text;
+
+      // ねずみ返し_コミット先パスが空の場合
+      if (parentForm.commitPath == string.Empty)
+      {
+        MessageBox.Show("コミット先パスを入力してください");
+        return;
+      }
+
+      // ねずみ返し_項目がチェックされていない場合
+      if (lvFileList.CheckedItems.Count == 0)
+      {
+        MessageBox.Show("対象項目をチェックしてください");
+        return;
+      }
+
+      // チェック項目取得
+      foreach (ListViewItem x in lvFileList.CheckedItems)
+      {
+        chk.Add(x.Index);
       }
     }
     #endregion
