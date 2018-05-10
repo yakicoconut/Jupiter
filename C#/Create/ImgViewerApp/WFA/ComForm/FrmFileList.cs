@@ -86,7 +86,7 @@ namespace WFA
     private void lvFileList_KeyDown(object sender, KeyEventArgs e)
     {
       // リストビュー内の項目選択を無効化
-      if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+      if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.Space)
         e.Handled = true;
 
       // 親フォームのキー押下イベント使用
