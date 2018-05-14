@@ -283,7 +283,7 @@
       this.btUp.TabIndex = 0;
       this.btUp.Text = " ↑";
       this.btUp.UseVisualStyleBackColor = true;
-      this.btUp.Click += new System.EventHandler(this.btDown_Click);
+      this.btUp.Click += new System.EventHandler(this.btUp_Click);
       this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // btDown
