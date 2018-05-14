@@ -94,30 +94,8 @@ namespace WFA
           return;
         }
 
-        /*
-         * Windowsフォームで別スレッドからコントロールを操作するには？：.NET TIPS - ＠IT
-         *	http://www.atmarkit.co.jp/ait/articles/0506/17/news111.html
-         */
-        // ラベル更新メソッドのデリゲートインスタンス生成
-        LabelUpdateCallback dlgInsLabelUpd = new LabelUpdateCallback(fm.LabelUpdate);
-        // ラベルコントロールのメソッド起動
-        fm.label1.Invoke(dlgInsLabelUpd, i.ToString());
-
-        // 排他ロック
-        lock (_lockObj)
-        {
-          // 引数:対象ファイル、上書き可不可、文字コード
-          using (StreamWriter sw = new System.IO.StreamWriter(@"test.txt", true, Encoding.GetEncoding("shift_jis")))
-          {
-            // スレッドID取得
-            int id = Thread.CurrentThread.ManagedThreadId;
-            // 現在時刻取得
-            DateTime dt = DateTime.Now;
-
-            // 書き込み
-            sw.WriteLine(string.Format("ID:{0} {1}", id.ToString(), dt.ToString("yyyy/MM/dd HH:mm:ss.fff")));
-          }
-        }
+        // スレッド処理振り分けメソッド使用
+        fm.AssignThreadProcess(i.ToString());
 
         // 待機
         Thread.Sleep(1000);
