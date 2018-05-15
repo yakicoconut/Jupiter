@@ -670,32 +670,6 @@ namespace WFA
     }
     #endregion
 
-    #region ファイルコピーメソッド
-    /// <summary>
-    /// ファイルコピーメソッド
-    /// </summary>
-    /// <param name="fileIndex"></param>
-    public void CopyFiles(ArrayList fileIndex)
-    {
-      // チェックされたファイルを処理
-      foreach (int x in fileIndex)
-      {
-        // ディクショナリから画像パスを取得
-        string targetImgPath = dicImgPath[x];
-
-        try
-        {
-          // ファイル移動
-          File.Copy(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
-        }
-        catch (Exception e)
-        {
-          MessageBox.Show(e.ToString());
-        }
-      }
-    }
-    #endregion
-
 
     #region ファイルリストフォーム初期化メソッド
     /// <summary>
@@ -752,6 +726,32 @@ namespace WFA
 
       // 現在表示している画像のフォルダを改めて読み込み
       ReadFile(dicImgPath[currentImageKey]);
+    }
+    #endregion
+
+    #region ファイルコピーメソッド
+    /// <summary>
+    /// ファイルコピーメソッド
+    /// </summary>
+    /// <param name="fileIndex"></param>
+    public void CopyFiles(ArrayList fileIndex)
+    {
+      // チェックされたファイルを処理
+      foreach (int x in fileIndex)
+      {
+        // ディクショナリから画像パスを取得
+        string targetImgPath = dicImgPath[x];
+
+        try
+        {
+          // ファイル移動
+          File.Copy(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
+        }
+        catch (Exception e)
+        {
+          MessageBox.Show(e.ToString());
+        }
+      }
     }
     #endregion
 
