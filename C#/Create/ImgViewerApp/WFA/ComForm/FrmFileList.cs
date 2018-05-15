@@ -130,9 +130,20 @@ namespace WFA
     #region コンテキスト_移動押下イベント
     private void ToolStripMenuItemMove_Click(object sender, EventArgs e)
     {
-      // ファイル操作判断メソッド使用
+      // コミット先パスを設定
+      parentForm.commitPath = tbCommitDir.Text;
+
+      // ねずみ返し_コミット先パスが空の場合
+      if (parentForm.commitPath == string.Empty)
+      {
+        MessageBox.Show("コミット先パスを入力してください");
+        return;
+      }
+
+      // ねずみ返し_ファイル操作判断メソッド使用
       ArrayList chk = new ArrayList();
-      FileOperateDecision(chk);
+      if (!FileOperateDecision(chk))
+        return;
 
       // ファイル移動メソッド使用
       parentForm.MoveFiles(chk);
@@ -142,9 +153,20 @@ namespace WFA
     #region コンテキスト_コピー押下イベント
     private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
     {
-      // ファイル操作判断メソッド使用
+      // コミット先パスを設定
+      parentForm.commitPath = tbCommitDir.Text;
+
+      // ねずみ返し_コミット先パスが空の場合
+      if (parentForm.commitPath == string.Empty)
+      {
+        MessageBox.Show("コミット先パスを入力してください");
+        return;
+      }
+
+      // ねずみ返し_ファイル操作判断メソッド使用
       ArrayList chk = new ArrayList();
-      FileOperateDecision(chk);
+      if (!FileOperateDecision(chk))
+        return;
 
       // ファイルコピーメソッド使用
       parentForm.CopyFiles(chk);
@@ -154,7 +176,18 @@ namespace WFA
     #region コンテキスト_削除押下イベント
     private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_ファイル操作判断メソッド使用
+      ArrayList chk = new ArrayList();
+      if (!FileOperateDecision(chk))
+        return;
 
+      // 削除警告表示
+      DialogResult result = MessageBox.Show("ファイルを削除します。\r\nよろしいですか?", "実施", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+      if (result == System.Windows.Forms.DialogResult.No)
+        return;
+
+      // ファイル削除メソッド使用
+      parentForm.DeleteFiles(chk);
     }
     #endregion
 
@@ -201,23 +234,13 @@ namespace WFA
     #endregion
 
     #region ファイル操作判断メソッド
-    private void FileOperateDecision(ArrayList chk)
+    private bool FileOperateDecision(ArrayList chk)
     {
-      // コミット先パスを設定
-      parentForm.commitPath = tbCommitDir.Text;
-
-      // ねずみ返し_コミット先パスが空の場合
-      if (parentForm.commitPath == string.Empty)
-      {
-        MessageBox.Show("コミット先パスを入力してください");
-        return;
-      }
-
       // ねずみ返し_項目がチェックされていない場合
       if (lvFileList.CheckedItems.Count == 0)
       {
         MessageBox.Show("対象項目をチェックしてください");
-        return;
+        return false;
       }
 
       // チェック項目取得
@@ -225,6 +248,8 @@ namespace WFA
       {
         chk.Add(x.Index);
       }
+
+      return true;
     }
     #endregion
 

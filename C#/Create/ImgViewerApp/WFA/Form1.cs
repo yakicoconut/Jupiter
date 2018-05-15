@@ -755,6 +755,46 @@ namespace WFA
     }
     #endregion
 
+    #region ファイル削除メソッド
+    /// <summary>
+    /// ファイル削除メソッド
+    /// </summary>
+    /// <param name="fileIndex"></param>
+    public void DeleteFiles(ArrayList fileIndex)
+    {
+      // 表示中の画像を削除するときに一旦、参照をはずす必要がある
+      // 現在表示中の画像を退避する
+      Bitmap evacuationImg = (Bitmap)pictureBox1.Image;
+      // 表示中の画像を破棄
+      if (currentImage != null)
+      {
+        currentImage.Dispose();
+      }
+      // 画像ファイルを直接参照するのではなく退避した画像を使用
+      currentImage = evacuationImg;
+
+      // チェックされたファイルを処理
+      foreach (int x in fileIndex)
+      {
+        // ディクショナリから画像パスを取得
+        string targetImgPath = dicImgPath[x];
+
+        try
+        {
+          // ファイル削除
+          File.Delete(targetImgPath);
+        }
+        catch (Exception e)
+        {
+          MessageBox.Show(e.ToString());
+        }
+      }
+
+      // 現在表示している画像のフォルダを改めて読み込み
+      ReadFile(dicImgPath[currentImageKey]);
+    }
+    #endregion
+
 
     #region 上操作メソッド
     /// <summary>
