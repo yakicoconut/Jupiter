@@ -7,9 +7,9 @@ rem 遅延環境変数オン
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 
-: 変数
-  rem フォルダ名数
-  set /a length=0
+: 参照バッチ
+  rem ディレクトリファイル情報バッチ
+  set call_DirFilePathInfo="..\OwnLib\DirFilePathInfo.bat"
 
 
 : コピー元ルートフォルダ入力
@@ -54,34 +54,26 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     )
 
 
-rem コピー元ルートフォルダパスを1文字ずつ取得してカウントする
-rem ループ用変数にコピー元ルートフォルダパスを設定
-set last=%targetRoot%
-:LOOP
-  rem カウントアップ
-  set /a length+=1
-
-  rem 文字列を一文字削除
-  set last=%last:~1%
-
-  rem 文字が残っている場合、ループ
-  if not "%last%"=="" goto LOOP
-
-
 : フォルダコピー
   rem フォルダ構成の出力
   dir %targetRoot% /b /ad /s>FOLDERS.txt
+
+  rem ディレクトリファイル情報バッチ使用_コピー元ルートフォルダ名取得
+  call %call_DirFilePathInfo% %targetRoot% n
+  set targetRootDirName=%return_DirFilePathInfo%
+  rem コピー先ルートフォルダにコピー元ルートフォルダを作成
+  mkdir "%destinationRoot%\%targetRootDirName%"
 
   rem 出力したフォルダ名を一行ずつ処理
   for /f "delims=" %%a in (FOLDERS.txt) do (
     rem ループ対象(コピー対象フォルダパス)を変数に格納
     set x=%%a
 
-    rem 対象フォルダ名のみ取得(コピー元ルートフォルダを抜く)
-    set x=!x:~%length%!
+    rem コピー元ルートフォルダまでのパスを削除
+    set x=!x:%targetRoot%\=!
 
     rem コピー先ルートフォルダにフォルダを作成
-    mkdir "%destinationRoot%!x!"
+    mkdir "%destinationRoot%\%targetRootDirName%\!x!"
   )
 
   rem 作業ファイルの削除
@@ -93,7 +85,7 @@ set last=%targetRoot%
   tree %targetRoot%>TARGETTREE.txt
 
   rem コピー先フォルダツリーファイル作成
-  tree %destinationRoot%>DESTINATIONTREE.txt
+  tree %destinationRoot%\%targetRootDirName%>DESTINATIONTREE.txt
 
 
   echo;
