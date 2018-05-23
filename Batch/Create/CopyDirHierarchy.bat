@@ -15,8 +15,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 : コピー元ルートフォルダ入力
   echo;
   echo コピー元のルートフォルダパスを入力してください
+
   rem 変数初期化
   set USR=
+
   set /P USR="入力してください(文末\なし):"
   set targetRoot=%USR%
   : ねずみ返し_空白の場合
@@ -67,18 +69,15 @@ set last=%targetRoot%
 
 
 : フォルダコピー
-  rem カレントフォルダの変更
-  cd /d %targetRoot%
-
   rem フォルダ構成の出力
-  dir /b /ad /s>FOLDERS.txt
+  dir %targetRoot% /b /ad /s>FOLDERS.txt
 
   rem 出力したフォルダ名を一行ずつ処理
   for /f "delims=" %%a in (FOLDERS.txt) do (
     rem ループ対象(コピー対象フォルダパス)を変数に格納
     set x=%%a
 
-    rem (対象フォルダ名のみ取得(コピー元ルートフォルダを抜く)
+    rem 対象フォルダ名のみ取得(コピー元ルートフォルダを抜く)
     set x=!x:~%length%!
 
     rem コピー先ルートフォルダにフォルダを作成
@@ -86,18 +85,15 @@ set last=%targetRoot%
   )
 
   rem 作業ファイルの削除
-  del "%targetRoot%\FOLDERS.txt"
+  del FOLDERS.txt
 
 
 : 事後処理
   rem コピー元フォルダツリーファイル作成
-  tree>TARGETTREE.txt
-  move "%targetRoot%\TARGETTREE.txt" "%~dp0"
+  tree %targetRoot%>TARGETTREE.txt
 
   rem コピー先フォルダツリーファイル作成
-  cd /d %destinationRoot%
-  tree>DESTINATIONTREE.txt
-  move "%destinationRoot%\DESTINATIONTREE.txt" "%~dp0"
+  tree %destinationRoot%>DESTINATIONTREE.txt
 
 
   echo;
