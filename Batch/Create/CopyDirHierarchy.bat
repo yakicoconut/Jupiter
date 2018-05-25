@@ -20,9 +20,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   set USR=
 
   set /P USR="入力してください(文末\なし):"
-  set targetRoot=%USR%
+  set rootSource=%USR%
   : ねずみ返し_空白の場合
-    if "%targetRoot%"=="" (
+    if "%rootSource%"=="" (
       echo;
       echo 入力がありません
       echo 終了します
@@ -38,31 +38,31 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   set USR=
 
   set /P USR="入力してください(文末\なし):"
-  set destinationRoot=%USR%
+  set rootDestination=%USR%
   : 空白の場合
-    if "%destinationRoot%"=="" (
+    if "%rootDestination%"=="" (
       echo;
       echo 入力がありません
       echo カレントフォルダを指定します
 
       rem カレントフォルダを取得
       rem if文の中も変数には遅延環境変数を使用する
-      set destinationRoot=%~dp0
+      set rootDestination=%~dp0
       rem 文末の\をはずす
-      set destinationRoot=!destinationRoot:~0,-1!
-      echo !destinationRoot!
+      set rootDestination=!rootDestination:~0,-1!
+      echo !rootDestination!
     )
 
 
 : フォルダコピー
   rem フォルダ構成の出力
-  dir %targetRoot% /b /ad /s>FOLDERS.txt
+  dir %rootSource% /b /ad /s>FOLDERS.txt
 
   rem ディレクトリファイル情報バッチ使用_コピー元ルートフォルダ名取得
-  call %call_DirFilePathInfo% %targetRoot% n
-  set targetRootDirName=%return_DirFilePathInfo%
+  call %call_DirFilePathInfo% %rootSource% n
+  set rootSourceName=%return_DirFilePathInfo%
   rem コピー先ルートフォルダにコピー元ルートフォルダを作成
-  mkdir "%destinationRoot%\%targetRootDirName%"
+  mkdir "%rootDestination%\%rootSourceName%"
 
   rem 出力したフォルダ名を一行ずつ処理
   for /f "delims=" %%a in (FOLDERS.txt) do (
@@ -70,10 +70,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set x=%%a
 
     rem コピー元ルートフォルダまでのパスを削除
-    set x=!x:%targetRoot%\=!
+    set x=!x:%rootSource%\=!
 
     rem コピー先ルートフォルダにフォルダを作成
-    mkdir "%destinationRoot%\%targetRootDirName%\!x!"
+    mkdir "%rootDestination%\%rootSourceName%\!x!"
   )
 
   rem 作業ファイルの削除
@@ -82,10 +82,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 : 事後処理
   rem コピー元フォルダツリーファイル作成
-  tree %targetRoot%>TARGETTREE.txt
+  tree %rootSource%>TARGETTREE.txt
 
   rem コピー先フォルダツリーファイル作成
-  tree %destinationRoot%\%targetRootDirName%>DESTINATIONTREE.txt
+  tree %rootDestination%\%rootSourceName%>DESTINATIONTREE.txt
 
 
   echo;
