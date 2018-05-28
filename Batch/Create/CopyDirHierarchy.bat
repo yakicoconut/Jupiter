@@ -3,10 +3,6 @@ title %~nx0
 echo 対象フォルダ構成コピー
 
 
-rem 遅延環境変数オン
-SETLOCAL ENABLEDELAYEDEXPANSION
-
-
 : 参照バッチ
   rem ディレクトリファイル情報バッチ
   set call_DirFilePathInfo="..\OwnLib\DirFilePathInfo.bat"
@@ -30,6 +26,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     )
 
 
+rem 遅延環境変数オン
+SETLOCAL ENABLEDELAYEDEXPANSION
 : コピー先フォルダ入力
   echo;
   echo コピー先のルートフォルダを入力してください
@@ -54,6 +52,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     )
 
 
+rem 遅延環境変数オフ
+SETLOCAL DISABLEDELAYEDEXPANSION
 : フォルダコピー
   rem フォルダ構成の出力
   dir %rootSource% /b /ad /s>FOLDERS.txt
@@ -69,11 +69,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem ループ対象(コピー対象フォルダパス)を変数に格納
     set x=%%a
 
-    rem コピー元ルートフォルダまでのパスを削除
-    set x=!x:%rootSource%\=!
-
-    rem コピー先ルートフォルダにフォルダを作成
-    mkdir "%rootDestination%\%rootSourceName%\!x!"
+    rem ファイルコピーサブルーチン使用
+    call :FILECOPY
   )
 
   rem 作業ファイルの削除
@@ -95,3 +92,17 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   rem ツリーファイル削除
   del "%~dp0\TARGETTREE.txt"
   del "%~dp0\DESTINATIONTREE.txt"
+
+  exit
+
+
+rem ファイルコピーサブルーチン
+:FILECOPY
+  rem 特殊記号を「_」に置き換え
+  set x=%x:&=_%
+  set x=%x:?=_%
+  rem コピー元ルートフォルダまでのパスを削除
+  call set x=%%x:%rootSource%\=%%
+
+  rem コピー先ルートフォルダにフォルダを作成
+  mkdir "%rootDestination%\%rootSourceName%\%x%"
