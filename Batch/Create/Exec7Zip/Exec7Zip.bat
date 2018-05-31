@@ -65,7 +65,7 @@ rem 拡張子判断
   set targetExtension=%return_DirFilePathInfo%
 
   rem 圧縮ファイルの場合
-  if "%targetExtension%"==".7zip" (
+  if "%targetExtension%"==".7z" (
     rem 解凍処理へ
     goto :THAWING
   )
