@@ -13,6 +13,7 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 using System.Collections;
+using System.Threading;
 
 namespace WFA
 {
@@ -1036,6 +1037,21 @@ namespace WFA
 
       // 起動
       Process p = Process.Start(psi);
+
+      // 自身をアクティブ化するために起動を待つ
+      bool isAlive = true;
+      while (isAlive)
+      {
+        // IDが振られるまでループ
+        if (Process.GetProcessById(p.Id) != null)
+        {
+          isAlive = false;
+        }
+        Thread.Sleep(500);
+      }
+
+      // 自身をアクティブ化
+      this.Activate();
     }
     #endregion
 
