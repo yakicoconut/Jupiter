@@ -588,7 +588,7 @@ namespace WFA
         i = i + 1;
       }
       // 最終ページ数を設定
-      maxImageKey = files.Length - 2;
+      maxImageKey = files.Length - 1;
 
       // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
