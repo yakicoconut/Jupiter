@@ -88,11 +88,13 @@ namespace WFA
       modeZeroPointKey = _comLogic.GetConfigValue("ModeZeroPointKey", "Alt").ToLower();
       // チェックキー
       chkImgKey = _comLogic.GetConfigValue("CheckImgKey", "Enter").ToLower();
+      // ビュウアプリ起動キー
+      launchViewKey = _comLogic.GetConfigValue("LaunchViewKey", "Enter").ToLower();
 
       // 対象拡張子
       targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
 
-          
+
       // オプションフォーム
       // コンフィグの値が数値以外の場合
       if (!int.TryParse(_comLogic.GetConfigValue("DefaultOptionFormLocationX", "0"), out defOptionFmLocationX))
@@ -117,6 +119,9 @@ namespace WFA
       {
         defFileListFmLocationY = SystemInformation.WorkingArea.Height - fmFileList.Size.Height;
       }
+
+      // ビュウアプリパス
+      launchViewAppPath = _comLogic.GetConfigValue("LaunchViewAppPath", Assembly.GetExecutingAssembly().Location);
     }
     #endregion
 
@@ -163,6 +168,8 @@ namespace WFA
     string modeZeroPointKey;
     // チェックキー
     string chkImgKey;
+    // ビュウアプリ起動キー
+    string launchViewKey;
 
     // 対象拡張子
     string[] targetExtension;
@@ -174,6 +181,9 @@ namespace WFA
     // ファイルリストフォーム開始位置
     int defFileListFmLocationX;
     int defFileListFmLocationY;
+
+    // ビュウアプリパス
+    string launchViewAppPath;
 
     #endregion
 
@@ -248,6 +258,7 @@ namespace WFA
       fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
       fmOption.cbChkImg.Text = string.Format("チェック({0})", chkImgKey);
       fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
+      fmOption.btView.Text = string.Format("View({0})", launchViewKey);
       fmOption.nudZoomOutRatio.Text = zoomOutRatio.ToString();
       fmOption.nudUpDist.Text = upMoveDistance.ToString();
       fmOption.nudDownDist.Text = downMoveDistance.ToString();
@@ -354,7 +365,7 @@ namespace WFA
     }
     #endregion
 
-    
+
     #region コンテキスト_ファイルリスト押下イベント
     private void ToolStripMenuItemFileListForm_Click(object sender, EventArgs e)
     {
@@ -409,6 +420,14 @@ namespace WFA
         fmOption.cbChkImg.Checked = !fmOption.cbChkImg.Checked;
         // ファイルリスト該当ファイルのチェックを変更する
         fmFileList.lvFileList.Items[currentImageKey].Checked = !fmFileList.lvFileList.Items[currentImageKey].Checked;
+        return;
+      }
+
+      // チェックキー押下判断メソッド使用
+      if (IsLaunchViewKey(e))
+      {
+        // ビュウアプリ起動メソッド使用
+        LaunchView();
         return;
       }
 
@@ -540,6 +559,27 @@ namespace WFA
       }
 
       return isChkOn;
+    }
+    #endregion
+
+    #region ビュウアプリ起動キー押下判断メソッド
+    private bool IsLaunchViewKey(KeyEventArgs e)
+    {
+      bool isLaunchView = false;
+      switch (launchViewKey)
+      {
+        case "enter":
+          isLaunchView = e.KeyCode == Keys.Enter ? true : false;
+          break;
+        case "space":
+          isLaunchView = e.KeyCode == Keys.Space ? true : false;
+          break;
+
+        default:
+          break;
+      }
+
+      return isLaunchView;
     }
     #endregion
 
@@ -971,6 +1011,31 @@ namespace WFA
 
       // 画像初期化メソッド使用
       ImgInit();
+    }
+    #endregion
+
+    #region ビュウアプリ起動メソッド
+    /// <summary>
+    /// ビュウアプリ起動メソッド
+    /// </summary>
+    public void LaunchView()
+    {
+      // ねずみ返し_画像がない場合
+      if (dicImgPath.Count == 0)
+      {
+        return;
+      }
+
+      // インスタンス生成
+      ProcessStartInfo psi = new ProcessStartInfo();
+
+      // 起動するファイルパス設定
+      psi.FileName = launchViewAppPath;
+      // 現在の画像パスをコマンドライン引数に設定
+      psi.Arguments = dicImgPath[currentImageKey];
+
+      // 起動
+      Process p = Process.Start(psi);
     }
     #endregion
 

@@ -48,16 +48,17 @@
       this.cbIsModeZoom = new System.Windows.Forms.CheckBox();
       this.cbIsModeZeroPoint = new System.Windows.Forms.CheckBox();
       this.tbFileName = new System.Windows.Forms.TextBox();
-      this.btUp = new WFA.ButtonEx();
-      this.btDown = new WFA.ButtonEx();
-      this.btRight = new WFA.ButtonEx();
-      this.btLeft = new WFA.ButtonEx();
       this.nudUpDist = new System.Windows.Forms.NumericUpDown();
       this.nudDownDist = new System.Windows.Forms.NumericUpDown();
       this.nudRightDist = new System.Windows.Forms.NumericUpDown();
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
+      this.btView = new WFA.ButtonEx();
+      this.btUp = new WFA.ButtonEx();
+      this.btDown = new WFA.ButtonEx();
+      this.btRight = new WFA.ButtonEx();
+      this.btLeft = new WFA.ButtonEx();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -75,7 +76,7 @@
             this.ToolStripMenuItemFolderList,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 70);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(134, 70);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -83,35 +84,35 @@
             this.toolStripMenuItemOpacityGain,
             this.toolStripMenuItemOpacityDec});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(160, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(133, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(96, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(96, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // ToolStripMenuItemFolderList
       // 
       this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
-      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(133, 22);
       this.ToolStripMenuItemFolderList.Text = "ファイルリスト";
       this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFileList_Click);
       // 
       // toolStripMenuItemOpenDir
       // 
       this.toolStripMenuItemOpenDir.Name = "toolStripMenuItemOpenDir";
-      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(160, 22);
+      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(133, 22);
       this.toolStripMenuItemOpenDir.Text = "開く";
       this.toolStripMenuItemOpenDir.Click += new System.EventHandler(this.toolStripMenuItemOpenDir_Click);
       // 
@@ -121,6 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
+      this.panel1.Controls.Add(this.btView);
       this.panel1.Controls.Add(this.cbChkImg);
       this.panel1.Controls.Add(this.label1);
       this.panel1.Controls.Add(this.label2);
@@ -145,7 +147,7 @@
       this.panel1.Controls.Add(this.nudZoomOutRatio);
       this.panel1.Location = new System.Drawing.Point(10, 10);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(150, 412);
+      this.panel1.Size = new System.Drawing.Size(150, 452);
       this.panel1.TabIndex = 0;
       // 
       // cbChkImg
@@ -274,50 +276,6 @@
       this.tbFileName.ReadOnly = true;
       this.tbFileName.Size = new System.Drawing.Size(126, 12);
       this.tbFileName.TabIndex = 0;
-      // 
-      // btUp
-      // 
-      this.btUp.Location = new System.Drawing.Point(39, 335);
-      this.btUp.Name = "btUp";
-      this.btUp.Size = new System.Drawing.Size(70, 23);
-      this.btUp.TabIndex = 0;
-      this.btUp.Text = " ↑";
-      this.btUp.UseVisualStyleBackColor = true;
-      this.btUp.Click += new System.EventHandler(this.btUp_Click);
-      this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btDown
-      // 
-      this.btDown.Location = new System.Drawing.Point(39, 381);
-      this.btDown.Name = "btDown";
-      this.btDown.Size = new System.Drawing.Size(70, 23);
-      this.btDown.TabIndex = 0;
-      this.btDown.Text = " ↓";
-      this.btDown.UseVisualStyleBackColor = true;
-      this.btDown.Click += new System.EventHandler(this.btDown_Click);
-      this.btDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btRight
-      // 
-      this.btRight.Location = new System.Drawing.Point(76, 358);
-      this.btRight.Name = "btRight";
-      this.btRight.Size = new System.Drawing.Size(70, 23);
-      this.btRight.TabIndex = 0;
-      this.btRight.Text = "→";
-      this.btRight.UseVisualStyleBackColor = true;
-      this.btRight.Click += new System.EventHandler(this.btRight_Click);
-      this.btRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btLeft
-      // 
-      this.btLeft.Location = new System.Drawing.Point(3, 358);
-      this.btLeft.Name = "btLeft";
-      this.btLeft.Size = new System.Drawing.Size(70, 23);
-      this.btLeft.TabIndex = 0;
-      this.btLeft.Text = "←";
-      this.btLeft.UseVisualStyleBackColor = true;
-      this.btLeft.Click += new System.EventHandler(this.btLeft_Click);
-      this.btLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // nudUpDist
       // 
@@ -454,12 +412,66 @@
       this.nudZoomOutRatio.TabIndex = 0;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
       // 
+      // btView
+      // 
+      this.btView.Location = new System.Drawing.Point(3, 410);
+      this.btView.Name = "btView";
+      this.btView.Size = new System.Drawing.Size(143, 23);
+      this.btView.TabIndex = 1;
+      this.btView.Text = " View()";
+      this.btView.UseVisualStyleBackColor = true;
+      this.btView.Click += new System.EventHandler(this.btView_Click);
+      // 
+      // btUp
+      // 
+      this.btUp.Location = new System.Drawing.Point(39, 335);
+      this.btUp.Name = "btUp";
+      this.btUp.Size = new System.Drawing.Size(70, 23);
+      this.btUp.TabIndex = 0;
+      this.btUp.Text = " ↑";
+      this.btUp.UseVisualStyleBackColor = true;
+      this.btUp.Click += new System.EventHandler(this.btUp_Click);
+      this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btDown
+      // 
+      this.btDown.Location = new System.Drawing.Point(39, 381);
+      this.btDown.Name = "btDown";
+      this.btDown.Size = new System.Drawing.Size(70, 23);
+      this.btDown.TabIndex = 0;
+      this.btDown.Text = " ↓";
+      this.btDown.UseVisualStyleBackColor = true;
+      this.btDown.Click += new System.EventHandler(this.btDown_Click);
+      this.btDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btRight
+      // 
+      this.btRight.Location = new System.Drawing.Point(76, 358);
+      this.btRight.Name = "btRight";
+      this.btRight.Size = new System.Drawing.Size(70, 23);
+      this.btRight.TabIndex = 0;
+      this.btRight.Text = "→";
+      this.btRight.UseVisualStyleBackColor = true;
+      this.btRight.Click += new System.EventHandler(this.btRight_Click);
+      this.btRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btLeft
+      // 
+      this.btLeft.Location = new System.Drawing.Point(3, 358);
+      this.btLeft.Name = "btLeft";
+      this.btLeft.Size = new System.Drawing.Size(70, 23);
+      this.btLeft.TabIndex = 0;
+      this.btLeft.Text = "←";
+      this.btLeft.UseVisualStyleBackColor = true;
+      this.btLeft.Click += new System.EventHandler(this.btLeft_Click);
+      this.btLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(170, 432);
+      this.ClientSize = new System.Drawing.Size(170, 472);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -516,5 +528,6 @@
     public System.Windows.Forms.NumericUpDown nudRightDist;
     public System.Windows.Forms.NumericUpDown nudLeftDist;
     public System.Windows.Forms.CheckBox cbChkImg;
+    public ButtonEx btView;
   }
 }

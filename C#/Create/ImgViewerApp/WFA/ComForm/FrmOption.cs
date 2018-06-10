@@ -139,6 +139,14 @@ namespace WFA
     }
     #endregion
 
+    #region Viewボタン押下イベント
+    private void btView_Click(object sender, EventArgs e)
+    {
+      // ビュウアプリ起動メソッド
+      parentForm.LaunchView();
+    }
+    #endregion
+
 
     #region 設定コントロール値変更共通イベント
     private void Common_tb_ValueChanged(object sender, EventArgs e)
