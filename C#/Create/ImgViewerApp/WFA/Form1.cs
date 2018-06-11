@@ -1,4 +1,4 @@
-﻿//#define TEST01 // ロードイベント参照
+﻿//#define DEBUG01 // ロードイベント参照
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +58,6 @@ namespace WFA
       // 初期フォーム位置
       defLocationX = int.Parse(_comLogic.GetConfigValue("DefaultLocationX", "0"));
       defLocationY = int.Parse(_comLogic.GetConfigValue("DefaultLocationY", "0"));
-      currentZeroPoint = new Point(defLocationX, defLocationY);
 
       // フォームサイズ
       // コンフィグの値が数値以外の場合
@@ -234,11 +233,21 @@ namespace WFA
     {
       // フォーム位置
       this.StartPosition = FormStartPosition.Manual;
-      this.Location = currentZeroPoint;
+      this.Location = new Point(defLocationX, defLocationY);
 
       // フォームサイズ
       this.Width = defFormWidth;
       this.Height = defFormHeight;
+
+
+      #region DEBUG01_コマンドライン引数
+#if DEBUG01
+
+      // ファイル読み込みメソッド使用
+      ReadFile(@"MyResorce\TestImg\01.JPG");
+
+#endif
+      #endregion
     }
     #endregion
 
@@ -279,15 +288,6 @@ namespace WFA
       fmFileList.Show();
       // リストビュー設定
       fmFileList.lvFileList.HideSelection = false;
-
-      #region TEST01_サンプル画像を使用したデバッグ
-#if TEST01
-
-      // ファイル読み込みメソッド使用
-      ReadFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\MyResorce\TestImg\01.JPG");
-
-#endif
-      #endregion
     }
     #endregion
 
