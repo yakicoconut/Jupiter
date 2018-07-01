@@ -47,6 +47,7 @@
       this.pictureBox1.TabIndex = 0;
       this.pictureBox1.TabStop = false;
       this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+      this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
       // 
       // contextMenuStrip1
       // 
@@ -54,19 +55,19 @@
             this.ToolStripMenuItemFileListForm,
             this.ToolStripMenuItemOptionForm});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 70);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(134, 48);
       // 
       // ToolStripMenuItemFileListForm
       // 
       this.ToolStripMenuItemFileListForm.Name = "ToolStripMenuItemFileListForm";
-      this.ToolStripMenuItemFileListForm.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemFileListForm.Size = new System.Drawing.Size(133, 22);
       this.ToolStripMenuItemFileListForm.Text = "ファイルリスト";
       this.ToolStripMenuItemFileListForm.Click += new System.EventHandler(this.ToolStripMenuItemFileListForm_Click);
       // 
       // ToolStripMenuItemOptionForm
       // 
       this.ToolStripMenuItemOptionForm.Name = "ToolStripMenuItemOptionForm";
-      this.ToolStripMenuItemOptionForm.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemOptionForm.Size = new System.Drawing.Size(133, 22);
       this.ToolStripMenuItemOptionForm.Text = "操作パネル";
       this.ToolStripMenuItemOptionForm.Click += new System.EventHandler(this.ToolStripMenuItemOptionForm_Click);
       // 

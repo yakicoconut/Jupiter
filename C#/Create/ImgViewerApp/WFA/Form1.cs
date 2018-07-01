@@ -1,4 +1,5 @@
 ﻿//#define DEBUG01 // ロードイベント参照
+//#define DEBUG02 // クリック操作有効幅表示
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -382,6 +383,106 @@ namespace WFA
       // マウスの位置にオプションフォームを表示する
       fmOption.Left = Cursor.Position.X;
       fmOption.Top = Cursor.Position.Y;
+    }
+    #endregion
+
+
+    #region ピクチャボックスWクリックイベント
+    private void pictureBox1_DoubleClick(object sender, EventArgs e)
+    {
+      /*
+       *     1 2 3 4 5
+       *  1 ┌┬┬┬┬┐
+       *  2 ├┼┼┼┼┤
+       *  3 ├┼┼┼┼┤
+       *  4 ├┼┼┼┼┤←//ここから//
+       *  5 ├┼┼┼┼┤    有効縦幅
+       *  6 ├┼┼┼┼┤←//ここまで//
+       *  7 ├┼┼┼┼┤
+       *  8 ├┼┼┼┼┤
+       *  9 ├┼┼┼┼┤
+       * 10 └┴┴┴┴┘
+       *         ↑
+       *         有効横幅
+       */
+      // ピクチャボックスサイズを取得
+      Size ctrlSize = pictureBox1.Size;
+
+      // 横幅の中心を取得
+      int centerWidth = ctrlSize.Width / 2;
+      // 横幅の有効横幅作成(四捨五入)
+      int widthBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Width / 5));
+      // 実際の有効横幅を作成
+      int beginWidthBelt = 2 * widthBeltSize;
+      int endWidthBelt = 3 * widthBeltSize;
+      // 縦の有効縦幅作成(四捨五入)
+      int heightBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Height / 10));
+      // 実際の有効縦幅を作成
+      int beginHeightBelt = 4 * heightBeltSize;
+      int endHeightBelt = 6 * heightBeltSize;
+
+
+      #region デバッグ02_クリック操作有効幅表示
+#if DEBUG02
+      // 描画先するImageオブジェクト作成
+      Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+      // ImageオブジェクトのGraphicsオブジェクト作成
+      using (Graphics g = Graphics.FromImage(canvas))
+      {
+        // 横幅の描写
+        for (int i = 1; i < 5 + 1; i++)
+        {
+          g.DrawLine(Pens.Black, i * widthBeltSize, 0, i * widthBeltSize, ctrlSize.Height);
+        }
+
+        // 縦の描写
+        for (int i = 1; i < 10 + 1; i++)
+        {
+          g.DrawLine(Pens.Black, 0, i * heightBeltSize, ctrlSize.Width, i * heightBeltSize);
+        }
+
+        g.DrawLine(Pens.Green, 0, ctrlSize.Height / 2, ctrlSize.Width, ctrlSize.Height / 2);
+        g.DrawLine(Pens.Green, ctrlSize.Width / 2, 0, ctrlSize.Width / 2, ctrlSize.Height);
+      }
+      // 描画
+      pictureBox1.Image = canvas;
+#endif
+      #endregion
+
+
+      // ピクチャボックス上のクリック位置取得
+      Point clickPosition = pictureBox1.PointToClient(MousePosition);
+
+      // 上側の有効縦幅判定
+      bool upSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y <= beginHeightBelt;
+      // 下側の有効縦幅判定
+      bool downSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y >= endHeightBelt;
+      // 右側の有効縦幅判定
+      bool rightSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X >= endWidthBelt;
+      // 左側の有効縦幅判定
+      bool leftSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X <= beginWidthBelt;
+
+      // 
+      if (upSideClick)
+      {
+        // 上操作メソッド使用
+        UpOperation();
+      }
+      else if (downSideClick)
+      {
+        // 下操作メソッド使用
+        DownOperation();
+      }
+      else if (rightSideClick)
+      {
+        // 右操作メソッド使用
+        RightOperation();
+      }
+      else if (leftSideClick)
+      {
+        // 左操作メソッド使用
+        LeftOperation();
+      }
     }
     #endregion
 
