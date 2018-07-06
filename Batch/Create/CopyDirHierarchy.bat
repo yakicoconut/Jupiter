@@ -22,7 +22,9 @@ echo 対象フォルダ構成コピー
       echo;
       echo 入力がありません
       echo 終了します
-      goto :EOF
+
+      pause
+      exit
     )
 
 
