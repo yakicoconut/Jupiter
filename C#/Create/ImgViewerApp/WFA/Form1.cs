@@ -390,79 +390,15 @@ namespace WFA
     #region ピクチャボックスWクリックイベント
     private void pictureBox1_DoubleClick(object sender, EventArgs e)
     {
-      /*
-       *     1 2 3 4 5
-       *  1 ┌┬┬┬┬┐
-       *  2 ├┼┼┼┼┤
-       *  3 ├┼┼┼┼┤
-       *  4 ├┼┼┼┼┤←//ここから//
-       *  5 ├┼┼┼┼┤    有効縦幅
-       *  6 ├┼┼┼┼┤←//ここまで//
-       *  7 ├┼┼┼┼┤
-       *  8 ├┼┼┼┼┤
-       *  9 ├┼┼┼┼┤
-       * 10 └┴┴┴┴┘
-       *         ↑
-       *         有効横幅
-       */
       // ピクチャボックスサイズを取得
       Size ctrlSize = pictureBox1.Size;
-
-      // 横幅の中心を取得
-      int centerWidth = ctrlSize.Width / 2;
-      // 横幅の有効横幅作成(四捨五入)
-      int widthBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Width / 5));
-      // 実際の有効横幅を作成
-      int beginWidthBelt = 2 * widthBeltSize;
-      int endWidthBelt = 3 * widthBeltSize;
-      // 縦の有効縦幅作成(四捨五入)
-      int heightBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Height / 10));
-      // 実際の有効縦幅を作成
-      int beginHeightBelt = 4 * heightBeltSize;
-      int endHeightBelt = 6 * heightBeltSize;
-
-
-      #region デバッグ02_クリック操作有効幅表示
-#if DEBUG02
-      // 描画先するImageオブジェクト作成
-      Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-      // ImageオブジェクトのGraphicsオブジェクト作成
-      using (Graphics g = Graphics.FromImage(canvas))
-      {
-        // 横幅の描写
-        for (int i = 1; i < 5 + 1; i++)
-        {
-          g.DrawLine(Pens.Black, i * widthBeltSize, 0, i * widthBeltSize, ctrlSize.Height);
-        }
-
-        // 縦の描写
-        for (int i = 1; i < 10 + 1; i++)
-        {
-          g.DrawLine(Pens.Black, 0, i * heightBeltSize, ctrlSize.Width, i * heightBeltSize);
-        }
-
-        g.DrawLine(Pens.Green, 0, ctrlSize.Height / 2, ctrlSize.Width, ctrlSize.Height / 2);
-        g.DrawLine(Pens.Green, ctrlSize.Width / 2, 0, ctrlSize.Width / 2, ctrlSize.Height);
-      }
-      // 描画
-      pictureBox1.Image = canvas;
-#endif
-      #endregion
-
-
       // ピクチャボックス上のクリック位置取得
       Point clickPosition = pictureBox1.PointToClient(MousePosition);
 
-      // 上側の有効縦幅判定
-      bool upSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y <= beginHeightBelt;
-      // 下側の有効縦幅判定
-      bool downSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y >= endHeightBelt;
-      // 右側の有効縦幅判定
-      bool rightSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X >= endWidthBelt;
-      // 左側の有効縦幅判定
-      bool leftSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X <= beginWidthBelt;
+      // 有効範囲算出横五縦十メソッド使用
+      EffectiveRangeFullTen(ctrlSize, clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick);
 
-      // 
+      // 有効範囲クリック判断
       if (upSideClick)
       {
         // 上操作メソッド使用
@@ -1153,6 +1089,154 @@ namespace WFA
 
       // 自身をアクティブ化
       this.Activate();
+    }
+    #endregion
+
+
+    #region 有効範囲算出横五縦十メソッド
+    private void EffectiveRangeFiveTen(Size ctrlSize, Point clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
+    {
+      #region メモ
+      /*
+       *     1 2 3 4 5
+       *  1 ┌┬┬┬┬┐
+       *  2 ├┼┼┼┼┤
+       *  3 ├┼┼┼┼┤
+       *  4 ├┼┼┼┼┤←//ここから//
+       *  5 ├┼┼┼┼┤    有効縦幅
+       *  6 ├┼┼┼┼┤←//ここまで//
+       *  7 ├┼┼┼┼┤
+       *  8 ├┼┼┼┼┤
+       *  9 ├┼┼┼┼┤
+       * 10 └┴┴┴┴┘
+       *         ↑
+       *         有効横幅
+       */
+      #endregion
+
+      // 横幅の有効横幅作成(四捨五入)
+      int widthBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Width / 5));
+      // 実際の有効横幅を作成
+      int beginWidthBelt = 2 * widthBeltSize;
+      int endWidthBelt = 3 * widthBeltSize;
+
+      // 縦の有効縦幅作成(四捨五入)
+      int heightBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Height / 10));
+      // 実際の有効縦幅を作成
+      int beginHeightBelt = 4 * heightBeltSize;
+      int endHeightBelt = 6 * heightBeltSize;
+
+      #region デバッグ02_クリック操作有効幅表示
+#if DEBUG02
+      // 描画先するImageオブジェクト作成
+      Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+      // ImageオブジェクトのGraphicsオブジェクト作成
+      using (Graphics g = Graphics.FromImage(canvas))
+      {
+        // 横幅の描写
+        for (int i = 1; i < 5 + 1; i++)
+        {
+          g.DrawLine(Pens.Black, i * widthBeltSize, 0, i * widthBeltSize, ctrlSize.Height);
+        }
+
+        // 縦の描写
+        for (int i = 1; i < 10 + 1; i++)
+        {
+          g.DrawLine(Pens.Black, 0, i * heightBeltSize, ctrlSize.Width, i * heightBeltSize);
+        }
+
+        // 中心線
+        g.DrawLine(Pens.Green, 0, ctrlSize.Height / 2, ctrlSize.Width, ctrlSize.Height / 2);
+        g.DrawLine(Pens.Green, ctrlSize.Width / 2, 0, ctrlSize.Width / 2, ctrlSize.Height);
+
+        // 有効線横
+        g.DrawLine(Pens.Blue, 0, 4 * heightBeltSize, ctrlSize.Width, 4 * heightBeltSize);
+        g.DrawLine(Pens.Blue, 0, 6 * heightBeltSize, ctrlSize.Width, 6 * heightBeltSize);
+        // 有効線縦
+        g.DrawLine(Pens.Blue, 2 * widthBeltSize, 0, 2 * widthBeltSize, ctrlSize.Height);
+        g.DrawLine(Pens.Blue, 3 * widthBeltSize, 0, 3 * widthBeltSize, ctrlSize.Height);
+      }
+      // 描画
+      pictureBox1.Image = canvas;
+#endif
+      #endregion
+
+      // 上側の有効縦幅判定
+      upSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y <= beginHeightBelt;
+      // 下側の有効縦幅判定
+      downSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y >= endHeightBelt;
+      // 右側の有効縦幅判定
+      rightSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X >= endWidthBelt;
+      // 左側の有効縦幅判定
+      leftSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X <= beginWidthBelt;
+    }
+    #endregion
+
+    #region 有効範囲算出横全縦十メソッド
+    private void EffectiveRangeFullTen(Size ctrlSize, Point clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
+    {
+      #region メモ
+      /*
+       *  1 ┌────┐←//ここから//
+       *  2 ├────┤    有効横幅
+       *  3 ├────┤←//ここまで//
+       *  4 ├────┤←//ここから//
+       *  5 ├────┤    有効縦幅
+       *  6 ├────┤←//ここまで//
+       *  7 ├────┤←//ここから//
+       *  8 ├────┤    有効横幅
+       *  9 ├────┤    有効横幅
+       * 10 └────┘←//ここまで//
+       */
+      #endregion
+
+      //// 横幅の有効横幅作成(四捨五入)
+      //int widthBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Width / 5));
+      // 実際の有効横幅を作成
+      int beginWidthBelt = 0;
+      int endWidthBelt = ctrlSize.Width;
+
+      // 縦の有効縦幅作成(四捨五入)
+      int heightBeltSize = Convert.ToInt32(Math.Round((double)ctrlSize.Height / 10));
+      // 実際の有効縦幅を作成
+      int beginHeightBelt = 4 * heightBeltSize;
+      int endHeightBelt = 6 * heightBeltSize;
+
+      #region デバッグ02_クリック操作有効幅表示
+#if DEBUG02
+      // 描画先するImageオブジェクト作成
+      Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+      // ImageオブジェクトのGraphicsオブジェクト作成
+      using (Graphics g = Graphics.FromImage(canvas))
+      {
+        // 縦の描写
+        for (int i = 1; i < 10 + 1; i++)
+        {
+          g.DrawLine(Pens.Black, 0, i * heightBeltSize, ctrlSize.Width, i * heightBeltSize);
+        }
+
+        // 中心線
+        g.DrawLine(Pens.Green, 0, ctrlSize.Height / 2, ctrlSize.Width, ctrlSize.Height / 2);
+        g.DrawLine(Pens.Green, ctrlSize.Width / 2, 0, ctrlSize.Width / 2, ctrlSize.Height);
+
+        // 有効線横
+        g.DrawLine(Pens.Blue, 0, 4 * heightBeltSize, ctrlSize.Width, 4 * heightBeltSize);
+        g.DrawLine(Pens.Blue, 0, 6 * heightBeltSize, ctrlSize.Width, 6 * heightBeltSize);
+        // 有効線縦は有効線横と同じになる
+      }
+      // 描画
+      pictureBox1.Image = canvas;
+#endif
+      #endregion
+
+      // 上側の有効縦幅判定
+      upSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y <= beginHeightBelt;
+      // 下側の有効縦幅判定
+      downSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y >= endHeightBelt;
+      // 右側の有効縦幅判定
+      rightSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X >= ctrlSize.Width / 2;
+      // 左側の有効縦幅判定
+      leftSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X <= ctrlSize.Width / 2;
     }
     #endregion
 
