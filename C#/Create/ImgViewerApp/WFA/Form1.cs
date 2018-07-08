@@ -368,6 +368,22 @@ namespace WFA
     #endregion
 
 
+    #region コンテキスト_チェック拡張縮小押下イベント
+    private void ToolStripMenuItemIsModeZoom_Click(object sender, EventArgs e)
+    {
+      // 拡大/縮小チェック
+      fmOption.cbIsModeZoom.Checked = !fmOption.cbIsModeZoom.Checked;
+    }
+    #endregion
+
+    #region コンテキスト_チェックページ送り押下イベント
+    private void ToolStripMenuItemIsModePageEject_Click(object sender, EventArgs e)
+    {
+      // ページ送りチェック
+      fmOption.cbIsModePageEject.Checked = !fmOption.cbIsModePageEject.Checked;
+    }
+    #endregion
+    
     #region コンテキスト_ファイルリスト押下イベント
     private void ToolStripMenuItemFileListForm_Click(object sender, EventArgs e)
     {
