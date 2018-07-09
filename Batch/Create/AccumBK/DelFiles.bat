@@ -7,8 +7,13 @@ rem 遅延環境変数オン
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 
+: 変数
+  rem 削除対象ファイル一覧テキスト
+  set targetFile=DELTARGET.txt
+
+
 : 削除対象ファイル一覧テキストの内容を削除する
-  for /f "delims=" %%a in (DELTARGET.txt) do (
+  for /f "delims=" %%a in (%targetFile%) do (
     rem 対象ファイルパスの代入
     set targetPath=%~dp0%%a
 
