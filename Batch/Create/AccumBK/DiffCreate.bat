@@ -54,6 +54,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   rem ねずみ返し_差分情報ファイルがない場合
   if not exist %targetFile% (
+    echo;
     echo %targetFile%ファイルがありません
     echo 終了します
     pause
@@ -63,6 +64,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     exit
   )
 
+  echo;
   echo 差分抽出開始
 
   rem 差分抽出フォルダ作成

@@ -110,6 +110,8 @@ rem ループモニタ
 rem pause
     )
   )
+
+echo;
 echo チェック完了
 pause
 

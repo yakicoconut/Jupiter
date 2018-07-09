@@ -28,6 +28,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
         rem ファイルが削除されなかった場合
         if exist "!targetPath!" (
+          echo;
           rem 隠しファイル削除
           echo y | del "!targetPath!" /q /ah
         )
