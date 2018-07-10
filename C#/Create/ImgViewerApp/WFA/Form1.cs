@@ -411,8 +411,14 @@ namespace WFA
       // ピクチャボックス上のクリック位置取得
       Point clickPosition = pictureBox1.PointToClient(MousePosition);
 
+      // 有効範囲クリック判断用変数
+      bool upSideClick = false;
+      bool downSideClick = false;
+      bool rightSideClick = false;
+      bool leftSideClick = false;
+
       // 有効範囲算出横五縦十メソッド使用
-      EffectiveRangeFullTen(ctrlSize, clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick);
+      EffectiveRangeFullTen(ctrlSize, clickPosition, out upSideClick, out downSideClick, out rightSideClick, out leftSideClick);
 
       // 有効範囲クリック判断
       if (upSideClick)
