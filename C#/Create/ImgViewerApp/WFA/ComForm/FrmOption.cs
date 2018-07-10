@@ -155,15 +155,22 @@ namespace WFA
       Control ctrl = (Control)sender;
       string ctrlName = ctrl.Name;
 
+      // ヌメリックアップダウンコントロール用変数
+      NumericUpDown nudCtrl;
+
       // コントロール名称で分岐
       switch (ctrlName)
       {
         case "nudZoomInRatio":
+          // 数値上下ボタンの場合、変更後の値はValueプロパティで取得する
+          nudCtrl = (NumericUpDown)ctrl;
           // コントロールの内容をプロパティに設定
-          parentForm.zoomInRatio = double.Parse(ctrl.Text);
+          parentForm.zoomInRatio = (double)nudCtrl.Value;
           break;
         case "nudZoomOutRatio":
-          parentForm.zoomOutRatio = double.Parse(ctrl.Text);
+          // 数値上下ボタンの場合、変更後の値はValueプロパティで取得する
+          nudCtrl = (NumericUpDown)ctrl;
+          parentForm.zoomOutRatio = (double)nudCtrl.Value;
           break;
         case "nudUpDist":
           parentForm.upMoveDistance = int.Parse(ctrl.Text);
