@@ -37,6 +37,7 @@
       this.toolStripMenuItemOpenDir = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
       this.tbFileSize = new System.Windows.Forms.TextBox();
+      this.btView = new WFA.ButtonEx();
       this.cbChkImg = new System.Windows.Forms.CheckBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
@@ -49,17 +50,16 @@
       this.cbIsModeZoom = new System.Windows.Forms.CheckBox();
       this.cbIsModeZeroPoint = new System.Windows.Forms.CheckBox();
       this.tbFileName = new System.Windows.Forms.TextBox();
+      this.btUp = new WFA.ButtonEx();
+      this.btDown = new WFA.ButtonEx();
+      this.btRight = new WFA.ButtonEx();
+      this.btLeft = new WFA.ButtonEx();
       this.nudUpDist = new System.Windows.Forms.NumericUpDown();
       this.nudDownDist = new System.Windows.Forms.NumericUpDown();
       this.nudRightDist = new System.Windows.Forms.NumericUpDown();
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
-      this.btView = new WFA.ButtonEx();
-      this.btUp = new WFA.ButtonEx();
-      this.btDown = new WFA.ButtonEx();
-      this.btRight = new WFA.ButtonEx();
-      this.btLeft = new WFA.ButtonEx();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -163,6 +163,16 @@
       this.tbFileSize.Size = new System.Drawing.Size(126, 12);
       this.tbFileSize.TabIndex = 2;
       this.tbFileSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      // 
+      // btView
+      // 
+      this.btView.Location = new System.Drawing.Point(3, 428);
+      this.btView.Name = "btView";
+      this.btView.Size = new System.Drawing.Size(143, 23);
+      this.btView.TabIndex = 1;
+      this.btView.Text = " View()";
+      this.btView.UseVisualStyleBackColor = true;
+      this.btView.Click += new System.EventHandler(this.btView_Click);
       // 
       // cbChkImg
       // 
@@ -294,6 +304,50 @@
       this.tbFileName.TabIndex = 0;
       this.tbFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
       // 
+      // btUp
+      // 
+      this.btUp.Location = new System.Drawing.Point(39, 353);
+      this.btUp.Name = "btUp";
+      this.btUp.Size = new System.Drawing.Size(70, 23);
+      this.btUp.TabIndex = 0;
+      this.btUp.Text = " ↑";
+      this.btUp.UseVisualStyleBackColor = true;
+      this.btUp.Click += new System.EventHandler(this.btUp_Click);
+      this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btDown
+      // 
+      this.btDown.Location = new System.Drawing.Point(39, 399);
+      this.btDown.Name = "btDown";
+      this.btDown.Size = new System.Drawing.Size(70, 23);
+      this.btDown.TabIndex = 0;
+      this.btDown.Text = " ↓";
+      this.btDown.UseVisualStyleBackColor = true;
+      this.btDown.Click += new System.EventHandler(this.btDown_Click);
+      this.btDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btRight
+      // 
+      this.btRight.Location = new System.Drawing.Point(76, 376);
+      this.btRight.Name = "btRight";
+      this.btRight.Size = new System.Drawing.Size(70, 23);
+      this.btRight.TabIndex = 0;
+      this.btRight.Text = "→";
+      this.btRight.UseVisualStyleBackColor = true;
+      this.btRight.Click += new System.EventHandler(this.btRight_Click);
+      this.btRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
+      // btLeft
+      // 
+      this.btLeft.Location = new System.Drawing.Point(3, 376);
+      this.btLeft.Name = "btLeft";
+      this.btLeft.Size = new System.Drawing.Size(70, 23);
+      this.btLeft.TabIndex = 0;
+      this.btLeft.Text = "←";
+      this.btLeft.UseVisualStyleBackColor = true;
+      this.btLeft.Click += new System.EventHandler(this.btLeft_Click);
+      this.btLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
+      // 
       // nudUpDist
       // 
       this.nudUpDist.Location = new System.Drawing.Point(50, 267);
@@ -419,69 +473,15 @@
             0,
             65536});
       this.nudZoomOutRatio.Location = new System.Drawing.Point(52, 230);
-      this.nudZoomOutRatio.Maximum = new decimal(new int[] {
+      this.nudZoomOutRatio.Name = "nudZoomOutRatio";
+      this.nudZoomOutRatio.Size = new System.Drawing.Size(52, 19);
+      this.nudZoomOutRatio.TabIndex = 0;
+      this.nudZoomOutRatio.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-      this.nudZoomOutRatio.Name = "nudZoomOutRatio";
-      this.nudZoomOutRatio.Size = new System.Drawing.Size(52, 19);
-      this.nudZoomOutRatio.TabIndex = 0;
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
-      // 
-      // btView
-      // 
-      this.btView.Location = new System.Drawing.Point(3, 428);
-      this.btView.Name = "btView";
-      this.btView.Size = new System.Drawing.Size(143, 23);
-      this.btView.TabIndex = 1;
-      this.btView.Text = " View()";
-      this.btView.UseVisualStyleBackColor = true;
-      this.btView.Click += new System.EventHandler(this.btView_Click);
-      // 
-      // btUp
-      // 
-      this.btUp.Location = new System.Drawing.Point(39, 353);
-      this.btUp.Name = "btUp";
-      this.btUp.Size = new System.Drawing.Size(70, 23);
-      this.btUp.TabIndex = 0;
-      this.btUp.Text = " ↑";
-      this.btUp.UseVisualStyleBackColor = true;
-      this.btUp.Click += new System.EventHandler(this.btUp_Click);
-      this.btUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btDown
-      // 
-      this.btDown.Location = new System.Drawing.Point(39, 399);
-      this.btDown.Name = "btDown";
-      this.btDown.Size = new System.Drawing.Size(70, 23);
-      this.btDown.TabIndex = 0;
-      this.btDown.Text = " ↓";
-      this.btDown.UseVisualStyleBackColor = true;
-      this.btDown.Click += new System.EventHandler(this.btDown_Click);
-      this.btDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btRight
-      // 
-      this.btRight.Location = new System.Drawing.Point(76, 376);
-      this.btRight.Name = "btRight";
-      this.btRight.Size = new System.Drawing.Size(70, 23);
-      this.btRight.TabIndex = 0;
-      this.btRight.Text = "→";
-      this.btRight.UseVisualStyleBackColor = true;
-      this.btRight.Click += new System.EventHandler(this.btRight_Click);
-      this.btRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
-      // 
-      // btLeft
-      // 
-      this.btLeft.Location = new System.Drawing.Point(3, 376);
-      this.btLeft.Name = "btLeft";
-      this.btLeft.Size = new System.Drawing.Size(70, 23);
-      this.btLeft.TabIndex = 0;
-      this.btLeft.Text = "←";
-      this.btLeft.UseVisualStyleBackColor = true;
-      this.btLeft.Click += new System.EventHandler(this.btLeft_Click);
-      this.btLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmOption_ComKeyDown);
       // 
       // FrmOption
       // 

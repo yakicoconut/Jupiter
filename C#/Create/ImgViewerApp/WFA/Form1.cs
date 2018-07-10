@@ -79,7 +79,7 @@ namespace WFA
       // 倍率関連
       initZoomRatio = double.Parse(_comLogic.GetConfigValue("InitZoomRatio", "1.0"));
       zoomInRatio = double.Parse(_comLogic.GetConfigValue("ZoomInRatio", "2.0"));
-      zoomOutRatio = double.Parse(_comLogic.GetConfigValue("ZoomOutRatio", "0.5"));
+      zoomOutRatio = double.Parse(_comLogic.GetConfigValue("ZoomOutRatio", "2.0"));
 
       // 拡大/縮小モードキー
       modeZoomKey = _comLogic.GetConfigValue("ModeZoomKey", "Shift").ToLower();
@@ -947,8 +947,8 @@ namespace WFA
       // 拡大/縮小チェック
       if (fmOption.cbIsModeZoom.Checked)
       {
-        // 現在倍率にズームアウト倍率を掛ける
-        currentZoomRatio = currentZoomRatio * zoomOutRatio;
+        // 現在倍率にズームアウト倍率を割る
+        currentZoomRatio = currentZoomRatio / zoomOutRatio;
 
         // チェックの場合
         if (fmOption.cbIsModeZeroPoint.Checked)
@@ -959,7 +959,7 @@ namespace WFA
         else
         {
           // 現在の(0, 0)の位置を縮小後も引き継ぐ
-          currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomOutRatio), (int)(currentZeroPoint.Y * zoomOutRatio));
+          currentZeroPoint = new Point((int)(currentZeroPoint.X / zoomOutRatio), (int)(currentZeroPoint.Y / zoomOutRatio));
         }
 
         // 0ポイントチェック
