@@ -734,13 +734,16 @@ namespace WFA
       // 表示対象画像取得
       currentImage = new Bitmap(dicImgPath[currentImageKey]);
 
-      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
-
       // 初期化用設定
       drawRectangle = new Rectangle(currentZeroPoint.X, currentZeroPoint.Y, (int)Math.Round(currentImage.Width * currentZoomRatio), (int)Math.Round(currentImage.Height * currentZoomRatio));
 
       // 画像を表示する
       pictureBox1.Invalidate();
+      
+      // ファイル名表示
+      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
+      // ファイルサイズ
+      fmOption.tbFileSize.Text = drawRectangle.Width + "×" + drawRectangle.Height;
     }
     #endregion
 
@@ -756,6 +759,9 @@ namespace WFA
 
       //画像を表示する
       pictureBox1.Invalidate();
+
+      // ファイルサイズ
+      fmOption.tbFileSize.Text = drawRectangle.Width + "×" + drawRectangle.Height;
     }
     #endregion
 
