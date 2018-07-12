@@ -1019,6 +1019,8 @@ namespace WFA
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
         fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+        // 選択ファイルがリスト上で次ページになった場合、リストをスクロール
+        fmFileList.lvFileList.EnsureVisible(currentImageKey);
 
         // オプションフォームのチェックを表示している画像に沿って設定
         fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
@@ -1060,6 +1062,8 @@ namespace WFA
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
         fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+        // 選択ファイルがリスト上で前ページになった場合、リストをスクロール
+        fmFileList.lvFileList.EnsureVisible(currentImageKey);
 
         // オプションフォームのチェックを表示している画像に沿って設定
         fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
