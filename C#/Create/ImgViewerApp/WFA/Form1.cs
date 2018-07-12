@@ -968,22 +968,13 @@ namespace WFA
         // 現在倍率にズームアウト倍率を割る
         currentZoomRatio = currentZoomRatio / zoomOutRatio;
 
-        // チェックの場合
-        if (fmOption.cbIsModeZeroPoint.Checked)
-        {
-          // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
-          currentZeroPoint = new Point(0, 0);
-        }
-        else
-        {
-          // 現在の(0, 0)の位置を縮小後も引き継ぐ
-          currentZeroPoint = new Point((int)(currentZeroPoint.X / zoomOutRatio), (int)(currentZeroPoint.Y / zoomOutRatio));
-        }
+        // 現在の(0, 0)の位置を縮小後も引き継ぐ
+        currentZeroPoint = new Point((int)(currentZeroPoint.X / zoomOutRatio), (int)(currentZeroPoint.Y / zoomOutRatio));
 
         // 0ポイントチェック
         if (fmOption.cbIsModeZeroPoint.Checked)
         {
-          // ページ送りに伴い画像を左上に設定
+          // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
           currentZeroPoint = new Point(0, 0);
         }
 
