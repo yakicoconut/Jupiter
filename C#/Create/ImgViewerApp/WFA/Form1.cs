@@ -95,6 +95,9 @@ namespace WFA
       // 対象拡張子
       targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
 
+      // ファイル読み込み対象範囲
+      targetRange = _comLogic.GetConfigValue("TargetRange", "OnlyCurrent");
+
 
       // オプションフォーム
       // コンフィグの値が数値以外の場合
@@ -174,6 +177,9 @@ namespace WFA
 
     // 対象拡張子
     string[] targetExtension;
+
+    // ファイル読み込み対象範囲
+    string targetRange;
 
     // オプションフォーム開始位置
     int defOptionFmLocationX;
@@ -668,8 +674,20 @@ namespace WFA
         targetDirPath = Path.GetDirectoryName(dropItem);
       }
 
-      // 対象フォルダの中身をすべて取得
-      string[] files = Directory.GetFiles(targetDirPath, "*", SearchOption.TopDirectoryOnly);
+      string[] files = null;
+
+      // ファイル読み込み対象範囲が全ファイルの場合
+      if (targetRange == "TopBottom")
+      {
+        // 対象フォルダ以下すべてのフォルダの中身を取得
+        files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
+      }
+      else
+      {
+        // 対象フォルダの中身のみ取得
+        files = Directory.GetFiles(targetDirPath, "*", SearchOption.TopDirectoryOnly);
+      }
+
       // 大文字小文字を区別しない序数比較で並び替える
       StringComparer cmp = StringComparer.OrdinalIgnoreCase;
       Array.Sort(files, cmp);
