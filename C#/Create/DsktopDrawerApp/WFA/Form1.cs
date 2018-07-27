@@ -48,12 +48,8 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // 線描画フラグ
-    bool mouseDrug = false;
-
-    // 描画開始座標
-    int prevX;
-    int prevY;
+    // マウス軌跡描画用画像
+    public Bitmap mouseTraject;
 
     #endregion
 
@@ -61,136 +57,69 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-      // タスクバーを覆って表示
-      this.WindowState = FormWindowState.Normal;
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-      // タスクバー表示
-      this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
+      // サイズロケーション設定
+      this.Location = new Point(0, 0);
+      this.Width = 1000;
+      this.Height = 1000;
 
-      // デフォルト不透明度
-      this.Opacity = 0.6;
-      
-      //// 背景透明設定
-      //SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-      //this.BackColor = Color.Transparent;
-    }
-    #endregion
+      // 背景画像初期化
+      mouseTraject = new Bitmap(this.Width, this.Height);
 
-    #region フォームマウスダウンイベント
-    private void Form1_MouseDown(object sender, MouseEventArgs e)
-    {
-      // 描画開始
-      mouseDrug = true;
-      prevX = e.Location.X;
-      prevY = e.Location.Y;
-    }
-    #endregion
+      // フォーム透明化
+      // 透明色は無難なものを使用(ColorクラスのTransparentやWhiteは予期しない動きになる)
+      SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+      this.BackColor = Color.Green;
+      // 透明を指定する
+      this.TransparencyKey = Color.Green;
 
-    #region フォームマウスアップイベント
-    private void Form1_MouseUp(object sender, MouseEventArgs e)
-    {
-      // 描画終了
-      mouseDrug = false;
-    }
-    #endregion
+      /* 用調整 */
+      //// タスクバーを覆って表示
+      //this.WindowState = FormWindowState.Normal;
+      //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      //// タスクバー表示
+      //this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
 
-    #region フォームマウスムーブイベント
-    private void Form1_MouseMove(object sender, MouseEventArgs e)
-    {
-      // ねずみ返し_描画フラグが立っていない場合
-      if (!mouseDrug)
-      {
-        return;
-      }
-
-      // ペンオブジェクト生成
-      using (Pen objPen = new Pen(Color.Black, 1))
-      {
-        // グラフィックスオブジェクト生成
-        using (Graphics objGrp = this.CreateGraphics())
-        {
-          // 線描画
-          objGrp.DrawLine(objPen, prevX, prevY, e.Location.X, e.Location.Y);
-        }
-      }
-
-      // 描画(マウスドラッグ)後の座標を開始座標に設定
-      prevX = e.Location.X;
-      prevY = e.Location.Y;
+      // イベントハンドラフォーム設定メソッド使用
+      SettingChildForm();
     }
     #endregion
 
 
-    #region コンテキスト_不透明度押下イベント
-    private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
+    #region イベントハンドラフォーム設定メソッド
+    public void SettingChildForm()
     {
-      // デフォルトに戻す
-      this.Opacity = 0.8;
-    }
-    #endregion
+      // イベントハンドラフォームインスタンス生成
+      Form2 f2 = new Form2(this);
 
-    #region コンテキスト_上げ押下イベント
-    private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
-    {
-      // 不透明度が0.8以上なら
-      if (this.Opacity >= 0.8)
-      {
-        // ※Graphicsで黒塗りつぶしをしていると
-        //   不透明度を100%から下げたあとにとなぜか色が元に戻ってしまうため最大99%とする
-        this.Opacity = 0.99;
-        return;
-      }
+      // タスクバーに表示させない
+      f2.ShowInTaskbar = false;
+      // コントロールボックスを表示しない
+      f2.ControlBox = false;
+      // 枠線なし
+      f2.FormBorderStyle = FormBorderStyle.None;
+      // Form2のサイズはForm1のクライアント領域のサイズ
+      f2.Size = this.ClientSize;
+      // Form2の初期位置はLocationで指定
+      f2.StartPosition = FormStartPosition.Manual;
+      // Form2の位置をForm1のクライアント領域にセット
+      f2.Location = this.PointToScreen(this.ClientRectangle.Location);
 
-      // 不透明度を上げる
-      this.Opacity += 0.2;
-    }
-    #endregion
+      // イベントハンドラフォームをオーナーにする
+      this.AddOwnedForm(f2);
 
-    #region コンテキスト_下げ押下イベント
-    private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
-    {
-      // 不透明度を下げる
-      this.Opacity -= 0.2;
+      // 透明化
+      f2.Opacity = 0.05;
 
-      // 不透明度が0.1以下なら
-      if (this.Opacity <= 0.1)
-      {
-        // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
-        this.Opacity = 0.01;
-      }
-    }
-    #endregion
+      /* 連動イベント */
+      // Closeに追従
+      this.FormClosing += delegate { f2.Close(); };
+      // Moveに追従
+      this.Move += delegate { f2.Location = this.PointToScreen(this.ClientRectangle.Location); };
+      // リサイズに追従
+      this.Resize += delegate { f2.Size = this.Size; };
 
-    #region コンテキスト_透明押下イベント
-    private void ToolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
-    {
-      // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
-      this.Opacity = 0.01;
-    }
-    #endregion
-
-    #region コンテキスト_タスクバー押下イベント
-    private void ToolStripMenuItemTaskBar_Click(object sender, EventArgs e)
-    {
-      // タスクバー非表示の場合
-      if (this.Bounds.Height == SystemInformation.WorkingArea.Height)
-      {
-        // タスクバー非表示
-        this.Bounds = Screen.PrimaryScreen.Bounds;
-      }
-      else
-      {
-        // タスクバー表示
-        this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
-      }
-    }
-    #endregion
-
-    #region コンテキスト_閉じる押下イベント
-    private void toolStripMenuItemClose_Click(object sender, EventArgs e)
-    {
-      // フォーム閉じる
-      this.Close();
+      // 表示
+      f2.Show();
     }
     #endregion
 
