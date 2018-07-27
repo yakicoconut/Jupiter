@@ -111,11 +111,12 @@ namespace WFA
         {
           // 線描画
           objGrp.DrawLine(objPen, prevX, prevY, e.Location.X, e.Location.Y);
-          // 描画(マウスドラッグ)後の座標を開始座標に設定
-          prevX = e.Location.X;
-          prevY = e.Location.Y;
         }
       }
+
+      // 描画(マウスドラッグ)後の座標を開始座標に設定
+      prevX = e.Location.X;
+      prevY = e.Location.Y;
     }
     #endregion
 
