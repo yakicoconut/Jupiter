@@ -37,6 +37,7 @@
       this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemMin = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -45,10 +46,11 @@
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacity,
             this.ToolStripMenuItemTaskBar,
+            this.toolStripMenuItemCapture,
             this.toolStripMenuItemMin,
             this.toolStripMenuItemClose});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 114);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(235, 136);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -57,7 +59,7 @@
             this.toolStripMenuItemOpacityDec,
             this.ToolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(234, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
@@ -85,23 +87,30 @@
       // ToolStripMenuItemTaskBar
       // 
       this.ToolStripMenuItemTaskBar.Name = "ToolStripMenuItemTaskBar";
-      this.ToolStripMenuItemTaskBar.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemTaskBar.Size = new System.Drawing.Size(234, 22);
       this.ToolStripMenuItemTaskBar.Text = "タスクバー";
       this.ToolStripMenuItemTaskBar.Click += new System.EventHandler(this.ToolStripMenuItemTaskBar_Click);
       // 
       // toolStripMenuItemMin
       // 
       this.toolStripMenuItemMin.Name = "toolStripMenuItemMin";
-      this.toolStripMenuItemMin.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemMin.Size = new System.Drawing.Size(234, 22);
       this.toolStripMenuItemMin.Text = "最小化";
       this.toolStripMenuItemMin.Click += new System.EventHandler(this.toolStripMenuItemMin_Click);
       // 
       // toolStripMenuItemClose
       // 
       this.toolStripMenuItemClose.Name = "toolStripMenuItemClose";
-      this.toolStripMenuItemClose.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemClose.Size = new System.Drawing.Size(234, 22);
       this.toolStripMenuItemClose.Text = "閉じる";
       this.toolStripMenuItemClose.Click += new System.EventHandler(this.toolStripMenuItemClose_Click);
+      // 
+      // toolStripMenuItemCaptureToolStripMenuItem
+      // 
+      this.toolStripMenuItemCapture.Name = "toolStripMenuItemCapture";
+      this.toolStripMenuItemCapture.Size = new System.Drawing.Size(234, 22);
+      this.toolStripMenuItemCapture.Text = "キャプチャ";
+      this.toolStripMenuItemCapture.Click += new System.EventHandler(this.ToolStripMenuItemCapture_Click);
       // 
       // Form2
       // 
@@ -128,5 +137,6 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemTaskBar;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMin;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCapture;
   }
 }

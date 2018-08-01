@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace WFA
 {
@@ -157,6 +159,35 @@ namespace WFA
       }
     }
     #endregion
+
+    #region コンテキスト_キャプチャ押下イベント
+    private void ToolStripMenuItemCapture_Click(object sender, EventArgs e)
+    {
+      // ファイル名用に現在時刻をミリ秒まで取得
+      string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond.ToString("000");
+
+      // 保存フォルダがない場合
+      if (!Directory.Exists("ScreenCap"))
+      {
+        // フォルダ作成
+        Directory.CreateDirectory("ScreenCap");
+      }
+
+      // Bitmapの作成
+      using (Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height))
+      {
+        // Graphicsの作成
+        using (Graphics g = Graphics.FromImage(bmp))
+        {
+          // 画面全体をコピーする
+          g.CopyFromScreen(new Point(0, 0), new Point(0, 0), bmp.Size);
+        }
+        // 保存
+        bmp.Save(string.Format(@"ScreenCap\{0}.png", fileName), ImageFormat.Png);
+      }
+    }
+    #endregion
+
 
     #region コンテキスト_最小化押下イベント
     private void toolStripMenuItemMin_Click(object sender, EventArgs e)
