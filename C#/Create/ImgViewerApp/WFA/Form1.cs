@@ -670,8 +670,15 @@ namespace WFA
       }
       else
       {
-        // ドロップされたアイテムからフォルダを取得
-        targetDirPath = Path.GetDirectoryName(dropItem);
+        try
+        {
+          // ドロップされたアイテムからフォルダを取得
+          targetDirPath = Path.GetDirectoryName(dropItem);
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.ToString());
+        }
       }
 
       string[] files = null;
@@ -749,8 +756,16 @@ namespace WFA
       {
         currentImage.Dispose();
       }
-      // 表示対象画像取得
-      currentImage = new Bitmap(dicImgPath[currentImageKey]);
+
+      try
+      {
+        // 表示対象画像取得
+        currentImage = new Bitmap(dicImgPath[currentImageKey]);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.ToString());
+      }
 
       // 初期化用設定
       drawRectangle = new Rectangle(currentZeroPoint.X, currentZeroPoint.Y, (int)Math.Round(currentImage.Width * currentZoomRatio), (int)Math.Round(currentImage.Height * currentZoomRatio));
