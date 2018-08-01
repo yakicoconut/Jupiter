@@ -61,6 +61,9 @@ namespace WFA
       // 透明を指定する
       this.TransparencyKey = Color.Green;
 
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
+
       // タスクバーを覆って表示
       this.WindowState = FormWindowState.Normal;
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

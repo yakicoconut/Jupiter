@@ -28,6 +28,16 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+      this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+      this.SuspendLayout();
+      // 
+      // notifyIcon1
+      // 
+      this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+      this.notifyIcon1.Text = "notifyIcon1";
+      this.notifyIcon1.Visible = true;
       // 
       // Form1
       // 
@@ -42,6 +52,8 @@
     }
 
     #endregion
+
+    private System.Windows.Forms.NotifyIcon notifyIcon1;
 
 
   }
