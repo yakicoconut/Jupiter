@@ -703,10 +703,10 @@ namespace WFA
         }
 
         dicImgPath.Add(i, x);
-        i = i + 1;
+        i += 1;
       }
       // 最終ページ数を設定
-      maxImageKey = files.Length - 1;
+      maxImageKey = i - 1;
 
       // ドロップされたのがフォルダの場合
       if (Directory.Exists(dropItem))
