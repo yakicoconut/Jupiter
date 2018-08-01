@@ -34,57 +34,39 @@ namespace WFA
     int prevX;
     int prevY;
 
-    // 画面更新判断座標
-    int refreshX;
-    int refreshY;
-
     #endregion
 
 
     #region フォームロードイベント
     private void Form2_Load(object sender, EventArgs e)
     {
-      // ピクチャボックス生成
-      PictureBox pbMain = new PictureBox();
-      pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
-      pbMain.Location = new System.Drawing.Point(0, 0);
-      pbMain.Name = "pictureBox1";
-      pbMain.TabIndex = 0;
-      pbMain.TabStop = false;
-      pbMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-      pbMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-      pbMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-
-      // フォーム設定
-      this.Controls.Add(pbMain);
-      ((System.ComponentModel.ISupportInitialize)(pbMain)).EndInit();
+      // 本フォームにイベントを追加
+      this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.form2_MouseDown);
+      this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.form2_MouseUp);
+      this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form2_MouseMove);
     }
     #endregion
 
-    #region ピクチャボックスマウスダウンイベント
-    private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+    #region フォーム2マウスダウンイベント
+    private void form2_MouseDown(object sender, MouseEventArgs e)
     {
       // 描画開始
       mouseDrug = true;
       prevX = e.Location.X;
       prevY = e.Location.Y;
-
-      // 画面更新判断座標
-      refreshX = e.Location.X;
-      refreshY = e.Location.Y;
     }
     #endregion
 
-    #region ピクチャボックスマウスアップイベント
-    private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+    #region フォーム2マウスアップイベント
+    private void form2_MouseUp(object sender, MouseEventArgs e)
     {
       // 描画終了
       mouseDrug = false;
     }
     #endregion
 
-    #region ピクチャボックスマウスムーブイベント
-    private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+    #region フォーム2マウスムーブイベント
+    private void form2_MouseMove(object sender, MouseEventArgs e)
     {
       // ねずみ返し_描画フラグが立っていない場合
       if (!mouseDrug)
@@ -96,7 +78,8 @@ namespace WFA
       using (Pen objPen = new Pen(Color.Black, 1))
       {
         // グラフィックスオブジェクト生成
-        using (Graphics objGrp = Graphics.FromImage(fmParent.mouseTraject))
+        // 親フォームのグラフィックに直接アクセス
+        using (Graphics objGrp = fmParent.CreateGraphics())
         {
           // 線描画
           objGrp.DrawLine(objPen, prevX, prevY, e.Location.X, e.Location.Y);
@@ -106,20 +89,6 @@ namespace WFA
       // 描画(マウスドラッグ)後の座標を開始座標に設定
       prevX = e.Location.X;
       prevY = e.Location.Y;
-
-      // 親フォーム背景設定
-      fmParent.BackgroundImage = fmParent.mouseTraject;
-
-      // ドラッグ開始地点から一定の距離動かした場合
-      if (Math.Abs(prevX - refreshX) > 10 || Math.Abs(prevY - refreshY) > 10)
-      {
-        // 画像を更新(更新しないと描画されないため)
-        fmParent.Refresh();
-
-        // 画面更新判断座標更新
-        refreshX = prevX;
-        refreshY = prevY;
-      }
     }
     #endregion
 

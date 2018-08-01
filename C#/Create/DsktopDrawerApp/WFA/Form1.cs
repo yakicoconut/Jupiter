@@ -48,23 +48,12 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // マウス軌跡描画用画像
-    public Bitmap mouseTraject;
-
     #endregion
 
 
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-      // サイズロケーション設定
-      this.Location = new Point(0, 0);
-      this.Width = 1000;
-      this.Height = 1000;
-
-      // 背景画像初期化
-      mouseTraject = new Bitmap(this.Width, this.Height);
-
       // フォーム透明化
       // 透明色は無難なものを使用(ColorクラスのTransparentやWhiteは予期しない動きになる)
       SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -72,12 +61,11 @@ namespace WFA
       // 透明を指定する
       this.TransparencyKey = Color.Green;
 
-      /* 用調整 */
-      //// タスクバーを覆って表示
-      //this.WindowState = FormWindowState.Normal;
-      //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-      //// タスクバー表示
-      //this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
+      // タスクバーを覆って表示
+      this.WindowState = FormWindowState.Normal;
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      // タスクバー表示
+      this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
 
       // イベントハンドラフォーム設定メソッド使用
       SettingChildForm();
