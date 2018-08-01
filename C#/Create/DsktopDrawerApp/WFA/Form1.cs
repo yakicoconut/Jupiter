@@ -75,6 +75,17 @@ namespace WFA
     }
     #endregion
 
+    #region 常駐アイコンダブルクリックイベント
+    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      // フォーム表示
+      this.Show();
+
+      // 最小化から復帰
+      this.WindowState = FormWindowState.Normal;
+    }
+    #endregion
+
 
     #region イベントハンドラフォーム設定メソッド
     public void SettingChildForm()

@@ -158,6 +158,14 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_最小化押下イベント
+    private void toolStripMenuItemMin_Click(object sender, EventArgs e)
+    {
+      // 最小化
+      fmParent.WindowState = FormWindowState.Minimized;
+    }
+    #endregion
+
     #region コンテキスト_閉じる押下イベント
     private void toolStripMenuItemClose_Click(object sender, EventArgs e)
     {
