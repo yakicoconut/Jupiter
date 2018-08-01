@@ -144,27 +144,25 @@ namespace WFA
     #region コンテキスト_タスクバー押下イベント
     private void ToolStripMenuItemTaskBar_Click(object sender, EventArgs e)
     {
-      /* 要調整 */
-      //// タスクバー非表示の場合
-      //if (this.Bounds.Height == SystemInformation.WorkingArea.Height)
-      //{
-      //  // タスクバー非表示
-      //  this.Bounds = Screen.PrimaryScreen.Bounds;
-      //}
-      //else
-      //{
-      //  // タスクバー表示
-      //  this.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
-      //}
+      // タスクバー非表示の場合
+      if (fmParent.Bounds.Height == SystemInformation.WorkingArea.Height)
+      {
+        // タスクバー非表示
+        fmParent.Bounds = Screen.PrimaryScreen.Bounds;
+      }
+      else
+      {
+        // タスクバー表示
+        fmParent.Bounds = new Rectangle(0, 0, SystemInformation.PrimaryMonitorSize.Width, SystemInformation.WorkingArea.Height);
+      }
     }
     #endregion
 
     #region コンテキスト_閉じる押下イベント
     private void toolStripMenuItemClose_Click(object sender, EventArgs e)
     {
-      /* 要調整 */
-      //// フォーム閉じる
-      //this.Close();
+      // フォーム閉じる
+      fmParent.Close();
     }
     #endregion
   }
