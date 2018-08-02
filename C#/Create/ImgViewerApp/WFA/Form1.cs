@@ -677,7 +677,7 @@ namespace WFA
         }
         catch (Exception ex)
         {
-          MessageBox.Show(ex.ToString());
+          MessageBox.Show(ex.ToString() + "\r\n\r\n" + dropItem);
         }
       }
 
@@ -764,7 +764,7 @@ namespace WFA
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.ToString());
+        MessageBox.Show(ex.ToString() + "\r\n\r\nキー:" + currentImageKey);
       }
 
       // 初期化用設定
@@ -857,9 +857,9 @@ namespace WFA
           // ファイル移動
           File.Move(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-          MessageBox.Show(e.ToString());
+          MessageBox.Show(ex.ToString() + "\r\n\r\n" + targetImgPath);
         }
       }
 
@@ -1126,7 +1126,8 @@ namespace WFA
       // 起動するファイルパス設定
       psi.FileName = launchViewAppPath;
       // 現在の画像パスをコマンドライン引数に設定
-      psi.Arguments = dicImgPath[currentImageKey];
+      // スペースで引数が分かれるためダブルクォートをつける
+      psi.Arguments = "\"" + dicImgPath[currentImageKey] + "\"";
 
       // 起動
       Process p = Process.Start(psi);
