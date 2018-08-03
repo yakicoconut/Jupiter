@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
+using System.Drawing.Imaging;
 
 namespace WFA
 {
@@ -38,7 +39,8 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
+      // 起動時ウィンドウサイズ
+      launchSize = _comLogic.GetConfigValue("LaunchSize", "Max");
     }
     #endregion
 
@@ -47,6 +49,9 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
+
+    // 起動時ウィンドウサイズ
+    string launchSize;
 
     #endregion
 
@@ -72,6 +77,19 @@ namespace WFA
 
       // イベントハンドラフォーム設定メソッド使用
       SettingChildForm();
+
+      // 起動時ウィンドウサイズが最小化設定の場合
+      if (launchSize == "Min")
+      {
+        // 退避用ビットマップ生成
+        Bitmap evacuationBmp = new Bitmap(this.Width, this.Height);
+
+        // 描画済線退避
+        evacuationBmp.Save(@"DsktopDrawerEvacuation.png", ImageFormat.Png);
+
+        // 最小化
+        this.WindowState = FormWindowState.Minimized;
+      }
     }
     #endregion
 
