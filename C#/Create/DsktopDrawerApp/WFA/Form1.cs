@@ -96,6 +96,12 @@ namespace WFA
     #region 常駐アイコンダブルクリックイベント
     private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+      // ねずみ返し_既に通常状態の場合
+      if (this.WindowState == FormWindowState.Normal)
+      {
+        return;
+      }
+
       // フォーム表示
       this.Show();
 
