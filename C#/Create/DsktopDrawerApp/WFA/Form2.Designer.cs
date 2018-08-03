@@ -44,6 +44,7 @@
       this.toolStripMenuItemRed = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemBlue = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemEraser = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemMin = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
@@ -57,6 +58,7 @@
             this.toolStripMenuItemCapture,
             this.toolStripMenuItemSize,
             this.toolStripMenuItemColor,
+            this.toolStripMenuItemClear,
             this.toolStripMenuItemMin,
             this.toolStripMenuItemClose});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -171,6 +173,13 @@
       this.toolStripMenuItemEraser.Text = "消しゴム";
       this.toolStripMenuItemEraser.Click += new System.EventHandler(this.toolStripMenuItemEraser_Click);
       // 
+      // toolStripMenuItemClear
+      // 
+      this.toolStripMenuItemClear.Name = "toolStripMenuItemClear";
+      this.toolStripMenuItemClear.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemClear.Text = "クリア";
+      this.toolStripMenuItemClear.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+      // 
       // toolStripMenuItemMin
       // 
       this.toolStripMenuItemMin.Name = "toolStripMenuItemMin";
@@ -218,5 +227,6 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSizeUp;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSizeDown;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEraser;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClear;
   }
 }

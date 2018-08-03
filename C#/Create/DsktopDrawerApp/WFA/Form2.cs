@@ -266,6 +266,28 @@ namespace WFA
     #endregion
 
 
+    #region コンテキスト_クリア押下イベント
+    private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      // 塗りつぶし領域
+      Rectangle rect = new Rectangle(0, 0, fmParent.Width, fmParent.Height);
+
+      // グラフィックスオブジェクト生成
+      // 親フォームのグラフィックに直接アクセス
+      using (Graphics objGrp = fmParent.CreateGraphics())
+      {
+        // 緑(透明色)で塗りつぶし
+        objGrp.FillRectangle(Brushes.Green, rect);
+      }
+
+      // 同時に退避用ビットマップも塗りつぶし
+      using (Graphics objGrp = Graphics.FromImage(evacuationBmp))
+      {
+        objGrp.FillRectangle(Brushes.Green, rect);
+      }
+    }
+    #endregion
+    
     #region コンテキスト_最小化押下イベント
     private void toolStripMenuItemMin_Click(object sender, EventArgs e)
     {
