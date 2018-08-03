@@ -44,7 +44,6 @@ E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.Properties.Resour
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.FrmOption.resources
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.FrmFileList.resources
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
 D:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\01.JPG
 D:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\02.JPG
 D:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\03.JPG
