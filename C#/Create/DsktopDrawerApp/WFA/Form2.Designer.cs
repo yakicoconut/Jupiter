@@ -36,7 +36,6 @@
       this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripMenuItemPalette = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemSize = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemSizeUp = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemSizeDown = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +55,8 @@
             this.toolStripMenuItemOpacity,
             this.ToolStripMenuItemTaskBar,
             this.toolStripMenuItemCapture,
-            this.toolStripMenuItemPalette,
+            this.toolStripMenuItemSize,
+            this.toolStripMenuItemColor,
             this.toolStripMenuItemMin,
             this.toolStripMenuItemClose});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -107,15 +107,6 @@
       this.toolStripMenuItemCapture.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemCapture.Text = "キャプチャ";
       this.toolStripMenuItemCapture.Click += new System.EventHandler(this.ToolStripMenuItemCapture_Click);
-      // 
-      // toolStripMenuItemPalette
-      // 
-      this.toolStripMenuItemPalette.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemSize,
-            this.toolStripMenuItemColor});
-      this.toolStripMenuItemPalette.Name = "toolStripMenuItemPalette";
-      this.toolStripMenuItemPalette.Size = new System.Drawing.Size(152, 22);
-      this.toolStripMenuItemPalette.Text = "パレット";
       // 
       // toolStripMenuItemSize
       // 
@@ -219,7 +210,6 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMin;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCapture;
-    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalette;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSize;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemColor;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBlack;
