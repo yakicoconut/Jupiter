@@ -56,8 +56,8 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // 画像パスディクショナリ
-    public Dictionary<int, Process> dicProcess = new Dictionary<int, Process>();
+    // プロセスディクショナリ
+    public Dictionary<int, Process> dicProcess;
 
     // 除外ウィンドウ名
     string[] omitTitle;
@@ -85,6 +85,9 @@ namespace WFA
     {
       // リストビューマルチセレクト禁止
       lvProcessList.MultiSelect = false;
+
+      // プロセスディクショナリ初期化
+      dicProcess = new Dictionary<int, Process>();
 
       // リストビュー初期化メソッド使用
       InitListView();
@@ -199,6 +202,8 @@ namespace WFA
     {
       // リストビュー初期化
       lvProcessList.Items.Clear();
+      // プロセスディクショナリ初期化
+      dicProcess = new Dictionary<int, Process>();
 
       // 全プロセスをループ処理
       int i = 0;
