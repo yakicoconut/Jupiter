@@ -112,7 +112,7 @@ namespace WFA
       }
     }
     #endregion
-    
+
     #region リストビュー選択項目変更イベント
     private void lvProcessList_SelectedIndexChanged(object sender, EventArgs e)
     {
