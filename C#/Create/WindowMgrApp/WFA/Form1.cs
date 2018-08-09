@@ -59,7 +59,9 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
 
     // プロセスディクショナリ
-    public Dictionary<int, Process> dicProcess;
+    public Dictionary<string, Process> dicProcess;
+    // プロセスディクショナリアクセスキー数値
+    int dicAcsKeyNum = 0;
 
     // 除外ウィンドウ名
     string[] omitTitle;
@@ -94,7 +96,7 @@ namespace WFA
       lvProcessList.MultiSelect = false;
 
       // プロセスディクショナリ初期化
-      dicProcess = new Dictionary<int, Process>();
+      dicProcess = new Dictionary<string, Process>();
 
       // リストビュー初期化メソッド使用
       InitListView();
@@ -205,8 +207,11 @@ namespace WFA
 
       #endregion
 
+      // プロセスディクショナリアクセスキー取得
+      string dicAcsKeyStr = windowTitle[0].Text.Substring(windowTitle[0].Text.Length - 6, 6);
+
       // ディクショナリからウィンドウプロセス取得
-      Process windowProc = dicProcess[windowTitle[0].Index];
+      Process windowProc = dicProcess[dicAcsKeyStr];
       // User32ウィンドウアクティブメソッド使用
       ActiveWindowUser32(windowProc.MainWindowHandle);
 
@@ -233,7 +238,9 @@ namespace WFA
       // リストビュー初期化
       lvProcessList.Items.Clear();
       // プロセスディクショナリ初期化
-      dicProcess = new Dictionary<int, Process>();
+      dicProcess = new Dictionary<string, Process>();
+      // プロセスディクショナリアクセスキー数値初期化
+      dicAcsKeyNum = 0;
 
       // 全プロセスをループ処理
       int i = 0;
@@ -248,8 +255,13 @@ namespace WFA
         // プロセス(アプリ)名取得
         string processName = x.ProcessName;
 
+        // プロセスディクショナリアクセスキー数値インクリメント
+        dicAcsKeyNum++;
+        // プロセスディクショナリアクセスキー作成
+        string dicAcsKeyStr = "DIC" + dicAcsKeyNum.ToString("000");
+
         // リストビューにプロセス名追加
-        lvProcessList.Items.Add(windowTitle);
+        lvProcessList.Items.Add(windowTitle + " " + dicAcsKeyStr);
 
         // 除外ウィンドウ名か除外プロセス名の場合
         if (omitTitle.Contains(windowTitle) || omitProcess.Contains(processName))
@@ -257,7 +269,7 @@ namespace WFA
           lvProcessList.Items[i].Checked = true;
 
         // ディクショナリにも追加
-        dicProcess.Add(i, x);
+        dicProcess.Add(dicAcsKeyStr, x);
         i += 1;
       }
     }
