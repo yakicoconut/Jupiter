@@ -96,20 +96,58 @@ namespace WFA
     {
       // 現在行数取得
       int currentIndex = lvProcessList.SelectedItems[0].Index;
+      // 最終行取得 
       int lastIndex = lvProcessList.Items.Count - 1;
+      // 移動先行初期化
+      int destIndex = 0;
+
+      // ねずみ返し_全ての項目がチェックされている場合
+      if (lvProcessList.CheckedItems.Count == lvProcessList.Items.Count)
+        return;
 
       // 上押下かつ先頭行の場合
-      if (e.KeyCode == Keys.Up && currentIndex == 0)
+      if (e.KeyCode == Keys.Up)
       {
-        // 先頭最終行選択メソッド使用
-        SelectTopOrBottom(currentIndex, lastIndex, e);
+        // 上へループ
+        while (true)
+        {
+          // 現在行の一つ上が範囲内なら一つ上の行設定、範囲外なら最終行設定
+          destIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lastIndex;
+
+          // 移動先がチェックされている場合
+          if (lvProcessList.Items[destIndex].Checked)
+          {
+            // 現在行数変数を更新
+            currentIndex = destIndex;
+            continue;
+          }
+
+          break;
+        }
       }
       // 下押下かつ最終行の場合
-      else if (e.KeyCode == Keys.Down && currentIndex == lastIndex)
+      else if (e.KeyCode == Keys.Down)
       {
-        // 先頭最終行選択メソッド使用
-        SelectTopOrBottom(currentIndex, 0, e);
+        // 下へループ
+        while (true)
+        {
+          // 現在行の一つ下が範囲内なら一つ下の行設定、範囲外なら先頭行設定
+          destIndex = currentIndex + 1 <= lastIndex ? currentIndex + 1 : 0;
+
+          // 移動先がチェックされている場合
+          if (lvProcessList.Items[destIndex].Checked)
+          {
+            // 現在行数変数を更新
+            currentIndex = destIndex;
+            continue;
+          }
+
+          break;
+        }
       }
+
+      // 行選択メソッド使用
+      SelectItemRow(currentIndex, destIndex, e);
     }
     #endregion
 
@@ -189,8 +227,8 @@ namespace WFA
     }
     #endregion
 
-    #region 先頭最終行選択メソッド
-    private void SelectTopOrBottom(int currentIndex, int destIndex, KeyEventArgs e)
+    #region 行選択メソッド
+    private void SelectItemRow(int currentIndex, int destIndex, KeyEventArgs e)
     {
       // 現在選択行の選択をはずす
       lvProcessList.Items[currentIndex].Selected = false;
