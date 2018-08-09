@@ -124,6 +124,9 @@ namespace WFA
 
           break;
         }
+
+        // 行選択メソッド使用
+        SelectItemRow(currentIndex, destIndex, e);
       }
       // 下押下かつ最終行の場合
       else if (e.KeyCode == Keys.Down)
@@ -144,10 +147,10 @@ namespace WFA
 
           break;
         }
-      }
 
-      // 行選択メソッド使用
-      SelectItemRow(currentIndex, destIndex, e);
+        // 行選択メソッド使用
+        SelectItemRow(currentIndex, destIndex, e);
+      }
     }
     #endregion
 
@@ -159,10 +162,6 @@ namespace WFA
 
       // ねずみ返し_選択中アイテムがない場合
       if (windowTitle.Count <= 0)
-        return;
-
-      // ねずみ返し_選択中アイテムにチェックがある場合
-      if (windowTitle[0].Checked)
         return;
 
       #region コメント_VBウィンドウアクティブメソッド使用
