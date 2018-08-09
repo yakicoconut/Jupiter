@@ -94,6 +94,8 @@ namespace WFA
 
       // リストビューマルチセレクト禁止
       lvProcessList.MultiSelect = false;
+      // リストビュードロップ許可
+      lvProcessList.AllowDrop = true;
 
       // プロセスディクショナリ初期化
       dicProcess = new Dictionary<string, Process>();
@@ -102,6 +104,7 @@ namespace WFA
       InitListView();
     }
     #endregion
+
 
     #region フォームキー押下イベント
     private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -220,11 +223,106 @@ namespace WFA
     }
     #endregion
 
+
     #region 更新ボタン押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
       // リストビュー初期化メソッド使用
       InitListView();
+    }
+    #endregion
+
+
+    #region ドラッグ&ドロップイベント
+    private void lvProcessList_DragDrop(object sender, DragEventArgs e)
+    {
+      // ねずみ返し_ドラッグできるアイテムかどうか
+      if (!e.Data.GetDataPresent(typeof(ListViewItem)))
+      {
+        return;
+      }
+
+      // 対象アイテム
+      ListViewItem srcItem = (ListViewItem)e.Data.GetData(typeof(ListViewItem));
+
+      // 対象アイテムの位置からアイテム自体を取得
+      Point p = lvProcessList.PointToClient(new Point(e.X, e.Y));
+      ListViewItem item = lvProcessList.GetItemAt(p.X, p.Y);
+
+      // 行番号取得
+      int destIndex = lvProcessList.Items.IndexOf(item);
+      // チェック有無取得
+      bool isChk = srcItem.Checked;
+
+      // アイテムが存在しない場所の場合
+      if (destIndex == -1)
+      {
+        // リストの最後に追加
+        destIndex = lvProcessList.Items.Count;
+      }
+      // 移動先が自分自身より下の場合
+      else if (destIndex > srcItem.Index)
+      {
+        // 自分自身より上の場合、選択した場所に挿入する。
+        destIndex++;
+      }
+
+      // 挿入
+      ListViewItem newItem = lvProcessList.Items.Insert(destIndex, srcItem.Text);
+      // チェック引継ぎ
+      newItem.Checked = isChk;
+      newItem.Selected = true;
+
+      // 元アイテム削除
+      lvProcessList.Items.Remove(srcItem);
+    }
+    #endregion
+
+    #region ドラッグエンターイベント
+    private void lvProcessList_DragEnter(object sender, DragEventArgs e)
+    {
+      // ねずみ返し_ドラッグできるアイテムかどうか
+      if (!e.Data.GetDataPresent(typeof(ListViewItem)))
+      {
+        return;
+      }
+
+      // 左クリックの場合
+      if (e.KeyState == 0x1 || (e.KeyState & 0x8) > 0)
+      {
+        // 移動
+        e.Effect = DragDropEffects.Move;
+      }
+    }
+    #endregion
+
+    #region ドラッグオーバーイベント
+    private void lvProcessList_DragOver(object sender, DragEventArgs e)
+    {
+      // ねずみ返し_ドラッグできるアイテムかどうか
+      if (!e.Data.GetDataPresent(typeof(ListViewItem)))
+      {
+        return;
+      }
+
+      // 対象アイテムの位置からアイテム自体を取得
+      Point p = lvProcessList.PointToClient(new Point(e.X, e.Y));
+      ListViewItem item = this.lvProcessList.GetItemAt(p.X, p.Y);
+
+      // アイテムがある場合
+      if (item != null)
+      {
+        // 選択
+        item.Selected = true;
+      }
+    }
+    #endregion
+
+    #region 選択アイテムドラッグイベント
+    private void lvProcessList_ItemDrag(object sender, ItemDragEventArgs e)
+    {
+      // ドラッグ&ドロップイベント開始
+      lvProcessList.DoDragDrop((ListViewItem)e.Item, DragDropEffects.Copy | DragDropEffects.Move);
     }
     #endregion
 

@@ -56,7 +56,11 @@
       this.lvProcessList.TabIndex = 4;
       this.lvProcessList.UseCompatibleStateImageBehavior = false;
       this.lvProcessList.View = System.Windows.Forms.View.List;
+      this.lvProcessList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lvProcessList_ItemDrag);
       this.lvProcessList.SelectedIndexChanged += new System.EventHandler(this.lvProcessList_SelectedIndexChanged);
+      this.lvProcessList.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvProcessList_DragDrop);
+      this.lvProcessList.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvProcessList_DragEnter);
+      this.lvProcessList.DragOver += new System.Windows.Forms.DragEventHandler(this.lvProcessList_DragOver);
       this.lvProcessList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvProcessList_KeyDown);
       // 
       // Form1
