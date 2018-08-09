@@ -97,6 +97,12 @@ namespace WFA
     #region キー押下イベント
     private void lvProcessList_KeyDown(object sender, KeyEventArgs e)
     {
+      // ねずみ返し_リストビューの項目が選択されていない場合
+      if (lvProcessList.SelectedItems.Count <= 0)
+      {
+        return;
+      }
+
       // 現在行数取得
       int currentIndex = lvProcessList.SelectedItems[0].Index;
       // 最終行取得 
