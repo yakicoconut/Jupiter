@@ -47,6 +47,8 @@ namespace WFA
     {
       // 除外ウィンドウ名
       omitTitle = _comLogic.GetConfigValue("OmitTitle", "DefaultValue").Split(',');
+      // 除外プロセス名
+      omitProcess = _comLogic.GetConfigValue("OmitProcess", "DefaultValue").Split(',');
     }
     #endregion
 
@@ -61,6 +63,8 @@ namespace WFA
 
     // 除外ウィンドウ名
     string[] omitTitle;
+    // 除外プロセス名
+    string[] omitProcess;
 
     #endregion
 
@@ -225,12 +229,14 @@ namespace WFA
 
         // ウィンドウタイトル取得
         string windowTitle = Path.GetFileName(x.MainWindowTitle);
+        // プロセス(アプリ)名取得
+        string processName = x.ProcessName;
 
         // リストビューにプロセス名追加
         lvProcessList.Items.Add(windowTitle);
 
-        // 除外ウィンドウ名の場合
-        if (omitTitle.Contains(windowTitle))
+        // 除外ウィンドウ名か除外プロセス名の場合
+        if (omitTitle.Contains(windowTitle) || omitProcess.Contains(processName))
           // チェックをつける
           lvProcessList.Items[i].Checked = true;
 
