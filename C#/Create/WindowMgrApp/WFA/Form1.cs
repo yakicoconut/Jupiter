@@ -91,6 +91,28 @@ namespace WFA
     }
     #endregion
 
+    #region キー押下イベント
+    private void lvProcessList_KeyDown(object sender, KeyEventArgs e)
+    {
+      // 現在行数取得
+      int currentIndex = lvProcessList.SelectedItems[0].Index;
+      int lastIndex = lvProcessList.Items.Count - 1;
+
+      // 上押下かつ先頭行の場合
+      if (e.KeyCode == Keys.Up && currentIndex == 0)
+      {
+        // 先頭最終行選択メソッド使用
+        SelectTopOrBottom(currentIndex, lastIndex, e);
+      }
+      // 下押下かつ最終行の場合
+      else if (e.KeyCode == Keys.Down && currentIndex == lastIndex)
+      {
+        // 先頭最終行選択メソッド使用
+        SelectTopOrBottom(currentIndex, 0, e);
+      }
+    }
+    #endregion
+    
     #region リストビュー選択項目変更イベント
     private void lvProcessList_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -164,6 +186,23 @@ namespace WFA
         dicProcess.Add(i, x);
         i += 1;
       }
+    }
+    #endregion
+
+    #region 先頭最終行選択メソッド
+    private void SelectTopOrBottom(int currentIndex, int destIndex, KeyEventArgs e)
+    {
+      // 現在選択行の選択をはずす
+      lvProcessList.Items[currentIndex].Selected = false;
+      lvProcessList.Items[currentIndex].Focused = false;
+      // 対象行を選択
+      lvProcessList.Items[destIndex].Selected = true;
+      lvProcessList.Items[destIndex].Focused = true;
+
+      // 選択処理が二重で実行されるため
+      // デフォルト(一つ上を選択する)キー押下イベント無効化
+      // 参照型のため値変更後返す必要はない
+      e.Handled = true;
     }
     #endregion
 
