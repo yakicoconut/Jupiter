@@ -45,12 +45,12 @@
       // 
       // lvProcessList
       // 
-      this.lvProcessList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.lvProcessList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lvProcessList.CheckBoxes = true;
       this.lvProcessList.Location = new System.Drawing.Point(7, 8);
-      this.lvProcessList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.lvProcessList.Margin = new System.Windows.Forms.Padding(2);
       this.lvProcessList.Name = "lvProcessList";
       this.lvProcessList.Size = new System.Drawing.Size(228, 588);
       this.lvProcessList.TabIndex = 4;
@@ -69,6 +69,7 @@
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
       this.ResumeLayout(false);
 
     }

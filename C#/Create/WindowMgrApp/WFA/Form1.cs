@@ -87,6 +87,9 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // フォームのキー押下イベントを受け取る設定
+      this.KeyPreview = true;
+
       // リストビューマルチセレクト禁止
       lvProcessList.MultiSelect = false;
 
@@ -98,7 +101,20 @@ namespace WFA
     }
     #endregion
 
-    #region キー押下イベント
+    #region フォームキー押下イベント
+    private void Form1_KeyDown(object sender, KeyEventArgs e)
+    {
+      // F5の場合
+      if (e.KeyCode == Keys.F5)
+      {
+        // リストビュー初期化メソッド使用
+        InitListView();
+        return;
+      }
+    }
+    #endregion
+
+    #region リストビューキー押下イベント
     private void lvProcessList_KeyDown(object sender, KeyEventArgs e)
     {
       // ねずみ返し_リストビューの項目が選択されていない場合
