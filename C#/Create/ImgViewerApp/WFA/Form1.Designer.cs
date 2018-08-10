@@ -31,10 +31,11 @@
       this.components = new System.ComponentModel.Container();
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.ToolStripMenuItemFileListForm = new System.Windows.Forms.ToolStripMenuItem();
-      this.ToolStripMenuItemOptionForm = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemIsModeZoom = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemIsModePageEject = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemFileListForm = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemOptionForm = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemLaunchViewApp = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -44,9 +45,8 @@
       this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
       this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-      this.pictureBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(580, 474);
+      this.pictureBox1.Size = new System.Drawing.Size(348, 316);
       this.pictureBox1.TabIndex = 0;
       this.pictureBox1.TabStop = false;
       this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
@@ -59,46 +59,53 @@
             this.ToolStripMenuItemIsModeZoom,
             this.ToolStripMenuItemIsModePageEject,
             this.ToolStripMenuItemFileListForm,
-            this.ToolStripMenuItemOptionForm});
+            this.ToolStripMenuItemOptionForm,
+            this.ToolStripMenuItemLaunchViewApp});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(221, 157);
-      // 
-      // ToolStripMenuItemFileListForm
-      // 
-      this.ToolStripMenuItemFileListForm.Name = "ToolStripMenuItemFileListForm";
-      this.ToolStripMenuItemFileListForm.Size = new System.Drawing.Size(220, 30);
-      this.ToolStripMenuItemFileListForm.Text = "ファイルリスト";
-      this.ToolStripMenuItemFileListForm.Click += new System.EventHandler(this.ToolStripMenuItemFileListForm_Click);
-      // 
-      // ToolStripMenuItemOptionForm
-      // 
-      this.ToolStripMenuItemOptionForm.Name = "ToolStripMenuItemOptionForm";
-      this.ToolStripMenuItemOptionForm.Size = new System.Drawing.Size(220, 30);
-      this.ToolStripMenuItemOptionForm.Text = "操作パネル";
-      this.ToolStripMenuItemOptionForm.Click += new System.EventHandler(this.ToolStripMenuItemOptionForm_Click);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(185, 136);
       // 
       // ToolStripMenuItemIsModeZoom
       // 
       this.ToolStripMenuItemIsModeZoom.Name = "ToolStripMenuItemIsModeZoom";
-      this.ToolStripMenuItemIsModeZoom.Size = new System.Drawing.Size(220, 30);
+      this.ToolStripMenuItemIsModeZoom.Size = new System.Drawing.Size(184, 22);
       this.ToolStripMenuItemIsModeZoom.Text = "チェック拡張/縮小";
       this.ToolStripMenuItemIsModeZoom.Click += new System.EventHandler(this.ToolStripMenuItemIsModeZoom_Click);
       // 
       // ToolStripMenuItemIsModePageEject
       // 
       this.ToolStripMenuItemIsModePageEject.Name = "ToolStripMenuItemIsModePageEject";
-      this.ToolStripMenuItemIsModePageEject.Size = new System.Drawing.Size(220, 30);
+      this.ToolStripMenuItemIsModePageEject.Size = new System.Drawing.Size(184, 22);
       this.ToolStripMenuItemIsModePageEject.Text = "チェックページ送り";
       this.ToolStripMenuItemIsModePageEject.Click += new System.EventHandler(this.ToolStripMenuItemIsModePageEject_Click);
+      // 
+      // ToolStripMenuItemFileListForm
+      // 
+      this.ToolStripMenuItemFileListForm.Name = "ToolStripMenuItemFileListForm";
+      this.ToolStripMenuItemFileListForm.Size = new System.Drawing.Size(184, 22);
+      this.ToolStripMenuItemFileListForm.Text = "ファイルリスト";
+      this.ToolStripMenuItemFileListForm.Click += new System.EventHandler(this.ToolStripMenuItemFileListForm_Click);
+      // 
+      // ToolStripMenuItemOptionForm
+      // 
+      this.ToolStripMenuItemOptionForm.Name = "ToolStripMenuItemOptionForm";
+      this.ToolStripMenuItemOptionForm.Size = new System.Drawing.Size(184, 22);
+      this.ToolStripMenuItemOptionForm.Text = "操作パネル";
+      this.ToolStripMenuItemOptionForm.Click += new System.EventHandler(this.ToolStripMenuItemOptionForm_Click);
+      // 
+      // ToolStripMenuItemLaunchViewApp
+      // 
+      this.ToolStripMenuItemLaunchViewApp.Name = "ToolStripMenuItemLaunchViewApp";
+      this.ToolStripMenuItemLaunchViewApp.Size = new System.Drawing.Size(184, 22);
+      this.ToolStripMenuItemLaunchViewApp.Text = "Viewアプリ起動";
+      this.ToolStripMenuItemLaunchViewApp.Click += new System.EventHandler(this.ToolStripMenuItemLaunchViewApp_Click);
       // 
       // Form1
       // 
       this.AllowDrop = true;
-      this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(580, 474);
+      this.ClientSize = new System.Drawing.Size(348, 316);
       this.Controls.Add(this.pictureBox1);
-      this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
@@ -119,6 +126,7 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOptionForm;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemIsModeZoom;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemIsModePageEject;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLaunchViewApp;
   }
 }
 

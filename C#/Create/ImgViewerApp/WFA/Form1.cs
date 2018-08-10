@@ -411,6 +411,14 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_Viewアプリ起動押下イベント
+    private void ToolStripMenuItemLaunchViewApp_Click(object sender, EventArgs e)
+    {
+      // ビュウアプリ起動メソッド使用
+      LaunchView();
+    }
+    #endregion
+
 
     #region ピクチャボックスWクリックイベント
     private void pictureBox1_DoubleClick(object sender, EventArgs e)
