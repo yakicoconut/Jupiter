@@ -389,7 +389,7 @@ namespace WFA
       fmOption.cbIsModePageEject.Checked = !fmOption.cbIsModePageEject.Checked;
     }
     #endregion
-    
+
     #region コンテキスト_ファイルリスト押下イベント
     private void ToolStripMenuItemFileListForm_Click(object sender, EventArgs e)
     {
@@ -772,7 +772,7 @@ namespace WFA
 
       // 画像を表示する
       pictureBox1.Invalidate();
-      
+
       // ファイル名表示
       fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
       // ファイルサイズ
@@ -1144,8 +1144,12 @@ namespace WFA
         Thread.Sleep(500);
       }
 
-      // 自身をアクティブ化
-      this.Activate();
+      // ビューアプリ起動後、自身のアクティブ化チェックがついている場合
+      if (fmOption.cbThisAct.Checked)
+      {
+        // 自身をアクティブ化
+        this.Activate();
+      }
     }
     #endregion
 

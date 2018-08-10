@@ -60,6 +60,7 @@
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
+      this.cbThisAct = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -119,10 +120,11 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
+      this.panel1.Controls.Add(this.cbThisAct);
       this.panel1.Controls.Add(this.tbFileSize);
       this.panel1.Controls.Add(this.btView);
       this.panel1.Controls.Add(this.cbChkImg);
@@ -149,7 +151,7 @@
       this.panel1.Controls.Add(this.nudZoomOutRatio);
       this.panel1.Location = new System.Drawing.Point(10, 10);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(150, 458);
+      this.panel1.Size = new System.Drawing.Size(150, 488);
       this.panel1.TabIndex = 0;
       // 
       // tbFileSize
@@ -157,7 +159,7 @@
       this.tbFileSize.BackColor = System.Drawing.Color.White;
       this.tbFileSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.tbFileSize.ForeColor = System.Drawing.Color.Black;
-      this.tbFileSize.Location = new System.Drawing.Point(20, 152);
+      this.tbFileSize.Location = new System.Drawing.Point(20, 177);
       this.tbFileSize.Name = "tbFileSize";
       this.tbFileSize.ReadOnly = true;
       this.tbFileSize.Size = new System.Drawing.Size(126, 12);
@@ -166,7 +168,7 @@
       // 
       // btView
       // 
-      this.btView.Location = new System.Drawing.Point(3, 428);
+      this.btView.Location = new System.Drawing.Point(3, 453);
       this.btView.Name = "btView";
       this.btView.Size = new System.Drawing.Size(143, 23);
       this.btView.TabIndex = 1;
@@ -199,7 +201,7 @@
       // 
       this.label2.AutoSize = true;
       this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label2.Location = new System.Drawing.Point(3, 119);
+      this.label2.Location = new System.Drawing.Point(3, 144);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(35, 12);
       this.label2.TabIndex = 0;
@@ -209,7 +211,7 @@
       // 
       this.label3.AutoSize = true;
       this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label3.Location = new System.Drawing.Point(3, 338);
+      this.label3.Location = new System.Drawing.Point(3, 363);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(69, 12);
       this.label3.TabIndex = 0;
@@ -219,7 +221,7 @@
       // 
       this.label4.AutoSize = true;
       this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label4.Location = new System.Drawing.Point(3, 167);
+      this.label4.Location = new System.Drawing.Point(3, 192);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(29, 12);
       this.label4.TabIndex = 0;
@@ -229,7 +231,7 @@
       // 
       this.label5.AutoSize = true;
       this.label5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label5.Location = new System.Drawing.Point(18, 252);
+      this.label5.Location = new System.Drawing.Point(18, 277);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(53, 12);
       this.label5.TabIndex = 0;
@@ -239,7 +241,7 @@
       // 
       this.label6.AutoSize = true;
       this.label6.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label6.Location = new System.Drawing.Point(18, 179);
+      this.label6.Location = new System.Drawing.Point(18, 204);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(53, 12);
       this.label6.TabIndex = 0;
@@ -249,7 +251,7 @@
       // 
       this.label7.AutoSize = true;
       this.label7.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label7.Location = new System.Drawing.Point(20, 216);
+      this.label7.Location = new System.Drawing.Point(20, 241);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(53, 12);
       this.label7.TabIndex = 0;
@@ -297,7 +299,7 @@
       this.tbFileName.BackColor = System.Drawing.Color.White;
       this.tbFileName.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.tbFileName.ForeColor = System.Drawing.Color.Black;
-      this.tbFileName.Location = new System.Drawing.Point(20, 134);
+      this.tbFileName.Location = new System.Drawing.Point(20, 159);
       this.tbFileName.Name = "tbFileName";
       this.tbFileName.ReadOnly = true;
       this.tbFileName.Size = new System.Drawing.Size(126, 12);
@@ -306,7 +308,7 @@
       // 
       // btUp
       // 
-      this.btUp.Location = new System.Drawing.Point(39, 353);
+      this.btUp.Location = new System.Drawing.Point(39, 378);
       this.btUp.Name = "btUp";
       this.btUp.Size = new System.Drawing.Size(70, 23);
       this.btUp.TabIndex = 0;
@@ -317,7 +319,7 @@
       // 
       // btDown
       // 
-      this.btDown.Location = new System.Drawing.Point(39, 399);
+      this.btDown.Location = new System.Drawing.Point(39, 424);
       this.btDown.Name = "btDown";
       this.btDown.Size = new System.Drawing.Size(70, 23);
       this.btDown.TabIndex = 0;
@@ -328,7 +330,7 @@
       // 
       // btRight
       // 
-      this.btRight.Location = new System.Drawing.Point(76, 376);
+      this.btRight.Location = new System.Drawing.Point(76, 401);
       this.btRight.Name = "btRight";
       this.btRight.Size = new System.Drawing.Size(70, 23);
       this.btRight.TabIndex = 0;
@@ -339,7 +341,7 @@
       // 
       // btLeft
       // 
-      this.btLeft.Location = new System.Drawing.Point(3, 376);
+      this.btLeft.Location = new System.Drawing.Point(3, 401);
       this.btLeft.Name = "btLeft";
       this.btLeft.Size = new System.Drawing.Size(70, 23);
       this.btLeft.TabIndex = 0;
@@ -350,7 +352,7 @@
       // 
       // nudUpDist
       // 
-      this.nudUpDist.Location = new System.Drawing.Point(50, 267);
+      this.nudUpDist.Location = new System.Drawing.Point(50, 292);
       this.nudUpDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -373,7 +375,7 @@
       // 
       // nudDownDist
       // 
-      this.nudDownDist.Location = new System.Drawing.Point(52, 309);
+      this.nudDownDist.Location = new System.Drawing.Point(52, 334);
       this.nudDownDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -396,7 +398,7 @@
       // 
       // nudRightDist
       // 
-      this.nudRightDist.Location = new System.Drawing.Point(76, 288);
+      this.nudRightDist.Location = new System.Drawing.Point(76, 313);
       this.nudRightDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -419,7 +421,7 @@
       // 
       // nudLeftDist
       // 
-      this.nudLeftDist.Location = new System.Drawing.Point(22, 288);
+      this.nudLeftDist.Location = new System.Drawing.Point(22, 313);
       this.nudLeftDist.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -448,7 +450,7 @@
             0,
             0,
             65536});
-      this.nudZoomInRatio.Location = new System.Drawing.Point(52, 194);
+      this.nudZoomInRatio.Location = new System.Drawing.Point(52, 219);
       this.nudZoomInRatio.Minimum = new decimal(new int[] {
             1,
             0,
@@ -472,7 +474,7 @@
             0,
             0,
             65536});
-      this.nudZoomOutRatio.Location = new System.Drawing.Point(52, 230);
+      this.nudZoomOutRatio.Location = new System.Drawing.Point(52, 255);
       this.nudZoomOutRatio.Name = "nudZoomOutRatio";
       this.nudZoomOutRatio.Size = new System.Drawing.Size(52, 19);
       this.nudZoomOutRatio.TabIndex = 0;
@@ -483,12 +485,23 @@
             0});
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
       // 
+      // cbThisAct
+      // 
+      this.cbThisAct.AutoSize = true;
+      this.cbThisAct.Location = new System.Drawing.Point(20, 121);
+      this.cbThisAct.Name = "cbThisAct";
+      this.cbThisAct.Size = new System.Drawing.Size(66, 16);
+      this.cbThisAct.TabIndex = 3;
+      this.cbThisAct.TabStop = false;
+      this.cbThisAct.Text = "アクティブ";
+      this.cbThisAct.UseVisualStyleBackColor = true;
+      // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(170, 478);
+      this.ClientSize = new System.Drawing.Size(170, 508);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -547,5 +560,6 @@
     public System.Windows.Forms.CheckBox cbChkImg;
     public ButtonEx btView;
     public System.Windows.Forms.TextBox tbFileSize;
+    public System.Windows.Forms.CheckBox cbThisAct;
   }
 }
