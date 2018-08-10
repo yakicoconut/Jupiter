@@ -33,6 +33,7 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemMove = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,8 +44,8 @@
       this.label1 = new System.Windows.Forms.Label();
       this.tbCommitDir = new System.Windows.Forms.TextBox();
       this.panel2 = new System.Windows.Forms.Panel();
-      this.label2 = new System.Windows.Forms.Label();
       this.cbSort = new System.Windows.Forms.ComboBox();
+      this.label2 = new System.Windows.Forms.Label();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.panel2.SuspendLayout();
@@ -65,7 +66,8 @@
       // 
       this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacityGain,
-            this.toolStripMenuItemOpacityDec});
+            this.toolStripMenuItemOpacityDec,
+            this.toolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
       this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
@@ -74,16 +76,23 @@
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
+      // 
+      // toolStripMenuItemOpacityTransparent
+      // 
+      this.toolStripMenuItemOpacityTransparent.Name = "toolStripMenuItemOpacityTransparent";
+      this.toolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityTransparent.Text = "透明";
+      this.toolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.toolStripMenuItemOpacityTransparent_Click);
       // 
       // ToolStripMenuItemMove
       // 
@@ -185,16 +194,6 @@
       this.panel2.Size = new System.Drawing.Size(164, 46);
       this.panel2.TabIndex = 3;
       // 
-      // label2
-      // 
-      this.label2.AutoSize = true;
-      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label2.Location = new System.Drawing.Point(6, 4);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(35, 12);
-      this.label2.TabIndex = 1;
-      this.label2.Text = "ソート";
-      // 
       // cbSort
       // 
       this.cbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -204,6 +203,16 @@
       this.cbSort.Size = new System.Drawing.Size(145, 20);
       this.cbSort.TabIndex = 2;
       this.cbSort.SelectedIndexChanged += new System.EventHandler(this.cbSort_SelectedIndexChanged);
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.label2.Location = new System.Drawing.Point(6, 4);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(35, 12);
+      this.label2.TabIndex = 1;
+      this.label2.Text = "ソート";
       // 
       // FrmFileList
       // 
@@ -237,6 +246,7 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityTransparent;
     public System.Windows.Forms.ListView lvFileList;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemCopy;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemMove;

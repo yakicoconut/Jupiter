@@ -216,6 +216,14 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_透明押下イベント
+    private void toolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
+    {
+      // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
+      this.Opacity = 0.01;
+    }
+    #endregion
+
     #region コンテキスト_ファイルリスト押下イベント
     private void ToolStripMenuItemFileList_Click(object sender, EventArgs e)
     {

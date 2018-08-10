@@ -33,9 +33,11 @@
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemFolderList = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpenDir = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.cbThisAct = new System.Windows.Forms.CheckBox();
       this.tbFileSize = new System.Windows.Forms.TextBox();
       this.btView = new WFA.ButtonEx();
       this.cbChkImg = new System.Windows.Forms.CheckBox();
@@ -60,7 +62,6 @@
       this.nudLeftDist = new System.Windows.Forms.NumericUpDown();
       this.nudZoomInRatio = new System.Windows.Forms.NumericUpDown();
       this.nudZoomOutRatio = new System.Windows.Forms.NumericUpDown();
-      this.cbThisAct = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudUpDist)).BeginInit();
@@ -78,13 +79,14 @@
             this.ToolStripMenuItemFolderList,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 70);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 92);
       // 
       // toolStripMenuItemOpacity
       // 
       this.toolStripMenuItemOpacity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacityGain,
-            this.toolStripMenuItemOpacityDec});
+            this.toolStripMenuItemOpacityDec,
+            this.toolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
       this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(160, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
@@ -93,16 +95,23 @@
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
+      // 
+      // toolStripMenuItemOpacityTransparent
+      // 
+      this.toolStripMenuItemOpacityTransparent.Name = "toolStripMenuItemOpacityTransparent";
+      this.toolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityTransparent.Text = "透明";
+      this.toolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.toolStripMenuItemOpacityTransparent_Click);
       // 
       // ToolStripMenuItemFolderList
       // 
@@ -120,8 +129,8 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
       this.panel1.Controls.Add(this.cbThisAct);
@@ -153,6 +162,17 @@
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(150, 488);
       this.panel1.TabIndex = 0;
+      // 
+      // cbThisAct
+      // 
+      this.cbThisAct.AutoSize = true;
+      this.cbThisAct.Location = new System.Drawing.Point(20, 121);
+      this.cbThisAct.Name = "cbThisAct";
+      this.cbThisAct.Size = new System.Drawing.Size(66, 16);
+      this.cbThisAct.TabIndex = 3;
+      this.cbThisAct.TabStop = false;
+      this.cbThisAct.Text = "アクティブ";
+      this.cbThisAct.UseVisualStyleBackColor = true;
       // 
       // tbFileSize
       // 
@@ -485,17 +505,6 @@
             0});
       this.nudZoomOutRatio.ValueChanged += new System.EventHandler(this.Common_tb_ValueChanged);
       // 
-      // cbThisAct
-      // 
-      this.cbThisAct.AutoSize = true;
-      this.cbThisAct.Location = new System.Drawing.Point(20, 121);
-      this.cbThisAct.Name = "cbThisAct";
-      this.cbThisAct.Size = new System.Drawing.Size(66, 16);
-      this.cbThisAct.TabIndex = 3;
-      this.cbThisAct.TabStop = false;
-      this.cbThisAct.Text = "アクティブ";
-      this.cbThisAct.UseVisualStyleBackColor = true;
-      // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -535,6 +544,7 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemFolderList;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenDir;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityTransparent;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
