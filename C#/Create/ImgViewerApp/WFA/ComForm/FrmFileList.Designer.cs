@@ -42,8 +42,12 @@
       this.btReferenceDir = new System.Windows.Forms.Button();
       this.label1 = new System.Windows.Forms.Label();
       this.tbCommitDir = new System.Windows.Forms.TextBox();
+      this.panel2 = new System.Windows.Forms.Panel();
+      this.label2 = new System.Windows.Forms.Label();
+      this.cbSort = new System.Windows.Forms.ComboBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
+      this.panel2.SuspendLayout();
       this.SuspendLayout();
       // 
       // contextMenuStrip1
@@ -111,14 +115,14 @@
       // 
       // lvFileList
       // 
-      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lvFileList.CheckBoxes = true;
       this.lvFileList.ContextMenuStrip = this.contextMenuStrip1;
       this.lvFileList.Location = new System.Drawing.Point(10, 62);
       this.lvFileList.Name = "lvFileList";
-      this.lvFileList.Size = new System.Drawing.Size(166, 350);
+      this.lvFileList.Size = new System.Drawing.Size(166, 415);
       this.lvFileList.TabIndex = 0;
       this.lvFileList.UseCompatibleStateImageBehavior = false;
       this.lvFileList.View = System.Windows.Forms.View.List;
@@ -128,7 +132,7 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
       this.panel1.Controls.Add(this.btReferenceDir);
@@ -162,20 +166,53 @@
       // 
       // tbCommitDir
       // 
-      this.tbCommitDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbCommitDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbCommitDir.Location = new System.Drawing.Point(16, 20);
       this.tbCommitDir.Name = "tbCommitDir";
       this.tbCommitDir.Size = new System.Drawing.Size(100, 19);
       this.tbCommitDir.TabIndex = 0;
       // 
+      // panel2
+      // 
+      this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.panel2.BackColor = System.Drawing.SystemColors.Window;
+      this.panel2.Controls.Add(this.cbSort);
+      this.panel2.Controls.Add(this.label2);
+      this.panel2.Location = new System.Drawing.Point(11, 483);
+      this.panel2.Name = "panel2";
+      this.panel2.Size = new System.Drawing.Size(164, 46);
+      this.panel2.TabIndex = 3;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.label2.Location = new System.Drawing.Point(6, 4);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(35, 12);
+      this.label2.TabIndex = 1;
+      this.label2.Text = "ソート";
+      // 
+      // cbSort
+      // 
+      this.cbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbSort.FormattingEnabled = true;
+      this.cbSort.Location = new System.Drawing.Point(15, 19);
+      this.cbSort.Name = "cbSort";
+      this.cbSort.Size = new System.Drawing.Size(145, 20);
+      this.cbSort.TabIndex = 2;
+      this.cbSort.SelectedIndexChanged += new System.EventHandler(this.cbSort_SelectedIndexChanged);
+      // 
       // FrmFileList
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(186, 422);
+      this.ClientSize = new System.Drawing.Size(186, 538);
       this.ContextMenuStrip = this.contextMenuStrip1;
+      this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.lvFileList);
       this.MaximizeBox = false;
@@ -188,6 +225,8 @@
       this.contextMenuStrip1.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
+      this.panel2.ResumeLayout(false);
+      this.panel2.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -207,5 +246,8 @@
     private System.Windows.Forms.Button btReferenceDir;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.TextBox tbCommitDir;
+    private System.Windows.Forms.Panel panel2;
+    public System.Windows.Forms.ComboBox cbSort;
+    private System.Windows.Forms.Label label2;
   }
 }

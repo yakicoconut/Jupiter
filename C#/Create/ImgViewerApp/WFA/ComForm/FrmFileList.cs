@@ -102,6 +102,20 @@ namespace WFA
     }
     #endregion
 
+    #region ソートコンボボックス値変更イベント
+    private void cbSort_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      // ねずみ返し_画像パスディクショナリが空の場合
+      if (parentForm.dicImgPath.Count <= 0)
+      {
+        return;
+      }
+
+      // ファイル読み込みメソッド使用
+      parentForm.ReadFile(parentForm.dicImgPath[parentForm.currentImageKey]);
+    }
+    #endregion
+
 
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)

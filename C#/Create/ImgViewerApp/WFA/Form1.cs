@@ -286,6 +286,9 @@ namespace WFA
 
       // ファイルリストフォームのプロパティに本クラスを設定
       fmFileList.parentForm = this;
+      // ソートリストボックス値設定
+      string[] cbSortDataSource = { "ファイル名昇順", "ファイル名降順", "作成日昇順", "作成日降順", "最終アクセス", "ファイルサイズ" };
+      fmFileList.cbSort.DataSource = cbSortDataSource;
       // 常にメインフォームの手前に表示
       fmFileList.Owner = this;
       // 開始位置
@@ -651,7 +654,11 @@ namespace WFA
 
 
     #region ファイル読み込みメソッド
-    private void ReadFile(string dropItem)
+    /// <summary>
+    /// ファイル読み込みメソッド
+    /// </summary>
+    /// <param name="dropItem">対象ファイルパス</param>
+    public void ReadFile(string dropItem)
     {
       // すでに読み込まれているものがある場合
       if (dicImgPath.Count >= 1)
@@ -681,35 +688,79 @@ namespace WFA
         }
       }
 
-      string[] files = null;
+      // 対象ディレクトリ取得
+      DirectoryInfo dir = new DirectoryInfo(targetDirPath);
+      FileInfo[] files = null;
 
       // ファイル読み込み対象範囲が全ファイルの場合
       if (targetRange == "TopBottom")
       {
         // 対象フォルダ以下すべてのフォルダの中身を取得
-        files = Directory.GetFiles(targetDirPath, "*", SearchOption.AllDirectories);
+        files = dir.GetFiles("*", SearchOption.AllDirectories);
       }
       else
       {
         // 対象フォルダの中身のみ取得
-        files = Directory.GetFiles(targetDirPath, "*", SearchOption.TopDirectoryOnly);
+        files = dir.GetFiles("*", SearchOption.TopDirectoryOnly);
       }
 
-      // 大文字小文字を区別しない序数比較で並び替える
-      StringComparer cmp = StringComparer.OrdinalIgnoreCase;
-      Array.Sort(files, cmp);
+      /* ソート無名関数
+       *   【C#】ファイル一覧をファイル名でソートする : ubichupas.net
+       *      http://ubichupas.blogspot.com/2011/04/cfilesort.html
+       */
+      Array.Sort<FileInfo>(files, delegate(FileInfo a, FileInfo b)
+      {
+        // ソートコンボボックスからソート方法を分岐
+        int returnVar = 0;
+        switch (fmFileList.cbSort.Text)
+        {
+          case "ファイル名昇順":
+            returnVar = a.Name.CompareTo(b.Name);
+            break;
+
+          case "ファイル名降順":
+            returnVar = b.Name.CompareTo(a.Name);
+            break;
+
+          case "作成日昇順":
+            returnVar = a.CreationTime.CompareTo(b.CreationTime);
+            break;
+
+          case "作成日降順":
+            returnVar = b.CreationTime.CompareTo(a.CreationTime);
+            break;
+
+          case "最終アクセス":
+            returnVar = a.LastAccessTime.CompareTo(b.LastAccessTime);
+            break;
+
+          case "最終書き込み":
+            returnVar = a.LastWriteTime.CompareTo(b.LastWriteTime);
+            break;
+
+          case "ファイルサイズ":
+            returnVar = (int)(a.Length - b.Length);
+            break;
+
+          default:
+            // デフォルト:ファイル名昇順
+            returnVar = a.Name.CompareTo(b.Name);
+            break;
+        }
+        return returnVar;
+      });
 
       // 画像パスディクショナリに変換
       int i = 0;
-      foreach (string x in files)
+      foreach (var x in files)
       {
         // ねずみ返し_拡張子が設定したものではないときは次のループへ
-        if (Array.IndexOf(targetExtension, Path.GetExtension(x).ToLower()) == -1)
+        if (Array.IndexOf(targetExtension, Path.GetExtension(x.FullName).ToLower()) == -1)
         {
           continue;
         }
 
-        dicImgPath.Add(i, x);
+        dicImgPath.Add(i, x.FullName);
         i += 1;
       }
       // 最終ページ数を設定
