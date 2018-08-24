@@ -104,11 +104,11 @@ function CreateNewFolder($targetSize, $isCanAdd)
 }
 
 
-<# 階層込みファイルコピー関数 #>
+<# 階層コピー関数 #>
  # 引数01:処理対象パス
  # 引数02:処理先フォルダ
  # 引数03:ディレクトリ構造
- function CopyHierarchie($sourceFile, $destRootFolder, $destHierarchie)
+function CopyHierarchie($sourceFile, $destRootFolder, $destHierarchie)
 {
   # 処理先ファイルパス作成
   $destFilePath = $destRootFolder + $destHierarchie
@@ -205,17 +205,19 @@ function ProcessFolder($targetFolderPath)
   # フォルダ処理
   foreach($x in $directlyFolders)
   {
-    # ねずみ返し_対象フォルダサイズが0の場合
-    if ([String]::IsNullOrEmpty($x.KB))
+    # 処理対象パス
+    $source = $x.FullName
+    # 対象ファイルサイズ
+    $targetFileSize = $x.KB
+    # 対象ファイルパスからディレクトリ構造を取得
+    $destHierarchie = $source -replace $targetRootPathRep, ""
+
+    # 対象フォルダサイズが0の場合
+    if ([String]::IsNullOrEmpty($targetFileSize))
     {
       # 空フォルダ作成
-      # 処理対象パス
-      $source = $x.FullName
       # 処理先は先フォルダ1に固定
       $destRoot = $Script:destDirMgr[0].DirName
-
-      # 対象ファイルパスからディレクトリ構造を取得
-      $destHierarchie = $source -replace $targetRootPathRep, ""
       # 処理先ファイルパス作成
       $destBlunkFolderPath = $destRoot + $destHierarchie
 
@@ -226,13 +228,13 @@ function ProcessFolder($targetFolderPath)
     }
 
     # 対象フォルダサイズが閾値を越す場合
-    if ($x.KB -gt $threshold)
+    if ($targetFileSize -gt $threshold)
     {
       # 自身を回帰的に呼び出す
-      ProcessFolder $x.Fullname
+      ProcessFolder $source
 
       # ファイル処理関数使用
-      ProcessFile $x.Fullname
+      ProcessFile $source
 
       continue
     }
@@ -252,25 +254,22 @@ function ProcessFolder($targetFolderPath)
         continue
       }
       # ねずみ返し_処理後計算フォルダサイズが閾値を超える場合
-      if ($y.DirSize + $x.KB -gt $threshold)
+      if ($y.DirSize + $targetFileSize -gt $threshold)
       {
         continue
       }
 
       # # 容量が空いている先フォルダに処理
       # 処理対象パス
-      $source = $x.FullName
       $destRoot = $y.DirName
 
-      # 対象ファイルパスからディレクトリ構造を取得
-      $destHierarchie = $source -replace $targetRootPathRep, ""
       # 処理先ファイルパス作成
       $destFilePath = $destRoot + $destHierarchie
 
       # 対象フォルダを全てコピー
-      Copy-Item -Path $x.Fullname -Destination $destFilePath -Recurse
+      Copy-Item -Path $source -Destination $destFilePath -Recurse
       # 移動後サイズ計上
-      $y.DirSize += $x.KB
+      $y.DirSize += $targetFileSize
       # 完了フラグを立てる
       $isComp = $True
     }
@@ -282,14 +281,9 @@ function ProcessFolder($targetFolderPath)
     }
 
     # # 空いているフォルダがない場合、新しいフォルダに処理する
-    # 処理対象パス
-    $source = $x.FullName
-
     # 新規フォルダ作成関数使用
-    $destRootFolder = CreateNewFolder $x.KB $True
+    $destRootFolder = CreateNewFolder $targetFileSize $True
 
-    # 対象ファイルパスからディレクトリ構造を取得
-    $destHierarchie = $source -replace $targetRootPathRep, ""
     # 処理先ファイルパス作成
     $destFilePath = $destRootFolder[1] + $destHierarchie
     # 対象ファイルコピー
