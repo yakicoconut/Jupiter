@@ -294,22 +294,12 @@ function ProcessFolder($targetFolderPath)
 
 <# 対象フォルダ入力 #>
   # 対象フォルダパス入力
-  Write-Host("対象フォルダ入力してください")
-  $targetRootPath = (Read-Host 入力してください)
-
-<# ダブルクォーテーション判断 #>
-  # 一文字目が「"」の場合
-  if ($targetRootPath.Substring(0, 1) -eq "`"" )
-  {
-    # 先頭のダブルクォートを取る
-    $targetRootPath = $targetRootPath.Substring(1, $targetRootPath.Length - 1)
-  }
-  # 文末が「"」の場合
-  if ($targetRootPath.Substring($targetRootPath.Length - 1, 1) -eq "`"" )
-  {
-    # 末尾のダブルクォートを取る
-    $targetRootPath = $targetRootPath.Substring(0, $targetRootPath.Length - 1)
-  }
+  Write-Host("対象フォルダ指定してください")
+  $USR = (Read-Host 入力してください)
+  # 先頭文末ダブルクォーテーション削除
+  if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
+  if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
+  $targetRootPath = $USR
 
 
 <# 本処理 #>
