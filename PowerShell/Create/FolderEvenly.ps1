@@ -7,9 +7,9 @@ echo フォルダ内のファイルを閾値の容量で分割する
 
 
 <# 事前準備 #>
-  # 閾値(KB)
+  # 閾値(MB)
   # 1B=0.000001MB、1KB=0.001MB、1000MB=1GB
-  $thresholdMB = 10
+  $thresholdMB = 0.1
   $threshold = $thresholdMB * 1000KB
 
   # 処理先フォルダ名
@@ -104,6 +104,24 @@ function CreateNewFolder($targetSize, $isCanAdd)
 }
 
 
+<# 階層込みファイルコピー関数 #>
+ # 引数01:処理対象パス
+ # 引数02:処理先フォルダ
+ # 引数03:ディレクトリ構造
+ function CopyHierarchie($sourceFile, $destRootFolder, $destHierarchie)
+{
+  # 処理先ファイルパス作成
+  $destFilePath = $destRootFolder + $destHierarchie
+  # 親フォルダパス作成
+  $destParentPath = Split-Path $destFilePath -Parent
+
+  # フォルダ構成作成
+  New-Item -Path $destParentPath -ItemType Directory -Force
+  # 対象ファイルコピー
+  Copy-Item -Path $source -Destination $destParentPath -Force
+}
+
+
 <# ファイル処理関数 #>
  # 引数01:対象フォルダパス
 function ProcessFile($targetFolderPath)
@@ -114,27 +132,19 @@ function ProcessFile($targetFolderPath)
   # ファイル処理
   foreach($x in $directlyFiles)
   {
+    # 処理対象パス
+    $source = $x.FullName
+    # 対象ファイルパスからディレクトリ構造を取得
+    $destHierarchie = $source -replace $targetRootPathRep, ""
+
     # 対象ファイルサイズが閾値を越す場合
     if ($x.Length -gt $threshold)
     {
-      # 処理対象パス
-      $source = $x.FullName
-
       # 新規フォルダ作成関数使用
       $destRootFolder = CreateNewFolder $x.Length $False
 
-      # 対象ファイルパスからディレクトリ構造を取得
-      $destHierarchie = $source -replace $targetRootPathRep, ""
-      # 処理先ファイルパス作成
-      $destFilePath = $destRootFolder[1] + $destHierarchie
-
-      # 親フォルダパス作成
-      $destParentPath = Split-Path $destFilePath -Parent
-
-      # フォルダ構成作成
-      New-Item -Path $destParentPath -ItemType Directory -Force
-      # 対象ファイルコピー
-      Copy-Item -Path $source -Destination $destParentPath -Force
+      # 階層込みファイルコピー関数使用
+      CopyHierarchie $source $destRootFolder[1] $destHierarchie
 
       continue
     }
@@ -160,20 +170,9 @@ function ProcessFile($targetFolderPath)
       }
 
       # # 容量が空いている先フォルダに処理
-      # 処理対象パス
-      $source = $x.FullName
-      $destRoot = $y.DirName
-      # 対象ファイルパスからディレクトリ構造を取得
-      $destHierarchie = $source -replace $targetRootPathRep, ""
-      # 処理先ファイルパス作成
-      $destFilePath = $destRoot + $destHierarchie
-      # 親フォルダパス作成
-      $destParentPath = Split-Path $destFilePath -Parent
+      # 階層込みファイルコピー関数使用
+      CopyHierarchie $source $y.DirName $destHierarchie
 
-      # フォルダ構成作成
-      New-Item -Path $destParentPath -ItemType Directory -Force
-      # 対象ファイルコピー
-      Copy-Item -Path $x.FullName -Destination $destRoot$destHierarchie -Force
       # 移動後サイズ計上
       $y.DirSize += $x.Length
       # 完了フラグを立てる
@@ -187,22 +186,11 @@ function ProcessFile($targetFolderPath)
     }
 
     # # 空いているフォルダがない場合、新しいフォルダに処理する
-    # 処理対象パス
-    $source = $x.FullName
     # 新規フォルダ作成関数使用
     $destRootFolder = CreateNewFolder $x.Length $True
 
-    # 対象ファイルパスからディレクトリ構造を取得
-    $destHierarchie = $source -replace $targetRootPathRep, ""
-    # 処理先ファイルパス作成
-    $destFilePath = $destRootFolder[1] + $destHierarchie
-    # 親フォルダパス作成
-    $destParentPath = Split-Path $destFilePath -Parent
-
-    # フォルダ構成作成
-    New-Item -Path $destParentPath -ItemType Directory -Force
-    # 対象ファイルコピー
-    Copy-Item -Path $source -Destination $destParentPath -Force
+    # 階層込みファイルコピー関数使用
+    CopyHierarchie $source $destRootFolder[1] $destHierarchie
   }
 }
 
