@@ -13,11 +13,9 @@ echo メディアファイルのプロパティをCSVファイルに出力する
 
 
 <# 事前処理 #>
-  # インスタンス生成
+  # シェルインスタンス生成
   $sh = New-Object -ComObject Shell.Application
-  # 音声ファイルの名前空間使用
-  $folder = $sh.Namespace($targetRootPath)
-  # .mp3ファイルのみ取得
+  # 対象ファイル取得
   $items = Get-ChildItem -Path $targetRootPath -Recurse
   # 出力ファイル名
   $outFileName = "CsvOutSample.csv"
@@ -29,8 +27,19 @@ echo メディアファイルのプロパティをCSVファイルに出力する
   # ファイルループ
   foreach($x in $items)
   {
+    # ねずみ返し_対象の拡張子が.mp3でない場合
+    if ($x.Extension -ne ".mp3")
+    {
+      continue
+    }
+
+    # 親フォルダ取得
+    $pathName = Split-Path $x.FullName -Parent
+    # 親フォルダから名前空間取得
+    $folder = $sh.Namespace($pathName)
     # 名前空間からパース
-    $file = $folder.ParseName($x)
+    $file = $folder.ParseName($x.Name)
+
     # # とりあえず表示
     # # ファイル名
     # Write-Host $folder.GetDetailsOf($file, 0)
@@ -42,8 +51,7 @@ echo メディアファイルのプロパティをCSVファイルに出力する
     # Write-Host "サイズ          :"$folder.GetDetailsOf($file, 1)
     # Write-Host "ジャンル        :"$folder.GetDetailsOf($file, 16)
 
-
-    # 二次元配列データからカスタムオブジェクト作成
+    # 配列データからカスタムオブジェクト作成
     $obj = [PSCustomObject]@{
       FileName = $folder.GetDetailsOf($file, 0)
       Title = $folder.GetDetailsOf($file, 21)
