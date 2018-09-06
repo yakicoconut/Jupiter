@@ -36,6 +36,7 @@
       this.ToolStripMenuItemFileListForm = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemOptionForm = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemLaunchViewApp = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemConfig = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -60,9 +61,10 @@
             this.ToolStripMenuItemIsModePageEject,
             this.ToolStripMenuItemFileListForm,
             this.ToolStripMenuItemOptionForm,
-            this.ToolStripMenuItemLaunchViewApp});
+            this.ToolStripMenuItemLaunchViewApp,
+            this.ToolStripMenuItemConfig});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(185, 136);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(185, 158);
       // 
       // ToolStripMenuItemIsModeZoom
       // 
@@ -99,6 +101,13 @@
       this.ToolStripMenuItemLaunchViewApp.Text = "Viewアプリ起動";
       this.ToolStripMenuItemLaunchViewApp.Click += new System.EventHandler(this.ToolStripMenuItemLaunchViewApp_Click);
       // 
+      // ToolStripMenuItemConfig
+      // 
+      this.ToolStripMenuItemConfig.Name = "ToolStripMenuItemConfig";
+      this.ToolStripMenuItemConfig.Size = new System.Drawing.Size(184, 22);
+      this.ToolStripMenuItemConfig.Text = "コンフィグ";
+      this.ToolStripMenuItemConfig.Click += new System.EventHandler(this.ToolStripMenuItemConfig_Click);
+      // 
       // Form1
       // 
       this.AllowDrop = true;
@@ -127,6 +136,7 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemIsModeZoom;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemIsModePageEject;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLaunchViewApp;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemConfig;
   }
 }
 

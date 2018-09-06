@@ -419,6 +419,17 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_コンフィグ押下イベント
+    private void ToolStripMenuItemConfig_Click(object sender, EventArgs e)
+    {
+      // 自身のコンフィグファイルパス取得
+      string configPath = Assembly.GetExecutingAssembly().Location + ".config";
+
+      // コンフィグファイルを関連付けられたアプリケーションで開く
+      Process p = Process.Start(configPath);
+    }
+    #endregion
+
 
     #region ピクチャボックスWクリックイベント
     private void pictureBox1_DoubleClick(object sender, EventArgs e)
