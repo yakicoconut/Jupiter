@@ -1,0 +1,256 @@
+■メモ
+  ・ヘルプ表示
+    AtomicParsley.exe -help
+  ・上書きオプション
+    デフォルトでタグ操作を行うと元ファイルがコピーされる
+    「--overWrite」オプション追加で元ファイルへの編集が可能
+
+
+
+
+
+■help
+  AtomicParlsey sets metadata into MPEG-4 files & derivatives supporting 3 tag
+   schemes: iTunes-style, 3GPP assets & ISO defined copyright notifications.
+
+  AtomicParlsey quick help for setting iTunes-style metadata into MPEG-4 files.
+
+  General usage examples:
+    AtomicParsley /path/to.mp4 -T 1
+    AtomicParsley /path/to.mp4 -t +
+    AtomicParsley /path/to.mp4 --artist "Me" --artwork /path/to/art.jpg
+    Atomicparsley /path/to.mp4 --albumArtist "You" --podcastFlag true
+    Atomicparsley /path/to.mp4 --stik "TV Show" --advisory explicit
+
+  Getting information about the file & tags:
+    -T  --test        Test file for mpeg4-ishness & print atom tree
+    -t  --textdata    Prints tags embedded within the file
+    -E  --extractPix  Extracts pix to the same folder as the mpeg-4 file
+
+  Setting iTunes-style metadata tags
+    --artist       (string)     Set the artist tag
+    --title        (string)     Set the title tag
+    --album        (string)     Set the album tag
+    --genre        (string)     Genre tag (see --longhelp for more info)
+    --tracknum     (num)[/tot]  Track number (or track number/total tracks)
+    --disk         (num)[/tot]  Disk number (or disk number/total disks)
+    --comment      (string)     Set the comment tag
+    --year         (num|UTC)    Year tag (see --longhelp for "Release Date")
+    --lyrics       (string)     Set lyrics (not subject to 256 byte limit)
+    --composer     (string)     Set the composer tag
+    --copyright    (string)     Set the copyright tag
+    --grouping     (string)     Set the grouping tag
+    --artwork      (/path)      Set a piece of artwork (jpeg or png only)
+    --bpm          (number)     Set the tempo/bpm
+    --albumArtist  (string)     Set the album artist tag
+    --compilation  (boolean)    Set the compilation flag (true or false)
+    --advisory     (string*)    Content advisory (*values: 'clean', 'explicit')
+    --stik         (string*)    Sets the iTunes "stik" atom (see --longhelp)
+    --description  (string)     Set the description tag
+    --TVNetwork    (string)     Set the TV Network name
+    --TVShowName   (string)     Set the TV Show name
+    --TVEpisode    (string)     Set the TV episode/production code
+    --TVSeasonNum  (number)     Set the TV Season number
+    --TVEpisodeNum (number)     Set the TV Episode number
+    --podcastFlag  (boolean)    Set the podcast flag (true or false)
+    --category     (string)     Sets the podcast category
+    --keyword      (string)     Sets the podcast keyword
+    --podcastURL   (URL)        Set the podcast feed URL
+    --podcastGUID  (URL)        Set the episode's URL tag
+    --purchaseDate (UTC)        Set time of purchase
+    --encodingTool (string)     Set the name of the encoder
+    --gapless      (boolean)    Set the gapless playback flag
+
+  Deleting tags
+    Set the value to "":        --artist "" --stik "" --bpm ""
+    To delete (all) artwork:    --artwork REMOVE_ALL
+    manually removal:           --manualAtomRemove "moov.udta.meta.ilst.ATOM"
+
+  More detailed iTunes help is available with AtomicParsley --longhelp
+  Setting 3gp assets into 3GPP & derivative files: see --3gp-help
+  Setting copyright notices for all files: see --ISO-help
+  For file-level options & padding info: see --file-help
+  Setting custom private tag extensions: see --uuid-help
+  ----------------------------------------------------------------------
+
+
+
+
+
+■longhelp
+  AtomicParsley help page for setting iTunes-style metadata into MPEG-4 files. 
+                (3gp help available with AtomicParsley --3gp-help)
+            (ISO copyright help available with AtomicParsley --ISO-help)
+  Usage: AtomicParsley [mp4FILE]... [OPTION]... [ARGUMENT]... [ [OPTION2]...[ARGUMENT2]...] 
+
+  example: AtomicParsley /path/to.mp4 -e ~/Desktop/pix
+  example: Atomicparsley /path/to.mp4 --podcastURL "http://www.url.net" --tracknum 45/356
+  example: Atomicparsley /path/to.mp4 --copyright "℗ © 2006"
+  example: Atomicparsley /path/to.mp4 --year "2006-07-27T14:00:43Z" --purchaseDate timestamp
+  ------------------------------------------------------------------------------------------------
+    Extract any pictures in user data "covr" atoms to separate files. 
+    --extractPix       ,  -E                     Extract to same folder (basename derived from file).
+    --extractPixToPath ,  -e  (/path/basename)   Extract to specific path (numbers added to basename).
+                                                   example: --e ~/Desktop/SomeText
+                                                   gives: SomeText_artwork_1.jpg  SomeText_artwork_2.png
+                                                 Note: extension comes from embedded image file format
+  ------------------------------------------------------------------------------------------------
+   Tag setting options:
+
+    --artist           ,  -a   (str)    Set the artist tag: "moov.udta.meta.ilst.©ART.data"
+    --title            ,  -s   (str)    Set the title tag: "moov.udta.meta.ilst.©nam.data"
+    --album            ,  -b   (str)    Set the album tag: "moov.udta.meta.ilst.©alb.data"
+    --genre            ,  -g   (str)    Set the genre tag: "©gen" (custom) or "gnre" (standard).
+                                            see the standard list with "AtomicParsley --genre-list"
+    --tracknum         ,  -k   (num)[/tot]  Set the track number (or track number & total tracks).
+    --disk             ,  -d   (num)[/tot]  Set the disk number (or disk number & total disks).
+    --comment          ,  -c   (str)    Set the comment tag: "moov.udta.meta.ilst.©cmt.data"
+    --year             ,  -y   (num|UTC)    Set the year tag: "moov.udta.meta.ilst.©day.data"
+                                            set with UTC "2006-09-11T09:00:00Z" for Release Date
+    --lyrics           ,  -l   (str)    Set the lyrics tag: "moov.udta.meta.ilst.©lyr.data"
+    --composer         ,  -w   (str)    Set the composer tag: "moov.udta.meta.ilst.©wrt.data"
+    --copyright        ,  -x   (str)    Set the copyright tag: "moov.udta.meta.ilst.cprt.data"
+    --grouping         ,  -G   (str)    Set the grouping tag: "moov.udta.meta.ilst.©grp.data"
+    --artwork          ,  -A   (/path)  Set a piece of artwork (jpeg or png) on "covr.data"
+                                            Note: multiple pieces are allowed with more --artwork args
+    --bpm              ,  -B   (num)    Set the tempo/bpm tag: "moov.udta.meta.ilst.tmpo.data"
+    --albumArtist      ,  -A   (str)    Set the album artist tag: "moov.udta.meta.ilst.aART.data"
+    --compilation      ,  -C   (bool)   Sets the "cpil" atom (true or false to delete the atom)
+    --advisory         ,  -y   (1of3)   Sets the iTunes lyrics advisory ('remove', 'clean', 'explicit') 
+    --stik             ,  -S   (1of7)   Sets the iTunes "stik" atom (--stik "remove" to delete) 
+                                             "Movie", "Normal", "TV Show" .... others: 
+                                             see the full list with "AtomicParsley --stik-list"
+                                             or set in an integer value with --stik value=(num)
+                                        Note: --stik Audiobook will change file extension to '.m4b'
+    --description      ,  -p   (str)    Sets the description on the "desc" atom
+    --TVNetwork        ,  -n   (str)    Sets the TV Network name on the "tvnn" atom
+    --TVShowName       ,  -H   (str)    Sets the TV Show name on the "tvsh" atom
+    --TVEpisode        ,  -I   (str)    Sets the TV Episode on "tven":"209", but its a string: "209 Part 1"
+    --TVSeasonNum      ,  -U   (num)    Sets the TV Season number on the "tvsn" atom
+    --TVEpisodeNum     ,  -N   (num)    Sets the TV Episode number on the "tves" atom
+    --podcastFlag      ,  -f   (bool)   Sets the podcast flag (values are "true" or "false")
+    --category         ,  -q   (str)    Sets the podcast category; typically a duplicate of its genre
+    --keyword          ,  -K   (str)    Sets the podcast keyword; invisible to MacOSX Spotlight
+    --podcastURL       ,  -L   (URL)    Set the podcast feed URL on the "purl" atom
+    --podcastGUID      ,  -J   (URL)    Set the episode's URL tag on the "egid" atom
+    --purchaseDate     ,  -D   (UTC)    Set Universal Coordinated Time of purchase on a "purd" atom
+                                         (use "timestamp" to set UTC to now; can be akin to id3v2 TDTG tag)
+    --encodingTool     ,       (str)    Set the name of the encoder on the "©too" atom
+    --gapless          ,       (bool)   Sets the gapless playback flag for a track in a gapless album
+  NOTE: Except for artwork, only 1 of each tag is allowed; artwork allows multiple pieces.
+  NOTE: Tags that carry text(str) have a limit of 255 utf8 characters; lyrics have no limit.
+  ------------------------------------------------------------------------------------------------
+   To delete a single atom, set the tag to null (except artwork):
+    --artist "" --lyrics ""
+    --artwork REMOVE_ALL 
+    --metaEnema        ,  -P            Douches away every atom under "moov.udta.meta.ilst" 
+    --foobar2000Enema  ,  -2            Eliminates foobar2000's non-compliant so-out-o-spec tagging scheme
+    --manualAtomRemove "some.atom.path" where some.atom.path can be:
+        keys to using manualAtomRemove:
+           ilst.ATOM.data or ilst.ATOM target an iTunes-style metadata tag
+           ATOM:lang=foo               target an atom with this language setting; like 3gp assets
+           ATOM.----.name:[foo]        target a reverseDNS metadata tag; like iTunNORM
+                                       Note: these atoms show up with 'AP -t' as: Atom "----" [foo]
+                                           'foo' is actually carried on the 'name' atom
+           ATOM[x]                     target an atom with an index other than 1; like trak[2]
+           ATOM.uuid=hex-hex-hex-hex   targt a uuid atom with the uuid of hex string representation
+      examples:
+          moov.udta.meta.ilst.----.name:[iTunNORM]      moov.trak[3].cprt:lang=urd
+          moov.trak[2].uuid=55534d54-21d2-4fce-bb88-695cfac9c740
+  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+■file-help
+  AtomicParsley help page for general & file level options.
+    Note: you can change the input/output behavior to raw 8-bit utf8 if the program name
+          is appended with "-utf8". AtomicParsley-utf8.exe will have problems with files/
+          folders with unicode characters in given paths.
+
+  ------------------------------------------------------------------------------------------------
+   Atom reading services:
+
+    --test             ,  -T           Tests file to see if its a valid MPEG-4 file.
+                                       Prints out the hierarchical atom tree.
+                          -T 1         Supplemental track level info with "-T 1"
+                          -T +dates    Track level with creation/modified dates
+
+    --textdata         ,  -t      print user data text metadata relevant to brand (inc. # of any pics).
+                          -t +    show supplemental info like free space, available padding, user data
+                                  length & media data length
+                          -t 1    show all textual metadata (disregards brands, shows track copyright)
+
+    --brands                      show the major & minor brands for the file & available tagging schemes
+
+  ------------------------------------------------------------------------------------------------
+   File services:
+
+    --mdatLock         ,  -M            Prevents moving mdat atoms to the end (poss. useful for PSP files)
+    --freefree [num]   ,                Remove "free" atoms which only act as filler in the file
+                                        ?(num)? - optional integer argument to delete 'free's to desired level
+
+                                        NOTE 1: levels begin at level 1 aka file level.
+                                        NOTE 2: Level 0 (which doesn't exist) deletes level 1 atoms that pre-
+                                                cede 'moov' & don't serve as padding. Typically, such atoms
+                                                are created by libmp4ff or libmp4v2 as a byproduct of tagging.
+                                        NOTE 3: When padding falls below MIN_PAD (typically zero), a default
+                                                amount of padding (typically 2048 bytes) will be added. To
+                                                achieve absolutely 0 bytes 'free' space with --freefree, set
+                                                DEFAULT_PAD to 0 via the AP_PADDING mechanism (see below).
+    --metaDump                          Dumps out 'moov.udta' metadata out to a new file next to original
+                                            (for diagnostic purposes, please remove artwork before sending)
+    --output           ,  -o   (/path)  Specify the filename of tempfile (voids overWrite)
+    --overWrite        ,  -W            Writes to temp file; deletes original, renames temp to original
+                                        If possible, padding will be used to update without a full rewrite.
+
+  Examples: 
+    --freefree 0         (deletes all top-level non-padding atoms preceding 'mooov') 
+    --freefree 1         (deletes all non-padding atoms at the top most level) 
+    --output ~/Desktop/newfile.mp4
+  ------------------------------------------------------------------------------------------------
+   Padding & 'free' atoms:
+
+    A special type of atom called a 'free' atom is used for padding (all 'free' atoms contain NULL space).
+    When changes need to occur, these 'free' atom are used. They grows or shink, but the relative locations
+    of certain other atoms (stco/mdat) remain the same. If there is no 'free' space, a full rewrite will occur.
+    The locations of 'free' atom(s) that AP can use as padding must be follow 'moov.udta' & come before 'mdat'.
+    A 'free' preceding 'moov' or following 'mdat' won't be used as padding for example. 
+
+    Set the shell variable AP_PADDING with these values, separated by colons to alter padding behavior:
+
+    DEFAULT_PADDING=  -  the amount of padding added if the minimum padding is non-existant in the file
+                         default = 2048
+    MIN_PAD=          -  the minimum padding present before more padding will be added
+                         default = 0
+    MAX_PAD=          -  the maximum allowable padding; excess padding will be eliminated
+                         default = 5000
+
+    If you use --freefree to eliminate 'free' atoms from the file, the DEFAULT_PADDING amount will still be
+    added to any newly written files. Set DEFAULT_PADDING=0 to prevent any 'free' padding added at rewrite.
+    You can set MIN_PAD to be assured that at least that amount of padding will be present - similarly,
+    MAX_PAD limits any excessive amount of padding. All 3 options will in all likelyhood produce a full
+    rewrite of the original file. Another case where a full rewrite will occur is when the original file
+    is not optimized and has 'mdat' preceding 'moov'.
+
+  Examples:
+     c:> SET AP_PADDING="DEFAULT_PAD=0"      or    c:> SET AP_PADDING="DEFAULT_PAD=3128"
+     c:> SET AP_PADDING="DEFAULT_PAD=5128:MIN_PAD=200:MAX_PAD=6049"
+
+  Note: while AtomicParsley is still in the beta stage, the original file will always remain untouched - 
+        unless given the --overWrite flag when if possible, utilizing available padding to update tags
+        will be tried (falling back to a full rewrite if changes are greater than the found padding).
+  ----------------------------------------------------------------------------------------------------
+   iTunes 7 & Gapless playback:
+
+   iTunes 7 adds NULL space at the ends of files (filled with zeroes). It is possble this is how iTunes
+   implements gapless playback - perhaps not. In any event, with AtomicParsley you can choose to preserve
+   that NULL space, or you can eliminate its presence (typically around 2,000 bytes). The default behavior
+   is to preserve it - if it is present at all. You can choose to eliminate it by setting the environ-
+   mental preference for AP_PADDING to have DEFAULT_PAD=0
+
+  Example:
+     c:> SET AP_PADDING="DEFAULT_PAD=0"
+  ----------------------------------------------------------------------------------------------------
+
