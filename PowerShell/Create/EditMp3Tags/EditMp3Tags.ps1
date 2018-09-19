@@ -1,7 +1,7 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 echo メディアファイルのプロパティをCSVファイルから取得して編集する
-# 編集できる拡張子は.mp3のみのため
-# それ以外の拡張子はすべて一旦.mp3に変換して作業する
+# 編集できる拡張子は.mp3のみ
+# それ以外の拡張子に無理やり実行するとファイル破損する
 # ライブラリTagLib使用
 #   TagLib
 #   	http://taglib.org/
