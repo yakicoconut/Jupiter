@@ -46,13 +46,26 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
     # 対象表示
     Write-Host $x.name
 
+    # 要素取得
+    $title    = $csv[$ind].タイトル
+    $artist   = $csv[$ind].参加アーティスト
+    $album    = $csv[$ind].アルバム
+    $tracknum = $csv[$ind].トラック番号
+    $genre    = $csv[$ind].ジャンル
+    # 空の場合「UNKNOWN」とする
+    if($title -eq "")   { $title = "UNKNOWN" }
+    if($artist -eq "")  { $artist = "UNKNOWN" }
+    if($album -eq "")   { $album = "UNKNOWN" }
+    if($tracknum -eq ""){ $tracknum = "UNKNOWN" }
+    if($genre -eq "")   { $genre = "UNKNOWN" }
+
     # # コマンド実行
     .\AtomicParsley\win32-0.9.0\AtomicParsley.exe `
     $x.FullName                                   `
-    --title     $csv[$ind].タイトル               `
-    --artist    $csv[$ind].参加アーティスト       `
-    --album     $csv[$ind].アルバム               `
-    --tracknum  $csv[$ind].トラック番号           `
-    --genre     $csv[$ind].ジャンル               `
+    --title     $title                            `
+    --artist    $artist                           `
+    --album     $album                            `
+    --tracknum  $tracknum                         `
+    --genre     $genre                            `
     --overWrite
   }
