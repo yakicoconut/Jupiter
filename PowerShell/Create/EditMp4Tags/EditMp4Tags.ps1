@@ -1,11 +1,17 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
-# AACのタグ解析 - 亀岡的プログラマ日記
-#   http://posaune.hatenablog.com/entry/20091212/1260628232
-# AtomicParsley
-#   http://www.xucker.jpn.org/keyword/atomicparsley.html
-# iPod touchでビデオの視聴制限: アイスティーを飲みながら...
-#   http://iced.tea-nifty.com/lemon/2008/09/ipod-touch-a3ec.html
+# メモ
+#  ・アートワーク
+#    対象ファイルが存在しない場合、AtomicParsley.exeが落ちる
+#    設定後に画像ファイルを削除しても動画に設定した画像は固定される
+#
+# サイト
+#   AACのタグ解析 - 亀岡的プログラマ日記
+#     http://posaune.hatenablog.com/entry/20091212/1260628232
+#   AtomicParsley
+#     http://www.xucker.jpn.org/keyword/atomicparsley.html
+#   iPod touchでビデオの視聴制限: アイスティーを飲みながら...
+#     http://iced.tea-nifty.com/lemon/2008/09/ipod-touch-a3ec.html
 
 
 <# ユーザ入力 #>
@@ -46,26 +52,32 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
     # 対象表示
     Write-Host $x.name
 
-    # 要素取得
-    $title    = $csv[$ind].タイトル
-    $artist   = $csv[$ind].参加アーティスト
-    $album    = $csv[$ind].アルバム
-    $tracknum = $csv[$ind].トラック番号
-    $genre    = $csv[$ind].ジャンル
-    # 空の場合「UNKNOWN」とする
-    if($title -eq "")   { $title = "UNKNOWN" }
-    if($artist -eq "")  { $artist = "UNKNOWN" }
-    if($album -eq "")   { $album = "UNKNOWN" }
-    if($tracknum -eq ""){ $tracknum = "UNKNOWN" }
-    if($genre -eq "")   { $genre = "UNKNOWN" }
+
+    # # 設定取得
+      $title    = $csv[$ind].タイトル
+      $artist   = $csv[$ind].参加アーティスト
+      $album    = $csv[$ind].アルバム
+      $tracknum = $csv[$ind].トラック番号
+      $genre    = $csv[$ind].ジャンル
+      $artwork  = $csv[$ind].アートワーク
+      # 空の場合、「UNKNOWN」とする
+      if($title -eq "")   { $title = "UNKNOWN" }
+      if($artist -eq "")  { $artist = "UNKNOWN" }
+      if($album -eq "")   { $album = "UNKNOWN" }
+      if($tracknum -eq ""){ $tracknum = "UNKNOWN" }
+      if($genre -eq "")   { $genre = "UNKNOWN" }
+
+      # コマンドオプション作成
+      # オプションは「"」で括る、「"」は「`」でエスケープ、「`」による改行は無効?
+      $cmdOption = "`"--title`" $title `"--artist`" $artist `"--album`" $album `"--tracknum`" $tracknum `"--genre`" $genre"
+
+      # アートワーク設定がある場合
+      if($artwork -ne "") {
+        # コマンドオプション追加
+        $cmdOption += " `"--artwork`" $artwork"
+      }
+
 
     # # コマンド実行
-    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe `
-    $x.FullName                                   `
-    --title     $title                            `
-    --artist    $artist                           `
-    --album     $album                            `
-    --tracknum  $tracknum                         `
-    --genre     $genre                            `
-    --overWrite
+    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe $x.FullName --overWrite $cmdOption
   }
