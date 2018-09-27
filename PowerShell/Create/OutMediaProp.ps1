@@ -1,5 +1,5 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
-echo メディアファイルのプロパティをCSVファイルに出力する
+echo ファイルのプロパティをCSVファイルに出力する
 #
 
 
@@ -27,12 +27,6 @@ echo メディアファイルのプロパティをCSVファイルに出力する
   # ファイルループ
   foreach($x in $items)
   {
-    # ねずみ返し_対象の拡張子が.mp3でない場合
-    if ($x.Extension -ne ".mp3")
-    {
-      continue
-    }
-
     # 親フォルダ取得
     $pathName = Split-Path $x.FullName -Parent
     # 親フォルダから名前空間取得
