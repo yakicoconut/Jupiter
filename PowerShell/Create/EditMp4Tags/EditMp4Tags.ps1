@@ -67,27 +67,17 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
       if($tracknum -eq ""){ $tracknum = "UNKNOWN" }
       if($genre -eq "")   { $genre = "UNKNOWN" }
 
+      # コマンドオプション作成
+      # オプションは「"」で括る、「"」は「`」でエスケープ、「`」による改行は無効?
+      $cmdOption = "`"--title`" $title `"--artist`" $artist `"--album`" $album `"--tracknum`" $tracknum `"--genre`" $genre"
+
+      # アートワーク設定がある場合
+      if($artwork -ne "") {
+        # コマンドオプション追加
+        $cmdOption += " `"--artwork`" $artwork"
+      }
+
 
     # # コマンド実行
-      # アートワーク設定がない場合
-      if($artwork -eq "") {
-        .\AtomicParsley\win32-0.9.0\AtomicParsley.exe `
-        $x.FullName                                   `
-        --overWrite                                   `
-        --title     $title                            `
-        --artist    $artist                           `
-        --album     $album                            `
-        --tracknum  $tracknum                         `
-        --genre     $genre
-      } else {
-        .\AtomicParsley\win32-0.9.0\AtomicParsley.exe `
-        $x.FullName                                   `
-        --overWrite                                   `
-        --title     $title                            `
-        --artist    $artist                           `
-        --album     $album                            `
-        --tracknum  $tracknum                         `
-        --genre     $genre                            `
-        --artwork   $artwork
-      }
+    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe $x.FullName --overWrite $cmdOption
   }
