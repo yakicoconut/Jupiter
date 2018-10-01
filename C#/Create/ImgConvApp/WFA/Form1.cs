@@ -78,7 +78,7 @@ namespace WFA
     #endregion
 
     #region コンボボックス値変更イベント
-    private void comboBox1_Validated(object sender, EventArgs e)
+    private void cbExtention_Validated(object sender, EventArgs e)
     {
       // 拡張子コンボボックスからフォーマットを選判定する
       switch (cbExtention.Text)
@@ -122,7 +122,7 @@ namespace WFA
     public void ImgConversion()
     {
       // ターゲットフォルダを取得
-      string targetFolder = tbTargetFolder.Text;
+      string targetFolder = tbTargetPath.Text;
       // 対象フォルダ内のファイルを取得
       string[] files = Directory.GetFiles(targetFolder, "*", SearchOption.AllDirectories);
       // ねずみ返し_対象ファイルがない場合

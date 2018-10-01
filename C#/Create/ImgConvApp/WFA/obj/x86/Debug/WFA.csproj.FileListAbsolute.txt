@@ -24,3 +24,12 @@ D:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.exe.config
 D:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.exe
 D:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.pdb
 D:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.pdb
