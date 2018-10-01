@@ -33,3 +33,8 @@ E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.Properties.Resource
 E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.exe
 E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\MyResorce\TestImg\SampleBitmap.bmp
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\MyResorce\TestImg\SampleGif.gif
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\MyResorce\TestImg\SampleJpeg.jpg
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\MyResorce\TestImg\SamplePng.png
+E:\Cal_Git_Master\C#\Create\ImgConvApp\WFA\bin\Debug\MyResorce\TestImg\SampleTiff.tif

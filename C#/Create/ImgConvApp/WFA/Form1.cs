@@ -112,8 +112,53 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
-      // 画像変換メソッド使用
-      ImgConversion();
+      // 対象パス取得
+      string targetPath = tbTargetPath.Text;
+      // 出力パス取得
+      string outputPath = tbOutputPath.Text;
+      // 変換後拡張子取得
+      string extention = cbExtention.Text;
+
+      // ねずみ返し
+      if (targetPath == string.Empty)
+      {
+        MessageBox.Show("対象パスがありません");
+        return;
+      }
+
+      // 出力パスが設定されている場合
+      if (outputPath != string.Empty)
+      {
+        // 最後一文字が「\」でない場合
+        if (outputPath.Substring(outputPath.Length - 1, 1) != @"\")
+          outputPath += @"\";
+      }
+
+      // ファイルの場合
+      if (File.Exists(targetPath))
+      {
+        // 画像変換メソッド使用
+        ImgConversion(targetPath, outputPath, extention);
+      }
+      else if (Directory.Exists(targetPath))
+      {
+        // フォルダからXMLファイルのパスだけ取得
+        string[] targetFolder = Directory.GetFiles(targetPath, "*", SearchOption.TopDirectoryOnly);
+
+        // ループ
+        foreach (string x in targetFolder)
+        {
+          // 画像変換メソッド使用
+          ImgConversion(x, outputPath, extention);
+        }
+      }
+      else
+      {
+        MessageBox.Show("対象が存在しません");
+        return;
+      }
+
+      MessageBox.Show("完了しました");
     }
     #endregion
 
@@ -126,39 +171,16 @@ namespace WFA
 
 
     #region 画像変換メソッド
-    public void ImgConversion()
+    public void ImgConversion(string targetPath, string outputPath, string extention)
     {
-      // ターゲットフォルダを取得
-      string targetFolder = tbTargetPath.Text;
-      // 対象フォルダ内のファイルを取得
-      string[] files = Directory.GetFiles(targetFolder, "*", SearchOption.AllDirectories);
-      // ねずみ返し_対象ファイルがない場合
-      if (files.Length == 0)
+      // ビットマップに変換
+      using (Bitmap img = (Bitmap)Bitmap.FromFile(targetPath))
       {
-        MessageBox.Show("対象のファイルがありません");
-        return;
+        // ファイル名取得(拡張子なし)
+        string fileName = Path.GetFileNameWithoutExtension(targetPath);
+        // フォーマットを指定して出力先に保存(出力パス設定がない場合、対象ファイル位置)
+        img.Save(outputPath + fileName + "." + extention, imageFormat);
       }
-
-      // 全てのファイルを処理
-      foreach (string x in files)
-      {
-        try
-        {
-          // ビットマップに変換
-          using (Bitmap img = (Bitmap)Bitmap.FromFile(x))
-          {
-            // ファイル名取得(拡張子なし)
-            string fileName = Path.GetFileNameWithoutExtension(x);
-            // フォーマットを指定して保存
-            img.Save(fileName + "." + cbExtention.Text, imageFormat);
-          }
-        }
-        catch
-        {
-          continue;
-        }
-      }
-      MessageBox.Show("完了しました");
     }
     #endregion
 
