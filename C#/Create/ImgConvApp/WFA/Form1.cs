@@ -39,9 +39,7 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      // 変換先拡張子
-      imgExtention = ConfigurationManager.AppSettings["ImgExtention"].Split(',');
-
+      string hoge01 = ConfigurationManager.AppSettings["Hoge01"];
     }
     #endregion
 
@@ -50,9 +48,6 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
-
-    // 変換先拡張子
-    string[] imgExtention;
 
     // 画像フォーマット変数
     ImageFormat imageFormat;
@@ -63,8 +58,12 @@ namespace WFA
     #region メインフォーム初期設定メソッド
     private void MainFormInitSeting()
     {
-      // 変換先拡張子コンボボックス設定
-      cbExtention.DataSource = imgExtention;
+      // 変更後拡張子コンボボックス設定
+      cbExtention.DataSource = new string[] { "jpg", "png", "bmp", "ico", "tif", "gif" };
+      // 変更後拡張子コンボボックス選択
+      cbExtention.SelectedItem = 0;
+      // デフォルトフォーマット(拡張子コンボボックスの選択と合わせる)
+      imageFormat = ImageFormat.Jpeg;
     }
     #endregion
 
@@ -87,16 +86,24 @@ namespace WFA
           imageFormat = ImageFormat.Jpeg;
           break;
 
+        case "png":
+          imageFormat = ImageFormat.Png;
+          break;
+
         case "bmp":
           imageFormat = ImageFormat.Bmp;
           break;
 
-        case "gif":
-          imageFormat = ImageFormat.Gif;
+        case "ico":
+          imageFormat = ImageFormat.Icon;
           break;
 
-        case "png":
-          imageFormat = ImageFormat.Png;
+        case "tif":
+          imageFormat = ImageFormat.Tiff;
+          break;
+
+        case "gif":
+          imageFormat = ImageFormat.Gif;
           break;
       }
     }
