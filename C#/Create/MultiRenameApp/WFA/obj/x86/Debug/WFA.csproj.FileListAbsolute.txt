@@ -46,3 +46,4 @@ D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.pdb
 D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.Form2.resources
 E:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.exe
 E:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\obj\x86\Debug\WFA.pdb
+D:\Cal_Git_Master\C#\Create\MultiRenameApp\WFA\bin\Debug\Azuki.dll
