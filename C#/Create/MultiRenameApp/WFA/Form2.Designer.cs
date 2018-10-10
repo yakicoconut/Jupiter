@@ -59,19 +59,21 @@
       fontInfo2.Style = System.Drawing.FontStyle.Regular;
       this.azkAssist.FontInfo = fontInfo2;
       this.azkAssist.ForeColor = System.Drawing.Color.Black;
-      this.azkAssist.Location = new System.Drawing.Point(12, 12);
+      this.azkAssist.Location = new System.Drawing.Point(20, 18);
+      this.azkAssist.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.azkAssist.Name = "azkAssist";
       this.azkAssist.ScrollPos = new System.Drawing.Point(0, 0);
-      this.azkAssist.Size = new System.Drawing.Size(302, 399);
+      this.azkAssist.Size = new System.Drawing.Size(503, 598);
       this.azkAssist.TabIndex = 1;
       this.azkAssist.ViewWidth = 4142;
       // 
       // contextMenuStrip1
       // 
+      this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.不透明度ToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 26);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(166, 34);
       // 
       // 不透明度ToolStripMenuItem
       // 
@@ -79,35 +81,34 @@
             this.上げToolStripMenuItem,
             this.下げToolStripMenuItem});
       this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(165, 30);
       this.不透明度ToolStripMenuItem.Text = "不透明度";
       this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
       // 
       // 上げToolStripMenuItem
       // 
       this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.上げToolStripMenuItem.Size = new System.Drawing.Size(126, 30);
       this.上げToolStripMenuItem.Text = "上げ";
       this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
       // 
       // 下げToolStripMenuItem
       // 
       this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.下げToolStripMenuItem.Size = new System.Drawing.Size(126, 30);
       this.下げToolStripMenuItem.Text = "下げ";
       this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
       // 
       // Form2
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(326, 423);
+      this.ClientSize = new System.Drawing.Size(543, 634);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.azkAssist);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+      this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.MaximizeBox = false;
-      this.MinimizeBox = false;
       this.Name = "Form2";
       this.Opacity = 0.8D;
       this.Text = "Form2";
