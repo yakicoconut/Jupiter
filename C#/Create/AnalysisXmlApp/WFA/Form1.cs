@@ -44,7 +44,7 @@ namespace WFA
 
 
     #region ボタン1押下イベント
-    private void button1_Click(object sender, EventArgs e)
+    private void btDig_Click(object sender, EventArgs e)
     {
       ////XML作成メソッド使用
       //CreateXML();
@@ -80,7 +80,7 @@ namespace WFA
     #endregion
 
     #region ボタン2押下イベント
-    private void button2_Click(object sender, EventArgs e)
+    private void btCreate_Click(object sender, EventArgs e)
     {
       string targetStr = null;
 
