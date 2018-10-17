@@ -16,6 +16,9 @@ using System.Configuration;
 
 namespace WFA
 {
+  /// <summary>
+  /// メインフォーム
+  /// </summary>
   public partial class Form1 : Form
   {
     #region コンストラクタ
@@ -37,10 +40,25 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = ConfigurationManager.AppSettings["Hoge01"];
+      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
     }
     #endregion
 
+
+    #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
+
+    #endregion
+
+
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
 
     #region ボタン1押下イベント
     private void btDig_Click(object sender, EventArgs e)
