@@ -29,11 +29,11 @@
     private void InitializeComponent()
     {
       this.btDig = new System.Windows.Forms.Button();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.tbDisplay = new System.Windows.Forms.TextBox();
       this.tbTargetPath = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
-      this.textBox2 = new System.Windows.Forms.TextBox();
+      this.tbTargetKey = new System.Windows.Forms.TextBox();
       this.btCreate = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
@@ -48,22 +48,22 @@
       this.btDig.UseVisualStyleBackColor = true;
       this.btDig.Click += new System.EventHandler(this.btDig_Click);
       // 
-      // textBox1
+      // tbDisplay
       // 
-      this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.textBox1.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
-      this.textBox1.Location = new System.Drawing.Point(12, 62);
-      this.textBox1.Multiline = true;
-      this.textBox1.Name = "textBox1";
-      this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.textBox1.Size = new System.Drawing.Size(417, 233);
-      this.textBox1.TabIndex = 2;
+      this.tbDisplay.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
+      this.tbDisplay.Location = new System.Drawing.Point(12, 62);
+      this.tbDisplay.Multiline = true;
+      this.tbDisplay.Name = "tbDisplay";
+      this.tbDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.tbDisplay.Size = new System.Drawing.Size(417, 233);
+      this.tbDisplay.TabIndex = 2;
       // 
       // tbTargetPath
       // 
-      this.tbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetPath.Location = new System.Drawing.Point(46, 12);
       this.tbTargetPath.Name = "tbTargetPath";
@@ -88,14 +88,14 @@
       this.label2.TabIndex = 7;
       this.label2.Text = "Key:";
       // 
-      // textBox2
+      // tbTargetKey
       // 
-      this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTargetKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.textBox2.Location = new System.Drawing.Point(46, 37);
-      this.textBox2.Name = "textBox2";
-      this.textBox2.Size = new System.Drawing.Size(381, 19);
-      this.textBox2.TabIndex = 6;
+      this.tbTargetKey.Location = new System.Drawing.Point(46, 37);
+      this.tbTargetKey.Name = "tbTargetKey";
+      this.tbTargetKey.Size = new System.Drawing.Size(381, 19);
+      this.tbTargetKey.TabIndex = 6;
       // 
       // btCreate
       // 
@@ -115,10 +115,10 @@
       this.ClientSize = new System.Drawing.Size(441, 336);
       this.Controls.Add(this.btCreate);
       this.Controls.Add(this.label2);
-      this.Controls.Add(this.textBox2);
+      this.Controls.Add(this.tbTargetKey);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.tbTargetPath);
-      this.Controls.Add(this.textBox1);
+      this.Controls.Add(this.tbDisplay);
       this.Controls.Add(this.btDig);
       this.Name = "Form1";
       this.Text = "Form1";
@@ -130,11 +130,11 @@
     #endregion
 
     private System.Windows.Forms.Button btDig;
-    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox tbDisplay;
     private System.Windows.Forms.TextBox tbTargetPath;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.TextBox tbTargetKey;
     private System.Windows.Forms.Button btCreate;
   }
 }
