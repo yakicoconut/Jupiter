@@ -1,5 +1,4 @@
-﻿#define para_04
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -46,7 +45,9 @@ namespace WFA
     #region ボタン1押下イベント
     private void btDig_Click(object sender, EventArgs e)
     {
+      // 入力値
       string targetPath = tbTargetPath.Text;
+      string targetKey = tbTargetKey.Text;
 
       // ねずみ返し
       if (targetPath == "")
@@ -55,10 +56,25 @@ namespace WFA
         return;
       }
 
+      /* StringReader設定 */
+      XmlReaderSettings setting = new XmlReaderSettings();
+      // コメントを無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreComments = false;
+      // 処理命令(スタイルシートの宣言等)を無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreProcessingInstructions = false;
+      //意味のない空白を無視するかどうか
+      setting.IgnoreWhitespace = true;
+
+      // 表示用変数
+      string displayStr = string.Empty;
+
       // ファイルかフォルダか
       if (File.Exists(targetPath))
       {
-
+        // キー検索メソッド使用
+        displayStr = DigKey(targetPath, setting, targetKey);
       }
       else if (Directory.Exists(targetPath))
       {
@@ -68,8 +84,18 @@ namespace WFA
         // ループ
         foreach (string x in targetFolder)
         {
-
+          // キー検索メソッド使用
+          displayStr = DigKey(x, setting, targetKey);
         }
+      }
+
+      // 結果表示
+      tbDisplay.Text = displayStr;
+
+      // 結果がない場合
+      if (displayStr == string.Empty)
+      {
+        tbDisplay.Text = "結果なし";
       }
     }
     #endregion
@@ -77,13 +103,23 @@ namespace WFA
     #region ボタン2押下イベント
     private void btCreate_Click(object sender, EventArgs e)
     {
+      string targetPath = tbTargetPath.Text;
 
+      // ねずみ返し
+      if (targetPath == "")
+      {
+        MessageBox.Show("対象パスがありません");
+        return;
+      }
+
+      // XML作成メソッド使用
+      CreateXml(targetPath);
     }
     #endregion
 
 
     #region XML作成メソッド
-    public void CreateXML()
+    public void CreateXml(string savePath)
     {
       //XML型のインスタンス生成
       XmlDocument xmlDocument = new XmlDocument();
@@ -165,7 +201,39 @@ namespace WFA
       nestElem1_2.AppendChild(nestElem);
 
       //XMLの保存
-      xmlDocument.Save("test.xml");
+      xmlDocument.Save(savePath);
+    }
+    #endregion
+
+
+    #region キー検索メソッド
+    private string DigKey(string targetPath, XmlReaderSettings setting, string targetKey)
+    {
+      // 返り値変数
+      string returnStr = string.Empty;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      {
+        // 要素ループ
+        while (xmlReader.Read())
+        {
+          // ねずみ返し_対象タグが存在しない場合
+          if (!xmlReader.ReadToFollowing(targetKey))
+          {
+            continue;
+          }
+
+          // 属性ループ
+          for (int i = 0; i < xmlReader.AttributeCount; i++)
+          {
+            // 返り値に格納
+            returnStr += xmlReader.GetAttribute(i) + Environment.NewLine;
+          }
+        }
+      }
+
+      return returnStr;
     }
     #endregion
 
