@@ -4,8 +4,24 @@ using System.Configuration;
 
 namespace WFA
 {
-  class WFAComLogic
+  /// <summary>
+  /// フォームアプリ共通ロジッククラス
+  /// </summary>
+  class WFAComLogic : MCSComLogic
   {
+    #region コンストラクタ
+    public WFAComLogic()
+    {
+
+    }
+    #endregion
+
+
+    #region 宣言
+
+    #endregion
+
+
     #region アプリ名取得
     /// <summary>
     /// アプリ名取得
@@ -13,11 +29,22 @@ namespace WFA
     /// <returns>アプリ名</returns>
     public string GetAppName()
     {
+      // 自身のファイル名取得
+      string exeName = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
+
       // コンフィグからアプリ名を取得
-      string appName = ConfigurationManager.AppSettings["AppName"];
-      // デバッグ指定でないならコンフィグを使用
-      if (appName != "Debug")
+      string appName = GetConfigValue("AppName", exeName);
+
+      // RereaseかAuto指定の場合
+      if (appName == "Rerease" || appName == "Auto")
       {
+        // 自身のファイル名を返す
+        return exeName;
+      }
+      // 更にDebugでない場合
+      else if (appName != "Debug")
+      {
+        // コンフィグに設定されている値を返す
         return appName;
       }
 
