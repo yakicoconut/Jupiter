@@ -50,13 +50,28 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
+    // XML探索デリゲート宣言
+    delegate string DlgtDigXml(string targetStr, XmlReaderSettings setting, string targetKey);
+
+    #endregion
+
+
+    #region メインフォーム初期設定メソッド
+    private void MainFormInitSeting()
+    {
+      // 変更後拡張子コンボボックス設定
+      cbDigMode.DataSource = new string[] { "Tab", "Key", "Raw" };
+      // 変更後拡張子コンボボックス選択
+      cbDigMode.SelectedItem = 0;
+    }
     #endregion
 
 
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-
+      // メインフォーム初期設定メソッド使用
+      MainFormInitSeting();
     }
     #endregion
 
@@ -73,6 +88,9 @@ namespace WFA
         MessageBox.Show("対象パスがありません");
         return;
       }
+
+      // XML探索デリゲート切り替えメソッド使用
+      DlgtDigXml dlgtDigXml = GetDlgtDigXml();
 
       /* StringReader設定 */
       XmlReaderSettings setting = new XmlReaderSettings();
@@ -91,8 +109,8 @@ namespace WFA
       // ファイルかフォルダか
       if (File.Exists(targetPath))
       {
-        // キー検索メソッド使用
-        displayStr = DigKey(targetPath, setting, targetKey);
+        // XML探索デリゲート使用
+        displayStr = dlgtDigXml(targetPath, setting, targetKey);
       }
       else if (Directory.Exists(targetPath))
       {
@@ -102,8 +120,8 @@ namespace WFA
         // ループ
         foreach (string x in targetFolder)
         {
-          // キー検索メソッド使用
-          displayStr = DigKey(x, setting, targetKey);
+          // XML探索デリゲート使用
+          displayStr = dlgtDigXml(x, setting, targetKey);
         }
       }
 
@@ -223,6 +241,94 @@ namespace WFA
     }
     #endregion
 
+
+    #region XML探索デリゲート切り替えメソッド
+    private DlgtDigXml GetDlgtDigXml()
+    {
+      // コンボボックスの値からスイッチ
+      DlgtDigXml dlgtDigXml = null;
+      switch (cbDigMode.Text)
+      {
+        case "Key":
+          dlgtDigXml = DigKey;
+          break;
+
+        case "Tab":
+          dlgtDigXml = DigWithoutThanSign;
+          break;
+
+        case "Raw":
+          dlgtDigXml = DigKey;
+          break;
+      }
+      return dlgtDigXml;
+    }
+    #endregion
+
+
+    #region 山括弧抜き検索メソッド
+    private string DigWithoutThanSign(string targetStr, XmlReaderSettings setting, string targetKey)
+    {
+      // 返り値変数
+      string returnStr = string.Empty;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetStr), setting))
+      {
+        // XmlReader.Readメソッド使用パターン
+        while (xmlReader.Read())
+        {
+          // 階層の深さ基底より下の場合
+          string depth = "";
+          if (xmlReader.Depth >= 1)
+          {
+            // インデントを作成
+            depth = " ".PadRight(xmlReader.Depth * 2);
+          }
+
+          // ノードタイプで分岐
+          switch (xmlReader.NodeType)
+          {
+            case XmlNodeType.Attribute:
+              break;
+            case XmlNodeType.XmlDeclaration: // XML宣言
+              returnStr += "?" + xmlReader.Name;
+              returnStr += " " + xmlReader.Value + "?";
+              returnStr += "\r\n";
+              break;
+            case XmlNodeType.Element: // 開始タグ
+              returnStr += depth + xmlReader.Name;
+
+              // 属性がある場合
+              for (int i = 0; i < xmlReader.AttributeCount; i++)
+              {
+                // 属性へリーダを移動
+                xmlReader.MoveToAttribute(i);
+                returnStr += " " + xmlReader.Name;
+                returnStr += @"=""" + xmlReader.Value + @"""";
+              }
+              returnStr += "\r\n";
+              break;
+            case XmlNodeType.Text: // 値
+              returnStr += depth + xmlReader.Value + "\r\n";
+              break;
+            case XmlNodeType.EndElement: // 終了タグ
+              returnStr += depth + "/" + xmlReader.Name + "\r\n";
+              break;
+            case XmlNodeType.Comment: // コメントタグ
+              returnStr += depth + "!--" + xmlReader.Value + "--" + "\r\n";
+              break;
+            case XmlNodeType.None:
+              break;
+            default:
+              break;
+          }
+        }
+      }
+
+      return returnStr;
+    }
+    #endregion
 
     #region キー検索メソッド
     private string DigKey(string targetPath, XmlReaderSettings setting, string targetKey)

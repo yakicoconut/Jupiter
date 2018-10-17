@@ -34,6 +34,8 @@
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.tbTargetKey = new System.Windows.Forms.TextBox();
+      this.cbDigMode = new System.Windows.Forms.ComboBox();
+      this.label3 = new System.Windows.Forms.Label();
       this.btCreate = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
@@ -50,20 +52,20 @@
       // 
       // tbDisplay
       // 
-      this.tbDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbDisplay.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
-      this.tbDisplay.Location = new System.Drawing.Point(12, 62);
+      this.tbDisplay.Location = new System.Drawing.Point(12, 88);
       this.tbDisplay.Multiline = true;
       this.tbDisplay.Name = "tbDisplay";
       this.tbDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbDisplay.Size = new System.Drawing.Size(417, 233);
+      this.tbDisplay.Size = new System.Drawing.Size(417, 207);
       this.tbDisplay.TabIndex = 2;
       // 
       // tbTargetPath
       // 
-      this.tbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetPath.Location = new System.Drawing.Point(46, 12);
       this.tbTargetPath.Name = "tbTargetPath";
@@ -90,12 +92,30 @@
       // 
       // tbTargetKey
       // 
-      this.tbTargetKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTargetKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetKey.Location = new System.Drawing.Point(46, 37);
       this.tbTargetKey.Name = "tbTargetKey";
       this.tbTargetKey.Size = new System.Drawing.Size(381, 19);
       this.tbTargetKey.TabIndex = 6;
+      // 
+      // cbDigMode
+      // 
+      this.cbDigMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbDigMode.FormattingEnabled = true;
+      this.cbDigMode.Location = new System.Drawing.Point(308, 62);
+      this.cbDigMode.Name = "cbDigMode";
+      this.cbDigMode.Size = new System.Drawing.Size(121, 20);
+      this.cbDigMode.TabIndex = 8;
+      // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(251, 65);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(51, 12);
+      this.label3.TabIndex = 9;
+      this.label3.Text = "DigMode:";
       // 
       // btCreate
       // 
@@ -113,6 +133,8 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(441, 336);
+      this.Controls.Add(this.label3);
+      this.Controls.Add(this.cbDigMode);
       this.Controls.Add(this.btCreate);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.tbTargetKey);
@@ -137,6 +159,8 @@
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.TextBox tbTargetKey;
     private System.Windows.Forms.Button btCreate;
+    private System.Windows.Forms.ComboBox cbDigMode;
+    private System.Windows.Forms.Label label3;
   }
 }
 
