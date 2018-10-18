@@ -60,7 +60,7 @@ namespace WFA
     private void MainFormInitSeting()
     {
       // 変更後拡張子コンボボックス設定
-      cbDigMode.DataSource = new string[] { "Tab", "Key", "Raw" };
+      cbDigMode.DataSource = new string[] { "Key", "Raw" };
       // 変更後拡張子コンボボックス選択
       cbDigMode.SelectedItem = 0;
     }
@@ -104,13 +104,16 @@ namespace WFA
       setting.IgnoreWhitespace = true;
 
       // 表示用変数
-      string displayStr = string.Empty;
+      string tabDisplayStr = string.Empty;
+      string resultDisplayStr = string.Empty;
 
       // ファイルかフォルダか
       if (File.Exists(targetPath))
       {
+        // 山括弧抜き検索メソッド使用
+        tabDisplayStr = DigWithoutThanSign(targetPath, setting);
         // XML探索デリゲート使用
-        displayStr = dlgtDigXml(targetPath, setting, targetKey);
+        resultDisplayStr = dlgtDigXml(targetPath, setting, targetKey);
       }
       else if (Directory.Exists(targetPath))
       {
@@ -120,18 +123,21 @@ namespace WFA
         // ループ
         foreach (string x in targetFolder)
         {
+          // 山括弧抜き検索メソッド使用
+          tabDisplayStr = DigWithoutThanSign(x, setting);
           // XML探索デリゲート使用
-          displayStr = dlgtDigXml(x, setting, targetKey);
+          resultDisplayStr = dlgtDigXml(x, setting, targetKey);
         }
       }
 
       // 結果表示
-      tbDisplay.Text = displayStr;
+      tbTabDisplay.Text = tabDisplayStr;
+      tbResultDisplay.Text = resultDisplayStr;
 
       // 結果がない場合
-      if (displayStr == string.Empty)
+      if (resultDisplayStr == string.Empty)
       {
-        tbDisplay.Text = "結果なし";
+        tbTabDisplay.Text = "結果なし";
       }
     }
     #endregion
@@ -253,10 +259,6 @@ namespace WFA
           dlgtDigXml = DigKey;
           break;
 
-        case "Tab":
-          dlgtDigXml = DigWithoutThanSign;
-          break;
-
         case "Raw":
           dlgtDigXml = DigKey;
           break;
@@ -267,13 +269,13 @@ namespace WFA
 
 
     #region 山括弧抜き検索メソッド
-    private string DigWithoutThanSign(string targetStr, XmlReaderSettings setting, string targetKey)
+    private string DigWithoutThanSign(string targetPath, XmlReaderSettings setting)
     {
       // 返り値変数
       string returnStr = string.Empty;
 
       // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetStr), setting))
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
       {
         // XmlReader.Readメソッド使用パターン
         while (xmlReader.Read())
