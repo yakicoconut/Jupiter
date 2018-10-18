@@ -60,7 +60,7 @@ namespace WFA
     private void MainFormInitSeting()
     {
       // 変更後拡張子コンボボックス設定
-      cbDigMode.DataSource = new string[] { "Key", "Raw" };
+      cbDigMode.DataSource = new string[] { "Raw", "Key" };
       // 変更後拡張子コンボボックス選択
       cbDigMode.SelectedItem = 0;
     }
@@ -255,11 +255,11 @@ namespace WFA
       DlgtDigXml dlgtDigXml = null;
       switch (cbDigMode.Text)
       {
-        case "Key":
-          dlgtDigXml = DigKey;
+        case "Raw":
+          dlgtDigXml = GetRawXml;
           break;
 
-        case "Raw":
+        case "Key":
           dlgtDigXml = DigKey;
           break;
       }
@@ -332,6 +332,23 @@ namespace WFA
     }
     #endregion
 
+    #region 生Xml取得メソッド
+    public string GetRawXml(string targetPath, XmlReaderSettings setting, string targetKey)
+    {
+      // 返り値変数
+      string returnStr = string.Empty;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (StreamReader reader = new StreamReader(targetPath))
+      {
+        returnStr += reader.ReadToEnd();      
+      }
+
+      return returnStr;
+    }
+    #endregion
+
+
     #region キー検索メソッド
     private string DigKey(string targetPath, XmlReaderSettings setting, string targetKey)
     {
@@ -350,11 +367,20 @@ namespace WFA
             continue;
           }
 
+          // 返り値に格納
+          returnStr += "---------\r\n" + xmlReader.NodeType + "\r\n---------" + Environment.NewLine;
+
           // 属性ループ
           for (int i = 0; i < xmlReader.AttributeCount; i++)
           {
-            // 返り値に格納
             returnStr += xmlReader.GetAttribute(i) + Environment.NewLine;
+          }
+
+          // 値が存在する場合
+          string value = xmlReader.ReadString();
+          if (value != string.Empty)
+          {
+            returnStr += value + Environment.NewLine;
           }
         }
       }
