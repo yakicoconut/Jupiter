@@ -178,6 +178,31 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // SplitContainer内のコントロールのサイズ位置を無理やり変更
+      tbReplace01.Size = new Size(402, 19);
+      tbReplace02.Size = new Size(402, 19);
+      tbReplace03.Size = new Size(402, 19);
+      tbReplace04.Size = new Size(402, 19);
+      tbReplace05.Size = new Size(402, 19);
+      tbReplace06.Size = new Size(402, 19);
+      tbReplace07.Size = new Size(402, 19);
+      tbReplace08.Size = new Size(402, 19);
+      tbReplace09.Size = new Size(402, 19);
+      tbReplace10.Size = new Size(402, 19);
+      tbReplace11.Size = new Size(402, 19);
+      tbReplace12.Size = new Size(402, 19);
+      tbReplace13.Size = new Size(402, 19);
+      tbReplace14.Size = new Size(402, 19);
+      tbReplace15.Size = new Size(402, 19);
+      tbReplace16.Size = new Size(402, 19);
+      tbReplace17.Size = new Size(402, 19);
+      tbReplace18.Size = new Size(402, 19);
+      tbReplace19.Size = new Size(402, 19);
+      tbReplace20.Size = new Size(402, 19);
+      rtbTarget.Size = new Size(315, 210);
+      rtbResult.Size = new Size(360, 210);
+      splcTargetResult.Size = new Size(705, 380);
+
       // 検索対象ボックス初期化
       tbSearch01.Text = search01;
       tbSearch02.Text = search02;
@@ -314,10 +339,22 @@ namespace WFA
     #region パターンパネルスクロールイベント
     private void splcSearchReplace_Scroll(object sender, ScrollEventArgs e)
     {
-      // 置き換え文字列パネルのスクロール最大値を検索文字列パネルのスクロール最大値に設定する
-      splcSearchReplace.Panel1.VerticalScroll.Maximum = splcSearchReplace.Panel2.VerticalScroll.Maximum;
-      // 置き換え文字列パネルのスクロール値を検索文字列パネルのスクロール値に設定する
+      // 最上位へのスクロール時
+      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
+      {
+        // パネル1のスクロールを完全に0にするためスクロールバーを一時的に表示
+        splcSearchReplace.Panel1.VerticalScroll.Visible = true;
+      }
+
+      // 置換文字列パネルのスクロール値を検索文字列パネルのスクロール値に合わせる
       splcSearchReplace.Panel1.VerticalScroll.Value = splcSearchReplace.Panel2.VerticalScroll.Value;
+
+      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
+      {
+        // スクロールバー表示を戻す
+        splcSearchReplace.Panel1.VerticalScroll.Visible = false;
+        splcSearchReplace.Panel1.AutoScroll = false;
+      }
     }
     #endregion
 
@@ -527,6 +564,17 @@ namespace WFA
       {
         sw.WriteLine("-----Search-----" + outStrSearch + "\r\n-----Replace-----" + outStrReplace);
       }
+    }
+    #endregion
+
+    #region スプリットパネル上下変更イベント
+    private void splcPatternResult_SplitterMoved(object sender, SplitterEventArgs e)
+    {
+      // 置換文字列パネルのスクロール値を検索文字列パネルのスクロール値に合わせる
+      splcSearchReplace.Panel1.VerticalScroll.Visible = true;
+      splcSearchReplace.Panel1.VerticalScroll.Value = splcSearchReplace.Panel2.VerticalScroll.Value;
+      splcSearchReplace.Panel1.VerticalScroll.Visible = false;
+      splcSearchReplace.Panel1.AutoScroll = false;
     }
     #endregion
 
