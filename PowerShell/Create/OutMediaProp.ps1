@@ -44,15 +44,18 @@ echo ファイルのプロパティをCSVファイルに出力する
     # Write-Host "長さ            :"$folder.GetDetailsOf($file, 27)
     # Write-Host "サイズ          :"$folder.GetDetailsOf($file, 1)
     # Write-Host "ジャンル        :"$folder.GetDetailsOf($file, 16)
+    # Write-Host "コメント        :"$folder.GetDetailsOf($file, 24)
 
     # 配列データからカスタムオブジェクト作成
     $obj = [PSCustomObject]@{
       FileName = $folder.GetDetailsOf($file, 0)
-      Title = $folder.GetDetailsOf($file, 21)
-      Artists = $folder.GetDetailsOf($file, 13)
-      Album = $folder.GetDetailsOf($file, 14)
       Track = $folder.GetDetailsOf($file, 26)
+      Title = $folder.GetDetailsOf($file, 21)
+      Album = $folder.GetDetailsOf($file, 14)
+      Artists = $folder.GetDetailsOf($file, 13)
+      Length = $folder.GetDetailsOf($file, 27)
       Genres = $folder.GetDetailsOf($file, 16)
+      Comment = $folder.GetDetailsOf($file, 24)
     }
     $outCsvs += $obj
   }
