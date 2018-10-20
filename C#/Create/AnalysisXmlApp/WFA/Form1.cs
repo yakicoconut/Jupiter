@@ -124,9 +124,9 @@ namespace WFA
         foreach (string x in targetFolder)
         {
           // 山括弧抜き検索メソッド使用
-          tabDisplayStr = DigWithoutThanSign(x, setting);
+          tabDisplayStr += DigWithoutThanSign(x, setting);
           // XML探索デリゲート使用
-          resultDisplayStr = dlgtDigXml(x, setting, targetKey);
+          resultDisplayStr += dlgtDigXml(x, setting, targetKey);
         }
       }
 
@@ -274,6 +274,9 @@ namespace WFA
       // 返り値変数
       string returnStr = string.Empty;
 
+      // ファイル名
+      returnStr += Path.GetFileName(targetPath) + "\r\n";
+
       // ファイルからXmlReaderでXMLを取得
       using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
       {
@@ -328,6 +331,9 @@ namespace WFA
         }
       }
 
+      // 改行
+      returnStr += "\r\n";
+
       return returnStr;
     }
     #endregion
@@ -344,6 +350,9 @@ namespace WFA
         returnStr += reader.ReadToEnd();      
       }
 
+      // 改行
+      returnStr += "\r\n";
+
       return returnStr;
     }
     #endregion
@@ -354,6 +363,9 @@ namespace WFA
     {
       // 返り値変数
       string returnStr = string.Empty;
+
+      // ファイル名
+      returnStr += Path.GetFileName(targetPath) + "\r\n";
 
       // ファイルからXmlReaderでXMLを取得
       using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
@@ -384,6 +396,9 @@ namespace WFA
           }
         }
       }
+
+      // 改行
+      returnStr += "\r\n";
 
       return returnStr;
     }
