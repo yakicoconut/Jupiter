@@ -1,0 +1,12 @@
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\bin\Release\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\bin\Release\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\bin\Release\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\bin\Release\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Release\FastTxtDiff.TestForm1.resources
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\bin\Release\FastTxtDiff.XML

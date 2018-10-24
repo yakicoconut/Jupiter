@@ -1,0 +1,10 @@
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\bin\Debug\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\bin\Debug\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\Create\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\bin\Debug\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.pdb
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.TestForm1.resources
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\bin\Debug\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\OwnLib\FastTxtDiffDll\WCL\obj\Debug\FastTxtDiff.dll

@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FastTxtDiff</name>
+    </assembly>
+    <members>
+        <member name="T:FastTxtDiff.DiffResult">
+            <summary>
+            ☆山内:比較結果クラス
+            </summary>
+        </member>
+        <member name="T:FastTxtDiff.FastDiff">
+            <summary>
+            ☆山内:比較メインクラス
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.#ctor">
+            <summary>
+            ☆山内:デフォルトコンストラクタ
+            ☆山内:メンバが静的のためプライベート設定
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.Diff(System.String,System.String)">
+            <summary>複数行の文字列を行単位で比較します</summary>
+            <param name="textA">元テキスト</param>
+            <param name="textB">変更テキスト</param>
+            <returns>比較結果</returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.Diff(System.String,System.String,FastTxtDiff.DiffOption)">
+            <summary>複数行の文字列を行単位で比較します</summary>
+            <param name="textA">元テキスト</param>
+            <param name="textB">変更テキスト</param>
+            <param name="option">オプション指定</param>
+            <returns>比較結果</returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.DiffChar(System.String,System.String)">
+            <summary>単一行の各文字を比較します</summary>
+            <param name="textA">元テキスト</param>
+            <param name="textB">変更テキスト</param>
+            <returns>比較結果</returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.DiffChar(System.String,System.String,FastTxtDiff.DiffOption)">
+            <summary>単一行の各文字を比較します</summary>
+            <param name="textA">元テキスト</param>
+            <param name="textB">変更テキスト</param>
+            <param name="option">オプション指定</param>
+            <returns>比較結果</returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.StringNullOrEmpty(System.String,System.String)">
+            <summary>
+            ☆山内:空文字列判断静的メソッド
+            </summary>
+            <param name="textA"></param>
+            <param name="textB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.PresentDiff(FastTxtDiff.FastDiff.CommonSubsequence,System.Boolean)">
+            <summary>
+            結果出力
+            </summary>
+            <param name="cs"></param>
+            <param name="wantCommon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.PresentDiffSwap(FastTxtDiff.FastDiff.CommonSubsequence,System.Boolean)">
+            <summary>結果出力</summary>
+        </member>
+        <member name="T:FastTxtDiff.FastDiff.CommonSubsequence">
+            <summary>
+            ☆山内:ツールクラス?
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.CommonSubsequence.#ctor">
+            <summary>
+            ☆山内:デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.CommonSubsequence.#ctor(System.Int32,System.Int32,System.Int32,FastTxtDiff.FastDiff.CommonSubsequence)">
+            <summary>
+            ☆山内:引数付きコンストラクタ
+            </summary>
+            <param name="startA"></param>
+            <param name="startB"></param>
+            <param name="length"></param>
+            <param name="next"></param>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.CommonSubsequence.Reverse(FastTxtDiff.FastDiff.CommonSubsequence)">
+            <summary>リンクリスト反転</summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.CommonSubsequence.ToString">
+            <summary>
+            ☆山内:オーバーライドToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.Test.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            メンバが静的のためプライベート設定
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.Test.TestSplitChar(System.String,FastTxtDiff.DiffOption)">
+            <summary>
+            SplitCharテスト
+            </summary>
+            <param name="text"></param>
+            <param name="option"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FastTxtDiff.FastDiff.Test.TestSplitLine(System.String,FastTxtDiff.DiffOption)">
+            <summary>
+            SplitLineテスト
+            </summary>
+            <param name="text"></param>
+            <param name="option"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FastTxtDiff.TestForm1">
+            <summary>
+            ★山内:テスト用フォーム
+            </summary>
+        </member>
+        <member name="F:FastTxtDiff.TestForm1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:FastTxtDiff.TestForm1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:FastTxtDiff.TestForm1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:FastTxtDiff.Program">
+            <summary>
+            ★山内:メインプログラムクラス
+            </summary>
+            <!-- 注:フォームの前に記述するとデザイナーが使用できない -->
+        </member>
+        <member name="M:FastTxtDiff.Program.Main">
+            <summary>
+            アプリケーションのメイン エントリ ポイントです。
+            </summary>
+        </member>
+    </members>
+</doc>
