@@ -364,8 +364,12 @@ namespace WFA
       // 返り値変数
       string returnStr = string.Empty;
 
-      // ファイル名
-      returnStr += Path.GetFileName(targetPath) + "\r\n";
+      // ファイル名出力チェックボックス
+      if (cbOutFileName.Checked)
+      {
+        // ファイル名出力
+        returnStr += Path.GetFileName(targetPath) + "\r\n";
+      }
 
       // ファイルからXmlReaderでXMLを取得
       using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
@@ -379,20 +383,31 @@ namespace WFA
             continue;
           }
 
-          // 返り値に格納
-          returnStr += "---------\r\n" + xmlReader.NodeType + "\r\n---------" + Environment.NewLine;
-
-          // 属性ループ
-          for (int i = 0; i < xmlReader.AttributeCount; i++)
+          // 要素タイプ出力チェックボックス
+          if (cbOutType.Checked)
           {
-            returnStr += xmlReader.GetAttribute(i) + Environment.NewLine;
+            // 返り値に格納
+            returnStr += "---------\r\n" + xmlReader.NodeType + "\r\n---------" + Environment.NewLine;
           }
 
-          // 値が存在する場合
-          string value = xmlReader.ReadString();
-          if (value != string.Empty)
+          // 属性チェックボックス
+          if (cbOutAttr.Checked)
           {
-            returnStr += value + Environment.NewLine;
+            // 属性ループ
+            for (int i = 0; i < xmlReader.AttributeCount; i++)
+            {
+              returnStr += xmlReader.GetAttribute(i) + Environment.NewLine;
+            }
+          }
+          // 値出力チェックボックス
+          if (cbOutValue.Checked)
+          {
+            // 値が存在する場合
+            string value = xmlReader.ReadString();
+            if (value != string.Empty)
+            {
+              returnStr += value + Environment.NewLine;
+            }
           }
         }
       }
