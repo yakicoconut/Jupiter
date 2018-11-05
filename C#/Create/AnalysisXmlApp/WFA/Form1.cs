@@ -363,12 +363,14 @@ namespace WFA
     {
       // 返り値変数
       string returnStr = string.Empty;
+      // 対象ファイル名
+      string fileName = Path.GetFileName(targetPath);
 
       // ファイル名出力チェックボックス
       if (cbOutFileName.Checked)
       {
         // ファイル名出力
-        returnStr += Path.GetFileName(targetPath) + "\r\n";
+        returnStr += fileName + "\r\n";
       }
 
       // ファイルからXmlReaderでXMLを取得
@@ -401,6 +403,12 @@ namespace WFA
             returnStr += value + Environment.NewLine;
           }
         }
+      }
+
+      // 検索結果が存在しない場合
+      if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
+      {
+        returnStr += "検索対象なし";
       }
 
       // 改行
