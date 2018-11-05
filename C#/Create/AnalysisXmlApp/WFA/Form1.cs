@@ -392,15 +392,39 @@ namespace WFA
             // 属性ループ
             for (int i = 0; i < xmlReader.AttributeCount; i++)
             {
+              // 返り値フォーマット
+              string RETURN_FORMAT = "{0}\r\n";
+              // タブチェックボックス
+              if (cbTab.Checked)
+              {
+                RETURN_FORMAT = "\t\t{0}";
+
+                // 最後の属性なら更に改行追加
+                if (i == xmlReader.AttributeCount - 1)
+                {
+                  RETURN_FORMAT = "\t\t{0}\r\n";
+                }
+              }
+
+              // 属性追加
               string atrr = xmlReader.GetAttribute(i);
-              returnStr += atrr + Environment.NewLine;
+              returnStr += string.Format(RETURN_FORMAT, atrr);
             }
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
           {
+            // 返り値フォーマット
+            string RETURN_FORMAT = "{0}\r\n";
+            // タブチェックボックス
+            if (cbTab.Checked)
+            {
+              RETURN_FORMAT = "\t{0}\r\n";
+            }
+
+            // 値追加
             string value = xmlReader.ReadString();
-            returnStr += value + Environment.NewLine;
+            returnStr += string.Format(RETURN_FORMAT, value);
           }
         }
       }
