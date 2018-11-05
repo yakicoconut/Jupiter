@@ -347,7 +347,7 @@ namespace WFA
       // ファイルからXmlReaderでXMLを取得
       using (StreamReader reader = new StreamReader(targetPath))
       {
-        returnStr += reader.ReadToEnd();      
+        returnStr += reader.ReadToEnd();
       }
 
       // 改行
@@ -375,14 +375,8 @@ namespace WFA
       using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
       {
         // 要素ループ
-        while (xmlReader.Read())
+        while (xmlReader.ReadToFollowing(targetKey))
         {
-          // ねずみ返し_対象タグが存在しない場合
-          if (!xmlReader.ReadToFollowing(targetKey))
-          {
-            continue;
-          }
-
           // 要素タイプ出力チェックボックス
           if (cbOutType.Checked)
           {
@@ -396,18 +390,15 @@ namespace WFA
             // 属性ループ
             for (int i = 0; i < xmlReader.AttributeCount; i++)
             {
-              returnStr += xmlReader.GetAttribute(i) + Environment.NewLine;
+              string atrr = xmlReader.GetAttribute(i);
+              returnStr += atrr + Environment.NewLine;
             }
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
           {
-            // 値が存在する場合
             string value = xmlReader.ReadString();
-            if (value != string.Empty)
-            {
-              returnStr += value + Environment.NewLine;
-            }
+            returnStr += value + Environment.NewLine;
           }
         }
       }
