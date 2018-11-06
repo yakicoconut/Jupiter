@@ -383,7 +383,7 @@ namespace WFA
           if (cbOutAttr.Checked)
           {
             // 属性取得メソッド使用
-            returnStr += GetAtrr(xmlReader, cbTab.Checked);
+            returnStr += GetAtrr(xmlReader, cbTab.Checked, cbHeader.Checked);
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
@@ -418,31 +418,59 @@ namespace WFA
 
 
     #region 属性取得メソッド
-    private string GetAtrr(XmlReader xmlReader, bool tabFlg)
+    private string GetAtrr(XmlReader xmlReader, bool tabFlg, bool headerFlg)
     {
+      string preReturnStr = string.Empty;
       string returnStr = string.Empty;
+      string outHead = string.Empty;
+      string HEAD_FORMAT = "\t値{0}\r\n";
+      int i = 0;
 
       // 属性ループ
-      for (int i = 0; i < xmlReader.AttributeCount; i++)
+      while (xmlReader.MoveToNextAttribute())
       {
         // 返り値フォーマット
         string RETURN_FORMAT = "{0}\r\n";
-        // タブチェックボックス
+        // 属性名取得
+        string atrrName = xmlReader.Name;
+        // 属性取得
+        string atrr = xmlReader.GetAttribute(i);
+
+        // タブフラグ
         if (tabFlg)
         {
-          RETURN_FORMAT = "\t\t{0}";
-
-          // 最後の属性なら更に改行追加
-          if (i == xmlReader.AttributeCount - 1)
+          // 属性が一つしかない
+          if (xmlReader.AttributeCount == 1)
           {
+            // タブ、改行複合
             RETURN_FORMAT = "\t\t{0}\r\n";
+          }
+          else if (i == 0) // 最初の属性
+          {
+            // タブ二個追加
+            RETURN_FORMAT = "\t\t{0}";
+          }
+          else if (i == xmlReader.AttributeCount - 1) // 最後の属性
+          {
+            // 更に改行追加
+            RETURN_FORMAT = "\t{0}\r\n";
           }
         }
 
+        // 属性名追加
+        outHead += "\t" + atrrName;
         // 属性追加
-        string atrr = xmlReader.GetAttribute(i);
-        returnStr += string.Format(RETURN_FORMAT, atrr);
+        preReturnStr += string.Format(RETURN_FORMAT, atrr);
+
+        ++i;
       }
+
+      // ヘッダー出力フラグ
+      if (tabFlg && headerFlg)
+      {
+        returnStr += string.Format(HEAD_FORMAT, outHead);
+      }
+      returnStr += preReturnStr;
 
       return returnStr;
     }
