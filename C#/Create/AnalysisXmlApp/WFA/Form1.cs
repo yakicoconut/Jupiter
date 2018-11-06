@@ -389,27 +389,8 @@ namespace WFA
           // 属性チェックボックス
           if (cbOutAttr.Checked)
           {
-            // 属性ループ
-            for (int i = 0; i < xmlReader.AttributeCount; i++)
-            {
-              // 返り値フォーマット
-              string RETURN_FORMAT = "{0}\r\n";
-              // タブチェックボックス
-              if (cbTab.Checked)
-              {
-                RETURN_FORMAT = "\t\t{0}";
-
-                // 最後の属性なら更に改行追加
-                if (i == xmlReader.AttributeCount - 1)
-                {
-                  RETURN_FORMAT = "\t\t{0}\r\n";
-                }
-              }
-
-              // 属性追加
-              string atrr = xmlReader.GetAttribute(i);
-              returnStr += string.Format(RETURN_FORMAT, atrr);
-            }
+            // 属性取得メソッド使用
+            returnStr += GetAtrr(xmlReader, cbTab.Checked);
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
@@ -437,6 +418,38 @@ namespace WFA
 
       // 改行
       returnStr += "\r\n";
+
+      return returnStr;
+    }
+    #endregion
+
+
+    #region 属性取得メソッド
+    private string GetAtrr(XmlReader xmlReader, bool tabFlg)
+    {
+      string returnStr = string.Empty;
+
+      // 属性ループ
+      for (int i = 0; i < xmlReader.AttributeCount; i++)
+      {
+        // 返り値フォーマット
+        string RETURN_FORMAT = "{0}\r\n";
+        // タブチェックボックス
+        if (tabFlg)
+        {
+          RETURN_FORMAT = "\t\t{0}";
+
+          // 最後の属性なら更に改行追加
+          if (i == xmlReader.AttributeCount - 1)
+          {
+            RETURN_FORMAT = "\t\t{0}\r\n";
+          }
+        }
+
+        // 属性追加
+        string atrr = xmlReader.GetAttribute(i);
+        returnStr += string.Format(RETURN_FORMAT, atrr);
+      }
 
       return returnStr;
     }
