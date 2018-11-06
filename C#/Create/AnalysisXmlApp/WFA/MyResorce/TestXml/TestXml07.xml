@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+  <root>
+    <nests>
+      <nest Brother="1" Atrr2="atrr2">value1</nest>
+      <nestDad Brother="2" Atrr2="atrr2">
+        <nest Child="1" Atrr2="atrr2">value3</nest>
+      </nestDad>
+    </nests>
+  </root>

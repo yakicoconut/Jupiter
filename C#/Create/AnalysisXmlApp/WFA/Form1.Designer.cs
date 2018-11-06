@@ -42,7 +42,7 @@
       this.cbOutFileName = new System.Windows.Forms.CheckBox();
       this.cbOutValue = new System.Windows.Forms.CheckBox();
       this.cbOutAttr = new System.Windows.Forms.CheckBox();
-      this.cbOutType = new System.Windows.Forms.CheckBox();
+      this.cbHeader = new System.Windows.Forms.CheckBox();
       this.cbTab = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
@@ -171,7 +171,7 @@
       this.tbResultDisplay.Multiline = true;
       this.tbResultDisplay.Name = "tbResultDisplay";
       this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(248, 322);
+      this.tbResultDisplay.Size = new System.Drawing.Size(242, 322);
       this.tbResultDisplay.TabIndex = 3;
       // 
       // cbOutFileName
@@ -213,16 +213,16 @@
       this.cbOutAttr.Text = "属性";
       this.cbOutAttr.UseVisualStyleBackColor = true;
       // 
-      // cbOutType
+      // cbHeader
       // 
-      this.cbOutType.AutoSize = true;
-      this.cbOutType.Location = new System.Drawing.Point(46, 83);
-      this.cbOutType.Margin = new System.Windows.Forms.Padding(2);
-      this.cbOutType.Name = "cbOutType";
-      this.cbOutType.Size = new System.Drawing.Size(74, 16);
-      this.cbOutType.TabIndex = 14;
-      this.cbOutType.Text = "要素タイプ";
-      this.cbOutType.UseVisualStyleBackColor = true;
+      this.cbHeader.AutoSize = true;
+      this.cbHeader.Location = new System.Drawing.Point(46, 83);
+      this.cbHeader.Margin = new System.Windows.Forms.Padding(2);
+      this.cbHeader.Name = "cbHeader";
+      this.cbHeader.Size = new System.Drawing.Size(60, 16);
+      this.cbHeader.TabIndex = 14;
+      this.cbHeader.Text = "ヘッダー";
+      this.cbHeader.UseVisualStyleBackColor = true;
       // 
       // cbTab
       // 
@@ -243,7 +243,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(559, 473);
       this.Controls.Add(this.cbTab);
-      this.Controls.Add(this.cbOutType);
+      this.Controls.Add(this.cbHeader);
       this.Controls.Add(this.cbOutAttr);
       this.Controls.Add(this.cbOutValue);
       this.Controls.Add(this.cbOutFileName);
@@ -286,7 +286,7 @@
     private System.Windows.Forms.CheckBox cbOutFileName;
     private System.Windows.Forms.CheckBox cbOutValue;
     private System.Windows.Forms.CheckBox cbOutAttr;
-    private System.Windows.Forms.CheckBox cbOutType;
+    private System.Windows.Forms.CheckBox cbHeader;
     private System.Windows.Forms.CheckBox cbTab;
   }
 }

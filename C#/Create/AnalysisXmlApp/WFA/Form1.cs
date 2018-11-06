@@ -379,13 +379,6 @@ namespace WFA
         // 要素ループ
         while (xmlReader.ReadToFollowing(targetKey))
         {
-          // 要素タイプ出力チェックボックス
-          if (cbOutType.Checked)
-          {
-            // 返り値に格納
-            returnStr += "---------\r\n" + xmlReader.NodeType + "\r\n---------" + Environment.NewLine;
-          }
-
           // 属性チェックボックス
           if (cbOutAttr.Checked)
           {
