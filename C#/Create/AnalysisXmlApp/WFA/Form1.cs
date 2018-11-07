@@ -403,10 +403,14 @@ namespace WFA
         }
       }
 
-      // 検索結果が存在しない場合
-      if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
+      // 検索対象なし出力チェックボックス
+      if (cbNoting.Checked)
       {
-        returnStr += "検索対象なし\r\n";
+        // 検索結果が存在しない場合
+        if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
+        {
+          returnStr += "検索対象なし\r\n";
+        }
       }
 
       return returnStr;

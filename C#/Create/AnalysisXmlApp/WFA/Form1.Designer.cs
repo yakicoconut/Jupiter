@@ -44,6 +44,7 @@
       this.cbOutAttr = new System.Windows.Forms.CheckBox();
       this.cbHeader = new System.Windows.Forms.CheckBox();
       this.cbTab = new System.Windows.Forms.CheckBox();
+      this.cbNoting = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -80,7 +81,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetPath.Location = new System.Drawing.Point(46, 12);
       this.tbTargetPath.Name = "tbTargetPath";
-      this.tbTargetPath.Size = new System.Drawing.Size(499, 19);
+      this.tbTargetPath.Size = new System.Drawing.Size(501, 19);
       this.tbTargetPath.TabIndex = 4;
       // 
       // label1
@@ -107,7 +108,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetKey.Location = new System.Drawing.Point(46, 37);
       this.tbTargetKey.Name = "tbTargetKey";
-      this.tbTargetKey.Size = new System.Drawing.Size(499, 19);
+      this.tbTargetKey.Size = new System.Drawing.Size(501, 19);
       this.tbTargetKey.TabIndex = 6;
       // 
       // cbDigMode
@@ -115,7 +116,7 @@
       this.cbDigMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.cbDigMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cbDigMode.FormattingEnabled = true;
-      this.cbDigMode.Location = new System.Drawing.Point(426, 62);
+      this.cbDigMode.Location = new System.Drawing.Point(426, 61);
       this.cbDigMode.Name = "cbDigMode";
       this.cbDigMode.Size = new System.Drawing.Size(121, 20);
       this.cbDigMode.TabIndex = 8;
@@ -156,7 +157,7 @@
       // splitContainer1.Panel2
       // 
       this.splitContainer1.Panel2.Controls.Add(this.tbResultDisplay);
-      this.splitContainer1.Size = new System.Drawing.Size(533, 328);
+      this.splitContainer1.Size = new System.Drawing.Size(535, 328);
       this.splitContainer1.SplitterDistance = 247;
       this.splitContainer1.SplitterWidth = 10;
       this.splitContainer1.TabIndex = 10;
@@ -171,7 +172,7 @@
       this.tbResultDisplay.Multiline = true;
       this.tbResultDisplay.Name = "tbResultDisplay";
       this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(242, 322);
+      this.tbResultDisplay.Size = new System.Drawing.Size(270, 322);
       this.tbResultDisplay.TabIndex = 3;
       // 
       // cbOutFileName
@@ -192,7 +193,7 @@
       this.cbOutValue.AutoSize = true;
       this.cbOutValue.Checked = true;
       this.cbOutValue.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbOutValue.Location = new System.Drawing.Point(117, 63);
+      this.cbOutValue.Location = new System.Drawing.Point(117, 83);
       this.cbOutValue.Margin = new System.Windows.Forms.Padding(2);
       this.cbOutValue.Name = "cbOutValue";
       this.cbOutValue.Size = new System.Drawing.Size(36, 16);
@@ -205,7 +206,7 @@
       this.cbOutAttr.AutoSize = true;
       this.cbOutAttr.Checked = true;
       this.cbOutAttr.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbOutAttr.Location = new System.Drawing.Point(151, 63);
+      this.cbOutAttr.Location = new System.Drawing.Point(181, 83);
       this.cbOutAttr.Margin = new System.Windows.Forms.Padding(2);
       this.cbOutAttr.Name = "cbOutAttr";
       this.cbOutAttr.Size = new System.Drawing.Size(48, 16);
@@ -216,7 +217,7 @@
       // cbHeader
       // 
       this.cbHeader.AutoSize = true;
-      this.cbHeader.Location = new System.Drawing.Point(46, 83);
+      this.cbHeader.Location = new System.Drawing.Point(117, 63);
       this.cbHeader.Margin = new System.Windows.Forms.Padding(2);
       this.cbHeader.Name = "cbHeader";
       this.cbHeader.Size = new System.Drawing.Size(60, 16);
@@ -229,7 +230,7 @@
       this.cbTab.AutoSize = true;
       this.cbTab.Checked = true;
       this.cbTab.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbTab.Location = new System.Drawing.Point(117, 83);
+      this.cbTab.Location = new System.Drawing.Point(46, 83);
       this.cbTab.Margin = new System.Windows.Forms.Padding(2);
       this.cbTab.Name = "cbTab";
       this.cbTab.Size = new System.Drawing.Size(41, 16);
@@ -237,11 +238,25 @@
       this.cbTab.Text = "タブ";
       this.cbTab.UseVisualStyleBackColor = true;
       // 
+      // cbNoting
+      // 
+      this.cbNoting.AutoSize = true;
+      this.cbNoting.Checked = true;
+      this.cbNoting.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbNoting.Location = new System.Drawing.Point(181, 63);
+      this.cbNoting.Margin = new System.Windows.Forms.Padding(2);
+      this.cbNoting.Name = "cbNoting";
+      this.cbNoting.Size = new System.Drawing.Size(67, 16);
+      this.cbNoting.TabIndex = 16;
+      this.cbNoting.Text = "対象なし";
+      this.cbNoting.UseVisualStyleBackColor = true;
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(559, 473);
+      this.Controls.Add(this.cbNoting);
       this.Controls.Add(this.cbTab);
       this.Controls.Add(this.cbHeader);
       this.Controls.Add(this.cbOutAttr);
@@ -288,6 +303,7 @@
     private System.Windows.Forms.CheckBox cbOutAttr;
     private System.Windows.Forms.CheckBox cbHeader;
     private System.Windows.Forms.CheckBox cbTab;
+    private System.Windows.Forms.CheckBox cbNoting;
   }
 }
 
