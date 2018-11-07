@@ -406,11 +406,8 @@ namespace WFA
       // 検索結果が存在しない場合
       if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
       {
-        returnStr += "検索対象なし";
+        returnStr += "検索対象なし\r\n";
       }
-
-      // 改行
-      returnStr += "\r\n";
 
       return returnStr;
     }
