@@ -383,7 +383,7 @@ namespace WFA
           if (cbOutAttr.Checked)
           {
             // 属性取得メソッド使用
-            returnStr += GetAtrr(xmlReader, cbTab.Checked, cbHeader.Checked);
+            returnStr += GetAttr(xmlReader, cbTab.Checked, cbHeader.Checked);
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
@@ -419,7 +419,7 @@ namespace WFA
 
 
     #region 属性取得メソッド
-    private string GetAtrr(XmlReader xmlReader, bool tabFlg, bool headerFlg)
+    private string GetAttr(XmlReader xmlReader, bool tabFlg, bool headerFlg)
     {
       string preReturnStr = string.Empty;
       string returnStr = string.Empty;
@@ -433,9 +433,9 @@ namespace WFA
         // 返り値フォーマット
         string RETURN_FORMAT = "{0}\r\n";
         // 属性名取得
-        string atrrName = xmlReader.Name;
+        string AttrName = xmlReader.Name;
         // 属性取得
-        string atrr = xmlReader.GetAttribute(i);
+        string Attr = xmlReader.GetAttribute(i);
 
         // タブフラグ
         if (tabFlg)
@@ -459,9 +459,9 @@ namespace WFA
         }
 
         // 属性名追加
-        outHead += "\t" + atrrName;
+        outHead += "\t" + AttrName;
         // 属性追加
-        preReturnStr += string.Format(RETURN_FORMAT, atrr);
+        preReturnStr += string.Format(RETURN_FORMAT, Attr);
 
         ++i;
       }
