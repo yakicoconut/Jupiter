@@ -25,11 +25,12 @@ Sub FileSearch(path As String, rowNum As Long)
   Dim foundCell As range
   Dim firstAddress As String
   Dim sheetColumn As Long
+  Dim isOutFileName As Boolean
 
   ' 結果出力列初期値
   sheetColumn = 9
 
-  '
+  ' VBA実行中ワークブックで処理
   With ThisWorkbook
     ' FileSystemObjectオブジェクト作成
     Set FSO = CreateObject("Scripting.FileSystemObject")
@@ -38,6 +39,8 @@ Sub FileSearch(path As String, rowNum As Long)
     For Each x In FSO.GetFolder(path).Files
       ' 結果出力列初期値
       sheetColumn = 9
+      ' ファイル名出力フラグ初期値
+      isOutFileName = True
 
       ' ねずみ返し_対象がエクセルでない場合
       If InStr(x.Type, "Excel") <= 0 Then
@@ -63,11 +66,6 @@ Sub FileSearch(path As String, rowNum As Long)
       Application.Top = 730
       Application.Left = 1340
 
-      ' 対象ファイル名出力
-      .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = x.Name
-      rowNum = rowNum + 1
-      sheetColumn = sheetColumn + 1
-
 
       ' シート検索
       For Each y In wb.Worksheets
@@ -77,18 +75,29 @@ Sub FileSearch(path As String, rowNum As Long)
         ' 検索実行
         Set foundCell = range.Find(What:=.Worksheets("Sheet1").Cells(4, 9).MergeArea(1, 1).Value, LookIn:=xlValues)
 
-        ' ねずみ返し_検索結果が存在しない
+        ' ねずみ返し_検索結果が存在しない場合
         If foundCell Is Nothing Then
           ' 次のシートへ
           GoTo NEXTSEET
         End If
 
-        ' 検索結果最上位位置
-        firstAddress = foundCell.Address
+        ' ファイル名出力フラグ
+        If isOutFileName Then
+          ' 対象ファイル名出力
+          ' ※一ファイル一回だけ出力
+          .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = x.Name
+          rowNum = rowNum + 1
+          sheetColumn = sheetColumn + 1
+
+          isOutFileName = False
+        End If
 
         ' 該当シート名出力
         .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = y.Name
         rowNum = rowNum + 1
+
+        ' 検索結果最上位位置
+        firstAddress = foundCell.Address
 
         ' 検索結果ループ
         Do
@@ -104,6 +113,7 @@ Sub FileSearch(path As String, rowNum As Long)
 
         ' 最上位位置になるまでループ
         Loop Until foundCell.Address = firstAddress
+
 
 NEXTSEET:
       ' 次のシートへ
