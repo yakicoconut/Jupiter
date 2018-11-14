@@ -37,6 +37,7 @@ Sub findAllBook()
   Dim isLookAtFlg As String
   Dim isMatchCaseFlg As String
   Dim isSubFolderFlg As String
+  Dim exclude() As String
 
 
   Rem 初期値
@@ -49,7 +50,7 @@ Sub findAllBook()
   ' 検索値
   findValue = thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value
   ' 結果出力開始セル初期値
-  rowNum = 11
+  rowNum = 12
   columnNum = 3
   ' 完全一致フラグ
   isLookAtFlg = thisWorkSheet.Cells(5, 9).MergeArea(1, 1).Value
@@ -57,6 +58,8 @@ Sub findAllBook()
   isMatchCaseFlg = thisWorkSheet.Cells(6, 9).MergeArea(1, 1).Value
   ' サブフォルダ検索フラグ
   isSubFolderFlg = thisWorkSheet.Cells(7, 9).MergeArea(1, 1).Value
+  ' 除外ファイル拡張子配列
+  exclude = Split(thisWorkSheet.Cells(8, 9).MergeArea(1, 1).Value, ",")
 
 
   Rem オプション
@@ -86,7 +89,7 @@ Sub findAllBook()
 
 
   ' ファイル検索関数使用
-  Call FileSearch(targetPath, findValue, rowNum, columnNum)
+  Call FileSearch(targetPath, findValue, rowNum, columnNum, exclude)
 
 End Sub
 
@@ -96,7 +99,8 @@ Rem ファイル検索関数
 ' findValue  :検索値
 ' rowNum     :結果出力開始行
 ' columnNum  :結果出力開始列
-Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, columnNum As Long)
+' exclude    :除外ファイル拡張子配列
+Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, columnNum As Long, exclude() As String)
   Rem 宣言
   Dim FSO As Object, Folder As Variant, File As Variant
   Dim bOpened As Boolean
@@ -106,6 +110,7 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
   Dim firstAddress As String
   Dim sheetColumn As Long
   Dim isOutFileName As Boolean
+  Dim excludeFilterResult() As String
 
 
   Rem 代入
@@ -123,6 +128,12 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
     ' ねずみ返し_対象がエクセルでない場合
     If InStr(x.Type, "Excel") <= 0 Then
       ' 次へ
+      GoTo CONTINUE
+    End If
+
+    ' ねずみ返し_対象ファイル拡張子が除外ファイル拡張子の場合
+    excludeFilterResult = Filter(exclude, "." + FSO.GetExtensionName(x))
+    If UBound(excludeFilterResult) <> -1 Then
       GoTo CONTINUE
     End If
 
@@ -211,7 +222,7 @@ CONTINUE:
   If isSubFolder Then
     For Each x In FSO.GetFolder(targetPath).SubFolders
       ' 本関数を回帰呼び出し
-      Call FileSearch(x.path, findValue, rowNum, columnNum)
+      Call FileSearch(x.path, findValue, rowNum, columnNum, exclude)
     Next x
   End If
 
@@ -237,5 +248,4 @@ Function IsBookOpened(a_sFilePath) As Boolean
   End If
 
 End Function
-
 
