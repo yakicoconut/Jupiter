@@ -14,19 +14,35 @@ Rem 複数エクセル内検索
 '     http://excelvba.pc-users.net/fol7/7_1.html
 
 
+Rem グローバル変数宣言
+' 作業ワークシート
+Dim thisWorkSheet As Worksheet
+
+
 Rem メイン関数
 Sub findAllBook()
+  Rem 宣言
+  Dim targetPath As String
   Dim rowNum As Long
   Dim path As String
 
+
   Rem 初期値
+  ' 作業ワークシート
+  Set thisWorkSheet = ThisWorkbook.Worksheets("FindExcel")
   ' 対象フォルダパス
-  path = ThisWorkbook.Worksheets("Sheet1").Cells(3, 9).MergeArea(1, 1).Value
-  ' 結果出力開始行
-  rowNum = 7
+  targetPath = thisWorkSheet.Cells(3, 9).MergeArea(1, 1).Value
+  ' 対象ルートフォルダパス
+  targetRootFolder = thisWorkSheet.Cells(3, 9).MergeArea(1, 1).Value
+  ' 検索値
+  findValue = thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value
+  ' 結果出力開始セル初期値
+  rowNum = 11
+  columnNum = 3
+
 
   ' ファイル検索関数使用
-  Call FileSearch(path, rowNum)
+  Call FileSearch(targetPath, rowNum)
 
 End Sub
 
@@ -46,111 +62,109 @@ Sub FileSearch(path As String, rowNum As Long)
   Dim isOutFileName As Boolean
 
   ' 結果出力列初期値
-  sheetColumn = 9
+  sheetColumn = 11
 
-  Rem VBA実行中ワークブックで処理
-  With ThisWorkbook
-    ' FileSystemObjectオブジェクト作成
-    Set FSO = CreateObject("Scripting.FileSystemObject")
+  ' FileSystemObjectオブジェクト作成
+  Set FSO = CreateObject("Scripting.FileSystemObject")
 
-    Rem ファイル探索
-    For Each x In FSO.GetFolder(path).Files
-      ' 結果出力列初期値
-      sheetColumn = 9
-      ' ファイル名出力フラグ初期値
-      isOutFileName = True
+  Rem ファイル探索
+  For Each x In FSO.GetFolder(path).Files
+    ' 結果出力列初期値
+    sheetColumn = 9
+    ' ファイル名出力フラグ初期値
+    isOutFileName = True
 
-      ' ねずみ返し_対象がエクセルでない場合
-      If InStr(x.Type, "Excel") <= 0 Then
-        ' 次へ
-        GoTo CONTINUE
+    ' ねずみ返し_対象がエクセルでない場合
+    If InStr(x.Type, "Excel") <= 0 Then
+      ' 次へ
+      GoTo CONTINUE
+    End If
+
+    ' 対象ブック開閉判断関数使用
+    bOpened = IsBookOpened(x)
+    If (bOpened = False) Then
+      ' 開く
+      Set wb = Workbooks.Open(x, ReadOnly:=True)
+    End If
+
+    Rem ブック操作の非表示
+    '     完全に非表示にすると処理をしているかわかり辛いため
+    '     開いたブックの大きさを指定
+    ' ※以前は非表示にしても画面表示されていたができなくなったためコメントアウト
+    ' Application.ScreenUpdating = False
+    Application.WindowState = xlNormal
+    Application.Height = 50
+    Application.Width = 40
+    Application.Top = 730
+    Application.Left = 1340
+
+
+    Rem シート検索
+    For Each y In wb.Worksheets
+      ' シート内のセル使用範囲取得
+      Set range = y.UsedRange
+
+      ' 検索実行
+      Set foundCell = range.Find(What:=thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value, lookIn:=xlValues)
+
+      ' ねずみ返し_検索結果が存在しない場合
+      If foundCell Is Nothing Then
+        ' 次のシートへ
+        GoTo NEXTSEET
       End If
 
-      ' 対象ブック開閉判断関数使用
-      bOpened = IsBookOpened(x)
-      If (bOpened = False) Then
-        ' 開く
-        Set wb = Workbooks.Open(x, ReadOnly:=True)
+      ' ファイル名出力フラグ
+      If isOutFileName Then
+        ' 対象ファイル名出力
+        ' ※一ファイル一回だけ出力
+        thisWorkSheet.Cells(rowNum, sheetColumn).Value = x.Name
+        rowNum = rowNum + 1
+        sheetColumn = sheetColumn + 1
+
+        isOutFileName = False
       End If
 
-      Rem ブック操作の非表示
-      '     完全に非表示にすると処理をしているかわかり辛いため
-      '     開いたブックの大きさを指定
-      ' ※以前は非表示にしても画面表示されていたができなくなったためコメントアウト
-      ' Application.ScreenUpdating = False      Application.WindowState = xlNormal
-      Application.Height = 50
-      Application.Width = 40
-      Application.Top = 730
-      Application.Left = 1340
+      ' 該当シート名出力
+      thisWorkSheet.Cells(rowNum, sheetColumn).Value = y.Name
+      rowNum = rowNum + 1
 
+      ' 検索結果最上位位置
+      firstAddress = foundCell.Address
 
-      Rem シート検索
-      For Each y In wb.Worksheets
-        ' シート内のセル使用範囲取得
-        Set range = y.UsedRange
-
-        ' 検索実行
-        Set foundCell = range.Find(What:=.Worksheets("Sheet1").Cells(4, 9).MergeArea(1, 1).Value, LookIn:=xlValues)
-
-        ' ねずみ返し_検索結果が存在しない場合
-        If foundCell Is Nothing Then
-          ' 次のシートへ
-          GoTo NEXTSEET
-        End If
-
-        ' ファイル名出力フラグ
-        If isOutFileName Then
-          ' 対象ファイル名出力
-          ' ※一ファイル一回だけ出力
-          .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = x.Name
-          rowNum = rowNum + 1
-          sheetColumn = sheetColumn + 1
-
-          isOutFileName = False
-        End If
-
-        ' 該当シート名出力
-        .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = y.Name
+      ' 検索結果ループ
+      Do
+        ' 検索結果(発見位置)出力
+        thisWorkSheet.Cells(rowNum, sheetColumn + 1).Value = foundCell.Address(RowAbsolute:=False, ColumnAbsolute:=False)
         rowNum = rowNum + 1
 
+        ' 次の検索結果位置へ
+        Set foundCell = range.FindNext(foundCell)
+
         ' 検索結果最上位位置
-        firstAddress = foundCell.Address
+        If foundCell Is Nothing Then Exit Do
 
-        ' 検索結果ループ
-        Do
-          ' 検索結果(発見位置)出力
-          .Worksheets("Sheet1").Cells(rowNum, sheetColumn + 1).Value = foundCell.Address(RowAbsolute:=False, ColumnAbsolute:=False)
-          rowNum = rowNum + 1
-
-          ' 次の検索結果位置へ
-          Set foundCell = range.FindNext(foundCell)
-
-          ' 検索結果最上位位置
-          If foundCell Is Nothing Then Exit Do
-
-        ' 最上位位置になるまでループ
-        Loop Until foundCell.Address = firstAddress
+      ' 最上位位置になるまでループ
+      Loop Until foundCell.Address = firstAddress
 
 
 NEXTSEET:
-      ' 次のシートへ
-      Next y
+    ' 次のシートへ
+    Next y
 
-      ' ブッククローズ
-      wb.Close
+    ' ブッククローズ
+    wb.Close
 
 
 CONTINUE:
-    ' 次のファイルへ
-    Next x
+  ' 次のファイルへ
+  Next x
 
-    ' サブフォルダ検索
-    For Each x In FSO.GetFolder(path).SubFolders
-      ' 本関数を回帰呼び出し
-      Call FileSearch(x.path, rowNum)
-    Next x
+  ' サブフォルダ検索
+  For Each x In FSO.GetFolder(path).SubFolders
+    ' 本関数を回帰呼び出し
+    Call FileSearch(x.path, rowNum)
+  Next x
 
-  End With
 End Sub
 
 
@@ -173,4 +187,5 @@ Function IsBookOpened(a_sFilePath) As Boolean
   End If
 
 End Function
+
 
