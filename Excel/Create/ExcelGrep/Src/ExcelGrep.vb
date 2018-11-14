@@ -23,8 +23,9 @@ Rem メイン関数
 Sub findAllBook()
   Rem 宣言
   Dim targetPath As String
+  Dim findValue As String
   Dim rowNum As Long
-  Dim path As String
+  Dim columnNum As Long
 
 
   Rem 初期値
@@ -42,15 +43,17 @@ Sub findAllBook()
 
 
   ' ファイル検索関数使用
-  Call FileSearch(targetPath, rowNum)
+  Call FileSearch(targetPath, findValue, rowNum, columnNum)
 
 End Sub
 
 
 Rem ファイル検索関数
-' path  :対象フォルダパス
-' rowNum:結果出力開始行
-Sub FileSearch(path As String, rowNum As Long)
+' targetPath :対象フォルダパス
+' findValue  :検索値
+' rowNum     :結果出力開始行
+' columnNum  :結果出力開始列
+Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, columnNum As Long)
   Rem 宣言
   Dim FSO As Object, Folder As Variant, File As Variant
   Dim bOpened As Boolean
@@ -61,16 +64,15 @@ Sub FileSearch(path As String, rowNum As Long)
   Dim sheetColumn As Long
   Dim isOutFileName As Boolean
 
-  ' 結果出力列初期値
-  sheetColumn = 11
 
+  Rem 代入
   ' FileSystemObjectオブジェクト作成
   Set FSO = CreateObject("Scripting.FileSystemObject")
 
   Rem ファイル探索
-  For Each x In FSO.GetFolder(path).Files
+  For Each x In FSO.GetFolder(targetPath).Files
     ' 結果出力列初期値
-    sheetColumn = 9
+    sheetColumn = columnNum
     ' ファイル名出力フラグ初期値
     isOutFileName = True
 
@@ -86,6 +88,7 @@ Sub FileSearch(path As String, rowNum As Long)
       ' 開く
       Set wb = Workbooks.Open(x, ReadOnly:=True)
     End If
+
 
     Rem ブック操作の非表示
     '     完全に非表示にすると処理をしているかわかり辛いため
@@ -131,7 +134,8 @@ Sub FileSearch(path As String, rowNum As Long)
       ' 検索結果最上位位置
       firstAddress = foundCell.Address
 
-      ' 検索結果ループ
+
+      Rem 検索結果ループ
       Do
         ' 検索結果(発見位置)出力
         thisWorkSheet.Cells(rowNum, sheetColumn + 1).Value = foundCell.Address(RowAbsolute:=False, ColumnAbsolute:=False)
@@ -159,11 +163,11 @@ CONTINUE:
   ' 次のファイルへ
   Next x
 
-  ' サブフォルダ検索
-  For Each x In FSO.GetFolder(path).SubFolders
-    ' 本関数を回帰呼び出し
-    Call FileSearch(x.path, rowNum)
-  Next x
+  ' ' サブフォルダ検索
+  ' For Each x In FSO.GetFolder(path).SubFolders
+  '   ' 本関数を回帰呼び出し
+  '   Call FileSearch(targetPath, findValue, rowNum, columnNum)
+  ' Next x
 
 End Sub
 
