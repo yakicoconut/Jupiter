@@ -209,7 +209,10 @@ NEXTSEET:
     ' 次のシートへ
     Next y
 
-    ' ブッククローズ
+
+    Rem ブッククローズ
+    ' 保存済みフラグだけ立てる(実際には保存されていない)
+    wb.Saved = True
     wb.Close
 
 
