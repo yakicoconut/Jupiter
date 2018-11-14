@@ -112,6 +112,7 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
   ' FileSystemObjectオブジェクト作成
   Set FSO = CreateObject("Scripting.FileSystemObject")
 
+
   Rem ファイル探索
   For Each x In FSO.GetFolder(targetPath).Files
     ' 結果出力列初期値
@@ -174,7 +175,9 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
       thisWorkSheet.Cells(rowNum, sheetColumn).Value = y.Name
       rowNum = rowNum + 1
 
-      ' 検索結果最上位位置
+      ' 出力結果を左上のセルからにするため一つ戻る
+      Set foundCell = range.FindPrevious(foundCell)
+      ' 検索結果最上位位置取得
       firstAddress = foundCell.Address
 
 
@@ -186,9 +189,6 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
 
         ' 次の検索結果位置へ
         Set foundCell = range.FindNext(foundCell)
-
-        ' 検索結果最上位位置
-        If foundCell Is Nothing Then Exit Do
 
       ' 最上位位置になるまでループ
       Loop Until foundCell.Address = firstAddress
