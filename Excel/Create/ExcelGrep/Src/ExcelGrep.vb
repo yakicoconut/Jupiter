@@ -17,6 +17,12 @@ Rem 複数エクセル内検索
 Rem グローバル変数宣言
 ' 作業ワークシート
 Dim thisWorkSheet As Worksheet
+' 対象ルートフォルダパス
+Dim targetRootFolder As String
+' 一致フラグ
+Dim lookAt As Variant
+' 大小文字
+Dim matchCase As Boolean
 
 
 Rem メイン関数
@@ -26,6 +32,8 @@ Sub findAllBook()
   Dim findValue As String
   Dim rowNum As Long
   Dim columnNum As Long
+  Dim isLookAtFlg As String
+  Dim isMatchCaseFlg As String
 
 
   Rem 初期値
@@ -40,6 +48,28 @@ Sub findAllBook()
   ' 結果出力開始セル初期値
   rowNum = 11
   columnNum = 3
+  ' 完全一致フラグ
+  isLookAtFlg = thisWorkSheet.Cells(5, 9).MergeArea(1, 1).Value
+  ' 大小文字区別フラグ
+  isMatchCaseFlg = thisWorkSheet.Cells(6, 9).MergeArea(1, 1).Value
+
+
+  Rem オプション
+  '完全一致フラグ
+  ' xlPart:部分一致
+  lookAt = XlLookAt.xlPart
+  If LCase(isLookAtFlg) = "true" Then
+    ' xlWhole:完全一致
+    lookAt = xlWhole
+  End If
+
+  ' 大小文字区別フラグ
+  ' False:大小文字区別しない
+  matchCase = False
+  If LCase(isMatchCaseFlg) = "true" Then
+    ' True :大小文字区別する
+    matchCase = True
+  End If
 
 
   ' ファイル検索関数使用
@@ -108,7 +138,7 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
       Set range = y.UsedRange
 
       ' 検索実行
-      Set foundCell = range.Find(What:=thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value, lookIn:=xlValues)
+      Set foundCell = range.Find(What:=findValue, lookIn:=xlValues, lookAt:=lookAt, matchCase:=matchCase)
 
       ' ねずみ返し_検索結果が存在しない場合
       If foundCell Is Nothing Then
