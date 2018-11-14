@@ -28,7 +28,7 @@ Dim isSubFolder As Boolean
 
 
 Rem ƒƒCƒ“ŠÖ”
-Sub findAllBook()
+Sub FindAllBook()
   Rem éŒ¾
   Dim targetPath As String
   Dim findValue As String
