@@ -160,11 +160,11 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
         GoTo NEXTSEET
       End If
 
-      ' ファイル名出力フラグ
+      ' 一ファイル一回だけ処理
       If isOutFileName Then
         ' 対象ファイル名出力
         ' ※一ファイル一回だけ出力
-        thisWorkSheet.Cells(rowNum, sheetColumn).Value = x.Name
+        thisWorkSheet.Cells(rowNum, sheetColumn).Value = Replace(targetPath, targetRootFolder, "") + "\" + x.Name
         rowNum = rowNum + 1
         sheetColumn = sheetColumn + 1
 
@@ -206,7 +206,8 @@ CONTINUE:
   ' 次のファイルへ
   Next x
 
-  ' サブフォルダ検索
+
+  Rem サブフォルダ検索
   If isSubFolder Then
     For Each x In FSO.GetFolder(targetPath).SubFolders
       ' 本関数を回帰呼び出し
