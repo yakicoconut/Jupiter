@@ -1,8 +1,25 @@
-' メイン関数
+Rem 複数エクセル内検索
+' 概要
+'   複数のエクセル対象にセルの内容を検索し
+'   該当のファイル名、シート名、セル位置を出力する
+' 詳細
+'   ・対象セル範囲はシート内の有効セル位置(入力があるセルで一番右下のもの)を
+'     取得して検索を行い、無効範囲の検索を極力少なくする
+' サイト
+'   Range.Find メソッド (Excel)
+'     https://msdn.microsoft.com/ja-jp/vba/excel-vba/articles/range-find-method-excel
+'   Findで完全一致・部分一致を指定して検索するには:ExcelVBA Rangeオブジェクト-セル検索
+'     https://www.relief.jp/docs/excel-vba-range-find-whole-part.html
+'   Excel VBA 入門講座 検索 Find
+'     http://excelvba.pc-users.net/fol7/7_1.html
+
+
+Rem メイン関数
 Sub findAllBook()
   Dim rowNum As Long
   Dim path As String
 
+  Rem 初期値
   ' 対象フォルダパス
   path = ThisWorkbook.Worksheets("Sheet1").Cells(3, 9).MergeArea(1, 1).Value
   ' 結果出力開始行
@@ -14,10 +31,11 @@ Sub findAllBook()
 End Sub
 
 
-' ファイル検索関数
-' path  :
-' rowNum:
+Rem ファイル検索関数
+' path  :対象フォルダパス
+' rowNum:結果出力開始行
 Sub FileSearch(path As String, rowNum As Long)
+  Rem 宣言
   Dim FSO As Object, Folder As Variant, File As Variant
   Dim bOpened As Boolean
   Dim wb As Workbook
@@ -30,12 +48,12 @@ Sub FileSearch(path As String, rowNum As Long)
   ' 結果出力列初期値
   sheetColumn = 9
 
-  ' VBA実行中ワークブックで処理
+  Rem VBA実行中ワークブックで処理
   With ThisWorkbook
     ' FileSystemObjectオブジェクト作成
     Set FSO = CreateObject("Scripting.FileSystemObject")
 
-    ' ファイル探索
+    Rem ファイル探索
     For Each x In FSO.GetFolder(path).Files
       ' 結果出力列初期値
       sheetColumn = 9
@@ -55,19 +73,18 @@ Sub FileSearch(path As String, rowNum As Long)
         Set wb = Workbooks.Open(x, ReadOnly:=True)
       End If
 
-      ' ブック操作の非表示
+      Rem ブック操作の非表示
+      '     完全に非表示にすると処理をしているかわかり辛いため
+      '     開いたブックの大きさを指定
       ' ※以前は非表示にしても画面表示されていたができなくなったためコメントアウト
-      ' Application.ScreenUpdating = False
-      ' 完全に非表示にすると処理をしているかわかり辛いため
-      ' 開いたブックの大きさを指定
-      Application.WindowState = xlNormal
+      ' Application.ScreenUpdating = False      Application.WindowState = xlNormal
       Application.Height = 50
       Application.Width = 40
       Application.Top = 730
       Application.Left = 1340
 
 
-      ' シート検索
+      Rem シート検索
       For Each y In wb.Worksheets
         ' シート内のセル使用範囲取得
         Set range = y.UsedRange
@@ -137,8 +154,8 @@ CONTINUE:
 End Sub
 
 
-' 対象ブック開閉判断関数
-' a_sFilePath:
+Rem 対象ブック開閉判断関数
+' a_sFilePath:対象ファイルパス
 Function IsBookOpened(a_sFilePath) As Boolean
   ' エラー発生の場合、次の行から再スタートオプション
   On Error Resume Next
