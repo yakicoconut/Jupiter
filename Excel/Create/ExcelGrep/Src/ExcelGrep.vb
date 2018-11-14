@@ -23,6 +23,8 @@ Dim targetRootFolder As String
 Dim lookAt As Variant
 ' 大小文字
 Dim matchCase As Boolean
+' サブフォルダ検索フラグ
+Dim isSubFolder As Boolean
 
 
 Rem メイン関数
@@ -34,6 +36,7 @@ Sub findAllBook()
   Dim columnNum As Long
   Dim isLookAtFlg As String
   Dim isMatchCaseFlg As String
+  Dim isSubFolderFlg As String
 
 
   Rem 初期値
@@ -52,6 +55,8 @@ Sub findAllBook()
   isLookAtFlg = thisWorkSheet.Cells(5, 9).MergeArea(1, 1).Value
   ' 大小文字区別フラグ
   isMatchCaseFlg = thisWorkSheet.Cells(6, 9).MergeArea(1, 1).Value
+  ' サブフォルダ検索フラグ
+  isSubFolderFlg = thisWorkSheet.Cells(7, 9).MergeArea(1, 1).Value
 
 
   Rem オプション
@@ -69,6 +74,14 @@ Sub findAllBook()
   If LCase(isMatchCaseFlg) = "true" Then
     ' True :大小文字区別する
     matchCase = True
+  End If
+
+  ' サブフォルダ検索フラグ
+  ' False:検索しない
+  isSubFolder = False
+  If LCase(isSubFolderFlg) = "true" Then
+    ' True :検索する
+    isSubFolder = True
   End If
 
 
@@ -193,11 +206,13 @@ CONTINUE:
   ' 次のファイルへ
   Next x
 
-  ' ' サブフォルダ検索
-  ' For Each x In FSO.GetFolder(path).SubFolders
-  '   ' 本関数を回帰呼び出し
-  '   Call FileSearch(targetPath, findValue, rowNum, columnNum)
-  ' Next x
+  ' サブフォルダ検索
+  If isSubFolder Then
+    For Each x In FSO.GetFolder(targetPath).SubFolders
+      ' 本関数を回帰呼び出し
+      Call FileSearch(x.path, findValue, rowNum, columnNum)
+    Next x
+  End If
 
 End Sub
 
