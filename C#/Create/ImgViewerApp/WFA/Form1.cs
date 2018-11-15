@@ -42,6 +42,9 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
+      // ファイル管理フォームインスタンス生成
+      fmFileMng = new FrmFileMng(this);
+
       // コマンドライン引数取得
       string[] cmdArgs = Environment.GetCommandLineArgs();
       // 引数がある場合(自身のexeパスが1つ目なので2以上のとき)
@@ -52,6 +55,9 @@ namespace WFA
         // ファイル読み込みメソッド使用
         ReadFile(dropItem);
       }
+
+      // 取り込みXMLパス初期化
+      InputXmlPath = string.Empty;
     }
     #endregion
 
@@ -128,6 +134,9 @@ namespace WFA
 
       // ビュウアプリパス
       launchViewAppPath = _comLogic.GetConfigValue("LaunchViewAppPath", Assembly.GetExecutingAssembly().Location);
+
+      // Xmlフォルダ名称
+      XmlFolderName = _comLogic.GetConfigValue("XmlFolderPath", "List");
     }
     #endregion
 
@@ -447,7 +456,38 @@ namespace WFA
     #region コンテキスト_リスト押下イベント
     private void ToolStripMenuItemList_Click(object sender, EventArgs e)
     {
+      // ファイル管理フォームのプロパティに本クラスを設定
+      fmFileMng.form1 = this;
+      // ファイル管理フォーム呼び出し
+      fmFileMng.ShowDialog();
 
+      // ねずみ返し_オプションフォームでファイル選択されなかった場合
+      if (InputXmlPath == string.Empty)
+      {
+        return;
+      }
+
+      // XML読み込みメソッド使用
+      ReadXml(InputXmlPath);
+
+      /* 画像表示処理 */
+      // 表示するファイルにドロップしたファイルを設定
+      CurrentImageKey = 0;
+      // 最終ページ数を設定
+      maxImageKey = dicImgPath.Count - 1;
+
+      // 現在倍率に初期倍率を設定する
+      currentZoomRatio = initZoomRatio;
+
+      // 画像初期化メソッド使用
+      ImgInit();
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm();
+
+      // ファイルリストの該当ファイルを選択
+      fmFileList.lvFileList.SelectedItems.Clear();
+      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
     }
     #endregion
 
