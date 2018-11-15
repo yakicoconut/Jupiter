@@ -37,6 +37,7 @@
       this.ToolStripMenuItemOptionForm = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemLaunchViewApp = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemConfig = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -62,9 +63,10 @@
             this.ToolStripMenuItemFileListForm,
             this.ToolStripMenuItemOptionForm,
             this.ToolStripMenuItemLaunchViewApp,
-            this.ToolStripMenuItemConfig});
+            this.ToolStripMenuItemConfig,
+            this.ToolStripMenuItemList});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(185, 158);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(185, 180);
       // 
       // ToolStripMenuItemIsModeZoom
       // 
@@ -108,6 +110,13 @@
       this.ToolStripMenuItemConfig.Text = "コンフィグ";
       this.ToolStripMenuItemConfig.Click += new System.EventHandler(this.ToolStripMenuItemConfig_Click);
       // 
+      // ToolStripMenuItemList
+      // 
+      this.ToolStripMenuItemList.Name = "リストToolStripMenuItem";
+      this.ToolStripMenuItemList.Size = new System.Drawing.Size(184, 22);
+      this.ToolStripMenuItemList.Text = "リスト";
+      this.ToolStripMenuItemList.Click += new System.EventHandler(this.ToolStripMenuItemList_Click);
+      // 
       // Form1
       // 
       this.AllowDrop = true;
@@ -137,6 +146,7 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemIsModePageEject;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLaunchViewApp;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemConfig;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemList;
   }
 }
 

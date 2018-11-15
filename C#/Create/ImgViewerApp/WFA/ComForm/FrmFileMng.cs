@@ -40,7 +40,7 @@ namespace WFA
       this.Text = "ファイル管理";
 
       // 検索対象フォルダ設定
-      tbSearchPath.Text = form1.xmlFolderName;
+      tbSearchPath.Text = form1.XmlFolderName;
       // 検索対象が存在しない場合
       if (!Directory.Exists(tbSearchPath.Text))
       {
@@ -194,7 +194,7 @@ namespace WFA
       }
 
       // 選択項目からパス作成
-      form1.inputXmlPath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      form1.InputXmlPath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
       // フォーム閉じる
       this.Close();
     }
@@ -222,7 +222,7 @@ namespace WFA
       }
 
       // 選択項目からパス作成
-      form1.inputXmlPath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      form1.InputXmlPath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
       // フォーム閉じる
       this.Close();
     }
@@ -258,7 +258,7 @@ namespace WFA
       lvFileList.Items.Clear();
 
       // XMLフォルダ名称をコミットパスに更新
-      form1.xmlFolderName = tbCommitPath.Text;
+      form1.XmlFolderName = tbCommitPath.Text;
 
       //// クローズキャンセル
       //if (e.CloseReason == CloseReason.UserClosing)

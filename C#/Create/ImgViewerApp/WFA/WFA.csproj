@@ -53,6 +53,12 @@
     <Compile Include="ComForm\FrmFileList.Designer.cs">
       <DependentUpon>FrmFileList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComForm\FrmFileMng.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComForm\FrmFileMng.Designer.cs">
+      <DependentUpon>FrmFileMng.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComForm\FrmOption.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="WFAComLogic.cs" />
     <EmbeddedResource Include="ComForm\FrmFileList.resx">
       <DependentUpon>FrmFileList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComForm\FrmFileMng.resx">
+      <DependentUpon>FrmFileMng.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ComForm\FrmOption.resx">
       <DependentUpon>FrmOption.cs</DependentUpon>

@@ -15,6 +15,8 @@ using System.Diagnostics;
 using System.Configuration;
 using System.Collections;
 using System.Threading;
+using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace WFA
 {
@@ -139,6 +141,8 @@ namespace WFA
     FrmOption fmOption = new FrmOption();
     // ファイルリストフォームインスタンス生成
     FrmFileList fmFileList = new FrmFileList();
+    // ファイル管理フォーム
+    FrmFileMng fmFileMng;
 
     // 初期フォームサイズ
     int defFormWidth;
@@ -231,6 +235,16 @@ namespace WFA
     /// コミット先パス
     /// </summary>
     public string commitPath { get; set; }
+
+    /// <summary>
+    /// XMLフォルダ名称
+    /// </summary>
+    public string XmlFolderName { get; set; }
+
+    /// <summary>
+    /// 取り込みXMLパス
+    /// </summary>
+    public string InputXmlPath { get; set; }
 
     #endregion
 
@@ -427,6 +441,13 @@ namespace WFA
 
       // コンフィグファイルを関連付けられたアプリケーションで開く
       Process p = Process.Start(configPath);
+    }
+    #endregion
+
+    #region コンテキスト_リスト押下イベント
+    private void ToolStripMenuItemList_Click(object sender, EventArgs e)
+    {
+
     }
     #endregion
 
@@ -1368,6 +1389,97 @@ namespace WFA
       rightSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X >= ctrlSize.Width / 2;
       // 左側の有効縦幅判定
       leftSideClick = clickPosition.Y >= beginHeightBelt && clickPosition.Y <= endHeightBelt && clickPosition.X <= ctrlSize.Width / 2;
+    }
+    #endregion
+
+
+    #region XML読み込みメソッド
+    private void ReadXml(string targetPath)
+    {
+      // ディクショナリクリア
+      dicImgPath.Clear();
+
+      /* StringReader設定 */
+      XmlReaderSettings setting = new XmlReaderSettings();
+      // コメントを無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreComments = false;
+      // 処理命令(スタイルシートの宣言等)を無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreProcessingInstructions = false;
+      // 意味のない空白を無視するかどうか
+      setting.IgnoreWhitespace = true;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      {
+        // ルートタグへ移動
+        bool root = xmlReader.ReadToFollowing("Root");
+        // ねずみ返し_対象タグが存在しない場合
+        if (!root)
+        {
+          return;
+        }
+
+        // 「add」タグを巡回
+        int i = 0;
+        while (xmlReader.Read())
+        {
+          // 最初の属性「Key」へ
+          xmlReader.MoveToFirstAttribute();
+          string keyName = xmlReader.Value;
+          // ねずみ返し_キーの値が違う場合
+          if (!Regex.Match(keyName, @"ImgFilePath").Success)
+          {
+            continue;
+          }
+
+          // 二番目の属性「value」へ
+          xmlReader.MoveToNextAttribute();
+          string keyValue = xmlReader.Value;
+
+          // ディクショナリ追加        
+          dicImgPath.Add(i, keyValue);
+          ++i;
+        }
+      }
+    }
+    #endregion
+
+    #region XML保存メソッド
+    public void SaveXml(string outDirPath, string outFileName)
+    {
+      // 現在時刻取得
+      DateTime now = DateTime.Now;
+      string outputDate = now.ToString("yyyyMMddHHmmssfff");
+      string outputFileName = outDirPath + @"\" + outFileName + "_" + outputDate + ".xml";
+
+      // 出力用変数
+      string outStr = string.Empty;
+      string imgFileFormat = "  <add key=\"ImgFilePath\" value=\"{0}\"/>";
+      // XML用
+      string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+      string xmlRootStart = "<Root>";
+      string xmlRootEnd = "</Root>";
+
+      // チェックファイルループ
+      foreach (int x in fmFileList.lvFileList.CheckedIndices)
+      {
+        // チェックのあるイメージファイルパス
+        outStr += string.Format(imgFileFormat, dicImgPath[x]) + Environment.NewLine;
+      }
+
+      // 出力ファイルの作成
+      // 引数:対象ファイル、上書き可不可、文字コード
+      using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
+      {
+        sw.WriteLine(
+          xmlDec + Environment.NewLine +
+          xmlRootStart + Environment.NewLine +
+          outStr +
+          xmlRootEnd
+          );
+      }
     }
     #endregion
 
