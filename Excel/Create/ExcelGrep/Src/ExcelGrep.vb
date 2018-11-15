@@ -25,6 +25,14 @@ Dim lookAt As Variant
 Dim matchCase As Boolean
 ' サブフォルダ検索フラグ
 Dim isSubFolder As Boolean
+' 発見ファイルカウンタ
+Dim factCounter As Integer
+' 全ファイルカウンタ
+Dim denomCounter As Integer
+' 全ファイルカウンタ出力行
+Dim denomCounterRow As Integer
+' 全ファイルカウンタ出力列
+Dim denomCounterColumn As Integer
 
 
 Rem メイン関数
@@ -50,7 +58,7 @@ Sub FindAllBook()
   ' 検索値
   findValue = thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value
   ' 結果出力開始セル初期値
-  rowNum = 12
+  rowNum = 14
   columnNum = 3
   ' 完全一致フラグ
   isLookAtFlg = thisWorkSheet.Cells(5, 9).MergeArea(1, 1).Value
@@ -60,6 +68,14 @@ Sub FindAllBook()
   isSubFolderFlg = thisWorkSheet.Cells(7, 9).MergeArea(1, 1).Value
   ' 除外ファイル拡張子配列
   exclude = Split(thisWorkSheet.Cells(8, 9).MergeArea(1, 1).Value, ",")
+  ' 発見ファイルカウンタ
+  factCounter = 0
+  ' 全ファイルカウンタ
+  denomCounter = 0
+  ' 発見ファイルカウンタ出力行(発見ファイルカウンタの出力位置はこの変数から計算)
+  denomCounterRow = 12
+  ' 全ファイルカウンタ出力列(発見ファイルカウンタの出力位置はこの変数から計算)
+  denomCounterColumn = 5
 
 
   Rem オプション
@@ -87,6 +103,10 @@ Sub FindAllBook()
     isSubFolder = True
   End If
 
+
+  ' ファイルカウンタセル初期化
+  thisWorkSheet.Cells(denomCounterRow - 1, denomCounterColumn).Value = "0"
+  thisWorkSheet.Cells(denomCounterRow, denomCounterColumn).Value = "0"
 
   ' ファイル検索関数使用
   Call FileSearch(targetPath, findValue, rowNum, columnNum, exclude)
@@ -180,6 +200,11 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
         sheetColumn = sheetColumn + 1
 
         isOutFileName = False
+
+        ' 発見ファイルカウント
+        factCounter = factCounter + 1
+        thisWorkSheet.Cells(denomCounterRow - 1, denomCounterColumn).Value = Str(factCounter)
+
       End If
 
       ' 該当シート名出力
@@ -217,6 +242,10 @@ NEXTSEET:
 
 
 CONTINUE:
+  ' 全ファイルカウント
+  denomCounter = denomCounter + 1
+  thisWorkSheet.Cells(denomCounterRow, denomCounterColumn).Value = Str(denomCounter)
+
   ' 次のファイルへ
   Next x
 
