@@ -68,7 +68,7 @@ namespace WFA
       }
 
       // 現在のページ数に選択したファイルの番号を設定
-      parentForm.currentImageKey = lvFileList.SelectedItems[0].Index;
+      parentForm.CurrentImageKey = lvFileList.SelectedItems[0].Index;
 
       // ページ送りメソッド使用
       parentForm.FeedImg();
@@ -112,7 +112,7 @@ namespace WFA
       }
 
       // ファイル読み込みメソッド使用
-      parentForm.ReadFile(parentForm.dicImgPath[parentForm.currentImageKey]);
+      parentForm.ReadFile(parentForm.dicImgPath[parentForm.CurrentImageKey]);
     }
     #endregion
 

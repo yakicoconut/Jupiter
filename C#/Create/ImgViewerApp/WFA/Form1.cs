@@ -72,14 +72,14 @@ namespace WFA
         defFormHeight = SystemInformation.WorkingArea.Height;
       }
       // 移動距離
-      upMoveDistance = int.Parse(_comLogic.GetConfigValue("UpMoveDistance", "1"));
-      downMoveDistance = int.Parse(_comLogic.GetConfigValue("DownMoveDistance", "1"));
-      rightMoveDistance = int.Parse(_comLogic.GetConfigValue("RightMoveDistance", "1"));
-      leftMoveDistance = int.Parse(_comLogic.GetConfigValue("LeftMoveDistance", "1"));
+      UpMoveDistance = int.Parse(_comLogic.GetConfigValue("UpMoveDistance", "1"));
+      DownMoveDistance = int.Parse(_comLogic.GetConfigValue("DownMoveDistance", "1"));
+      RightMoveDistance = int.Parse(_comLogic.GetConfigValue("RightMoveDistance", "1"));
+      LeftMoveDistance = int.Parse(_comLogic.GetConfigValue("LeftMoveDistance", "1"));
       // 倍率関連
       initZoomRatio = double.Parse(_comLogic.GetConfigValue("InitZoomRatio", "1.0"));
-      zoomInRatio = double.Parse(_comLogic.GetConfigValue("ZoomInRatio", "2.0"));
-      zoomOutRatio = double.Parse(_comLogic.GetConfigValue("ZoomOutRatio", "2.0"));
+      ZoomInRatio = double.Parse(_comLogic.GetConfigValue("ZoomInRatio", "2.0"));
+      ZoomOutRatio = double.Parse(_comLogic.GetConfigValue("ZoomOutRatio", "2.0"));
 
       // 拡大/縮小モードキー
       modeZoomKey = _comLogic.GetConfigValue("ModeZoomKey", "Shift").ToLower();
@@ -199,33 +199,33 @@ namespace WFA
     /// <summary>
     /// 現在表示ページ数
     /// </summary>
-    public int currentImageKey { get; set; }
+    public int CurrentImageKey { get; set; }
 
     /// <summary>
     /// ズームイン倍率
     /// </summary>
-    public double zoomInRatio { get; set; }
+    public double ZoomInRatio { get; set; }
     /// <summary>
     /// ズームアウト倍率
     /// </summary>
-    public double zoomOutRatio { get; set; }
+    public double ZoomOutRatio { get; set; }
 
     /// <summary>
     /// 上移動距離
     /// </summary>
-    public int upMoveDistance { get; set; }
+    public int UpMoveDistance { get; set; }
     /// <summary>
     /// 下移動距離
     /// </summary>
-    public int downMoveDistance { get; set; }
+    public int DownMoveDistance { get; set; }
     /// <summary>
     /// 左移動距離
     /// </summary>
-    public int leftMoveDistance { get; set; }
+    public int LeftMoveDistance { get; set; }
     /// <summary>
     /// 右移動距離
     /// </summary>
-    public int rightMoveDistance { get; set; }
+    public int RightMoveDistance { get; set; }
 
     /// <summary>
     /// コミット先パス
@@ -274,13 +274,13 @@ namespace WFA
       fmOption.cbIsModePageEject.Text = string.Format("ページ送り({0})", modePageEjectKey);
       fmOption.cbIsModeZeroPoint.Text = string.Format("0Point({0})", modeZeroPointKey);
       fmOption.cbChkImg.Text = string.Format("チェック({0})", chkImgKey);
-      fmOption.nudZoomInRatio.Text = zoomInRatio.ToString();
+      fmOption.nudZoomInRatio.Text = ZoomInRatio.ToString();
       fmOption.btView.Text = string.Format("View({0})", launchViewKey);
-      fmOption.nudZoomOutRatio.Text = zoomOutRatio.ToString();
-      fmOption.nudUpDist.Text = upMoveDistance.ToString();
-      fmOption.nudDownDist.Text = downMoveDistance.ToString();
-      fmOption.nudLeftDist.Text = leftMoveDistance.ToString();
-      fmOption.nudRightDist.Text = rightMoveDistance.ToString();
+      fmOption.nudZoomOutRatio.Text = ZoomOutRatio.ToString();
+      fmOption.nudUpDist.Text = UpMoveDistance.ToString();
+      fmOption.nudDownDist.Text = DownMoveDistance.ToString();
+      fmOption.nudLeftDist.Text = LeftMoveDistance.ToString();
+      fmOption.nudRightDist.Text = RightMoveDistance.ToString();
       // フォーム2呼び出し
       fmOption.Show();
 
@@ -507,7 +507,7 @@ namespace WFA
       {
         fmOption.cbChkImg.Checked = !fmOption.cbChkImg.Checked;
         // ファイルリスト該当ファイルのチェックを変更する
-        fmFileList.lvFileList.Items[currentImageKey].Checked = !fmFileList.lvFileList.Items[currentImageKey].Checked;
+        fmFileList.lvFileList.Items[CurrentImageKey].Checked = !fmFileList.lvFileList.Items[CurrentImageKey].Checked;
         return;
       }
 
@@ -789,18 +789,18 @@ namespace WFA
       if (Directory.Exists(dropItem))
       {
         // 表示するファイルのページを最初のものに設定
-        currentImageKey = 0;
+        CurrentImageKey = 0;
       }
       // ファイルが存在しない場合(移動等ファイルがないパターンを想定)
       else if (!File.Exists(dropItem))
       {
         // 表示するファイルのページを最初のものに設定
-        currentImageKey = 0;
+        CurrentImageKey = 0;
       }
       else
       {
         // 表示するファイルにドロップしたファイルを設定
-        currentImageKey = dicImgPath.First(x => x.Value == dropItem).Key;
+        CurrentImageKey = dicImgPath.First(x => x.Value == dropItem).Key;
       }
 
       // 現在倍率に初期倍率を設定する
@@ -814,7 +814,7 @@ namespace WFA
 
       // ファイルリストの該当ファイルを選択
       fmFileList.lvFileList.SelectedItems.Clear();
-      fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
     }
     #endregion
 
@@ -830,11 +830,11 @@ namespace WFA
       try
       {
         // 表示対象画像取得
-        currentImage = new Bitmap(dicImgPath[currentImageKey]);
+        currentImage = new Bitmap(dicImgPath[CurrentImageKey]);
       }
       catch (Exception ex)
       {
-        MessageBox.Show(ex.ToString() + "\r\n\r\nキー:" + currentImageKey);
+        MessageBox.Show(ex.ToString() + "\r\n\r\nキー:" + CurrentImageKey);
       }
 
       // 初期化用設定
@@ -844,7 +844,7 @@ namespace WFA
       pictureBox1.Invalidate();
 
       // ファイル名表示
-      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[currentImageKey]);
+      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[CurrentImageKey]);
       // ファイルサイズ
       fmOption.tbFileSize.Text = drawRectangle.Width + "×" + drawRectangle.Height;
     }
@@ -934,7 +934,7 @@ namespace WFA
       }
 
       // 現在表示している画像のフォルダを改めて読み込み
-      ReadFile(dicImgPath[currentImageKey]);
+      ReadFile(dicImgPath[CurrentImageKey]);
     }
     #endregion
 
@@ -1000,7 +1000,7 @@ namespace WFA
       }
 
       // 現在表示している画像のフォルダを改めて読み込み
-      ReadFile(dicImgPath[currentImageKey]);
+      ReadFile(dicImgPath[CurrentImageKey]);
     }
     #endregion
 
@@ -1015,10 +1015,10 @@ namespace WFA
       if (fmOption.cbIsModeZoom.Checked)
       {
         // 現在倍率を倍にする
-        currentZoomRatio = currentZoomRatio * zoomInRatio;
+        currentZoomRatio = currentZoomRatio * ZoomInRatio;
 
         // 現在の(0, 0)の位置を拡大後も引き継ぐ
-        currentZeroPoint = new Point((int)(currentZeroPoint.X * zoomInRatio), (int)(currentZeroPoint.Y * zoomInRatio));
+        currentZeroPoint = new Point((int)(currentZeroPoint.X * ZoomInRatio), (int)(currentZeroPoint.Y * ZoomInRatio));
 
         // 0ポイントチェック
         if (fmOption.cbIsModeZeroPoint.Checked)
@@ -1033,7 +1033,7 @@ namespace WFA
       else
       {
         // 上に移動
-        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y + upMoveDistance);
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y + UpMoveDistance);
 
         // 移動メソッド使用
         ImgMove();
@@ -1051,10 +1051,10 @@ namespace WFA
       if (fmOption.cbIsModeZoom.Checked)
       {
         // 現在倍率にズームアウト倍率を割る
-        currentZoomRatio = currentZoomRatio / zoomOutRatio;
+        currentZoomRatio = currentZoomRatio / ZoomOutRatio;
 
         // 現在の(0, 0)の位置を縮小後も引き継ぐ
-        currentZeroPoint = new Point((int)(currentZeroPoint.X / zoomOutRatio), (int)(currentZeroPoint.Y / zoomOutRatio));
+        currentZeroPoint = new Point((int)(currentZeroPoint.X / ZoomOutRatio), (int)(currentZeroPoint.Y / ZoomOutRatio));
 
         // 0ポイントチェック
         if (fmOption.cbIsModeZeroPoint.Checked)
@@ -1069,7 +1069,7 @@ namespace WFA
       else
       {
         // 下に移動
-        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y - downMoveDistance);
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y - DownMoveDistance);
 
         // 移動メソッド使用
         ImgMove();
@@ -1087,15 +1087,15 @@ namespace WFA
       if (fmOption.cbIsModePageEject.Checked)
       {
         // 現ページが最後の場合
-        if (currentImageKey == maxImageKey)
+        if (CurrentImageKey == maxImageKey)
         {
           // 最初のページへ
-          currentImageKey = 0;
+          CurrentImageKey = 0;
         }
         else
         {
           // 次のページへ
-          currentImageKey += 1;
+          CurrentImageKey += 1;
         }
 
         // ページ送りメソッド使用
@@ -1103,17 +1103,17 @@ namespace WFA
 
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
-        fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+        fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
         // 選択ファイルがリスト上で次ページになった場合、リストをスクロール
-        fmFileList.lvFileList.EnsureVisible(currentImageKey);
+        fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
 
         // オプションフォームのチェックを表示している画像に沿って設定
-        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
+        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
       }
       else
       {
         // 右に移動
-        currentZeroPoint = new Point(currentZeroPoint.X - rightMoveDistance, currentZeroPoint.Y + 0);
+        currentZeroPoint = new Point(currentZeroPoint.X - RightMoveDistance, currentZeroPoint.Y + 0);
 
         // 移動メソッド使用
         ImgMove();
@@ -1131,14 +1131,14 @@ namespace WFA
       if (fmOption.cbIsModePageEject.Checked)
       {
         // 現ページが最初の場合
-        if (currentImageKey == 0)
+        if (CurrentImageKey == 0)
         {
-          currentImageKey = maxImageKey;
+          CurrentImageKey = maxImageKey;
         }
         else
         {
           // 左のページへ
-          currentImageKey -= 1;
+          CurrentImageKey -= 1;
         }
 
         // ページ送りメソッド使用
@@ -1146,17 +1146,17 @@ namespace WFA
 
         // ファイルリストの該当ファイルを選択
         fmFileList.lvFileList.SelectedItems.Clear();
-        fmFileList.lvFileList.Items[currentImageKey].Selected = true;
+        fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
         // 選択ファイルがリスト上で前ページになった場合、リストをスクロール
-        fmFileList.lvFileList.EnsureVisible(currentImageKey);
+        fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
 
         // オプションフォームのチェックを表示している画像に沿って設定
-        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[currentImageKey].Checked;
+        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
       }
       else
       {
         // 左に移動
-        currentZeroPoint = new Point(currentZeroPoint.X + leftMoveDistance, currentZeroPoint.Y + 0);
+        currentZeroPoint = new Point(currentZeroPoint.X + LeftMoveDistance, currentZeroPoint.Y + 0);
 
         // 移動メソッド使用
         ImgMove();
@@ -1197,7 +1197,7 @@ namespace WFA
       psi.FileName = launchViewAppPath;
       // 現在の画像パスをコマンドライン引数に設定
       // スペースで引数が分かれるためダブルクォートをつける
-      psi.Arguments = "\"" + dicImgPath[currentImageKey] + "\"";
+      psi.Arguments = "\"" + dicImgPath[CurrentImageKey] + "\"";
 
       // 起動
       Process p = Process.Start(psi);

@@ -1,12 +1,4 @@
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\WFA.exe.config
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\01.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\02.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\03.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\04.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\05.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\06.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\07.JPG
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\MyResorce\TestImg\08.JPG
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\WFA.exe
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Release\WFA.pdb
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.Form1.resources
@@ -16,4 +8,3 @@ E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.exe
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.pdb
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.FrmFileList.resources
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.FrmOption.resources
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache

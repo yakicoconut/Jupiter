@@ -165,24 +165,24 @@ namespace WFA
           // 数値上下ボタンの場合、変更後の値はValueプロパティで取得する
           nudCtrl = (NumericUpDown)ctrl;
           // コントロールの内容をプロパティに設定
-          parentForm.zoomInRatio = (double)nudCtrl.Value;
+          parentForm.ZoomInRatio = (double)nudCtrl.Value;
           break;
         case "nudZoomOutRatio":
           // 数値上下ボタンの場合、変更後の値はValueプロパティで取得する
           nudCtrl = (NumericUpDown)ctrl;
-          parentForm.zoomOutRatio = (double)nudCtrl.Value;
+          parentForm.ZoomOutRatio = (double)nudCtrl.Value;
           break;
         case "nudUpDist":
-          parentForm.upMoveDistance = int.Parse(ctrl.Text);
+          parentForm.UpMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudDownDist":
-          parentForm.downMoveDistance = int.Parse(ctrl.Text);
+          parentForm.DownMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudRightDist":
-          parentForm.rightMoveDistance = int.Parse(ctrl.Text);
+          parentForm.RightMoveDistance = int.Parse(ctrl.Text);
           break;
         case "nudLeftDist":
-          parentForm.leftMoveDistance = int.Parse(ctrl.Text);
+          parentForm.LeftMoveDistance = int.Parse(ctrl.Text);
           break;
 
         default:
