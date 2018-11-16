@@ -267,7 +267,7 @@ namespace WFA
     /// 画像パスディクショナリ
     /// </summary>
     public Dictionary<int, string> DicImgPath { get; set; }
-    
+
     #endregion
 
 
@@ -753,6 +753,45 @@ namespace WFA
     /// <param name="dropItem">対象ファイルパス</param>
     public void ReadFile(string dropItem)
     {
+      // 画像パスディクショナリ作成メソッド使用
+      CreateDic(dropItem);
+
+      // ドロップされたのがフォルダの場合
+      if (Directory.Exists(dropItem))
+      {
+        // 表示するファイルのページを最初のものに設定
+        CurrentImageKey = 0;
+      }
+      // ファイルが存在しない場合(移動等ファイルがないパターンを想定)
+      else if (!File.Exists(dropItem))
+      {
+        // 表示するファイルのページを最初のものに設定
+        CurrentImageKey = 0;
+      }
+      else
+      {
+        // 表示するファイルにドロップしたファイルを設定
+        CurrentImageKey = DicImgPath.First(x => x.Value == dropItem).Key;
+      }
+
+      // 現在倍率に初期倍率を設定する
+      currentZoomRatio = initZoomRatio;
+
+      // 画像初期化メソッド使用
+      ImgInit();
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm();
+
+      // ファイルリストの該当ファイルを選択
+      fmFileList.lvFileList.SelectedItems.Clear();
+      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
+    }
+    #endregion
+
+    #region 画像パスディクショナリ作成メソッド
+    private void CreateDic(string targetPath)
+    {
       // すでに読み込まれているものがある場合
       if (DicImgPath.Count >= 1)
       {
@@ -760,32 +799,26 @@ namespace WFA
         DicImgPath = new Dictionary<int, string>();
       }
 
-      string targetDirPath = string.Empty;
-
-      // フォルダの場合
-      if (Directory.Exists(dropItem))
-      {
-        // ドロップされたアイテムをそのまま使用
-        targetDirPath = dropItem;
-      }
-      else
+      // 対象パス分岐
+      string targetDirPath = targetPath;
+      if (File.Exists(targetPath))
       {
         try
         {
-          // ドロップされたアイテムからフォルダを取得
-          targetDirPath = Path.GetDirectoryName(dropItem);
+          // ファイルからフォルダを取得
+          targetDirPath = Path.GetDirectoryName(targetPath);
         }
         catch (Exception ex)
         {
-          MessageBox.Show(ex.ToString() + "\r\n\r\n" + dropItem);
+          MessageBox.Show(ex.ToString() + "\r\n\r\n" + targetPath);
         }
       }
 
       // 対象ディレクトリ取得
       DirectoryInfo dir = new DirectoryInfo(targetDirPath);
-      FileInfo[] files = null;
 
-      // ファイル読み込み対象範囲が全ファイルの場合
+      // ファイル読み込み対象範囲分岐
+      FileInfo[] files = null;
       if (targetRange == "TopBottom")
       {
         // 対象フォルダ以下すべてのフォルダの中身を取得
@@ -797,7 +830,9 @@ namespace WFA
         files = dir.GetFiles("*", SearchOption.TopDirectoryOnly);
       }
 
-      /* ソート無名関数
+
+      #region ソート無名関数
+      /*
        *   【C#】ファイル一覧をファイル名でソートする : ubichupas.net
        *      http://ubichupas.blogspot.com/2011/04/cfilesort.html
        */
@@ -842,10 +877,12 @@ namespace WFA
         }
         return returnVar;
       });
+      #endregion
+
 
       // 画像パスディクショナリに変換
       int i = 0;
-      foreach (var x in files)
+      foreach (FileInfo x in files)
       {
         // ねずみ返し_拡張子が設定したものではないときは次のループへ
         if (Array.IndexOf(targetExtension, Path.GetExtension(x.FullName).ToLower()) == -1)
@@ -856,46 +893,15 @@ namespace WFA
         DicImgPath.Add(i, x.FullName);
         i += 1;
       }
-      // 最終ページ数を設定
-      maxImageKey = i - 1;
-
-      // ドロップされたのがフォルダの場合
-      if (Directory.Exists(dropItem))
-      {
-        // 表示するファイルのページを最初のものに設定
-        CurrentImageKey = 0;
-      }
-      // ファイルが存在しない場合(移動等ファイルがないパターンを想定)
-      else if (!File.Exists(dropItem))
-      {
-        // 表示するファイルのページを最初のものに設定
-        CurrentImageKey = 0;
-      }
-      else
-      {
-        // 表示するファイルにドロップしたファイルを設定
-        CurrentImageKey = DicImgPath.First(x => x.Value == dropItem).Key;
-      }
-
-      // 現在倍率に初期倍率を設定する
-      currentZoomRatio = initZoomRatio;
-
-      // 画像初期化メソッド使用
-      ImgInit();
-
-      // ファイルリストフォーム初期化メソッド使用
-      InitFileListForm();
-
-      // ファイルリストの該当ファイルを選択
-      fmFileList.lvFileList.SelectedItems.Clear();
-      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
+      // 最終ページインデックスを設定
+      maxImageKey = DicImgPath.Count - 1;
     }
     #endregion
 
     #region 画像初期化メソッド
     private void ImgInit()
     {
-      // 表示する画像を読み込む
+      // 読み込み済みの場合
       if (currentImage != null)
       {
         currentImage.Dispose();
