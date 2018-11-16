@@ -42,8 +42,8 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      // ファイル管理フォームインスタンス生成
-      fmFileMng = new FrmFileMng(this);
+      // メンバ初期化メソッド使用
+      InitMember();
 
       // コマンドライン引数取得
       string[] cmdArgs = Environment.GetCommandLineArgs();
@@ -55,11 +55,6 @@ namespace WFA
         // ファイル読み込みメソッド使用
         ReadFile(dropItem);
       }
-
-      // 取り込みXMLパス初期化
-      InputXmlPath = string.Empty;
-      // 画像パスディクショナリ
-      DicImgPath = new Dictionary<int, string>();
     }
     #endregion
 
@@ -142,6 +137,19 @@ namespace WFA
     }
     #endregion
 
+    #region メンバ初期化メソッド
+    private void InitMember()
+    {
+      // ファイル管理フォームインスタンス生成
+      fmFileMng = new FrmFileMng(this);
+
+      // 取り込みXMLパスプロパティ
+      InputXmlPath = string.Empty;
+      // 画像パスディクショナリプロパティ
+      DicImgPath = new Dictionary<int, string>();
+    }
+    #endregion
+
 
     #region 宣言
 
@@ -163,7 +171,7 @@ namespace WFA
     int defLocationY;
 
     // 表示対象画像
-    private Bitmap currentImage;
+    Bitmap currentImage;
     // 最大ページ数
     int maxImageKey = 0;
 
