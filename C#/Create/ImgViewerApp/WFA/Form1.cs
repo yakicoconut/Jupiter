@@ -58,6 +58,8 @@ namespace WFA
 
       // 取り込みXMLパス初期化
       InputXmlPath = string.Empty;
+      // 画像パスディクショナリ
+      DicImgPath = new Dictionary<int, string>();
     }
     #endregion
 
@@ -162,8 +164,6 @@ namespace WFA
 
     // 表示対象画像
     private Bitmap currentImage;
-    // 画像パスディクショナリ
-    public Dictionary<int, string> dicImgPath = new Dictionary<int, string>();
     // 最大ページ数
     int maxImageKey = 0;
 
@@ -255,6 +255,11 @@ namespace WFA
     /// </summary>
     public string InputXmlPath { get; set; }
 
+    /// <summary>
+    /// 画像パスディクショナリ
+    /// </summary>
+    public Dictionary<int, string> DicImgPath { get; set; }
+    
     #endregion
 
 
@@ -474,7 +479,7 @@ namespace WFA
       // 表示するファイルにドロップしたファイルを設定
       CurrentImageKey = 0;
       // 最終ページ数を設定
-      maxImageKey = dicImgPath.Count - 1;
+      maxImageKey = DicImgPath.Count - 1;
 
       // 現在倍率に初期倍率を設定する
       currentZoomRatio = initZoomRatio;
@@ -741,10 +746,10 @@ namespace WFA
     public void ReadFile(string dropItem)
     {
       // すでに読み込まれているものがある場合
-      if (dicImgPath.Count >= 1)
+      if (DicImgPath.Count >= 1)
       {
         // 初期化
-        dicImgPath = new Dictionary<int, string>();
+        DicImgPath = new Dictionary<int, string>();
       }
 
       string targetDirPath = string.Empty;
@@ -840,7 +845,7 @@ namespace WFA
           continue;
         }
 
-        dicImgPath.Add(i, x.FullName);
+        DicImgPath.Add(i, x.FullName);
         i += 1;
       }
       // 最終ページ数を設定
@@ -861,7 +866,7 @@ namespace WFA
       else
       {
         // 表示するファイルにドロップしたファイルを設定
-        CurrentImageKey = dicImgPath.First(x => x.Value == dropItem).Key;
+        CurrentImageKey = DicImgPath.First(x => x.Value == dropItem).Key;
       }
 
       // 現在倍率に初期倍率を設定する
@@ -891,7 +896,7 @@ namespace WFA
       try
       {
         // 表示対象画像取得
-        currentImage = new Bitmap(dicImgPath[CurrentImageKey]);
+        currentImage = new Bitmap(DicImgPath[CurrentImageKey]);
       }
       catch (Exception ex)
       {
@@ -905,7 +910,7 @@ namespace WFA
       pictureBox1.Invalidate();
 
       // ファイル名表示
-      fmOption.tbFileName.Text = Path.GetFileName(dicImgPath[CurrentImageKey]);
+      fmOption.tbFileName.Text = Path.GetFileName(DicImgPath[CurrentImageKey]);
       // ファイルサイズ
       fmOption.tbFileSize.Text = drawRectangle.Width + "×" + drawRectangle.Height;
     }
@@ -951,7 +956,7 @@ namespace WFA
       fmFileList.lvFileList.Items.Clear();
 
       // ファイルディクショナリをループ処理
-      foreach (var x in dicImgPath)
+      foreach (var x in DicImgPath)
       {
         // リストビューにファイル名のみ追加
         fmFileList.lvFileList.Items.Add(Path.GetFileName(x.Value));
@@ -981,7 +986,7 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = dicImgPath[x];
+        string targetImgPath = DicImgPath[x];
 
         try
         {
@@ -995,7 +1000,7 @@ namespace WFA
       }
 
       // 現在表示している画像のフォルダを改めて読み込み
-      ReadFile(dicImgPath[CurrentImageKey]);
+      ReadFile(DicImgPath[CurrentImageKey]);
     }
     #endregion
 
@@ -1010,7 +1015,7 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = dicImgPath[x];
+        string targetImgPath = DicImgPath[x];
 
         try
         {
@@ -1047,7 +1052,7 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = dicImgPath[x];
+        string targetImgPath = DicImgPath[x];
 
         try
         {
@@ -1061,7 +1066,7 @@ namespace WFA
       }
 
       // 現在表示している画像のフォルダを改めて読み込み
-      ReadFile(dicImgPath[CurrentImageKey]);
+      ReadFile(DicImgPath[CurrentImageKey]);
     }
     #endregion
 
@@ -1246,7 +1251,7 @@ namespace WFA
     public void LaunchView()
     {
       // ねずみ返し_画像がない場合
-      if (dicImgPath.Count == 0)
+      if (DicImgPath.Count == 0)
       {
         return;
       }
@@ -1258,7 +1263,7 @@ namespace WFA
       psi.FileName = launchViewAppPath;
       // 現在の画像パスをコマンドライン引数に設定
       // スペースで引数が分かれるためダブルクォートをつける
-      psi.Arguments = "\"" + dicImgPath[CurrentImageKey] + "\"";
+      psi.Arguments = "\"" + DicImgPath[CurrentImageKey] + "\"";
 
       // 起動
       Process p = Process.Start(psi);
@@ -1437,7 +1442,7 @@ namespace WFA
     private void ReadXml(string targetPath)
     {
       // ディクショナリクリア
-      dicImgPath.Clear();
+      DicImgPath.Clear();
 
       /* StringReader設定 */
       XmlReaderSettings setting = new XmlReaderSettings();
@@ -1479,7 +1484,7 @@ namespace WFA
           string keyValue = xmlReader.Value;
 
           // ディクショナリ追加        
-          dicImgPath.Add(i, keyValue);
+          DicImgPath.Add(i, keyValue);
           ++i;
         }
       }
@@ -1506,7 +1511,7 @@ namespace WFA
       foreach (int x in fmFileList.lvFileList.CheckedIndices)
       {
         // チェックのあるイメージファイルパス
-        outStr += string.Format(imgFileFormat, dicImgPath[x]) + Environment.NewLine;
+        outStr += string.Format(imgFileFormat, DicImgPath[x]) + Environment.NewLine;
       }
 
       // 出力ファイルの作成

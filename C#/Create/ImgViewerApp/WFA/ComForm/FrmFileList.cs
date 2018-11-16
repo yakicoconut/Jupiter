@@ -106,13 +106,13 @@ namespace WFA
     private void cbSort_SelectedIndexChanged(object sender, EventArgs e)
     {
       // ねずみ返し_画像パスディクショナリが空の場合
-      if (parentForm.dicImgPath.Count <= 0)
+      if (parentForm.DicImgPath.Count <= 0)
       {
         return;
       }
 
       // ファイル読み込みメソッド使用
-      parentForm.ReadFile(parentForm.dicImgPath[parentForm.CurrentImageKey]);
+      parentForm.ReadFile(parentForm.DicImgPath[parentForm.CurrentImageKey]);
     }
     #endregion
 
@@ -223,7 +223,7 @@ namespace WFA
       }
 
       // 選択したファイルのあるフォルダを開く
-      string selectFilePath = parentForm.dicImgPath[lvFileList.SelectedItems[0].Index];
+      string selectFilePath = parentForm.DicImgPath[lvFileList.SelectedItems[0].Index];
       Process.Start(Path.GetDirectoryName(selectFilePath));
     }
     #endregion
