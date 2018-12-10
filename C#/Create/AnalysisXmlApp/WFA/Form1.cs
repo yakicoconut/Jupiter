@@ -92,7 +92,7 @@ namespace WFA
     }
     #endregion
 
-    
+
     #region ボタン1押下イベント
     private void btDig_Click(object sender, EventArgs e)
     {
@@ -118,7 +118,7 @@ namespace WFA
       // 処理命令(スタイルシートの宣言等)を無視するかどうか
       // ※デフォルトもfalseだがサンプルのため明示的に設定
       setting.IgnoreProcessingInstructions = false;
-      //意味のない空白を無視するかどうか
+      // 意味のない空白を無視するかどうか
       setting.IgnoreWhitespace = true;
 
       // 表示用変数
@@ -155,7 +155,7 @@ namespace WFA
       // 結果がない場合
       if (resultDisplayStr == string.Empty)
       {
-        tbTabDisplay.Text = "結果なし";
+        tbResultDisplay.Text = "結果なし";
       }
     }
     #endregion
@@ -294,9 +294,12 @@ namespace WFA
 
       // ファイル名
       returnStr += Path.GetFileName(targetPath) + "\r\n";
-
-      // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      
+      // ファイルからXMLを取得
+      // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
+      using (StreamReader streamReader = new StreamReader(targetPath))
+      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, setting))
+      using (XmlReader xmlReader = xmlStreamReader)
       {
         // XmlReader.Readメソッド使用パターン
         while (xmlReader.Read())
@@ -391,8 +394,11 @@ namespace WFA
         returnStr += fileName + "\r\n";
       }
 
-      // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      // ファイルからXMLを取得
+      // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
+      using (StreamReader streamReader = new StreamReader(targetPath))
+      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, setting))
+      using (XmlReader xmlReader = xmlStreamReader)
       {
         // 要素ループ
         while (xmlReader.ReadToFollowing(targetKey))
