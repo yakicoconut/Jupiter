@@ -75,6 +75,24 @@ namespace WFA
     }
     #endregion
 
+
+    #region 内容表示テキストボックスキーダウンイベント
+    private void tbTabDisplay_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Control && e.KeyCode == Keys.A)
+        tbTabDisplay.SelectAll();
+    }
+    #endregion
+
+    #region 結果表示テキストボックスキーダウンイベント
+    private void tbResultDisplay_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Control && e.KeyCode == Keys.A)
+        tbResultDisplay.SelectAll();
+    }
+    #endregion
+
+    
     #region ボタン1押下イベント
     private void btDig_Click(object sender, EventArgs e)
     {

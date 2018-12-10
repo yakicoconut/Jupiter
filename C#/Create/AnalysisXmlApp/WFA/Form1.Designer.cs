@@ -74,6 +74,7 @@
       this.tbTabDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
       this.tbTabDisplay.Size = new System.Drawing.Size(241, 322);
       this.tbTabDisplay.TabIndex = 2;
+      this.tbTabDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTabDisplay_KeyDown);
       // 
       // tbTargetPath
       // 
@@ -172,8 +173,9 @@
       this.tbResultDisplay.Multiline = true;
       this.tbResultDisplay.Name = "tbResultDisplay";
       this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(270, 322);
+      this.tbResultDisplay.Size = new System.Drawing.Size(258, 322);
       this.tbResultDisplay.TabIndex = 3;
+      this.tbResultDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbResultDisplay_KeyDown);
       // 
       // cbOutFileName
       // 
