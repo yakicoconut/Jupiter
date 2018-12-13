@@ -14,6 +14,9 @@ using System.Configuration;
 
 namespace WFA
 {
+  /// <summary>
+  /// メインフォーム
+  /// </summary>
   public partial class Form1 : Form
   {
     #region コンストラクタ
@@ -22,17 +25,34 @@ namespace WFA
       InitializeComponent();
 
       #region 【論理雛形】
-      WFA_CommonLogic WFACL = new WFA_CommonLogic();
-      //アプリ名設定
+      WFAComLogic WFACL = new WFAComLogic();
+      // アプリ名設定
       Text = WFACL.GetAppName();
       #endregion
+
+      // コンフィグ取得メソッド使用
+      GetConfig();
     }
     #endregion
 
-    #region インスタンス
+    #region コンフィグ取得メソッド
+    public void GetConfig()
+    {
+      // アシストフォーム初期値
+      assistContents = _comLogic.GetConfigValue("Key01", "AssistContents");
+    }
+    #endregion
 
-    //処理クラス
+
+    #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
+    // 処理クラス
     MainLosic mLogic = new MainLosic();
+
+    // アシストフォーム初期値
+    string assistContents;
 
     #endregion
 
@@ -163,9 +183,9 @@ namespace WFA
     #region アシストボタン押下イベント
     private void btAssist_Click(object sender, EventArgs e)
     {
-      //フォーム2インスタンス
-      Form2 fm2 = new Form2(ConfigurationManager.AppSettings["AssistContents"]);
-      //フォーム表示
+      // フォーム2インスタンス
+      Form2 fm2 = new Form2(assistContents);
+      // フォーム表示
       fm2.Show();
     }
     #endregion

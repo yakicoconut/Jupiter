@@ -64,16 +64,16 @@
       // azkTargetFileName
       // 
       this.azkTargetFileName.AllowDrop = true;
-      this.azkTargetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.azkTargetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.azkTargetFileName.BackColor = System.Drawing.Color.LightGray;
       this.azkTargetFileName.Cursor = System.Windows.Forms.Cursors.IBeam;
-      this.azkTargetFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
-            | Sgry.Azuki.DrawingOption.DrawsEol) 
-            | Sgry.Azuki.DrawingOption.HighlightCurrentLine) 
-            | Sgry.Azuki.DrawingOption.ShowsLineNumber) 
-            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
+      this.azkTargetFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab)
+            | Sgry.Azuki.DrawingOption.DrawsEol)
+            | Sgry.Azuki.DrawingOption.HighlightCurrentLine)
+            | Sgry.Azuki.DrawingOption.ShowsLineNumber)
+            | Sgry.Azuki.DrawingOption.ShowsDirtBar)
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
       this.azkTargetFileName.FirstVisibleLine = 0;
       this.azkTargetFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -97,16 +97,16 @@
       // azkChangedFileName
       // 
       this.azkChangedFileName.AllowDrop = true;
-      this.azkChangedFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.azkChangedFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.azkChangedFileName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(250)))), ((int)(((byte)(240)))));
       this.azkChangedFileName.Cursor = System.Windows.Forms.Cursors.IBeam;
-      this.azkChangedFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
-            | Sgry.Azuki.DrawingOption.DrawsEol) 
-            | Sgry.Azuki.DrawingOption.HighlightCurrentLine) 
-            | Sgry.Azuki.DrawingOption.ShowsLineNumber) 
-            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
+      this.azkChangedFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab)
+            | Sgry.Azuki.DrawingOption.DrawsEol)
+            | Sgry.Azuki.DrawingOption.HighlightCurrentLine)
+            | Sgry.Azuki.DrawingOption.ShowsLineNumber)
+            | Sgry.Azuki.DrawingOption.ShowsDirtBar)
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
       this.azkChangedFileName.FirstVisibleLine = 0;
       this.azkChangedFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -129,8 +129,8 @@
       // splitContainer1
       // 
       this.splitContainer1.AllowDrop = true;
-      this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.splitContainer1.Location = new System.Drawing.Point(20, 135);
       this.splitContainer1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -164,7 +164,7 @@
       // lbTargetPath
       // 
       this.lbTargetPath.AllowDrop = true;
-      this.lbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.lbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lbTargetPath.BackColor = System.Drawing.SystemColors.Control;
       this.lbTargetPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -220,7 +220,7 @@
       // tbTargetPathText
       // 
       this.tbTargetPathText.AllowDrop = true;
-      this.tbTargetPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTargetPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbTargetPathText.Location = new System.Drawing.Point(20, 18);
       this.tbTargetPathText.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
