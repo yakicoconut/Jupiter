@@ -54,7 +54,7 @@
       // btDig
       // 
       this.btDig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btDig.Location = new System.Drawing.Point(12, 438);
+      this.btDig.Location = new System.Drawing.Point(469, 438);
       this.btDig.Name = "btDig";
       this.btDig.Size = new System.Drawing.Size(75, 23);
       this.btDig.TabIndex = 1;
@@ -135,7 +135,7 @@
       // btCreate
       // 
       this.btCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btCreate.Location = new System.Drawing.Point(93, 438);
+      this.btCreate.Location = new System.Drawing.Point(12, 438);
       this.btCreate.Name = "btCreate";
       this.btCreate.Size = new System.Drawing.Size(75, 23);
       this.btCreate.TabIndex = 8;
@@ -173,7 +173,7 @@
       this.tbResultDisplay.Multiline = true;
       this.tbResultDisplay.Name = "tbResultDisplay";
       this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(258, 322);
+      this.tbResultDisplay.Size = new System.Drawing.Size(270, 322);
       this.tbResultDisplay.TabIndex = 3;
       this.tbResultDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbResultDisplay_KeyDown);
       // 
