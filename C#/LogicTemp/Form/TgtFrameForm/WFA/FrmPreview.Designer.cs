@@ -61,7 +61,7 @@
             this.ToolStripMenuItemCapture,
             this.ToolStripMenuItemZoom});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(137, 70);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(153, 92);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -110,6 +110,7 @@
       this.ToolStripMenuItemZoom.Name = "ToolStripMenuItemZoom";
       this.ToolStripMenuItemZoom.Size = new System.Drawing.Size(152, 22);
       this.ToolStripMenuItemZoom.Text = "拡大/縮小";
+      this.ToolStripMenuItemZoom.Click += new System.EventHandler(this.ToolStripMenuItemZoom_Click);
       // 
       // ToolStripMenuItemZoomIn
       // 
@@ -157,7 +158,7 @@
 
     #endregion
 
-    public System.Windows.Forms.PictureBox pbPreview;
+    private System.Windows.Forms.PictureBox pbPreview;
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;

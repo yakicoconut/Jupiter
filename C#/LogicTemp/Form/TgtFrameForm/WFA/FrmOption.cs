@@ -29,12 +29,25 @@ namespace WFA
 
     #region 宣言
 
-    // 親フォーム
+    // 値連携クラスインスタンス取得
+    TgtFrameLogic tgtFrameLogic = TgtFrameLogic.GetInstance();
+
+    // プレビュフォーム取得
+    FrmPreview fmPreview = FrmPreview.GetInstance();
+
+    #endregion
+
+    #region プロパティ
+
+    /// <summary>
+    /// 親フォーム
+    /// </summary>
     public FrmTgtFrame frmTgtFrame { get; set; }
 
     #endregion
 
 
+    /* イベント */
     #region フォームロードイベント
     private void Form2_Load(object sender, EventArgs e)
     {
@@ -45,21 +58,42 @@ namespace WFA
       this.ShowInTaskbar = false;
       // 始点ラジオボックスにチェック
       rbLeftTop.Checked = true;
+      // 共通プロパティ設定
+      tgtFrameLogic.IsChkLeftTop = true;
 
-      #region 【未使用】Drawing.Colorの内容を全て設定
-      //ArrayList ColorList = new ArrayList();
-      //Type colorType = typeof(Color);
-      //PropertyInfo[] propInfoList = colorType.GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-      //foreach (PropertyInfo x in propInfoList)
-      //{
-      //  cbReviewBackColor.Items.Add(x.Name);
-      //}
-      #endregion
+      // 移動距離アップダウン初期値
+      nudMoveDist.Text = tgtFrameLogic.MoveDist.ToString();
 
-      // プレビュフォームバックグラウンドカラーコンボボックスのソース設定
-      string[] colorList = { "Green", "Black", "White", "Blue" };
-      cbPreviewBackColor.Items.AddRange(colorList);
+      // プレビュ枠線色ディクショナリ初期値設定
+      tgtFrameLogic.AddDicPreViewFrameColor("Green", Color.Green);
+      tgtFrameLogic.AddDicPreViewFrameColor("Black", Color.Black);
+      tgtFrameLogic.AddDicPreViewFrameColor("White", Color.White);
+      tgtFrameLogic.AddDicPreViewFrameColor("Blue", Color.Blue);
+      // コンボボックスの値に変換
+      string[] previewBackColorKeys = new string[tgtFrameLogic.DicPreViewFrameColor.Keys.Count];
+      tgtFrameLogic.DicPreViewFrameColor.Keys.CopyTo(previewBackColorKeys, 0);
+      cbPreviewBackColor.Items.AddRange(previewBackColorKeys);
       cbPreviewBackColor.SelectedIndex = 0;
+
+      // キャプチャファイル種類
+      string[] capFileExKeys = new string[tgtFrameLogic.DicImgEx.Keys.Count];
+      tgtFrameLogic.DicImgEx.Keys.CopyTo(capFileExKeys, 0);
+      cbCapFileEx.Items.AddRange(capFileExKeys);
+      cbCapFileEx.SelectedIndex = 3;
+
+      // ラジオボタン内容更新メソッド使用
+      UpdRdioBtnTxt();
+      // 距離ラベル更新メソッド使用
+      UpdDistLblTxt();
+    }
+    #endregion
+
+
+    #region 開始ラジオボタン変更イベント
+    private void rbLeftTop_CheckedChanged(object sender, EventArgs e)
+    {
+      // 自身のチェックを共通クラスに設定
+      tgtFrameLogic.IsChkLeftTop = rbLeftTop.Checked;
     }
     #endregion
 
@@ -67,7 +101,7 @@ namespace WFA
     private void btUp_Click(object sender, EventArgs e)
     {
       // ねずみ返し_テストポイントモードの場合
-      if (frmTgtFrame.isTestPointMode)
+      if (tgtFrameLogic.IsTestPointMode)
       {
         return;
       }
@@ -76,38 +110,28 @@ namespace WFA
       if (cbIsMove.Checked)
       {
         // 上へ移動
-        frmTgtFrame.LeftTopY -= (int)nudMoveDist.Value;
-        frmTgtFrame.RightBottomY -= (int)nudMoveDist.Value;
+        tgtFrameLogic.LeftTopY -= (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomY -= (int)nudMoveDist.Value;
       }
       else
       {
         // 底辺を上へ縮小
-        frmTgtFrame.RightBottomY -= (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomY -= (int)nudMoveDist.Value;
       }
 
+      // ラジオボタン内容更新メソッド使用
+      UpdRdioBtnTxt();
+      // 距離ラベル更新メソッド使用
+      UpdDistLblTxt();
+
       // 対象正方形描画メソッド使用
-      frmTgtFrame.DrawSquare();
+      tgtFrameLogic.DrawSquare(frmTgtFrame);
 
       // プレビュフォームが表示されている場合
-      if (frmTgtFrame.fmPreview.Visible)
+      if (fmPreview.Visible)
       {
-        // 画面コピー
-        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
-
-        // ズーム倍率初期値
-        int widthZoomRatio = 1;
-        int heightZoomRatio = 1;
-
-        // ズームフラグ
-        if (frmTgtFrame.isZoom)
-        {
-          // ズーム倍率設定
-          widthZoomRatio = 2;
-          heightZoomRatio = 2;
-        }
-
-        // 画面表示
-        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
+        // ピクチャボックス画像更新メソッド使用
+        fmPreview.UpdPicBoxImg();
       }
     }
     #endregion
@@ -116,7 +140,7 @@ namespace WFA
     private void btDown_Click(object sender, EventArgs e)
     {
       // ねずみ返し_テストポイントモードの場合
-      if (frmTgtFrame.isTestPointMode)
+      if (tgtFrameLogic.IsTestPointMode)
       {
         return;
       }
@@ -125,38 +149,28 @@ namespace WFA
       if (cbIsMove.Checked)
       {
         // 下へ移動
-        frmTgtFrame.LeftTopY += (int)nudMoveDist.Value;
-        frmTgtFrame.RightBottomY += (int)nudMoveDist.Value;
+        tgtFrameLogic.LeftTopY += (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomY += (int)nudMoveDist.Value;
       }
       else
       {
         // 底辺を下へ拡大
-        frmTgtFrame.RightBottomY += (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomY += (int)nudMoveDist.Value;
       }
 
+      // ラジオボタン内容更新メソッド使用
+      UpdRdioBtnTxt();
+      // 距離ラベル更新メソッド使用
+      UpdDistLblTxt();
+
       // 対象正方形描画メソッド使用
-      frmTgtFrame.DrawSquare();
+      tgtFrameLogic.DrawSquare(frmTgtFrame);
 
       // プレビュフォームが表示されている場合
-      if (frmTgtFrame.fmPreview.Visible)
+      if (fmPreview.Visible)
       {
-        // 画面コピー
-        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
-
-        // ズーム倍率初期値
-        int widthZoomRatio = 1;
-        int heightZoomRatio = 1;
-
-        // ズームフラグ
-        if (frmTgtFrame.isZoom)
-        {
-          // ズーム倍率設定
-          widthZoomRatio = 2;
-          heightZoomRatio = 2;
-        }
-
-        // 画面表示
-        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
+        // ピクチャボックス画像更新メソッド使用
+        fmPreview.UpdPicBoxImg();
       }
     }
     #endregion
@@ -165,7 +179,7 @@ namespace WFA
     private void btLeft_Click(object sender, EventArgs e)
     {
       // ねずみ返し_テストポイントモードの場合
-      if (frmTgtFrame.isTestPointMode)
+      if (tgtFrameLogic.IsTestPointMode)
       {
         return;
       }
@@ -174,38 +188,28 @@ namespace WFA
       if (cbIsMove.Checked)
       {
         // 左へ移動
-        frmTgtFrame.LeftTopX -= (int)nudMoveDist.Value;
-        frmTgtFrame.RightBottomX -= (int)nudMoveDist.Value;
+        tgtFrameLogic.LeftTopX -= (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomX -= (int)nudMoveDist.Value;
       }
       else
       {
         // 右辺を左へ縮小
-        frmTgtFrame.RightBottomX -= (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomX -= (int)nudMoveDist.Value;
       }
 
+      // ラジオボタン内容更新メソッド使用
+      UpdRdioBtnTxt();
+      // 距離ラベル更新メソッド使用
+      UpdDistLblTxt();
+
       // 対象正方形描画メソッド使用
-      frmTgtFrame.DrawSquare();
+      tgtFrameLogic.DrawSquare(frmTgtFrame);
 
       // プレビュフォームが表示されている場合
-      if (frmTgtFrame.fmPreview.Visible)
+      if (fmPreview.Visible)
       {
-        // 画面コピー
-        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
-
-        // ズーム倍率初期値
-        int widthZoomRatio = 1;
-        int heightZoomRatio = 1;
-
-        // ズームフラグ
-        if (frmTgtFrame.isZoom)
-        {
-          // ズーム倍率設定
-          widthZoomRatio = 2;
-          heightZoomRatio = 2;
-        }
-
-        // 画面表示
-        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
+        // ピクチャボックス画像更新メソッド使用
+        fmPreview.UpdPicBoxImg();
       }
     }
     #endregion
@@ -214,7 +218,7 @@ namespace WFA
     private void btRight_Click(object sender, EventArgs e)
     {
       // ねずみ返し_テストポイントモードの場合
-      if (frmTgtFrame.isTestPointMode)
+      if (tgtFrameLogic.IsTestPointMode)
       {
         return;
       }
@@ -223,38 +227,28 @@ namespace WFA
       if (cbIsMove.Checked)
       {
         // 右へ移動
-        frmTgtFrame.LeftTopX += (int)nudMoveDist.Value;
-        frmTgtFrame.RightBottomX += (int)nudMoveDist.Value;
+        tgtFrameLogic.LeftTopX += (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomX += (int)nudMoveDist.Value;
       }
       else
       {
         // 右辺を右へ拡大
-        frmTgtFrame.RightBottomX += (int)nudMoveDist.Value;
+        tgtFrameLogic.RightBottomX += (int)nudMoveDist.Value;
       }
 
+      // ラジオボタン内容更新メソッド使用
+      UpdRdioBtnTxt();
+      // 距離ラベル更新メソッド使用
+      UpdDistLblTxt();
+
       // 対象正方形描画メソッド使用
-      frmTgtFrame.DrawSquare();
+      tgtFrameLogic.DrawSquare(frmTgtFrame);
 
       // プレビュフォームが表示されている場合
-      if (frmTgtFrame.fmPreview.Visible)
+      if (fmPreview.Visible)
       {
-        // 画面コピー
-        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
-
-        // ズーム倍率初期値
-        int widthZoomRatio = 1;
-        int heightZoomRatio = 1;
-
-        // ズームフラグ
-        if (frmTgtFrame.isZoom)
-        {
-          // ズーム倍率設定
-          widthZoomRatio = 2;
-          heightZoomRatio = 2;
-        }
-
-        // 画面表示
-        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
+        // ピクチャボックス画像更新メソッド使用
+        fmPreview.UpdPicBoxImg();
       }
     }
     #endregion
@@ -262,31 +256,38 @@ namespace WFA
     #region プレビュバックカラーコンボボックス値変更イベント
     private void cbReviewBackColor_SelectedIndexChanged(object sender, EventArgs e)
     {
+      // 選択した内容を境界色として設定
+      tgtFrameLogic.BoundaryColor = tgtFrameLogic.DicPreViewFrameColor[cbPreviewBackColor.SelectedItem.ToString()];
+
       // プレビュフォームが表示されている場合
-      if (frmTgtFrame.fmPreview.Visible)
+      if (fmPreview.Visible)
       {
-        // 画面コピー
-        Bitmap btm = frmTgtFrame.CopyScreen(new Point(frmTgtFrame.LeftTopX, frmTgtFrame.LeftTopY), new Point(frmTgtFrame.RightBottomX, frmTgtFrame.RightBottomY));
-
-        // ズーム倍率初期値
-        int widthZoomRatio = 1;
-        int heightZoomRatio = 1;
-
-        // ズームフラグ
-        if (frmTgtFrame.isZoom)
-        {
-          // ズーム倍率設定
-          widthZoomRatio = 2;
-          heightZoomRatio = 2;
-        }
-
-        // 画面表示
-        frmTgtFrame.fmPreview.pbPreview.Image = new Bitmap(btm, btm.Width * widthZoomRatio, btm.Height * heightZoomRatio);
+        // ピクチャボックス画像更新メソッド使用
+        fmPreview.UpdPicBoxImg();
       }
     }
     #endregion
 
+    #region キャプチャ画像拡張子コンボボックス変更イベント
+    private void cbCapFileEx_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      // 選択した内容をキャプチャ画像拡張子として設定
+      tgtFrameLogic.CapImgEx = tgtFrameLogic.DicImgEx[cbCapFileEx.SelectedItem.ToString()];
+    }
+    #endregion
 
+
+    #region フォームクロージングイベント
+    private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      // クローズキャンセル
+      if (e.CloseReason == CloseReason.UserClosing)
+        e.Cancel = true;
+    }
+    #endregion
+
+
+    /* コンテキスト */
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
@@ -336,12 +337,87 @@ namespace WFA
     #endregion
 
 
-    #region フォームクロージングイベント
-    private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+    /* パブリックメソッド */
+    #region ラジオボタン内容更新メソッド
+    /// <summary>
+    /// ラジオボタン内容更新メソッド
+    /// </summary>
+    public void UpdRdioBtnTxt()
     {
-      // クローズキャンセル
-      if (e.CloseReason == CloseReason.UserClosing)
-        e.Cancel = true;
+      // 始点終点座標更新
+      rbLeftTop.Text = tgtFrameLogic.LeftTopX + "×" + tgtFrameLogic.LeftTopY;
+      rbRightBottom.Text = tgtFrameLogic.RightBottomX + "×" + tgtFrameLogic.RightBottomY;
+    }
+    #endregion
+
+    #region ラジオボタンチェック更新メソッド
+    /// <summary>
+    /// ラジオボタンチェック更新メソッド
+    /// </summary>
+    public void UpdRdioBtnChk()
+    {
+      // 始点がチェックされている場合
+      if (rbLeftTop.Checked)
+      {
+        // 終点にチェック
+        rbRightBottom.Checked = true;
+      }
+      else
+      {
+        rbLeftTop.Checked = true;
+      }
+    }
+    #endregion
+
+    #region 距離ラベル更新メソッド
+    /// <summary>
+    /// 距離ラベル更新メソッド
+    /// </summary>
+    public void UpdDistLblTxt()
+    {
+      // 水平距離
+      lbHorizonDist.Text = Math.Abs(tgtFrameLogic.RightBottomX - tgtFrameLogic.LeftTopX).ToString();
+      // 垂直距離
+      lbVerticalDist.Text = Math.Abs(tgtFrameLogic.RightBottomY - tgtFrameLogic.LeftTopY).ToString();
+    }
+    #endregion
+
+    #region テストポイントラベル更新メソッド
+    /// <summary>
+    /// テストポイントラベル更新メソッド
+    /// </summary>
+    public void UpdTestPointLblTxt()
+    {
+      // テストポイントモードでない場合
+      if (!tgtFrameLogic.IsTestPointMode)
+      {
+        // テストポイントラベル初期化
+        lbTestPoint.Text = "";
+
+        return;
+      }
+
+      // テストポイントラベル更新
+      lbTestPoint.Text = tgtFrameLogic.TestPoint.X.ToString() + "×" + tgtFrameLogic.TestPoint.Y.ToString();
+    }
+    #endregion
+
+
+    /* プライベートメソッド */
+    #region 全カラーリスト取得メソッド
+    private ArrayList GetAllColorList()
+    {
+      ArrayList ColorList = new ArrayList();
+
+      // カラーリストを全て取得
+      Type colorType = typeof(Color);
+      PropertyInfo[] propInfoList = colorType.GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+      foreach (PropertyInfo x in propInfoList)
+      {
+        ColorList.Add(x.Name);
+      }
+
+      return ColorList;
     }
     #endregion
   }

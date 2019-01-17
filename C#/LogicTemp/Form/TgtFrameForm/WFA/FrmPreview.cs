@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
 
+/*
+ * ・複数のクラスから呼び出すためインスタンスの生成は
+ *   シングルトンデザインパターンを使用する
+ */
 namespace WFA
 {
   /// <summary>
@@ -16,8 +20,24 @@ namespace WFA
   /// </summary>
   public partial class FrmPreview : Form
   {
+    #region シングルトンパターン
+
+    // シングルトン用インスタンス生成
+    private static FrmPreview instance = new FrmPreview();
+
+    /// <summary>
+    /// シングルトンインスタンス引継メソッド
+    /// </summary>
+    /// <returns></returns>
+    public static FrmPreview GetInstance()
+    {
+      return instance;
+    }
+
+    #endregion
+
     #region コンストラクタ
-    public FrmPreview()
+    private FrmPreview()
     {
       InitializeComponent();
 
@@ -26,14 +46,16 @@ namespace WFA
     }
     #endregion
 
+
     #region 宣言
 
-    // 親フォーム
-    public FrmTgtFrame frmTgtFrame { get; set; }
+    // 値連携クラスインスタンス取得
+    TgtFrameLogic tgtFrameLogic = TgtFrameLogic.GetInstance();
 
     #endregion
 
 
+    /* イベント */
     #region フォームロードイベント
     private void FrmPreview_Load(object sender, EventArgs e)
     {
@@ -45,16 +67,26 @@ namespace WFA
     #region フォーム非表示変更イベント
     private void FrmPreview_VisibleChanged(object sender, EventArgs e)
     {
-      // 非表示になった場合
-      if (!this.Visible)
+
+    }
+    #endregion
+
+    #region フォームクロージングイベント
+    private void FrmPreview_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      // クローズキャンセル
+      if (e.CloseReason == CloseReason.UserClosing)
       {
-        // ズームフラグを下ろす
-        frmTgtFrame.isZoom = false;
+        e.Cancel = true;
+
+        // 非表示
+        this.Visible = false;
       }
     }
     #endregion
 
 
+    /* コンテキスト */
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
@@ -106,73 +138,72 @@ namespace WFA
     #region コンテキスト_キャプチャ押下イベント
     private void ToolStripMenuItemCapture_Click(object sender, EventArgs e)
     {
-      // ファイル名用に現在時刻をミリ秒まで取得
-      string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond.ToString("000");
-
       // 保存フォルダがない場合
-      if (!Directory.Exists("CapReview"))
+      if (!Directory.Exists(tgtFrameLogic.CaptureDirName))
       {
         // フォルダ作成
-        Directory.CreateDirectory("CapReview");
+        Directory.CreateDirectory(tgtFrameLogic.CaptureDirName);
       }
 
+      // ファイル名用に現在時刻をミリ秒まで取得
+      string fileEx = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond.ToString("000") + "." + ImageFormat.Png.ToString().ToLower();
+
       // 画像を保存
-      pbPreview.Image.Save(string.Format(@"CapReview\{0}.png", fileName), ImageFormat.Png);
+      pbPreview.Image.Save(tgtFrameLogic.CaptureFileName + fileEx, ImageFormat.Png);
+    }
+    #endregion
+
+    #region コンテキスト_拡大/縮小押下イベント
+    private void ToolStripMenuItemZoom_Click(object sender, EventArgs e)
+    {
+      // 倍率を初期化
+      tgtFrameLogic.ZoomRatio = 1.00;
+
+      // ピクチャボックス画像更新メソッド使用
+      UpdPicBoxImg();
     }
     #endregion
 
     #region コンテキスト_拡大押下イベント
     private void ToolStripMenuItemZoomIn_Click(object sender, EventArgs e)
     {
-      // ズーム済みの場合
-      if (frmTgtFrame.isZoom)
-      {
-        // 追いズームはしない
-        return;
-      }
+      // 拡大倍率を増加
+      tgtFrameLogic.ZoomRatio += 0.25;
 
-      // 拡大
-      Bitmap zoomBmp = new Bitmap(pbPreview.Image, pbPreview.Image.Width * 2, pbPreview.Image.Height * 2);
-
-      pbPreview.Image = zoomBmp;
-
-      // ズームフラグを立てる
-      frmTgtFrame.isZoom = true;
+      // ピクチャボックス画像更新メソッド使用
+      UpdPicBoxImg();
     }
     #endregion
 
     #region コンテキスト_縮小押下イベント
     private void ToolStripMenuItemZoomOut_Click(object sender, EventArgs e)
     {
-      // ズームアウト済みの場合
-      if (!frmTgtFrame.isZoom)
+      // 拡大倍率を増加
+      tgtFrameLogic.ZoomRatio -= 0.25;
+      if (tgtFrameLogic.ZoomRatio <= 0)
       {
-        // 追いズームアウトはしない
-        return;
+        // 最小値は0.25
+        tgtFrameLogic.ZoomRatio = 0.25;
       }
 
-      // 縮小
-      Bitmap zoomBmp = new Bitmap(pbPreview.Image, pbPreview.Image.Width / 2, pbPreview.Image.Height / 2);
-
-      pbPreview.Image = zoomBmp;
-
-      // ズームフラグを立てる
-      frmTgtFrame.isZoom = false;
+      // ピクチャボックス画像更新メソッド使用
+      UpdPicBoxImg();
     }
     #endregion
 
 
-    #region フォームクロージングイベント
-    private void FrmPreview_FormClosing(object sender, FormClosingEventArgs e)
+    /* パブリックメソッド */
+    #region ピクチャボックス画像更新メソッド
+    /// <summary>
+    /// ピクチャボックス画像更新メソッド
+    /// </summary>
+    public void UpdPicBoxImg()
     {
-      // クローズキャンセル
-      if (e.CloseReason == CloseReason.UserClosing)
-      {
-        e.Cancel = true;
+      // スクリーンコピーメソッド使用
+      Bitmap btm = tgtFrameLogic.CopyScreen();
 
-        // 非表示
-        this.Visible = false;
-      }
+      // 画像表示
+      pbPreview.Image = new Bitmap(btm, (int)Math.Round(btm.Width * tgtFrameLogic.ZoomRatio, 2), (int)Math.Round(btm.Height * tgtFrameLogic.ZoomRatio, 2));
     }
     #endregion
   }

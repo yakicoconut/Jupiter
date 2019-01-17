@@ -34,6 +34,11 @@
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemSquareColor = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemSquareGreen = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemSquareBlack = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemSquareWhite = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItemSquareBlue = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPointTest = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemPreview = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,14 +48,16 @@
       // 
       // contextMenuStrip1
       // 
+      this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacity,
+            this.ToolStripMenuItemSquareColor,
             this.ToolStripMenuItemTaskBar,
             this.ToolStripMenuItemPointTest,
             this.ToolStripMenuItemPreview,
             this.toolStripMenuItemClose});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 136);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(161, 158);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -66,23 +73,63 @@
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // ToolStripMenuItemOpacityTransparent
       // 
       this.ToolStripMenuItemOpacityTransparent.Name = "ToolStripMenuItemOpacityTransparent";
-      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(100, 22);
       this.ToolStripMenuItemOpacityTransparent.Text = "透明";
       this.ToolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.ToolStripMenuItemOpacityTransparent_Click);
+      // 
+      // ToolStripMenuItemSquareColor
+      // 
+      this.ToolStripMenuItemSquareColor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemSquareGreen,
+            this.ToolStripMenuItemSquareBlack,
+            this.ToolStripMenuItemSquareWhite,
+            this.ToolStripMenuItemSquareBlue});
+      this.ToolStripMenuItemSquareColor.Name = "ToolStripMenuItemSquareColor";
+      this.ToolStripMenuItemSquareColor.Size = new System.Drawing.Size(160, 22);
+      this.ToolStripMenuItemSquareColor.Text = "対象正方形色";
+      this.ToolStripMenuItemSquareColor.Click += new System.EventHandler(this.ToolStripMenuItemSquareGreen_Click);
+      // 
+      // ToolStripMenuItemSquareGreen
+      // 
+      this.ToolStripMenuItemSquareGreen.Name = "ToolStripMenuItemSquareGreen";
+      this.ToolStripMenuItemSquareGreen.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemSquareGreen.Text = "緑";
+      this.ToolStripMenuItemSquareGreen.Click += new System.EventHandler(this.ToolStripMenuItemSquareGreen_Click);
+      // 
+      // ToolStripMenuItemSquareBlack
+      // 
+      this.ToolStripMenuItemSquareBlack.Name = "ToolStripMenuItemSquareBlack";
+      this.ToolStripMenuItemSquareBlack.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemSquareBlack.Text = "黒";
+      this.ToolStripMenuItemSquareBlack.Click += new System.EventHandler(this.ToolStripMenuItemSquareBlack_Click);
+      // 
+      // ToolStripMenuItemSquareWhite
+      // 
+      this.ToolStripMenuItemSquareWhite.Name = "ToolStripMenuItemSquareWhite";
+      this.ToolStripMenuItemSquareWhite.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemSquareWhite.Text = "白";
+      this.ToolStripMenuItemSquareWhite.Click += new System.EventHandler(this.ToolStripMenuItemSquareWhite_Click);
+      // 
+      // ToolStripMenuItemSquareBlue
+      // 
+      this.ToolStripMenuItemSquareBlue.Name = "ToolStripMenuItemSquareBlue";
+      this.ToolStripMenuItemSquareBlue.Size = new System.Drawing.Size(152, 22);
+      this.ToolStripMenuItemSquareBlue.Text = "青";
+      this.ToolStripMenuItemSquareBlue.Click += new System.EventHandler(this.ToolStripMenuItemSquareBlue_Click);
       // 
       // ToolStripMenuItemTaskBar
       // 
@@ -140,5 +187,10 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPreview;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemTaskBar;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSquareColor;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSquareGreen;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSquareBlack;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSquareWhite;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSquareBlue;
   }
 }

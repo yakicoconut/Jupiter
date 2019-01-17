@@ -35,6 +35,8 @@
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.cbCapFileEx = new System.Windows.Forms.ComboBox();
+      this.label9 = new System.Windows.Forms.Label();
       this.label8 = new System.Windows.Forms.Label();
       this.cbPreviewBackColor = new System.Windows.Forms.ComboBox();
       this.cbIsMove = new System.Windows.Forms.CheckBox();
@@ -102,8 +104,13 @@
       // 
       // panel1
       // 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
       this.panel1.ContextMenuStrip = this.contextMenuStrip1;
+      this.panel1.Controls.Add(this.cbCapFileEx);
+      this.panel1.Controls.Add(this.label9);
       this.panel1.Controls.Add(this.label8);
       this.panel1.Controls.Add(this.cbPreviewBackColor);
       this.panel1.Controls.Add(this.cbIsMove);
@@ -127,14 +134,36 @@
       this.panel1.Location = new System.Drawing.Point(17, 15);
       this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(250, 498);
+      this.panel1.Size = new System.Drawing.Size(250, 598);
       this.panel1.TabIndex = 1;
+      // 
+      // cbCapFileEx
+      // 
+      this.cbCapFileEx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbCapFileEx.FormattingEnabled = true;
+      this.cbCapFileEx.Location = new System.Drawing.Point(40, 306);
+      this.cbCapFileEx.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.cbCapFileEx.Name = "cbCapFileEx";
+      this.cbCapFileEx.Size = new System.Drawing.Size(199, 26);
+      this.cbCapFileEx.TabIndex = 23;
+      this.cbCapFileEx.SelectedIndexChanged += new System.EventHandler(this.cbCapFileEx_SelectedIndexChanged);
+      // 
+      // label9
+      // 
+      this.label9.AutoSize = true;
+      this.label9.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.label9.Location = new System.Drawing.Point(17, 284);
+      this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(162, 18);
+      this.label9.TabIndex = 22;
+      this.label9.Text = "キャプチャファイル種類";
       // 
       // label8
       // 
       this.label8.AutoSize = true;
       this.label8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label8.Location = new System.Drawing.Point(17, 298);
+      this.label8.Location = new System.Drawing.Point(17, 220);
       this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(115, 18);
@@ -145,7 +174,7 @@
       // 
       this.cbPreviewBackColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cbPreviewBackColor.FormattingEnabled = true;
-      this.cbPreviewBackColor.Location = new System.Drawing.Point(40, 321);
+      this.cbPreviewBackColor.Location = new System.Drawing.Point(40, 243);
       this.cbPreviewBackColor.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.cbPreviewBackColor.Name = "cbPreviewBackColor";
       this.cbPreviewBackColor.Size = new System.Drawing.Size(199, 26);
@@ -157,7 +186,7 @@
       this.cbIsMove.AutoSize = true;
       this.cbIsMove.Checked = true;
       this.cbIsMove.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbIsMove.Location = new System.Drawing.Point(20, 214);
+      this.cbIsMove.Location = new System.Drawing.Point(18, 377);
       this.cbIsMove.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.cbIsMove.Name = "cbIsMove";
       this.cbIsMove.Size = new System.Drawing.Size(70, 22);
@@ -167,7 +196,7 @@
       // 
       // btDown
       // 
-      this.btDown.Location = new System.Drawing.Point(73, 456);
+      this.btDown.Location = new System.Drawing.Point(73, 554);
       this.btDown.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.btDown.Name = "btDown";
       this.btDown.Size = new System.Drawing.Size(105, 30);
@@ -178,7 +207,7 @@
       // 
       // btRight
       // 
-      this.btRight.Location = new System.Drawing.Point(127, 426);
+      this.btRight.Location = new System.Drawing.Point(127, 524);
       this.btRight.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.btRight.Name = "btRight";
       this.btRight.Size = new System.Drawing.Size(105, 30);
@@ -189,7 +218,7 @@
       // 
       // btLeft
       // 
-      this.btLeft.Location = new System.Drawing.Point(23, 426);
+      this.btLeft.Location = new System.Drawing.Point(23, 524);
       this.btLeft.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.btLeft.Name = "btLeft";
       this.btLeft.Size = new System.Drawing.Size(105, 30);
@@ -200,7 +229,7 @@
       // 
       // btUp
       // 
-      this.btUp.Location = new System.Drawing.Point(73, 396);
+      this.btUp.Location = new System.Drawing.Point(73, 494);
       this.btUp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.btUp.Name = "btUp";
       this.btUp.Size = new System.Drawing.Size(105, 30);
@@ -213,7 +242,7 @@
       // 
       this.label7.AutoSize = true;
       this.label7.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label7.Location = new System.Drawing.Point(15, 374);
+      this.label7.Location = new System.Drawing.Point(15, 472);
       this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(44, 18);
@@ -224,7 +253,7 @@
       // 
       this.label6.AutoSize = true;
       this.label6.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label6.Location = new System.Drawing.Point(3, 356);
+      this.label6.Location = new System.Drawing.Point(5, 345);
       this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(113, 18);
@@ -235,16 +264,16 @@
       // 
       this.label5.AutoSize = true;
       this.label5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label5.Location = new System.Drawing.Point(17, 243);
+      this.label5.Location = new System.Drawing.Point(15, 414);
       this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
       this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(44, 18);
+      this.label5.Size = new System.Drawing.Size(80, 18);
       this.label5.TabIndex = 10;
-      this.label5.Text = "距離";
+      this.label5.Text = "移動距離";
       // 
       // nudMoveDist
       // 
-      this.nudMoveDist.Location = new System.Drawing.Point(40, 266);
+      this.nudMoveDist.Location = new System.Drawing.Point(35, 436);
       this.nudMoveDist.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.nudMoveDist.Minimum = new decimal(new int[] {
             1,
@@ -355,13 +384,14 @@
       this.rbLeftTop.TabIndex = 0;
       this.rbLeftTop.TabStop = true;
       this.rbLeftTop.UseVisualStyleBackColor = true;
+      this.rbLeftTop.CheckedChanged += new System.EventHandler(this.rbLeftTop_CheckedChanged);
       // 
       // FrmOption
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(283, 528);
+      this.ClientSize = new System.Drawing.Size(283, 626);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -388,11 +418,11 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     private System.Windows.Forms.Panel panel1;
-    public System.Windows.Forms.RadioButton rbLeftTop;
-    public System.Windows.Forms.RadioButton rbRightBottom;
-    public System.Windows.Forms.Label lbVerticalDist;
-    public System.Windows.Forms.Label lbHorizonDist;
-    public System.Windows.Forms.Label lbTestPoint;
+    private System.Windows.Forms.RadioButton rbLeftTop;
+    private System.Windows.Forms.RadioButton rbRightBottom;
+    private System.Windows.Forms.Label lbVerticalDist;
+    private System.Windows.Forms.Label lbHorizonDist;
+    private System.Windows.Forms.Label lbTestPoint;
     private System.Windows.Forms.CheckBox cbIsMove;
     private System.Windows.Forms.Button btDown;
     private System.Windows.Forms.Button btRight;
@@ -409,5 +439,7 @@
     private System.Windows.Forms.Label label8;
     public System.Windows.Forms.ComboBox cbPreviewBackColor;
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
+    public System.Windows.Forms.ComboBox cbCapFileEx;
+    private System.Windows.Forms.Label label9;
   }
 }
