@@ -65,7 +65,7 @@ namespace WFA
     private void Form1_Load(object sender, EventArgs e)
     {
       // GIFアニメ画像の読み込み
-      animatedImage = new Bitmap(@"Sample01.gif");
+      animatedImage = new Bitmap(targetGif);
       // アニメ開始
       ImageAnimator.Animate(animatedImage, new EventHandler(this.Image_FrameChanged));
     }

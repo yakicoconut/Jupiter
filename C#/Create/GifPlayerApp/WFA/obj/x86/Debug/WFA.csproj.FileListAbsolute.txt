@@ -32,3 +32,5 @@ E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\obj\x86\Debug\WFA.Properties.Resour
 E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\bin\Debug\WFA.exe
 E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\bin\Debug\WFA.pdb
+E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\GifPlayerApp\WFA\obj\x86\Debug\WFA.csproj.CoreCompileInputs.cache
