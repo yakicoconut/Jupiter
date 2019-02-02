@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
       this.btStart = new System.Windows.Forms.Button();
-      this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.pbGifPlayer = new System.Windows.Forms.PictureBox();
       this.btStop = new System.Windows.Forms.Button();
       this.nupSlowInterval = new System.Windows.Forms.NumericUpDown();
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      this.cbDefSize = new System.Windows.Forms.CheckBox();
+      ((System.ComponentModel.ISupportInitialize)(this.pbGifPlayer)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nupSlowInterval)).BeginInit();
       this.SuspendLayout();
       // 
@@ -47,17 +48,17 @@
       this.btStart.UseVisualStyleBackColor = true;
       this.btStart.Click += new System.EventHandler(this.btStart_Click);
       // 
-      // pictureBox1
+      // pbGifPlayer
       // 
-      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.pbGifPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-      this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(324, 146);
-      this.pictureBox1.TabIndex = 2;
-      this.pictureBox1.TabStop = false;
-      this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+      this.pbGifPlayer.Location = new System.Drawing.Point(12, 12);
+      this.pbGifPlayer.Name = "pbGifPlayer";
+      this.pbGifPlayer.Size = new System.Drawing.Size(324, 146);
+      this.pbGifPlayer.TabIndex = 2;
+      this.pbGifPlayer.TabStop = false;
+      this.pbGifPlayer.DoubleClick += new System.EventHandler(this.pbGifPlayer_DoubleClick);
       // 
       // btStop
       // 
@@ -78,43 +79,60 @@
             0,
             0,
             0});
-      this.nupSlowInterval.Location = new System.Drawing.Point(216, 168);
+      this.nupSlowInterval.Location = new System.Drawing.Point(259, 164);
       this.nupSlowInterval.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
       this.nupSlowInterval.Name = "nupSlowInterval";
-      this.nupSlowInterval.ReadOnly = true;
-      this.nupSlowInterval.Size = new System.Drawing.Size(120, 19);
+      this.nupSlowInterval.Size = new System.Drawing.Size(77, 19);
       this.nupSlowInterval.TabIndex = 4;
       this.nupSlowInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
       this.nupSlowInterval.ValueChanged += new System.EventHandler(this.nupSlowInterval_ValueChanged);
+      this.nupSlowInterval.Enter += new System.EventHandler(this.nupSlowInterval_ValueChanged);
+      // 
+      // cbDefSize
+      // 
+      this.cbDefSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbDefSize.AutoSize = true;
+      this.cbDefSize.Location = new System.Drawing.Point(174, 168);
+      this.cbDefSize.Name = "cbDefSize";
+      this.cbDefSize.Size = new System.Drawing.Size(79, 16);
+      this.cbDefSize.TabIndex = 5;
+      this.cbDefSize.Text = "デフォサイズ";
+      this.cbDefSize.UseVisualStyleBackColor = true;
       // 
       // Form1
       // 
+      this.AllowDrop = true;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(348, 199);
+      this.Controls.Add(this.cbDefSize);
       this.Controls.Add(this.nupSlowInterval);
       this.Controls.Add(this.btStop);
-      this.Controls.Add(this.pictureBox1);
+      this.Controls.Add(this.pbGifPlayer);
       this.Controls.Add(this.btStart);
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+      this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+      ((System.ComponentModel.ISupportInitialize)(this.pbGifPlayer)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nupSlowInterval)).EndInit();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button btStart;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbGifPlayer;
         private System.Windows.Forms.Button btStop;
         private System.Windows.Forms.NumericUpDown nupSlowInterval;
-    }
+    private System.Windows.Forms.CheckBox cbDefSize;
+  }
 }
 
