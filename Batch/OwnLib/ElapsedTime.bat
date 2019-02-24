@@ -1,8 +1,8 @@
 @echo off
 title %~nx0
 rem 経過時間計算バッチ
-rem 引数01:開始時刻
-rem 引数02:終了時刻
+rem 引数01:開始時刻(「hh:mm:ss.ff」もしくは「hh:mm:ss」)
+rem 引数02:終了時刻(「hh:mm:ss.ff」もしくは「hh:mm:ss」)
 rem 戻値:経過時間(文字列)
 
 
@@ -16,18 +16,36 @@ SETLOCAL
   : 引数
     rem 開始時刻
     set startTime=%1
+    rem 終了時刻
+    set   endTime=%2
+
+  : コンマ秒有無判定
+    set commaFlg=0
+    rem 「hh:mm:ss.ff」
+    echo %startTime%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
+    echo %endTime%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 set commaFlg=1
+
+  : 項目分割
+    rem 開始時刻
     set /a   startHour=%startTime:~0,2%
     set /a startMinute=%startTime:~3,2%
     set /a startSecond=%startTime:~6,2%
-    set /a  startComma=%startTime:~9,2%
 
     rem 終了時刻
-    set endTime=%2
     set /a   endHour=%endTime:~0,2%
     set /a endMinute=%endTime:~3,2%
     set /a endSecond=%endTime:~6,2%
-    set /a  endComma=%endTime:~9,2%
 
+    rem コンマ秒がある場合
+    if %commaFlg%==1 (
+      set /a startComma=%startTime:~9,2%
+      set /a   endComma=%endTime:~9,2%
+    ) else (
+      rem ない場合、「00」を設定
+      set /a startComma=00
+      set /a   endComma=00
+    )
 
   : 処理時間計算
     rem 単純計算
@@ -53,13 +71,17 @@ SETLOCAL
     rem 秒
     call %call_ZeroPadding% %elapsedSecond% 2
     set elapsedSecond=%return_ZeroPadding%
-    rem コンマ
+    rem コンマ秒
     call %call_ZeroPadding% %elapsedComma% 2
     set elapsedComma=%return_ZeroPadding%
 
   : 結果
     rem 計算結果を時間表記にする
-    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%.%elapsedComma%
+    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%
+    rem コンマ秒がある場合
+    if %commaFlg%==1 (
+      set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%.%elapsedComma%
+    )
 
 
 rem 戻り値
