@@ -2,7 +2,8 @@
 title %~nx0
 rem 時刻判定バッチ
 rem 引数01:対象値
-rem 戻値:判定結果(0:数値でない、1:数値)
+rem 戻値1:判定結果(0:数値でない、1:数値)
+rem 戻値2:時間フォーマット
 
 
 rem 変数ローカル化
@@ -20,26 +21,36 @@ SETLOCAL
 
     rem 時刻フラグ
     set isTime=0
-
+    rem 返却用フォーマット変数
+    set format=
 
     rem 「mm:ss」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]$" >NUL
-    if %ERRORLEVEL% equ 0 goto :FLAGON
-
+    if %ERRORLEVEL% equ 0 (
+      set format=mm:ss
+      goto :FLAGON
+    )
 
     rem 「h:mm:ss」
     echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9][0-9]$" >NUL
-    if %ERRORLEVEL% equ 0 goto :FLAGON
-
+    if %ERRORLEVEL% equ 0 (
+      set format=h:mm:ss
+      goto :FLAGON
+    )
 
     rem 「hh:mm:ss」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$" >NUL
-    if %ERRORLEVEL% equ 0 goto :FLAGON
-
+    if %ERRORLEVEL% equ 0 (
+      set format=hh:mm:ss
+      goto :FLAGON
+    )
 
     rem 「hh:mm:ss.ff」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
-    if %ERRORLEVEL% equ 0 goto :FLAGON
+    if %ERRORLEVEL% equ 0 (
+      set format=hh:mm:ss.ff
+      goto :FLAGON
+    )
 
 
     rem すべてエラーの場合、リターン
@@ -53,5 +64,5 @@ SETLOCAL
 
 :RETURN
   rem 戻り値
-  ENDLOCAL && set return_ChkTimeFormat=%isTime%
+  ENDLOCAL && set return_ChkTimeFormat1=%isTime% && set return_ChkTimeFormat2=%format%
   exit /b
