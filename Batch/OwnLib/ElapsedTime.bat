@@ -7,7 +7,7 @@ rem 戻値:経過時間(文字列)
 
 
 rem 変数ローカル化
-SETLOCAL
+SETLOCAL ENABLEDELAYEDEXPANSION
   : 参照バッチ
     rem 呼び出しを想定して自身と同じフォルダを指定
     rem ゼロ埋めバッチ
@@ -54,11 +54,31 @@ SETLOCAL
     set /a elapsedSecond=%endSecond% - %startSecond%
     set /a  elapsedComma=%endComma%  - %startComma%
 
-    rem 開始時間が終了時間を上回っている場合
-    if %startHour%   gtr %endHour%   set /a   elapsedHour=24 - %startHour%   + %endHour%
-    if %startMinute% gtr %endMinute% set /a elapsedMinute=60 - %startMinute% + %endMinute%
-    if %startSecond% gtr %endSecond% set /a elapsedSecond=60 - %startSecond% + %endSecond%
-    if %startComma%  gtr %endComma%  set /a  elapsedComma=60 - %startComma%  + %endComma%
+    : 絶対値(開始時間 > 終了時間)処理
+      rem 分
+      if %startMinute% gtr %endMinute% (
+        set /a elapsedMinute=60 - %startMinute% + %endMinute%
+        rem 繰り下がり
+        set /a elapsedHour=%elapsedHour%-1
+        rem 「-1」の場合、「00」に訂正
+        if !elapsedHour! == -1 set /a elapsedHour=00
+      )
+
+      rem 秒
+      if %startSecond% gtr %endSecond% (
+        set /a elapsedSecond=60 - %startSecond% + %endSecond%
+        set /a elapsedMinute=!elapsedMinute!-1
+        rem 「-1」の場合、「59」に訂正
+        if !elapsedMinute! == -1 set /a elapsedMinute=59
+      )
+
+    rem コンマ秒
+    if %startComma% gtr %endComma% (
+      rem コンマ秒は100まで数える
+      set /a elapsedComma=100 - %startComma% + %endComma%
+      set /a elapsedSecond=!elapsedSecond!-1
+      if !elapsedSecond! == -1 set /a elapsedSecond=59
+    )
 
   : 文字列変換
     rem ゼロ埋めバッチ使用
