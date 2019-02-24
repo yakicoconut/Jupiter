@@ -21,53 +21,24 @@ SETLOCAL
     rem 時刻フラグ
     set isTime=0
 
-    REM rem 「m;s」
-    REM echo %value%| findstr /r "^[0-9]:[0-9]$" >NUL
-    REM rem エラーでなければフラグを立てる
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「mm;s」
-    REM echo %value%| findstr /r "^[0-9][0-9]:[0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「m:ss」
-    REM echo %value%| findstr /r "^[0-9]:[0-9][0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
 
     rem 「mm:ss」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]$" >NUL
     if %ERRORLEVEL% equ 0 goto :FLAGON
 
-    REM rem 「h:m;s」
-    REM echo %value%| findstr /r "^[0-9]:[0-9]:[0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「h:mm;s」
-    REM echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「h:m:ss」
-    REM echo %value%| findstr /r "^[0-9]:[0-9]:[0-9][0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
 
     rem 「h:mm:ss」
     echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9][0-9]$" >NUL
     if %ERRORLEVEL% equ 0 goto :FLAGON
 
-    REM rem 「hh:m;s」
-    REM echo %value%| findstr /r "^[0-9][0-9]:[0-9]:[0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「hh:mm;s」
-    REM echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
-
-    REM rem 「hh:m:ss」
-    REM echo %value%| findstr /r "^[0-9][0-9]:[0-9]:[0-9][0-9]$" >NUL
-    REM if %ERRORLEVEL% equ 0 goto :FLAGON
 
     rem 「hh:mm:ss」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 goto :FLAGON
+
+
+    rem 「hh:mm:ss.ff」
+    echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
     if %ERRORLEVEL% equ 0 goto :FLAGON
 
 
