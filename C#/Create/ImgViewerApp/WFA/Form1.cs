@@ -514,34 +514,63 @@ namespace WFA
       Point clickPosition = pictureBox1.PointToClient(MousePosition);
 
       // 有効範囲クリック判断用変数
+      bool leftUpClick = false;
+      bool rightUpClick = false;
+      bool leftDownClick = false;
+      bool rightDownClick = false;
       bool upSideClick = false;
       bool downSideClick = false;
       bool rightSideClick = false;
       bool leftSideClick = false;
 
       // 有効範囲算出横五縦十メソッド使用
-      EffectiveRangeFullTen(ctrlSize, clickPosition, out upSideClick, out downSideClick, out rightSideClick, out leftSideClick);
+      EffectiveRangeFullTen(ctrlSize, clickPosition, out leftUpClick, out rightUpClick, out leftDownClick, out rightDownClick, out upSideClick, out downSideClick, out rightSideClick, out leftSideClick);
 
-      // 有効範囲クリック判断
-      if (upSideClick)
+      // クリック位置分岐
+      if (leftUpClick) // 左上
       {
-        // 上操作メソッド使用
-        UpOperation();
+        // ズームイン操作メソッド使用
+        ZoomInOperation();
+      }
+      else if (rightUpClick)
+      {
+        // 次ページ送り操作メソッド使用
+        ImgFeedPostOperation();
+      }
+      else if (leftDownClick)
+      {
+        // 前ページ送り操作メソッド使用
+        ImgFeedPreOperation();
+      }
+      else if (rightDownClick)
+      {
+        // ズームアウト操作メソッド使用
+        ZoomOutOperation();
+      }
+      else if (upSideClick) // 有効範囲クリック判断
+      {
+        // 上に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y + UpMoveDistance);
+        // 移動メソッド使用
+        ImgMove();
       }
       else if (downSideClick)
       {
-        // 下操作メソッド使用
-        DownOperation();
+        // 下に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + 0, currentZeroPoint.Y - DownMoveDistance);
+        ImgMove();
       }
       else if (rightSideClick)
       {
-        // 右操作メソッド使用
-        RightOperation();
+        // 右に移動
+        currentZeroPoint = new Point(currentZeroPoint.X - RightMoveDistance, currentZeroPoint.Y + 0);
+        ImgMove();
       }
       else if (leftSideClick)
       {
-        // 左操作メソッド使用
-        LeftOperation();
+        // 左に移動
+        currentZeroPoint = new Point(currentZeroPoint.X + LeftMoveDistance, currentZeroPoint.Y + 0);
+        ImgMove();
       }
     }
     #endregion
@@ -1094,21 +1123,8 @@ namespace WFA
       // 拡大/縮小チェック
       if (fmOption.cbIsModeZoom.Checked)
       {
-        // 現在倍率を倍にする
-        currentZoomRatio = currentZoomRatio * ZoomInRatio;
-
-        // 現在の(0, 0)の位置を拡大後も引き継ぐ
-        currentZeroPoint = new Point((int)(currentZeroPoint.X * ZoomInRatio), (int)(currentZeroPoint.Y * ZoomInRatio));
-
-        // 0ポイントチェック
-        if (fmOption.cbIsModeZeroPoint.Checked)
-        {
-          // ページ送りに伴い画像を左上に設定
-          currentZeroPoint = new Point(0, 0);
-        }
-
-        // 画像ズームメソッド使用
-        ImgZoom();
+        // ズームイン操作メソッド使用
+        ZoomInOperation();
       }
       else
       {
@@ -1130,21 +1146,8 @@ namespace WFA
       // 拡大/縮小チェック
       if (fmOption.cbIsModeZoom.Checked)
       {
-        // 現在倍率にズームアウト倍率を割る
-        currentZoomRatio = currentZoomRatio / ZoomOutRatio;
-
-        // 現在の(0, 0)の位置を縮小後も引き継ぐ
-        currentZeroPoint = new Point((int)(currentZeroPoint.X / ZoomOutRatio), (int)(currentZeroPoint.Y / ZoomOutRatio));
-
-        // 0ポイントチェック
-        if (fmOption.cbIsModeZeroPoint.Checked)
-        {
-          // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
-          currentZeroPoint = new Point(0, 0);
-        }
-
-        // 画像ズームメソッド使用
-        ImgZoom();
+        // ズームアウト操作メソッド使用
+        ZoomOutOperation();
       }
       else
       {
@@ -1166,29 +1169,8 @@ namespace WFA
       // ページ送りチェック
       if (fmOption.cbIsModePageEject.Checked)
       {
-        // 現ページが最後の場合
-        if (CurrentImageKey == maxImageKey)
-        {
-          // 最初のページへ
-          CurrentImageKey = 0;
-        }
-        else
-        {
-          // 次のページへ
-          CurrentImageKey += 1;
-        }
-
-        // ページ送りメソッド使用
-        FeedImg();
-
-        // ファイルリストの該当ファイルを選択
-        fmFileList.lvFileList.SelectedItems.Clear();
-        fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
-        // 選択ファイルがリスト上で次ページになった場合、リストをスクロール
-        fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
-
-        // オプションフォームのチェックを表示している画像に沿って設定
-        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
+        // 次ページ送り操作メソッド使用
+        ImgFeedPostOperation();
       }
       else
       {
@@ -1210,28 +1192,8 @@ namespace WFA
       // コントロールチェックの場合
       if (fmOption.cbIsModePageEject.Checked)
       {
-        // 現ページが最初の場合
-        if (CurrentImageKey == 0)
-        {
-          CurrentImageKey = maxImageKey;
-        }
-        else
-        {
-          // 左のページへ
-          CurrentImageKey -= 1;
-        }
-
-        // ページ送りメソッド使用
-        FeedImg();
-
-        // ファイルリストの該当ファイルを選択
-        fmFileList.lvFileList.SelectedItems.Clear();
-        fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
-        // 選択ファイルがリスト上で前ページになった場合、リストをスクロール
-        fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
-
-        // オプションフォームのチェックを表示している画像に沿って設定
-        fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
+        // 前ページ送り操作メソッド使用
+        ImgFeedPreOperation();
       }
       else
       {
@@ -1243,6 +1205,107 @@ namespace WFA
       }
     }
     #endregion
+
+
+    #region ズームイン操作メソッド
+    private void ZoomInOperation()
+    {
+      // 現在倍率を倍にする
+      currentZoomRatio = currentZoomRatio * ZoomInRatio;
+
+      // 現在の(0, 0)の位置を拡大後も引き継ぐ
+      currentZeroPoint = new Point((int)(currentZeroPoint.X * ZoomInRatio), (int)(currentZeroPoint.Y * ZoomInRatio));
+
+      // 0ポイントチェック
+      if (fmOption.cbIsModeZeroPoint.Checked)
+      {
+        // ページ送りに伴い画像を左上に設定
+        currentZeroPoint = new Point(0, 0);
+      }
+
+      // 画像ズームメソッド使用
+      ImgZoom();
+    }
+    #endregion
+
+    #region ズームアウト操作メソッド
+    private void ZoomOutOperation()
+    {
+      // 現在倍率にズームアウト倍率を割る
+      currentZoomRatio = currentZoomRatio / ZoomOutRatio;
+
+      // 現在の(0, 0)の位置を縮小後も引き継ぐ
+      currentZeroPoint = new Point((int)(currentZeroPoint.X / ZoomOutRatio), (int)(currentZeroPoint.Y / ZoomOutRatio));
+
+      // 0ポイントチェック
+      if (fmOption.cbIsModeZeroPoint.Checked)
+      {
+        // 縮小の場合は画像の位置を戻す(画像位置によっては画面からいなくなる事があるため)
+        currentZeroPoint = new Point(0, 0);
+      }
+
+      // 画像ズームメソッド使用
+      ImgZoom();
+    }
+    #endregion
+
+    #region 次ページ送り操作メソッド
+    private void ImgFeedPostOperation()
+    {
+      // 現ページが最後の場合
+      if (CurrentImageKey == maxImageKey)
+      {
+        // 最初のページへ
+        CurrentImageKey = 0;
+      }
+      else
+      {
+        // 次のページへ
+        CurrentImageKey += 1;
+      }
+
+      // ページ送りメソッド使用
+      FeedImg();
+
+      // ファイルリストの該当ファイルを選択
+      fmFileList.lvFileList.SelectedItems.Clear();
+      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
+      // 選択ファイルがリスト上で次ページになった場合、リストをスクロール
+      fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
+
+      // オプションフォームのチェックを表示している画像に沿って設定
+      fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
+    }
+    #endregion
+
+    #region 前ページ送り操作メソッド
+    private void ImgFeedPreOperation()
+    {
+      // 現ページが最初の場合
+      if (CurrentImageKey == 0)
+      {
+        CurrentImageKey = maxImageKey;
+      }
+      else
+      {
+        // 左のページへ
+        CurrentImageKey -= 1;
+      }
+
+      // ページ送りメソッド使用
+      FeedImg();
+
+      // ファイルリストの該当ファイルを選択
+      fmFileList.lvFileList.SelectedItems.Clear();
+      fmFileList.lvFileList.Items[CurrentImageKey].Selected = true;
+      // 選択ファイルがリスト上で前ページになった場合、リストをスクロール
+      fmFileList.lvFileList.EnsureVisible(CurrentImageKey);
+
+      // オプションフォームのチェックを表示している画像に沿って設定
+      fmOption.cbChkImg.Checked = fmFileList.lvFileList.Items[CurrentImageKey].Checked;
+    }
+    #endregion
+
 
     #region ページ送りメソッド
     /// <summary>
@@ -1384,7 +1447,7 @@ namespace WFA
     #endregion
 
     #region 有効範囲算出横全縦十メソッド
-    private void EffectiveRangeFullTen(Size ctrlSize, Point clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
+    private void EffectiveRangeFullTen(Size ctrlSize, Point clickPosition, out bool leftUpClick, out bool rightUpClick, out bool leftDownClick, out bool rightDownClick, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
     {
       #region メモ
       /*
@@ -1426,6 +1489,12 @@ namespace WFA
           g.DrawLine(Pens.Black, 0, i * heightBeltSize, ctrlSize.Width, i * heightBeltSize);
         }
 
+        // 四つ角
+        g.DrawRectangle(Pens.Red, 0, 0, ctrlSize.Width / 4, ctrlSize.Height / 5);
+        g.DrawRectangle(Pens.Red, ctrlSize.Width - ctrlSize.Width / 4, 0, ctrlSize.Width, ctrlSize.Height / 5);
+        g.DrawRectangle(Pens.Red, 0, ctrlSize.Height - ctrlSize.Height / 5, ctrlSize.Width / 4, ctrlSize.Height / 5);
+        g.DrawRectangle(Pens.Red, ctrlSize.Width - ctrlSize.Width / 4, ctrlSize.Height - ctrlSize.Height / 5, ctrlSize.Width, ctrlSize.Height);
+
         // 中心線
         g.DrawLine(Pens.Green, 0, ctrlSize.Height / 2, ctrlSize.Width, ctrlSize.Height / 2);
         g.DrawLine(Pens.Green, ctrlSize.Width / 2, 0, ctrlSize.Width / 2, ctrlSize.Height);
@@ -1439,6 +1508,12 @@ namespace WFA
       pictureBox1.Image = canvas;
 #endif
       #endregion
+
+      // 四つ角
+      leftUpClick = clickPosition.X <= ctrlSize.Width / 4 && clickPosition.Y <= ctrlSize.Height / 5;
+      rightUpClick = clickPosition.X >= ctrlSize.Width - ctrlSize.Width / 4 && clickPosition.Y <= ctrlSize.Height / 5;
+      leftDownClick = clickPosition.X <= ctrlSize.Width / 4 && clickPosition.Y >= ctrlSize.Height - ctrlSize.Height / 5;
+      rightDownClick = clickPosition.X >= ctrlSize.Width - ctrlSize.Width / 4 && clickPosition.Y >= ctrlSize.Height - ctrlSize.Height / 5;
 
       // 上側の有効縦幅判定
       upSideClick = clickPosition.X >= beginWidthBelt && clickPosition.X <= endWidthBelt && clickPosition.Y <= beginHeightBelt;
