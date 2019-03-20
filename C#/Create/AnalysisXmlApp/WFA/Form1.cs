@@ -40,7 +40,8 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
+      // 区切り文字
+      delimiter = _comLogic.GetConfigValue("Delimiter", "; ");
     }
     #endregion
 
@@ -53,6 +54,12 @@ namespace WFA
     // XML探索デリゲート宣言
     delegate string DlgtDigXml(string targetStr, XmlReaderSettings setting, string targetKey);
 
+    // 区切り文字
+    string delimiter;
+
+    // ファイル名出力カウンタ(「1」の場合、出力)
+    int i = 1;
+
     #endregion
 
 
@@ -63,6 +70,8 @@ namespace WFA
       cbDigMode.DataSource = new string[] { "Raw", "Key" };
       // 変更後拡張子コンボボックス選択
       cbDigMode.SelectedItem = 0;
+      // 区切り文字を表示
+      cbIsDelimiterMode.Text = string.Format(cbIsDelimiterMode.Text, delimiter);
     }
     #endregion
 
@@ -96,9 +105,19 @@ namespace WFA
     #region ボタン1押下イベント
     private void btDig_Click(object sender, EventArgs e)
     {
-      // 入力値
+      // 対象パス取得
       string targetPath = tbTargetPath.Text;
-      string targetKey = tbTargetKey.Text;
+
+      // 検索対象キーを配列として取得
+      string[] targetKey = { tbTargetKey.Text };
+      // 区切り文字チェックがされている場合
+      if (cbIsDelimiterMode.Checked)
+      {
+        // 区切り文字配列変換
+        string[] del = { delimiter };
+        // 区切り文字で検索対象キーを分割
+        targetKey = targetKey[0].Split(del, StringSplitOptions.None);
+      }
 
       // ねずみ返し
       if (targetPath == "")
@@ -130,8 +149,13 @@ namespace WFA
       {
         // 山括弧抜き検索メソッド使用
         tabDisplayStr = DigWithoutThanSign(targetPath, setting);
-        // XML探索デリゲート使用
-        resultDisplayStr = dlgtDigXml(targetPath, setting, targetKey);
+
+        // 検索対象キーをループ
+        foreach (string x in targetKey)
+        {
+          // XML探索デリゲート使用
+          resultDisplayStr += dlgtDigXml(targetPath, setting, x);
+        }
       }
       else if (Directory.Exists(targetPath))
       {
@@ -143,8 +167,18 @@ namespace WFA
         {
           // 山括弧抜き検索メソッド使用
           tabDisplayStr += DigWithoutThanSign(x, setting);
-          // XML探索デリゲート使用
-          resultDisplayStr += dlgtDigXml(x, setting, targetKey);
+          // 検索対象キーをループ
+          foreach (string y in targetKey)
+          {
+            // XML探索デリゲート使用
+            resultDisplayStr += dlgtDigXml(x, setting, y);
+
+            // ファイル名出力カウンタ更新
+            ++i;
+          }
+
+          // ファイル名出力カウンタ初期化
+          i = 1;
         }
       }
 
@@ -294,7 +328,7 @@ namespace WFA
 
       // ファイル名
       returnStr += Path.GetFileName(targetPath) + "\r\n";
-      
+
       // ファイルからXMLを取得
       // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
       using (StreamReader streamReader = new StreamReader(targetPath))
@@ -387,8 +421,8 @@ namespace WFA
       // 対象ファイル名
       string fileName = Path.GetFileName(targetPath);
 
-      // ファイル名出力チェックボックス
-      if (cbOutFileName.Checked)
+      // ファイル名出力チェックボックスかつファイル名出力カウンタが「1」の場合
+      if (cbOutFileName.Checked && i == 1)
       {
         // ファイル名出力
         returnStr += fileName + "\r\n";
@@ -407,17 +441,22 @@ namespace WFA
           if (cbOutAttr.Checked)
           {
             // 属性取得メソッド使用
-            returnStr += GetAttr(xmlReader, cbTab.Checked, cbHeader.Checked);
+            returnStr += GetAttr(xmlReader);
           }
           // 値出力チェックボックス
           if (cbOutValue.Checked)
           {
             // 返り値フォーマット
             string RETURN_FORMAT = "{0}\r\n";
+            // キー名称チェックボックス
+            if (cbOutKeyName.Checked)
+            {
+              RETURN_FORMAT = targetKey + "\t:" + RETURN_FORMAT;
+            }
             // タブチェックボックス
             if (cbTab.Checked)
             {
-              RETURN_FORMAT = "\t{0}\r\n";
+              RETURN_FORMAT = "\t" + RETURN_FORMAT;
             }
 
             // 値追加
@@ -433,7 +472,20 @@ namespace WFA
         // 検索結果が存在しない場合
         if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
         {
-          returnStr += "検索対象なし\r\n";
+          // 返り値フォーマット
+          string RETURN_FORMAT = "検索対象なし\r\n";
+          // キー名称チェックボックス
+          if (cbOutKeyName.Checked)
+          {
+            RETURN_FORMAT = targetKey + "\t:" + RETURN_FORMAT;
+          }
+          // タブチェックボックス
+          if (cbTab.Checked)
+          {
+            RETURN_FORMAT = "\t" + RETURN_FORMAT;
+          }
+
+          returnStr += RETURN_FORMAT;
         }
       }
 
@@ -443,15 +495,25 @@ namespace WFA
 
 
     #region 属性取得メソッド
-    private string GetAttr(XmlReader xmlReader, bool tabFlg, bool headerFlg)
+    private string GetAttr(XmlReader xmlReader)
     {
       string preReturnStr = string.Empty;
       string returnStr = string.Empty;
       string outHead = string.Empty;
-      string HEAD_FORMAT = "\t値{0}\r\n";
-      int i = 0;
+      string HEAD_FORMAT = "値{0}\r\n";
+      // キー名称チェックボックス
+      if (cbOutKeyName.Checked)
+      {
+        HEAD_FORMAT = "キー名称\t:" + HEAD_FORMAT;
+      }
+      // タブチェックボックス
+      if (cbTab.Checked)
+      {
+        HEAD_FORMAT = "\t" + HEAD_FORMAT;
+      }
 
       // 属性ループ
+      int ii = 0;
       while (xmlReader.MoveToNextAttribute())
       {
         // 返り値フォーマット
@@ -459,10 +521,10 @@ namespace WFA
         // 属性名取得
         string AttrName = xmlReader.Name;
         // 属性取得
-        string Attr = xmlReader.GetAttribute(i);
+        string Attr = xmlReader.GetAttribute(ii);
 
-        // タブフラグ
-        if (tabFlg)
+        // タブチェック
+        if (cbTab.Checked)
         {
           // 属性が一つしかない
           if (xmlReader.AttributeCount == 1)
@@ -470,12 +532,12 @@ namespace WFA
             // タブ、改行複合
             RETURN_FORMAT = "\t\t{0}\r\n";
           }
-          else if (i == 0) // 最初の属性
+          else if (ii == 0) // 最初の属性
           {
             // タブ二個追加
             RETURN_FORMAT = "\t\t{0}";
           }
-          else if (i == xmlReader.AttributeCount - 1) // 最後の属性
+          else if (ii == xmlReader.AttributeCount - 1) // 最後の属性
           {
             // 更に改行追加
             RETURN_FORMAT = "\t{0}\r\n";
@@ -487,11 +549,11 @@ namespace WFA
         // 属性追加
         preReturnStr += string.Format(RETURN_FORMAT, Attr);
 
-        ++i;
+        ++ii;
       }
 
-      // ヘッダー出力フラグ
-      if (tabFlg && headerFlg)
+      // タブチェックかつヘッダー出力かつファイル名出力カウンタ「1」の場合
+      if (cbTab.Checked && cbHeader.Checked && i == 1)
       {
         returnStr += string.Format(HEAD_FORMAT, outHead);
       }

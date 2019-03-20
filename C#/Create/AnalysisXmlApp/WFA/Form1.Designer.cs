@@ -45,6 +45,8 @@
       this.cbHeader = new System.Windows.Forms.CheckBox();
       this.cbTab = new System.Windows.Forms.CheckBox();
       this.cbNoting = new System.Windows.Forms.CheckBox();
+      this.cbIsDelimiterMode = new System.Windows.Forms.CheckBox();
+      this.cbOutKeyName = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -53,7 +55,7 @@
       // 
       // btDig
       // 
-      this.btDig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.btDig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.btDig.Location = new System.Drawing.Point(469, 438);
       this.btDig.Name = "btDig";
       this.btDig.Size = new System.Drawing.Size(75, 23);
@@ -173,7 +175,7 @@
       this.tbResultDisplay.Multiline = true;
       this.tbResultDisplay.Name = "tbResultDisplay";
       this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(270, 322);
+      this.tbResultDisplay.Size = new System.Drawing.Size(264, 322);
       this.tbResultDisplay.TabIndex = 3;
       this.tbResultDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbResultDisplay_KeyDown);
       // 
@@ -253,11 +255,38 @@
       this.cbNoting.Text = "対象なし";
       this.cbNoting.UseVisualStyleBackColor = true;
       // 
+      // cbIsDelimiterMode
+      // 
+      this.cbIsDelimiterMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsDelimiterMode.AutoSize = true;
+      this.cbIsDelimiterMode.Checked = true;
+      this.cbIsDelimiterMode.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsDelimiterMode.Location = new System.Drawing.Point(426, 86);
+      this.cbIsDelimiterMode.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsDelimiterMode.Name = "cbIsDelimiterMode";
+      this.cbIsDelimiterMode.Size = new System.Drawing.Size(91, 16);
+      this.cbIsDelimiterMode.TabIndex = 17;
+      this.cbIsDelimiterMode.Text = "複数Key「{0}」";
+      this.cbIsDelimiterMode.UseVisualStyleBackColor = true;
+      // 
+      // cbOutKeyName
+      // 
+      this.cbOutKeyName.AutoSize = true;
+      this.cbOutKeyName.Location = new System.Drawing.Point(252, 63);
+      this.cbOutKeyName.Margin = new System.Windows.Forms.Padding(2);
+      this.cbOutKeyName.Name = "cbOutKeyName";
+      this.cbOutKeyName.Size = new System.Drawing.Size(68, 16);
+      this.cbOutKeyName.TabIndex = 18;
+      this.cbOutKeyName.Text = "キー名称";
+      this.cbOutKeyName.UseVisualStyleBackColor = true;
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(559, 473);
+      this.Controls.Add(this.cbOutKeyName);
+      this.Controls.Add(this.cbIsDelimiterMode);
       this.Controls.Add(this.cbNoting);
       this.Controls.Add(this.cbTab);
       this.Controls.Add(this.cbHeader);
@@ -306,6 +335,8 @@
     private System.Windows.Forms.CheckBox cbHeader;
     private System.Windows.Forms.CheckBox cbTab;
     private System.Windows.Forms.CheckBox cbNoting;
+    private System.Windows.Forms.CheckBox cbIsDelimiterMode;
+    private System.Windows.Forms.CheckBox cbOutKeyName;
   }
 }
 
