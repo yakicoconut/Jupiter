@@ -102,35 +102,24 @@ namespace WFA
       // ファイル名取得
       string[] fileName = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-      // ねずみ返し_ファイルが存在しない場合
-      if (!File.Exists(fileName[0]))
+      // Gif描画メソッド使用
+      DrawGif(fileName[0]);
+    }
+    #endregion
+    
+    #region フォーム表示後イベント
+    private void Form1_Shown(object sender, EventArgs e)
+    {
+      // コマンドライン引数取得
+      string[] cmdArgs = Environment.GetCommandLineArgs();
+      // 引数がある場合(自身のexeパスが1つ目なので2以上のとき)
+      if (cmdArgs.Length >= 2)
       {
-        return;
+        // ドラッグ&ドロップされたファイルの一つ目を取得
+        string dropItem = Environment.GetCommandLineArgs()[1];
+        // Gif描画メソッド使用
+        DrawGif(dropItem);
       }
-      // ねずみ返し_ファイル拡張子がGifでない場合
-      if (Path.GetExtension(fileName[0]).ToLower() == "gif")
-      {
-        return;
-      }
-
-      // ピクチャボックス初期化
-      pbGifPlayer.Image = null;
-
-      // 画像読み込み
-      animatedImage = new Bitmap(fileName[0]);
-
-      // デフォサイズチェックボックス
-      if (cbDefSize.Checked)
-      {
-        // 画像比率算出(縦のサイズに対する横の比率)
-        double targetRatio = (double)animatedImage.Width / (double)animatedImage.Height;
-        // デフォルト縦サイズに合わせる
-        heightZoom = defHightSize / animatedImage.Height;
-        widthZoom = heightZoom * targetRatio;
-      }
-
-      // アニメ開始
-      ImageAnimator.Animate(animatedImage, new EventHandler(Image_FrameChanged));
     }
     #endregion
 
@@ -375,6 +364,42 @@ namespace WFA
         widthZoom = widthReductRatio;
         heightZoom = heightReductRatio;
       }
+    }
+    #endregion
+
+
+    #region Gif描画メソッド
+    private void DrawGif(string targetFile)
+    {
+      // ねずみ返し_ファイルが存在しない場合
+      if (!File.Exists(targetFile))
+      {
+        return;
+      }
+      // ねずみ返し_ファイル拡張子がGifでない場合
+      if (Path.GetExtension(targetFile).ToLower() == "gif")
+      {
+        return;
+      }
+
+      // ピクチャボックス初期化
+      pbGifPlayer.Image = null;
+
+      // 画像読み込み
+      animatedImage = new Bitmap(targetFile);
+
+      // デフォサイズチェックボックス
+      if (cbDefSize.Checked)
+      {
+        // 画像比率算出(縦のサイズに対する横の比率)
+        double targetRatio = (double)animatedImage.Width / (double)animatedImage.Height;
+        // デフォルト縦サイズに合わせる
+        heightZoom = defHightSize / animatedImage.Height;
+        widthZoom = heightZoom * targetRatio;
+      }
+
+      // アニメ開始
+      ImageAnimator.Animate(animatedImage, new EventHandler(Image_FrameChanged));
     }
     #endregion
 
