@@ -1,0 +1,29 @@
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\obj\x86\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\obj\x86\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.exe.config
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\obj\x86\Debug\WCA.exe
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\obj\x86\Debug\WCA.pdb
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\bin\Debug\WCA.exe.config
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\bin\Debug\WCA.exe
+D:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template - コピー\WCA\bin\Debug\WCA.pdb
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\bin\Debug\WCA.exe.config
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\bin\Debug\WCA.exe
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\bin\Debug\WCA.pdb
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\obj\x86\Debug\WCA.exe
+D:\Calacala_Actual\Surf_Sync\PG\C#\Cast\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\bin\Debug\WCA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\bin\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\bin\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\bin\Debug\WCA.exe.config
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\bin\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\bin\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Cast\Cast001\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
