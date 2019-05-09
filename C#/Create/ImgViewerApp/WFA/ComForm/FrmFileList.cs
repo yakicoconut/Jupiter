@@ -222,9 +222,9 @@ namespace WFA
         return;
       }
 
-      // 選択したファイルのあるフォルダを開く
+      // 選択したファイルにフォーカスを当ててフォルダを開く
       string selectFilePath = parentForm.DicImgPath[lvFileList.SelectedItems[0].Index];
-      Process.Start(Path.GetDirectoryName(selectFilePath));
+      Process.Start("EXPLORER.EXE", @"/select," + selectFilePath);
     }
     #endregion
 
