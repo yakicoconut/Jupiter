@@ -10,17 +10,22 @@ echo WinMerge実行バッチ
   set call_DirFilePathInfo="..\..\OwnLib\DirFilePathInfo.bat"
 
 
+: 事前準備
+  rem 比較1
+  set comp1=.\MyResorce\Comp1.txt
+  rem 比較2
+  set comp2=.\MyResorce\Comp2.txt
+
+
 : 比較用テキストファイル開く
   rem 表示順的に2から先に開く
-  rem 比較2
-  start .\MyResorce\Comp2.txt
-  rem 比較1
-  start .\MyResorce\Comp1.txt
+  start %comp2%
+  start %comp1%
 
   echo 比較ファイル保存後、WinMergeを実行します
   pause
 
 
 : WinMerge実行
-  start .\WinMerge2140\WinMergeU.exe .\MyResorce\Comp1.txt .\MyResorce\Comp2.txt
+  start .\WinMerge2140\WinMergeU.exe %comp1% %comp2%
   exit
