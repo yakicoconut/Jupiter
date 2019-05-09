@@ -1,0 +1,14 @@
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Array\WCA\bin\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Array\WCA\bin\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Array\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Array\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collection\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collection\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collection\WCA\bin\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collection\WCA\bin\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collections\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\C#Function\Collections\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Collections\WCA\obj\x86\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Collections\WCA\obj\x86\Debug\WCA.pdb
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Collections\WCA\bin\Debug\WCA.exe
+E:\MyFiles-P00486\My-Tools\TOOL_C#\Function\Collections\WCA\bin\Debug\WCA.pdb
