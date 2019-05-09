@@ -133,7 +133,7 @@ namespace WFA
       launchViewAppPath = _comLogic.GetConfigValue("LaunchViewAppPath", Assembly.GetExecutingAssembly().Location);
 
       // Xmlフォルダ名称
-      XmlFolderName = _comLogic.GetConfigValue("XmlFolderPath", "List");
+      XmlFolderName = _comLogic.GetConfigValue("XmlFolderName", "List");
     }
     #endregion
 
