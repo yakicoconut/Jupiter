@@ -3,42 +3,47 @@ title %~nx0
 echo フォルダ容量取得
 : Windowsバッチファイル フォルダの容量を一覧 : 素敵な旦那さんになる！
 : 	http://blog.livedoor.jp/shige19840901/archives/51692011.html
+: byte（バイト）を、KBやMBに換算：エクセル(EXCEL)関数
+: 	https://dw230.jp/f/019/
 
 
 : 参照バッチ
-  rem 半角スペース後ろ埋めバッチ
-  set call_SpacePadding="..\OwnLib\SpacePadding.bat"
+  rem ディレクトリファイル情報バッチ
+  set call_DirFilePathInfo="..\OwnLib\DirFilePathInfo.bat"
+  rem 半角スペース後ろ埋めバッチの絶対パスで取得
+  call %call_DirFilePathInfo% "..\OwnLib\SpacePadding.bat" f
+  set call_SpacePadding=%return_DirFilePathInfo%
 
-pause
+
 : 宣言
-  REM rem 後ろ梅め桁数
-  REM set /a paddDigit=20
+  rem 後ろ埋め桁数
+  set /a paddDigit=20
 
-  REM rem 出力ファイル名
-  REM set fname= %~dp0sizelist.csv
-  REM echo;
-  REM echo 対象フォルダパス入力
+  rem 出力ファイル名
+  set fname= %~dp0sizelist.csv
+  echo;
+  echo 対象フォルダパス入力
 
-  REM rem 変数初期化
-  REM set USR=
+  rem 変数初期化
+  set USR=
 
-  REM set /P USR="入力してください:"
-  REM set targetDirPath=%USR%
-  REM : ねずみ返し_空白の場合
-  REM   if "%targetDirPath%"=="" (
-  REM     echo;
-  REM     echo 入力がありません
-  REM     echo 終了します
-  REM     goto :EOF
-  REM   )
-  REM : ねずみ返し_対象が存在しない場合
-  REM   if not exist "%targetDirPath%" (
-  REM     echo;
-  REM     echo 指定ファイルが存在しません
-  REM     echo 終了します
-  REM     goto :EOF
-  REM   )
-set targetDirPath=E:\Etemp
+  set /P USR="入力してください:"
+  set targetDirPath=%USR%
+  : ねずみ返し_空白の場合
+    if "%targetDirPath%"=="" (
+      echo;
+      echo 入力がありません
+      echo 終了します
+      goto :EOF
+    )
+  : ねずみ返し_対象が存在しない場合
+    if not exist "%targetDirPath%" (
+      echo;
+      echo 指定ファイルが存在しません
+      echo 終了します
+      goto :EOF
+    )
+
 
 : 実行
   rem カレントフォルダ変更
@@ -46,7 +51,7 @@ set targetDirPath=E:\Etemp
 
   rem 全フォルダループ
   rem サイズ取得サブルーチン使用
-  for /d %%d in (*) do call :GET_SIZE "%~dp0%%d"
+  for /d %%d in (*) do call :GET_SIZE "%%d"
 
 
 : 事後作業
@@ -68,17 +73,17 @@ rem サイズ取得サブルーチン
   call %call_SpacePadding% %~1 %paddDigit%
   set targetDirName=%return_SpacePadding%
 
-  : ギガバイト変換
-    rem カンマ抜き
-    set /a kiloSize=%size:,=%
-
-    rem 0以外の場合
-    if not %kiloSize%==0 (
-      rem キロバイトで変換
-      set /a kiloSize=%kiloSize%/1024
-    )
+rem 32ビット以上の数値(-2147483648 ~ 2147483647)を変数に入れられない
+  REM : ギガバイト変換
+  REM   rem カンマ抜き
+  REM   set /a kiloSize=%size:,=%
+  REM   rem 0以外の場合
+  REM   if not %kiloSize%==0 (
+  REM     rem キロバイトで変換
+  REM     set /a kiloSize=%kiloSize%/1024
+  REM   )
 
   rem 結果表示
-  echo %targetDirName%:%kiloSize%
+  echo %targetDirName%:%size%
 
   exit /b
