@@ -157,7 +157,7 @@ rem ˆ³kˆ—
     )
 
   rem 7za.exe‚ğg—p‚µ‚Äˆ³k‚ğÀs
-  "%~dp07Zip\7za.exe" a %isPassword%%password% "%~dp0%targetName%".7zip %targetPath%
+  "%~dp07Zip\7za.exe" a %isPassword%%password% "%~dp0%targetName%".7z %targetPath%
 
   pause
   exit
