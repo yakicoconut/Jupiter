@@ -11,13 +11,13 @@ title %~nx0
 rem 変数ローカル化
 SETLOCAL ENABLEDELAYEDEXPANSION
   : 引数例
-    : 対象パス:C:\Program Files\Java\jre1.8.0_144\Welcome.html
+    : 対象:C:\Program Files\Java\jre1.8.0_144\Welcome.html
     : ~   :C:\Program Files\Java\jre1.8.0_144\Welcome.html
     : f   :C:\Program Files\Java\jre1.8.0_144\Welcome.html
     : d   :C:
-    : p   :\Program Files\Java\jre1.8.0_144\
-    : n   :Welcome
-    : x   :.html
+    : p   :  \Program Files\Java\jre1.8.0_144\
+    : n   :                                   Welcome
+    : x   :                                          .html
     : s   :C:\PROGRA~1\Java\JRE18~2.0_1\WELCOM~1.HTM
     : a   :--a------
     : t   :2017/09/08 20:51
@@ -26,8 +26,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : nx  :Welcome.html
     : fs  :C:\PROGRA~1\Java\JRE18~2.0_1\WELCOM~1.HTM
     : ftza:--a------ 2017/09/08 20:51 955 C:\Program Files\Java\jre1.8.0_144\Welcome.html
-    : up 1:jre1.8.0_144
-    : up 2:Java
+    : up 1:                      jre1.8.0_144
+    : up 2:                 Java
+    : up 3:   Program Files
 
 
   : 引数
