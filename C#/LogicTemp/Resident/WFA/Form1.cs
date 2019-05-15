@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
+using Microsoft.VisualBasic;
+using System.Diagnostics;
+using System.Configuration;
+
+/*
+ * コード外作業
+ *   デザイン
+ *     ・notifyIconコントロール追加
+ *     ・上記で追加したnotifyIconにcontextMenuStripコントロール追加
+ *     ・notifyIconのContextMenuStripプロパティに上記のcontextMenuStripを設定
+ *     ・notifyIconのIconプロパティにアイコンを設定
+ */
+namespace WFA
+{
+  /// <summary>
+  /// メインフォーム
+  /// </summary>
+  public partial class Form1 : Form
+  {
+    #region コンストラクタ
+    public Form1()
+    {
+      InitializeComponent();
+
+      #region 【論理雛形】
+      WFAComLogic WFACL = new WFAComLogic();
+      // アプリ名設定
+      Text = WFACL.GetAppName();
+      #endregion
+
+      // 常駐アイコン名設定
+      notifyIcon1.Text = WFACL.GetAppName();
+
+      // コンフィグ取得メソッド使用
+      GetConfig();
+    }
+    #endregion
+
+    #region コンフィグ取得メソッド
+    public void GetConfig()
+    {
+      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
+    }
+    #endregion
+
+
+    #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
+
+    #endregion
+
+
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      // タスクバーにアイコンを表示しない
+      ShowInTaskbar = false;
+    }
+    #endregion
+
+    #region ボタン1押下イベント
+    private void button1_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region ボタン2押下イベント
+    private void button2_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region 常駐アイコンダブルクリックイベント
+    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      // フォーム表示
+      this.Show();
+      // 最小化から復帰
+      WindowState = FormWindowState.Normal;
+    }
+    #endregion
+
+    #region 常駐アイコン_常駐アイコン_Aクリックイベント
+    private void ToolStripMenuItemA_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region 常駐アイコン_コンテキスト_Bクリックイベント
+    private void ToolStripMenuItemB_Click(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+
+    #region 雛形メソッド
+    public void template()
+    {
+
+    }
+    #endregion
+
+  }
+}
