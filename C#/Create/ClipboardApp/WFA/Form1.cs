@@ -29,12 +29,26 @@ namespace WFA
 
       // コンフィグ取得メソッド使用
       GetConfig();
+
+      // パス取得グループボックスドロップ可設定(デザイナでは設定不可?)
+      gbGetPath.AllowDrop = true;
     }
     #endregion
 
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
+      // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
+      normalHeight = int.Parse(ConfigurationManager.AppSettings["DefaultNormalHeight"]);
+      normalWidth = int.Parse(ConfigurationManager.AppSettings["DefaultNormalWidth"]);
+
+      // デフォルト不透明度
+      defaultOpacity = double.Parse(ConfigurationManager.AppSettings["DefaultOpacity"]);
+      // 不透明度増加値
+      opacityUp = double.Parse(ConfigurationManager.AppSettings["OpacityUp"]);
+      // 不透明度減少値
+      opacityDown = double.Parse(ConfigurationManager.AppSettings["OpacityDown"]);
+
       copyTarget001 = ConfigurationManager.AppSettings["CopyTarget001"];
       copyTarget002 = ConfigurationManager.AppSettings["CopyTarget002"];
       copyTarget003 = ConfigurationManager.AppSettings["CopyTarget003"];
@@ -46,21 +60,24 @@ namespace WFA
       copyTarget009 = ConfigurationManager.AppSettings["CopyTarget009"];
       copyTarget010 = ConfigurationManager.AppSettings["CopyTarget010"];
 
-      // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
-      normalHeight = int.Parse(ConfigurationManager.AppSettings["DefaultNormalHeight"]);
-      normalWidth = int.Parse(ConfigurationManager.AppSettings["DefaultNormalWidth"]);
-
-      // デフォルト不透明度
-      defaultOpacity = double.Parse(ConfigurationManager.AppSettings["DefaultOpacity"]);
-      // 不透明度増加値
-      opacityUp = double.Parse(ConfigurationManager.AppSettings["OpacityUp"]);
-      // 不透明度減少値
-      opacityDown = double.Parse(ConfigurationManager.AppSettings["OpacityDown"]);
+      // パス取得書式
+      GET_PATH_STR_FORMAT = ConfigurationManager.AppSettings["GetPathStrFormat"];
     }
     #endregion
 
 
     #region 宣言
+
+    // コンパクトモードではないサイズ
+    int normalHeight;
+    int normalWidth;
+
+    // デフォルト不透明度
+    double defaultOpacity;
+    // 不透明度増加値
+    double opacityUp;
+    // 不透明度減少値
+    double opacityDown;
 
     // コピー対象変数
     string copyTarget001;
@@ -74,16 +91,8 @@ namespace WFA
     string copyTarget009;
     string copyTarget010;
 
-    // コンパクトモードではないサイズ
-    int normalHeight;
-    int normalWidth;
-
-    // デフォルト不透明度
-    double defaultOpacity;
-    // 不透明度増加値
-    double opacityUp;
-    // 不透明度減少値
-    double opacityDown;
+    // パス取得書式
+    string GET_PATH_STR_FORMAT;
 
     #endregion
 
@@ -115,7 +124,7 @@ namespace WFA
     private void Form1_DoubleClick(object sender, EventArgs e)
     {
       // サイズがコンパクトモードの場合
-      if (this.Size.Width == 220 && this.Size.Height == 60)
+      if (this.Size.Width == 250 && this.Size.Height == 150)
       {
         // サイズをもとに戻す
         this.Size = new Size(normalWidth, normalHeight);
@@ -127,7 +136,7 @@ namespace WFA
         normalWidth = this.Size.Width;
 
         // サイズをコンパクトモードにする
-        this.Size = new Size(220, 60);
+        this.Size = new Size(250, 150);
       }
     }
     #endregion
@@ -152,6 +161,59 @@ namespace WFA
 
       // 最小化から復帰
       this.WindowState = FormWindowState.Normal;
+    }
+    #endregion
+
+
+    #region パス取得グループボックスドロップエンターイベント
+    private void gbGetPath_DragEnter(object sender, DragEventArgs e)
+    {
+      // ねずみ返し_マウスがファイルを持っていない場合、イベント・ハンドラを抜ける
+      if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+      {
+        return;
+      }
+
+      // ドラッグ中のファイルの取得
+      string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+      // ねずみ返し_フォルダかファイルを条件とする
+      foreach (string d in drags)
+      {
+        // フォルダでもファイルでもない場合
+        if (!Directory.Exists(d) && !File.Exists(d))
+        {
+          return;
+        }
+      }
+
+      // マウスの表示を「+」に変更する
+      e.Effect = DragDropEffects.Copy;
+    }
+    #endregion
+
+    #region パス取得グループボックスドラッグドロップイベント
+    private void gbGetPath_DragDrop(object sender, DragEventArgs e)
+    {
+      string setPath = string.Empty;
+
+      // ドラッグ&ドロップされたファイルの一つ目を取得
+      string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+
+      // フォルダモードの場合
+      if (cbIsDirPathMode.Checked)
+      {
+        // フォルダパス取得メソッド使用
+        setPath =  GetDirPath(dropItem);
+      }
+      else
+      {
+        // ファイルパス取得メソッド使用
+        setPath = GetFilePath(dropItem);
+      }
+
+      // クリップボードにセット
+      Clipboard.SetText(setPath);
     }
     #endregion
 
@@ -260,8 +322,34 @@ namespace WFA
     #endregion
 
 
+    #region フォルダパス取得メソッド
+    private string GetDirPath(string targetPath)
+    {
+      string returnPath = targetPath;
+
+      // ファイルの場合
+      if (File.Exists(returnPath))
+      {
+        // フォルダまでを抜き出す
+        returnPath = Path.GetDirectoryName(returnPath);
+      }
+
+      return string.Format(GET_PATH_STR_FORMAT, returnPath);
+    }
+    #endregion
+
+    #region ファイルパス取得メソッド
+    private string GetFilePath(string targetPath)
+    {
+      string returnPath = targetPath;
+
+      return string.Format(GET_PATH_STR_FORMAT, returnPath);
+    }
+    #endregion
+
+
     #region 雛形メソッド
-    public void template()
+    private void template()
     {
 
     }
