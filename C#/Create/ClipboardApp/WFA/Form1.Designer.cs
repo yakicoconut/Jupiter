@@ -60,7 +60,9 @@
       this.btOpenExplorer = new System.Windows.Forms.Button();
       this.gbGetPath = new System.Windows.Forms.GroupBox();
       this.cbIsDirPathMode = new System.Windows.Forms.CheckBox();
+      this.lbCopyComp = new System.Windows.Forms.Label();
       this.contextMenuStrip1.SuspendLayout();
+      this.gbGetPath.SuspendLayout();
       this.SuspendLayout();
       // 
       // btCopy001
@@ -347,6 +349,7 @@
       // 
       this.gbGetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.gbGetPath.Controls.Add(this.lbCopyComp);
       this.gbGetPath.Location = new System.Drawing.Point(17, 34);
       this.gbGetPath.Name = "gbGetPath";
       this.gbGetPath.Size = new System.Drawing.Size(205, 71);
@@ -365,6 +368,14 @@
       this.cbIsDirPathMode.TabIndex = 24;
       this.cbIsDirPathMode.Text = "フォルダモード";
       this.cbIsDirPathMode.UseVisualStyleBackColor = true;
+      // 
+      // lbCopyComp
+      // 
+      this.lbCopyComp.AutoSize = true;
+      this.lbCopyComp.Location = new System.Drawing.Point(19, 33);
+      this.lbCopyComp.Name = "lbCopyComp";
+      this.lbCopyComp.Size = new System.Drawing.Size(0, 12);
+      this.lbCopyComp.TabIndex = 0;
       // 
       // Form1
       // 
@@ -402,6 +413,8 @@
       this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
       this.DoubleClick += new System.EventHandler(this.Form1_DoubleClick);
       this.contextMenuStrip1.ResumeLayout(false);
+      this.gbGetPath.ResumeLayout(false);
+      this.gbGetPath.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -439,6 +452,7 @@
         private System.Windows.Forms.Button btOpenExplorer;
     private System.Windows.Forms.GroupBox gbGetPath;
     private System.Windows.Forms.CheckBox cbIsDirPathMode;
+    private System.Windows.Forms.Label lbCopyComp;
   }
 }
 

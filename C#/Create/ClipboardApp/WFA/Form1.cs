@@ -200,6 +200,9 @@ namespace WFA
     {
       string setPath = string.Empty;
 
+      // コピー完了ラベル初期化
+      lbCopyComp.Text = string.Empty;
+
       // ドラッグ&ドロップされたファイルの一つ目を取得
       string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
 
@@ -215,8 +218,20 @@ namespace WFA
         setPath = GetFilePath(dropItem);
       }
 
-      // クリップボードにセット
-      Clipboard.SetText(setPath);
+      try
+      {
+        // クリップボードにセット
+        Clipboard.SetText(setPath);
+      }
+      catch(Exception)
+      {
+        // コピー完了ラベル更新
+        lbCopyComp.Text = "コピー失敗";
+        return;
+      }
+
+      // コピー完了ラベル更新
+      lbCopyComp.Text = "コピー完了";
     }
     #endregion
 
@@ -224,6 +239,9 @@ namespace WFA
     #region コピーボタン押下イベント共通
     private void btCopy_Click(object sender, EventArgs e)
     {
+      // コピー完了ラベル初期化
+      lbCopyComp.Text = string.Empty;
+
       // イベント発生コントロール取得
       Control ctrl = (Control)sender;
       // コントロールの番号を取得
@@ -231,8 +249,20 @@ namespace WFA
       // 対象のテキストボックス取得
       TextBox targetCtrl = (TextBox)this.Controls["tbCopy" + ctrlNum];
 
-      // コピーボタンの内容をクリップボードにセット
-      Clipboard.SetText(targetCtrl.Text);
+      try
+      {
+        // コピーボタンの内容をクリップボードにセット
+        Clipboard.SetText(targetCtrl.Text);
+      }
+      catch (Exception)
+      {
+        // コピー完了ラベル更新
+        lbCopyComp.Text = "コピー失敗";
+        return;
+      }
+
+      // コピー完了ラベル更新
+      lbCopyComp.Text = "コピー完了";
     }
     #endregion
 
