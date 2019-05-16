@@ -39,34 +39,37 @@ namespace WFA
     public void GetConfig()
     {
       // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
-      normalHeight = int.Parse(ConfigurationManager.AppSettings["DefaultNormalHeight"]);
-      normalWidth = int.Parse(ConfigurationManager.AppSettings["DefaultNormalWidth"]);
-
+      normalHeight = int.Parse(_comLogic.GetConfigValue("DefaultNormalHeight", "250"));
+      normalWidth = int.Parse(_comLogic.GetConfigValue("DefaultNormalWidth", "480"));
+      
       // デフォルト不透明度
-      defaultOpacity = double.Parse(ConfigurationManager.AppSettings["DefaultOpacity"]);
+      defaultOpacity = double.Parse(_comLogic.GetConfigValue("DefaultOpacity", "0.8"));
       // 不透明度増加値
-      opacityUp = double.Parse(ConfigurationManager.AppSettings["OpacityUp"]);
+      opacityUp = double.Parse(_comLogic.GetConfigValue("OpacityUp", "0.2"));
       // 不透明度減少値
-      opacityDown = double.Parse(ConfigurationManager.AppSettings["OpacityDown"]);
+      opacityDown = double.Parse(_comLogic.GetConfigValue("OpacityDown", "0.2"));
 
-      copyTarget001 = ConfigurationManager.AppSettings["CopyTarget001"];
-      copyTarget002 = ConfigurationManager.AppSettings["CopyTarget002"];
-      copyTarget003 = ConfigurationManager.AppSettings["CopyTarget003"];
-      copyTarget004 = ConfigurationManager.AppSettings["CopyTarget004"];
-      copyTarget005 = ConfigurationManager.AppSettings["CopyTarget005"];
-      copyTarget006 = ConfigurationManager.AppSettings["CopyTarget006"];
-      copyTarget007 = ConfigurationManager.AppSettings["CopyTarget007"];
-      copyTarget008 = ConfigurationManager.AppSettings["CopyTarget008"];
-      copyTarget009 = ConfigurationManager.AppSettings["CopyTarget009"];
-      copyTarget010 = ConfigurationManager.AppSettings["CopyTarget010"];
+      copyTarget001 = _comLogic.GetConfigValue("CopyTarget001", string.Empty);
+      copyTarget002 = _comLogic.GetConfigValue("CopyTarget002", string.Empty);
+      copyTarget003 = _comLogic.GetConfigValue("CopyTarget003", string.Empty);
+      copyTarget004 = _comLogic.GetConfigValue("CopyTarget004", string.Empty);
+      copyTarget005 = _comLogic.GetConfigValue("CopyTarget005", string.Empty);
+      copyTarget006 = _comLogic.GetConfigValue("CopyTarget006", string.Empty);
+      copyTarget007 = _comLogic.GetConfigValue("CopyTarget007", string.Empty);
+      copyTarget008 = _comLogic.GetConfigValue("CopyTarget008", string.Empty);
+      copyTarget009 = _comLogic.GetConfigValue("CopyTarget009", string.Empty);
+      copyTarget010 = _comLogic.GetConfigValue("CopyTarget010", string.Empty);
 
       // パス取得書式
-      GET_PATH_STR_FORMAT = ConfigurationManager.AppSettings["GetPathStrFormat"];
+      GET_PATH_STR_FORMAT = _comLogic.GetConfigValue("GetPathStrFormat", "{0}");
     }
     #endregion
 
 
     #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
 
     // コンパクトモードではないサイズ
     int normalHeight;

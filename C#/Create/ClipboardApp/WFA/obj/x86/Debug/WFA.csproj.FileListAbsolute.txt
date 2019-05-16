@@ -18,3 +18,4 @@ E:\Cal_Git_Master\C#\Create\ClipboardApp\WFA\obj\x86\Debug\WFA.Properties.Resour
 E:\Cal_Git_Master\C#\Create\ClipboardApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 E:\Cal_Git_Master\C#\Create\ClipboardApp\WFA\bin\Debug\MyResource\Icon\ClipboardApp_Icon.ico
 E:\Cal_Git_Master\C#\Create\ClipboardApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\ClipboardApp\WFA\obj\x86\Debug\WFA.csproj.CoreCompileInputs.cache
