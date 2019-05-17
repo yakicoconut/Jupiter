@@ -59,8 +59,8 @@
       this.btSaveVal = new System.Windows.Forms.Button();
       this.btOpenExplorer = new System.Windows.Forms.Button();
       this.gbGetPath = new System.Windows.Forms.GroupBox();
-      this.cbIsDirPathMode = new System.Windows.Forms.CheckBox();
       this.lbCopyComp = new System.Windows.Forms.Label();
+      this.cbIsDirPathMode = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.gbGetPath.SuspendLayout();
       this.SuspendLayout();
@@ -68,9 +68,9 @@
       // btCopy001
       // 
       this.btCopy001.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy001.Location = new System.Drawing.Point(135, 111);
+      this.btCopy001.Location = new System.Drawing.Point(149, 111);
       this.btCopy001.Name = "btCopy001";
-      this.btCopy001.Size = new System.Drawing.Size(87, 23);
+      this.btCopy001.Size = new System.Drawing.Size(75, 23);
       this.btCopy001.TabIndex = 6;
       this.btCopy001.TabStop = false;
       this.btCopy001.Text = "Copy001";
@@ -81,26 +81,26 @@
       // 
       this.tbCopy001.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy001.Location = new System.Drawing.Point(17, 113);
+      this.tbCopy001.Location = new System.Drawing.Point(15, 113);
       this.tbCopy001.Name = "tbCopy001";
-      this.tbCopy001.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy001.Size = new System.Drawing.Size(129, 19);
       this.tbCopy001.TabIndex = 1;
       // 
       // tbCopy002
       // 
       this.tbCopy002.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy002.Location = new System.Drawing.Point(17, 142);
+      this.tbCopy002.Location = new System.Drawing.Point(15, 142);
       this.tbCopy002.Name = "tbCopy002";
-      this.tbCopy002.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy002.Size = new System.Drawing.Size(129, 19);
       this.tbCopy002.TabIndex = 2;
       // 
       // btCopy002
       // 
       this.btCopy002.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy002.Location = new System.Drawing.Point(135, 140);
+      this.btCopy002.Location = new System.Drawing.Point(149, 140);
       this.btCopy002.Name = "btCopy002";
-      this.btCopy002.Size = new System.Drawing.Size(87, 23);
+      this.btCopy002.Size = new System.Drawing.Size(75, 23);
       this.btCopy002.TabIndex = 7;
       this.btCopy002.TabStop = false;
       this.btCopy002.Text = "Copy002";
@@ -111,17 +111,17 @@
       // 
       this.tbCopy003.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy003.Location = new System.Drawing.Point(17, 171);
+      this.tbCopy003.Location = new System.Drawing.Point(15, 171);
       this.tbCopy003.Name = "tbCopy003";
-      this.tbCopy003.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy003.Size = new System.Drawing.Size(129, 19);
       this.tbCopy003.TabIndex = 3;
       // 
       // btCopy003
       // 
       this.btCopy003.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy003.Location = new System.Drawing.Point(135, 169);
+      this.btCopy003.Location = new System.Drawing.Point(149, 169);
       this.btCopy003.Name = "btCopy003";
-      this.btCopy003.Size = new System.Drawing.Size(87, 23);
+      this.btCopy003.Size = new System.Drawing.Size(75, 23);
       this.btCopy003.TabIndex = 8;
       this.btCopy003.TabStop = false;
       this.btCopy003.Text = "Copy003";
@@ -132,17 +132,17 @@
       // 
       this.tbCopy004.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy004.Location = new System.Drawing.Point(17, 200);
+      this.tbCopy004.Location = new System.Drawing.Point(15, 200);
       this.tbCopy004.Name = "tbCopy004";
-      this.tbCopy004.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy004.Size = new System.Drawing.Size(129, 19);
       this.tbCopy004.TabIndex = 4;
       // 
       // btCopy004
       // 
       this.btCopy004.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy004.Location = new System.Drawing.Point(135, 198);
+      this.btCopy004.Location = new System.Drawing.Point(149, 198);
       this.btCopy004.Name = "btCopy004";
-      this.btCopy004.Size = new System.Drawing.Size(87, 23);
+      this.btCopy004.Size = new System.Drawing.Size(75, 23);
       this.btCopy004.TabIndex = 9;
       this.btCopy004.TabStop = false;
       this.btCopy004.Text = "Copy004";
@@ -153,17 +153,17 @@
       // 
       this.tbCopy005.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy005.Location = new System.Drawing.Point(17, 229);
+      this.tbCopy005.Location = new System.Drawing.Point(15, 229);
       this.tbCopy005.Name = "tbCopy005";
-      this.tbCopy005.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy005.Size = new System.Drawing.Size(129, 19);
       this.tbCopy005.TabIndex = 5;
       // 
       // btCopy005
       // 
       this.btCopy005.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy005.Location = new System.Drawing.Point(135, 227);
+      this.btCopy005.Location = new System.Drawing.Point(149, 227);
       this.btCopy005.Name = "btCopy005";
-      this.btCopy005.Size = new System.Drawing.Size(87, 23);
+      this.btCopy005.Size = new System.Drawing.Size(75, 23);
       this.btCopy005.TabIndex = 10;
       this.btCopy005.TabStop = false;
       this.btCopy005.Text = "Copy005";
@@ -176,7 +176,7 @@
             this.不透明度ToolStripMenuItem,
             this.最前面ToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(123, 48);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
       // 
       // 不透明度ToolStripMenuItem
       // 
@@ -184,28 +184,28 @@
             this.上げToolStripMenuItem,
             this.下げToolStripMenuItem});
       this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
       this.不透明度ToolStripMenuItem.Text = "不透明度";
       this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
       // 
       // 上げToolStripMenuItem
       // 
       this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+      this.上げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
       this.上げToolStripMenuItem.Text = "上げ";
       this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
       // 
       // 下げToolStripMenuItem
       // 
       this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+      this.下げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
       this.下げToolStripMenuItem.Text = "下げ";
       this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
       // 
       // 最前面ToolStripMenuItem
       // 
       this.最前面ToolStripMenuItem.Name = "最前面ToolStripMenuItem";
-      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
       this.最前面ToolStripMenuItem.Text = "最前面";
       this.最前面ToolStripMenuItem.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
       // 
@@ -213,17 +213,17 @@
       // 
       this.tbCopy010.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy010.Location = new System.Drawing.Point(17, 374);
+      this.tbCopy010.Location = new System.Drawing.Point(15, 374);
       this.tbCopy010.Name = "tbCopy010";
-      this.tbCopy010.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy010.Size = new System.Drawing.Size(129, 19);
       this.tbCopy010.TabIndex = 10;
       // 
       // btCopy010
       // 
       this.btCopy010.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy010.Location = new System.Drawing.Point(135, 372);
+      this.btCopy010.Location = new System.Drawing.Point(149, 372);
       this.btCopy010.Name = "btCopy010";
-      this.btCopy010.Size = new System.Drawing.Size(87, 23);
+      this.btCopy010.Size = new System.Drawing.Size(75, 23);
       this.btCopy010.TabIndex = 20;
       this.btCopy010.TabStop = false;
       this.btCopy010.Text = "Copy010";
@@ -234,17 +234,17 @@
       // 
       this.tbCopy009.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy009.Location = new System.Drawing.Point(17, 345);
+      this.tbCopy009.Location = new System.Drawing.Point(15, 345);
       this.tbCopy009.Name = "tbCopy009";
-      this.tbCopy009.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy009.Size = new System.Drawing.Size(129, 19);
       this.tbCopy009.TabIndex = 9;
       // 
       // btCopy009
       // 
       this.btCopy009.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy009.Location = new System.Drawing.Point(135, 343);
+      this.btCopy009.Location = new System.Drawing.Point(149, 343);
       this.btCopy009.Name = "btCopy009";
-      this.btCopy009.Size = new System.Drawing.Size(87, 23);
+      this.btCopy009.Size = new System.Drawing.Size(75, 23);
       this.btCopy009.TabIndex = 19;
       this.btCopy009.TabStop = false;
       this.btCopy009.Text = "Copy009";
@@ -255,17 +255,17 @@
       // 
       this.tbCopy008.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy008.Location = new System.Drawing.Point(17, 316);
+      this.tbCopy008.Location = new System.Drawing.Point(15, 316);
       this.tbCopy008.Name = "tbCopy008";
-      this.tbCopy008.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy008.Size = new System.Drawing.Size(129, 19);
       this.tbCopy008.TabIndex = 8;
       // 
       // btCopy008
       // 
       this.btCopy008.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy008.Location = new System.Drawing.Point(135, 314);
+      this.btCopy008.Location = new System.Drawing.Point(149, 314);
       this.btCopy008.Name = "btCopy008";
-      this.btCopy008.Size = new System.Drawing.Size(87, 23);
+      this.btCopy008.Size = new System.Drawing.Size(75, 23);
       this.btCopy008.TabIndex = 18;
       this.btCopy008.TabStop = false;
       this.btCopy008.Text = "Copy008";
@@ -276,17 +276,17 @@
       // 
       this.tbCopy007.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy007.Location = new System.Drawing.Point(17, 287);
+      this.tbCopy007.Location = new System.Drawing.Point(15, 287);
       this.tbCopy007.Name = "tbCopy007";
-      this.tbCopy007.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy007.Size = new System.Drawing.Size(129, 19);
       this.tbCopy007.TabIndex = 7;
       // 
       // btCopy007
       // 
       this.btCopy007.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy007.Location = new System.Drawing.Point(135, 285);
+      this.btCopy007.Location = new System.Drawing.Point(149, 285);
       this.btCopy007.Name = "btCopy007";
-      this.btCopy007.Size = new System.Drawing.Size(87, 23);
+      this.btCopy007.Size = new System.Drawing.Size(75, 23);
       this.btCopy007.TabIndex = 17;
       this.btCopy007.TabStop = false;
       this.btCopy007.Text = "Copy007";
@@ -297,17 +297,17 @@
       // 
       this.tbCopy006.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCopy006.Location = new System.Drawing.Point(17, 258);
+      this.tbCopy006.Location = new System.Drawing.Point(15, 258);
       this.tbCopy006.Name = "tbCopy006";
-      this.tbCopy006.Size = new System.Drawing.Size(111, 19);
+      this.tbCopy006.Size = new System.Drawing.Size(129, 19);
       this.tbCopy006.TabIndex = 6;
       // 
       // btCopy006
       // 
       this.btCopy006.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCopy006.Location = new System.Drawing.Point(135, 256);
+      this.btCopy006.Location = new System.Drawing.Point(149, 256);
       this.btCopy006.Name = "btCopy006";
-      this.btCopy006.Size = new System.Drawing.Size(87, 23);
+      this.btCopy006.Size = new System.Drawing.Size(75, 23);
       this.btCopy006.TabIndex = 16;
       this.btCopy006.TabStop = false;
       this.btCopy006.Text = "Copy006";
@@ -324,9 +324,9 @@
       // btSaveVal
       // 
       this.btSaveVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btSaveVal.Location = new System.Drawing.Point(97, 401);
+      this.btSaveVal.Location = new System.Drawing.Point(116, 401);
       this.btSaveVal.Name = "btSaveVal";
-      this.btSaveVal.Size = new System.Drawing.Size(59, 23);
+      this.btSaveVal.Size = new System.Drawing.Size(51, 23);
       this.btSaveVal.TabIndex = 21;
       this.btSaveVal.TabStop = false;
       this.btSaveVal.Text = "値保存";
@@ -336,9 +336,9 @@
       // btOpenExplorer
       // 
       this.btOpenExplorer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btOpenExplorer.Location = new System.Drawing.Point(163, 401);
+      this.btOpenExplorer.Location = new System.Drawing.Point(173, 401);
       this.btOpenExplorer.Name = "btOpenExplorer";
-      this.btOpenExplorer.Size = new System.Drawing.Size(59, 23);
+      this.btOpenExplorer.Size = new System.Drawing.Size(51, 23);
       this.btOpenExplorer.TabIndex = 22;
       this.btOpenExplorer.TabStop = false;
       this.btOpenExplorer.Text = "開く";
@@ -350,38 +350,38 @@
       this.gbGetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.gbGetPath.Controls.Add(this.lbCopyComp);
-      this.gbGetPath.Location = new System.Drawing.Point(17, 34);
+      this.gbGetPath.Location = new System.Drawing.Point(15, 34);
       this.gbGetPath.Name = "gbGetPath";
-      this.gbGetPath.Size = new System.Drawing.Size(205, 71);
+      this.gbGetPath.Size = new System.Drawing.Size(209, 71);
       this.gbGetPath.TabIndex = 23;
       this.gbGetPath.TabStop = false;
       this.gbGetPath.Text = "パス取得";
       this.gbGetPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.gbGetPath_DragDrop);
       this.gbGetPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.gbGetPath_DragEnter);
       // 
+      // lbCopyComp
+      // 
+      this.lbCopyComp.AutoSize = true;
+      this.lbCopyComp.Location = new System.Drawing.Point(16, 33);
+      this.lbCopyComp.Name = "lbCopyComp";
+      this.lbCopyComp.Size = new System.Drawing.Size(0, 12);
+      this.lbCopyComp.TabIndex = 0;
+      // 
       // cbIsDirPathMode
       // 
       this.cbIsDirPathMode.AutoSize = true;
-      this.cbIsDirPathMode.Location = new System.Drawing.Point(17, 12);
+      this.cbIsDirPathMode.Location = new System.Drawing.Point(15, 12);
       this.cbIsDirPathMode.Name = "cbIsDirPathMode";
       this.cbIsDirPathMode.Size = new System.Drawing.Size(87, 16);
       this.cbIsDirPathMode.TabIndex = 24;
       this.cbIsDirPathMode.Text = "フォルダモード";
       this.cbIsDirPathMode.UseVisualStyleBackColor = true;
       // 
-      // lbCopyComp
-      // 
-      this.lbCopyComp.AutoSize = true;
-      this.lbCopyComp.Location = new System.Drawing.Point(19, 33);
-      this.lbCopyComp.Name = "lbCopyComp";
-      this.lbCopyComp.Size = new System.Drawing.Size(0, 12);
-      this.lbCopyComp.TabIndex = 0;
-      // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(234, 441);
+      this.ClientSize = new System.Drawing.Size(234, 442);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.cbIsDirPathMode);
       this.Controls.Add(this.gbGetPath);
