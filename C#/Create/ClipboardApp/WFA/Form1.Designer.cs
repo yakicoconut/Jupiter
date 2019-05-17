@@ -41,10 +41,10 @@
       this.tbCopy005 = new System.Windows.Forms.TextBox();
       this.btCopy005 = new System.Windows.Forms.Button();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.不透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.上げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.下げToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.最前面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem不透明度 = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem不透明度_上げ = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem不透明度_下げ = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem最前面 = new System.Windows.Forms.ToolStripMenuItem();
       this.tbCopy010 = new System.Windows.Forms.TextBox();
       this.btCopy010 = new System.Windows.Forms.Button();
       this.tbCopy009 = new System.Windows.Forms.TextBox();
@@ -173,41 +173,41 @@
       // contextMenuStrip1
       // 
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.不透明度ToolStripMenuItem,
-            this.最前面ToolStripMenuItem});
+            this.ToolStripMenuItem不透明度,
+            this.ToolStripMenuItem最前面});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
       this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
       // 
       // 不透明度ToolStripMenuItem
       // 
-      this.不透明度ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.上げToolStripMenuItem,
-            this.下げToolStripMenuItem});
-      this.不透明度ToolStripMenuItem.Name = "不透明度ToolStripMenuItem";
-      this.不透明度ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-      this.不透明度ToolStripMenuItem.Text = "不透明度";
-      this.不透明度ToolStripMenuItem.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem不透明度_上げ,
+            this.ToolStripMenuItem不透明度_下げ});
+      this.ToolStripMenuItem不透明度.Name = "不透明度ToolStripMenuItem";
+      this.ToolStripMenuItem不透明度.Size = new System.Drawing.Size(124, 22);
+      this.ToolStripMenuItem不透明度.Text = "不透明度";
+      this.ToolStripMenuItem不透明度.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
       // 
       // 上げToolStripMenuItem
       // 
-      this.上げToolStripMenuItem.Name = "上げToolStripMenuItem";
-      this.上げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.上げToolStripMenuItem.Text = "上げ";
-      this.上げToolStripMenuItem.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度_上げ.Name = "上げToolStripMenuItem";
+      this.ToolStripMenuItem不透明度_上げ.Size = new System.Drawing.Size(100, 22);
+      this.ToolStripMenuItem不透明度_上げ.Text = "上げ";
+      this.ToolStripMenuItem不透明度_上げ.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
       // 
       // 下げToolStripMenuItem
       // 
-      this.下げToolStripMenuItem.Name = "下げToolStripMenuItem";
-      this.下げToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-      this.下げToolStripMenuItem.Text = "下げ";
-      this.下げToolStripMenuItem.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度_下げ.Name = "下げToolStripMenuItem";
+      this.ToolStripMenuItem不透明度_下げ.Size = new System.Drawing.Size(100, 22);
+      this.ToolStripMenuItem不透明度_下げ.Text = "下げ";
+      this.ToolStripMenuItem不透明度_下げ.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
       // 
       // 最前面ToolStripMenuItem
       // 
-      this.最前面ToolStripMenuItem.Name = "最前面ToolStripMenuItem";
-      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-      this.最前面ToolStripMenuItem.Text = "最前面";
-      this.最前面ToolStripMenuItem.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
+      this.ToolStripMenuItem最前面.Name = "最前面ToolStripMenuItem";
+      this.ToolStripMenuItem最前面.Size = new System.Drawing.Size(124, 22);
+      this.ToolStripMenuItem最前面.Text = "最前面";
+      this.ToolStripMenuItem最前面.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
       // 
       // tbCopy010
       // 
@@ -433,10 +433,10 @@
         private System.Windows.Forms.TextBox tbCopy005;
         private System.Windows.Forms.Button btCopy005;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 不透明度ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 上げToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 下げToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 最前面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度_上げ;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度_下げ;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem最前面;
         private System.Windows.Forms.TextBox tbCopy010;
         private System.Windows.Forms.Button btCopy010;
         private System.Windows.Forms.TextBox tbCopy009;
