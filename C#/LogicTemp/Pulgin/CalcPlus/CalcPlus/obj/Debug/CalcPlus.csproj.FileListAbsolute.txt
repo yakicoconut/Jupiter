@@ -1,0 +1,6 @@
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Debug\CalcPlus.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Debug\CalcPlus.pdb
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Debug\ICalcPlugin.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\obj\Debug\CalcPlus.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\obj\Debug\CalcPlus.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\obj\Debug\CalcPlus.pdb
