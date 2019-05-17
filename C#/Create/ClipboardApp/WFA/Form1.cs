@@ -295,7 +295,7 @@ namespace WFA
 
 
     #region コンテキスト不透明度押下イベント
-    private void 不透明度ToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ToolStripMenuItem不透明度_Click(object sender, EventArgs e)
     {
       // デフォルトに戻す
       this.Opacity = defaultOpacity;
@@ -303,7 +303,7 @@ namespace WFA
     #endregion
 
     #region コンテキスト不透明度_上げ押下イベント
-    private void 上げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ToolStripMenuItem不透明度_上げ_Click(object sender, EventArgs e)
     {
       // 不透明度を上げる
       this.Opacity += opacityUp;
@@ -311,7 +311,7 @@ namespace WFA
     #endregion
 
     #region コンテキスト不透明度_下げ押下イベント
-    private void 下げToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ToolStripMenuItem不透明度_下げ_Click(object sender, EventArgs e)
     {
       // 不透明度を下げる
       this.Opacity -= opacityDown;
@@ -319,12 +319,13 @@ namespace WFA
     #endregion
 
     #region コンテキスト最前面押下イベント
-    private void 最前面ToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ToolStripMenuItem最前面_Click(object sender, EventArgs e)
     {
       // フォームの最前面フラグを変更
       this.TopMost = !this.TopMost;
     }
     #endregion
+
 
     #region コピー対象値出力メソッド
     /// <summary>

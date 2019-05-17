@@ -186,28 +186,28 @@
       this.ToolStripMenuItem不透明度.Name = "不透明度ToolStripMenuItem";
       this.ToolStripMenuItem不透明度.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItem不透明度.Text = "不透明度";
-      this.ToolStripMenuItem不透明度.Click += new System.EventHandler(this.不透明度ToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_Click);
       // 
       // 上げToolStripMenuItem
       // 
       this.ToolStripMenuItem不透明度_上げ.Name = "上げToolStripMenuItem";
       this.ToolStripMenuItem不透明度_上げ.Size = new System.Drawing.Size(100, 22);
       this.ToolStripMenuItem不透明度_上げ.Text = "上げ";
-      this.ToolStripMenuItem不透明度_上げ.Click += new System.EventHandler(this.上げToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度_上げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_上げ_Click);
       // 
       // 下げToolStripMenuItem
       // 
       this.ToolStripMenuItem不透明度_下げ.Name = "下げToolStripMenuItem";
       this.ToolStripMenuItem不透明度_下げ.Size = new System.Drawing.Size(100, 22);
       this.ToolStripMenuItem不透明度_下げ.Text = "下げ";
-      this.ToolStripMenuItem不透明度_下げ.Click += new System.EventHandler(this.下げToolStripMenuItem_Click);
+      this.ToolStripMenuItem不透明度_下げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_下げ_Click);
       // 
       // 最前面ToolStripMenuItem
       // 
       this.ToolStripMenuItem最前面.Name = "最前面ToolStripMenuItem";
       this.ToolStripMenuItem最前面.Size = new System.Drawing.Size(124, 22);
       this.ToolStripMenuItem最前面.Text = "最前面";
-      this.ToolStripMenuItem最前面.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
+      this.ToolStripMenuItem最前面.Click += new System.EventHandler(this.ToolStripMenuItem最前面_Click);
       // 
       // tbCopy010
       // 
