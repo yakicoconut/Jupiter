@@ -52,10 +52,9 @@
       // btExec
       // 
       this.btExec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btExec.Location = new System.Drawing.Point(1070, 807);
-      this.btExec.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btExec.Location = new System.Drawing.Point(642, 538);
       this.btExec.Name = "btExec";
-      this.btExec.Size = new System.Drawing.Size(125, 34);
+      this.btExec.Size = new System.Drawing.Size(75, 23);
       this.btExec.TabIndex = 1;
       this.btExec.Text = "実行";
       this.btExec.UseVisualStyleBackColor = true;
@@ -64,31 +63,30 @@
       // azkTargetFileName
       // 
       this.azkTargetFileName.AllowDrop = true;
-      this.azkTargetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.azkTargetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.azkTargetFileName.BackColor = System.Drawing.Color.LightGray;
       this.azkTargetFileName.Cursor = System.Windows.Forms.Cursors.IBeam;
-      this.azkTargetFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab)
-            | Sgry.Azuki.DrawingOption.DrawsEol)
-            | Sgry.Azuki.DrawingOption.HighlightCurrentLine)
-            | Sgry.Azuki.DrawingOption.ShowsLineNumber)
-            | Sgry.Azuki.DrawingOption.ShowsDirtBar)
+      this.azkTargetFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
+            | Sgry.Azuki.DrawingOption.DrawsEol) 
+            | Sgry.Azuki.DrawingOption.HighlightCurrentLine) 
+            | Sgry.Azuki.DrawingOption.ShowsLineNumber) 
+            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
       this.azkTargetFileName.FirstVisibleLine = 0;
-      this.azkTargetFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.azkTargetFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F);
       fontInfo1.Name = "ＭＳ ゴシック";
       fontInfo1.Size = 14;
       fontInfo1.Style = System.Drawing.FontStyle.Regular;
       this.azkTargetFileName.FontInfo = fontInfo1;
       this.azkTargetFileName.ForeColor = System.Drawing.Color.Black;
       this.azkTargetFileName.IsReadOnly = true;
-      this.azkTargetFileName.Location = new System.Drawing.Point(5, 4);
-      this.azkTargetFileName.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.azkTargetFileName.Location = new System.Drawing.Point(3, 3);
       this.azkTargetFileName.Name = "azkTargetFileName";
       this.azkTargetFileName.ScrollPos = new System.Drawing.Point(0, 0);
       this.azkTargetFileName.ShowsVScrollBar = false;
-      this.azkTargetFileName.Size = new System.Drawing.Size(348, 654);
+      this.azkTargetFileName.Size = new System.Drawing.Size(208, 436);
       this.azkTargetFileName.TabIndex = 4;
       this.azkTargetFileName.ViewWidth = 4150;
       this.azkTargetFileName.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
@@ -97,29 +95,28 @@
       // azkChangedFileName
       // 
       this.azkChangedFileName.AllowDrop = true;
-      this.azkChangedFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.azkChangedFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.azkChangedFileName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(250)))), ((int)(((byte)(240)))));
       this.azkChangedFileName.Cursor = System.Windows.Forms.Cursors.IBeam;
-      this.azkChangedFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab)
-            | Sgry.Azuki.DrawingOption.DrawsEol)
-            | Sgry.Azuki.DrawingOption.HighlightCurrentLine)
-            | Sgry.Azuki.DrawingOption.ShowsLineNumber)
-            | Sgry.Azuki.DrawingOption.ShowsDirtBar)
+      this.azkChangedFileName.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
+            | Sgry.Azuki.DrawingOption.DrawsEol) 
+            | Sgry.Azuki.DrawingOption.HighlightCurrentLine) 
+            | Sgry.Azuki.DrawingOption.ShowsLineNumber) 
+            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
       this.azkChangedFileName.FirstVisibleLine = 0;
-      this.azkChangedFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.azkChangedFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F);
       fontInfo2.Name = "ＭＳ ゴシック";
       fontInfo2.Size = 14;
       fontInfo2.Style = System.Drawing.FontStyle.Regular;
       this.azkChangedFileName.FontInfo = fontInfo2;
       this.azkChangedFileName.ForeColor = System.Drawing.Color.Black;
-      this.azkChangedFileName.Location = new System.Drawing.Point(5, 4);
-      this.azkChangedFileName.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.azkChangedFileName.Location = new System.Drawing.Point(3, 3);
       this.azkChangedFileName.Name = "azkChangedFileName";
       this.azkChangedFileName.ScrollPos = new System.Drawing.Point(0, 0);
-      this.azkChangedFileName.Size = new System.Drawing.Size(810, 654);
+      this.azkChangedFileName.Size = new System.Drawing.Size(485, 436);
       this.azkChangedFileName.TabIndex = 5;
       this.azkChangedFileName.ViewWidth = 4150;
       this.azkChangedFileName.VScroll += new System.EventHandler(this.azkChangedFileName_VScroll);
@@ -129,11 +126,10 @@
       // splitContainer1
       // 
       this.splitContainer1.AllowDrop = true;
-      this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.splitContainer1.Location = new System.Drawing.Point(20, 135);
-      this.splitContainer1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.splitContainer1.Location = new System.Drawing.Point(12, 90);
       this.splitContainer1.Name = "splitContainer1";
       // 
       // splitContainer1.Panel1
@@ -143,19 +139,17 @@
       // splitContainer1.Panel2
       // 
       this.splitContainer1.Panel2.Controls.Add(this.azkChangedFileName);
-      this.splitContainer1.Size = new System.Drawing.Size(1180, 663);
-      this.splitContainer1.SplitterDistance = 353;
-      this.splitContainer1.SplitterWidth = 7;
+      this.splitContainer1.Size = new System.Drawing.Size(708, 442);
+      this.splitContainer1.SplitterDistance = 211;
       this.splitContainer1.TabIndex = 6;
       this.splitContainer1.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
       this.splitContainer1.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommonDropEnterEv);
       // 
       // btOpenExplorer
       // 
-      this.btOpenExplorer.Location = new System.Drawing.Point(168, 52);
-      this.btOpenExplorer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btOpenExplorer.Location = new System.Drawing.Point(101, 35);
       this.btOpenExplorer.Name = "btOpenExplorer";
-      this.btOpenExplorer.Size = new System.Drawing.Size(55, 30);
+      this.btOpenExplorer.Size = new System.Drawing.Size(33, 20);
       this.btOpenExplorer.TabIndex = 11;
       this.btOpenExplorer.Text = "開く";
       this.btOpenExplorer.UseVisualStyleBackColor = true;
@@ -164,16 +158,15 @@
       // lbTargetPath
       // 
       this.lbTargetPath.AllowDrop = true;
-      this.lbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.lbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lbTargetPath.BackColor = System.Drawing.SystemColors.Control;
       this.lbTargetPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.lbTargetPath.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Underline);
-      this.lbTargetPath.Location = new System.Drawing.Point(28, 92);
-      this.lbTargetPath.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.lbTargetPath.Location = new System.Drawing.Point(17, 61);
       this.lbTargetPath.Name = "lbTargetPath";
       this.lbTargetPath.ReadOnly = true;
-      this.lbTargetPath.Size = new System.Drawing.Size(1172, 34);
+      this.lbTargetPath.Size = new System.Drawing.Size(703, 23);
       this.lbTargetPath.TabIndex = 12;
       this.lbTargetPath.Text = "-";
       this.lbTargetPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
@@ -184,10 +177,9 @@
       this.label12.AllowDrop = true;
       this.label12.AutoSize = true;
       this.label12.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label12.Location = new System.Drawing.Point(13, 52);
-      this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+      this.label12.Location = new System.Drawing.Point(8, 35);
       this.label12.Name = "label12";
-      this.label12.Size = new System.Drawing.Size(153, 34);
+      this.label12.Size = new System.Drawing.Size(100, 23);
       this.label12.TabIndex = 7;
       this.label12.Text = "対象フォルダ";
       this.label12.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
@@ -196,10 +188,9 @@
       // btPathConfirm
       // 
       this.btPathConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btPathConfirm.Location = new System.Drawing.Point(1092, 15);
-      this.btPathConfirm.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btPathConfirm.Location = new System.Drawing.Point(655, 10);
       this.btPathConfirm.Name = "btPathConfirm";
-      this.btPathConfirm.Size = new System.Drawing.Size(103, 34);
+      this.btPathConfirm.Size = new System.Drawing.Size(62, 23);
       this.btPathConfirm.TabIndex = 8;
       this.btPathConfirm.Text = "位置確定";
       this.btPathConfirm.UseVisualStyleBackColor = true;
@@ -208,10 +199,9 @@
       // btReference
       // 
       this.btReference.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btReference.Location = new System.Drawing.Point(1027, 16);
-      this.btReference.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btReference.Location = new System.Drawing.Point(616, 11);
       this.btReference.Name = "btReference";
-      this.btReference.Size = new System.Drawing.Size(65, 30);
+      this.btReference.Size = new System.Drawing.Size(39, 20);
       this.btReference.TabIndex = 9;
       this.btReference.Text = "参照";
       this.btReference.UseVisualStyleBackColor = true;
@@ -220,12 +210,11 @@
       // tbTargetPathText
       // 
       this.tbTargetPathText.AllowDrop = true;
-      this.tbTargetPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbTargetPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTargetPathText.Location = new System.Drawing.Point(20, 18);
-      this.tbTargetPathText.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.tbTargetPathText.Location = new System.Drawing.Point(12, 12);
       this.tbTargetPathText.Name = "tbTargetPathText";
-      this.tbTargetPathText.Size = new System.Drawing.Size(1006, 25);
+      this.tbTargetPathText.Size = new System.Drawing.Size(605, 19);
       this.tbTargetPathText.TabIndex = 13;
       this.tbTargetPathText.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
       this.tbTargetPathText.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommonDropEnterEv);
@@ -233,10 +222,9 @@
       // btCallBackup
       // 
       this.btCallBackup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btCallBackup.Location = new System.Drawing.Point(935, 807);
-      this.btCallBackup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btCallBackup.Location = new System.Drawing.Point(561, 538);
       this.btCallBackup.Name = "btCallBackup";
-      this.btCallBackup.Size = new System.Drawing.Size(125, 34);
+      this.btCallBackup.Size = new System.Drawing.Size(75, 23);
       this.btCallBackup.TabIndex = 14;
       this.btCallBackup.Text = "前回変更値";
       this.btCallBackup.UseVisualStyleBackColor = true;
@@ -245,10 +233,9 @@
       // btAssist
       // 
       this.btAssist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btAssist.Location = new System.Drawing.Point(800, 807);
-      this.btAssist.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btAssist.Location = new System.Drawing.Point(480, 538);
       this.btAssist.Name = "btAssist";
-      this.btAssist.Size = new System.Drawing.Size(125, 34);
+      this.btAssist.Size = new System.Drawing.Size(75, 23);
       this.btAssist.TabIndex = 15;
       this.btAssist.Text = "アシスト";
       this.btAssist.UseVisualStyleBackColor = true;
@@ -257,10 +244,9 @@
       // btOpenLogDir
       // 
       this.btOpenLogDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btOpenLogDir.Location = new System.Drawing.Point(665, 807);
-      this.btOpenLogDir.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btOpenLogDir.Location = new System.Drawing.Point(399, 538);
       this.btOpenLogDir.Name = "btOpenLogDir";
-      this.btOpenLogDir.Size = new System.Drawing.Size(125, 34);
+      this.btOpenLogDir.Size = new System.Drawing.Size(75, 23);
       this.btOpenLogDir.TabIndex = 16;
       this.btOpenLogDir.Text = "ログフォルダ";
       this.btOpenLogDir.UseVisualStyleBackColor = true;
@@ -269,9 +255,9 @@
       // Form1
       // 
       this.AllowDrop = true;
-      this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1220, 860);
+      this.ClientSize = new System.Drawing.Size(732, 573);
       this.Controls.Add(this.btOpenLogDir);
       this.Controls.Add(this.btAssist);
       this.Controls.Add(this.btCallBackup);
@@ -283,9 +269,9 @@
       this.Controls.Add(this.tbTargetPathText);
       this.Controls.Add(this.splitContainer1);
       this.Controls.Add(this.btExec);
-      this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.Name = "Form1";
       this.Text = "Form1";
+      this.Load += new System.EventHandler(this.Form1_Load);
       this.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDropDropEv);
       this.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommonDropEnterEv);
       this.splitContainer1.Panel1.ResumeLayout(false);

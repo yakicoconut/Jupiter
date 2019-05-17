@@ -64,6 +64,21 @@ namespace WFA
     #endregion
 
 
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      // コマンドライン引数取得
+      string[] cmdArgs = Environment.GetCommandLineArgs();
+
+      // 引数が2以上の場合(一つ目は自身のパス固定)
+      if (cmdArgs.Length >= 2)
+      {
+        // 対象パス表示メソッド使用
+        DispTargetPath(cmdArgs[1]);
+      }
+    }
+    #endregion
+
     #region 参照ボタン押下イベント
     private void btReference_Click(object sender, EventArgs e)
     {
@@ -230,27 +245,11 @@ namespace WFA
     #region 共通ドラッグドロップイベント
     private void CommonDropDropEv(object sender, DragEventArgs e)
     {
-      //ドラッグ&ドロップされたファイルの一つ目を取得
+      // ドラッグ&ドロップされたファイルの一つ目を取得
       string dropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
 
-      //フォルダかファイルか判断
-      if (Directory.Exists(dropItem))
-      {
-        //対象フォルダ欄に表示
-        lbTargetPath.Text = dropItem;
-      }
-      else
-      {
-        lbTargetPath.Text = System.IO.Path.GetDirectoryName(dropItem);
-      }
-
-      //対象Azukiエディタのドキュメント型を設定
-      mLogic.targetDoc = azkTargetFileName.Document;
-      //変更後Azukiエディタのドキュメント型を設定
-      mLogic.changedDoc = azkChangedFileName.Document;
-      //フォルダファイル一覧表示メソッド使用
-      //対象フォルダ欄を使用
-      mLogic.ForlderAndFileDisplay(lbTargetPath.Text);
+      // 対象パス表示メソッド使用
+      DispTargetPath(dropItem);
     }
     #endregion
 
@@ -260,6 +259,31 @@ namespace WFA
       azkTargetFileName.ScrollPos = azkChangedFileName.ScrollPos;
     }
     #endregion
+
+
+    #region 対象パス表示メソッド
+    private void DispTargetPath(string targetPath)
+    {
+      // フォルダかファイルか判断
+      if (Directory.Exists(targetPath))
+      {
+        // 対象フォルダ欄に表示
+        lbTargetPath.Text = targetPath;
+      }
+      else
+      {
+        lbTargetPath.Text = Path.GetDirectoryName(targetPath);
+      }
+
+      // 対象Azukiエディタのドキュメント型を設定
+      mLogic.targetDoc = azkTargetFileName.Document;
+      // 変更後Azukiエディタのドキュメント型を設定
+      mLogic.changedDoc = azkChangedFileName.Document;
+      // フォルダファイル一覧表示メソッド使用
+      // 対象フォルダ欄を使用
+      mLogic.ForlderAndFileDisplay(lbTargetPath.Text);
+    }
+    #endregion]
 
 
     #region 雛形メソッド
