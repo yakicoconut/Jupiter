@@ -1,0 +1,5 @@
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\bin\Debug\ICalcPlugin.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\bin\Debug\ICalcPlugin.pdb
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\obj\Debug\ICalcPlugin.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\obj\Debug\ICalcPlugin.pdb
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\obj\Debug\ICalcPlugin.csprojResolveAssemblyReference.cache

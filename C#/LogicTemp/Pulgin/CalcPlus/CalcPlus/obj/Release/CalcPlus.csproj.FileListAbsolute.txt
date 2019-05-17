@@ -1,0 +1,5 @@
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Release\CalcPlus.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Release\CalcPlus.pdb
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\bin\Release\ICalcPlugin.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\obj\Release\CalcPlus.dll
+E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcPlus\CalcPlus\obj\Release\CalcPlus.pdb
