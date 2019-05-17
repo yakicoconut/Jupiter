@@ -61,6 +61,7 @@
       this.gbGetPath = new System.Windows.Forms.GroupBox();
       this.lbCopyComp = new System.Windows.Forms.Label();
       this.cbIsDirPathMode = new System.Windows.Forms.CheckBox();
+      this.cbSelectMode = new System.Windows.Forms.ComboBox();
       this.contextMenuStrip1.SuspendLayout();
       this.gbGetPath.SuspendLayout();
       this.SuspendLayout();
@@ -176,36 +177,36 @@
             this.ToolStripMenuItem不透明度,
             this.ToolStripMenuItem最前面});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(175, 70);
       // 
-      // 不透明度ToolStripMenuItem
+      // ToolStripMenuItem不透明度
       // 
       this.ToolStripMenuItem不透明度.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem不透明度_上げ,
             this.ToolStripMenuItem不透明度_下げ});
-      this.ToolStripMenuItem不透明度.Name = "不透明度ToolStripMenuItem";
-      this.ToolStripMenuItem不透明度.Size = new System.Drawing.Size(124, 22);
+      this.ToolStripMenuItem不透明度.Name = "ToolStripMenuItem不透明度";
+      this.ToolStripMenuItem不透明度.Size = new System.Drawing.Size(174, 22);
       this.ToolStripMenuItem不透明度.Text = "不透明度";
       this.ToolStripMenuItem不透明度.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_Click);
       // 
-      // 上げToolStripMenuItem
+      // ToolStripMenuItem不透明度_上げ
       // 
-      this.ToolStripMenuItem不透明度_上げ.Name = "上げToolStripMenuItem";
+      this.ToolStripMenuItem不透明度_上げ.Name = "ToolStripMenuItem不透明度_上げ";
       this.ToolStripMenuItem不透明度_上げ.Size = new System.Drawing.Size(100, 22);
       this.ToolStripMenuItem不透明度_上げ.Text = "上げ";
       this.ToolStripMenuItem不透明度_上げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_上げ_Click);
       // 
-      // 下げToolStripMenuItem
+      // ToolStripMenuItem不透明度_下げ
       // 
-      this.ToolStripMenuItem不透明度_下げ.Name = "下げToolStripMenuItem";
+      this.ToolStripMenuItem不透明度_下げ.Name = "ToolStripMenuItem不透明度_下げ";
       this.ToolStripMenuItem不透明度_下げ.Size = new System.Drawing.Size(100, 22);
       this.ToolStripMenuItem不透明度_下げ.Text = "下げ";
       this.ToolStripMenuItem不透明度_下げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_下げ_Click);
       // 
-      // 最前面ToolStripMenuItem
+      // ToolStripMenuItem最前面
       // 
-      this.ToolStripMenuItem最前面.Name = "最前面ToolStripMenuItem";
-      this.ToolStripMenuItem最前面.Size = new System.Drawing.Size(124, 22);
+      this.ToolStripMenuItem最前面.Name = "ToolStripMenuItem最前面";
+      this.ToolStripMenuItem最前面.Size = new System.Drawing.Size(174, 22);
       this.ToolStripMenuItem最前面.Text = "最前面";
       this.ToolStripMenuItem最前面.Click += new System.EventHandler(this.ToolStripMenuItem最前面_Click);
       // 
@@ -349,13 +350,13 @@
       // 
       this.gbGetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.gbGetPath.Controls.Add(this.cbSelectMode);
       this.gbGetPath.Controls.Add(this.lbCopyComp);
       this.gbGetPath.Location = new System.Drawing.Point(15, 34);
       this.gbGetPath.Name = "gbGetPath";
       this.gbGetPath.Size = new System.Drawing.Size(209, 71);
       this.gbGetPath.TabIndex = 23;
       this.gbGetPath.TabStop = false;
-      this.gbGetPath.Text = "パス取得";
       this.gbGetPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.gbGetPath_DragDrop);
       this.gbGetPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.gbGetPath_DragEnter);
       // 
@@ -376,6 +377,17 @@
       this.cbIsDirPathMode.TabIndex = 24;
       this.cbIsDirPathMode.Text = "フォルダモード";
       this.cbIsDirPathMode.UseVisualStyleBackColor = true;
+      // 
+      // cbSelectMode
+      // 
+      this.cbSelectMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbSelectMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbSelectMode.FormattingEnabled = true;
+      this.cbSelectMode.Location = new System.Drawing.Point(18, 0);
+      this.cbSelectMode.Name = "cbSelectMode";
+      this.cbSelectMode.Size = new System.Drawing.Size(173, 20);
+      this.cbSelectMode.TabIndex = 1;
       // 
       // Form1
       // 
@@ -453,6 +465,7 @@
     private System.Windows.Forms.GroupBox gbGetPath;
     private System.Windows.Forms.CheckBox cbIsDirPathMode;
     private System.Windows.Forms.Label lbCopyComp;
+    private System.Windows.Forms.ComboBox cbSelectMode;
   }
 }
 

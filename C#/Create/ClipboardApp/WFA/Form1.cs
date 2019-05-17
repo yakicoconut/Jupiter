@@ -62,6 +62,9 @@ namespace WFA
 
       // パス取得書式
       GET_PATH_STR_FORMAT = _comLogic.GetConfigValue("GetPathStrFormat", "{0}");
+
+      // MultiRenameApp位置
+      multiRenameAppPath = _comLogic.GetConfigValue("MultiRenameAppPath", @"..\multiRenameAppPath");
     }
     #endregion
 
@@ -97,6 +100,12 @@ namespace WFA
     // パス取得書式
     string GET_PATH_STR_FORMAT;
 
+    // モードリスト
+    List<string> listMode;
+
+    // MultiRenameApp位置
+    string multiRenameAppPath;
+
     #endregion
 
 
@@ -120,6 +129,14 @@ namespace WFA
       tbCopy008.Text = copyTarget008;
       tbCopy009.Text = copyTarget009;
       tbCopy010.Text = copyTarget010;
+
+      // アプリモード配列初期化
+      listMode = new List<string>();
+      listMode.Add("GetPath");
+      listMode.Add("MultiRenameApp");
+
+      // モードコンボボックスに設定
+      cbSelectMode.DataSource = listMode;
     }
     #endregion
 
@@ -199,6 +216,7 @@ namespace WFA
     private void gbGetPath_DragDrop(object sender, DragEventArgs e)
     {
       string setPath = string.Empty;
+      bool compFlg = true;
 
       // コピー完了ラベル初期化
       lbCopyComp.Text = string.Empty;
@@ -218,20 +236,25 @@ namespace WFA
         setPath = GetFilePath(dropItem);
       }
 
-      try
+      // モード分岐
+      switch (cbSelectMode.SelectedItem.ToString())
       {
-        // クリップボードにセット
-        Clipboard.SetText(setPath);
-      }
-      catch(Exception)
-      {
-        // コピー完了ラベル更新
-        lbCopyComp.Text = "コピー失敗";
-        return;
+        case "MultiRenameApp":
+          // MultiRenameApp送信メソッド使用
+          compFlg = SendMultiRenameApp(setPath);
+          break;
+
+        default:
+          // クリップボード送信メソッド使用
+          compFlg = SendToClipBoard(setPath);
+          break;
       }
 
-      // コピー完了ラベル更新
-      lbCopyComp.Text = "コピー完了";
+      // 完了フラグによってラベル更新
+      lbCopyComp.Text = compFlg ? "完了" : "失敗";
+
+      // アプリモード初期化
+      cbSelectMode.SelectedIndex = 0;
     }
     #endregion
 
@@ -378,6 +401,41 @@ namespace WFA
       string returnPath = targetPath;
 
       return string.Format(GET_PATH_STR_FORMAT, returnPath);
+    }
+    #endregion
+
+
+    #region クリップボード送信メソッド
+    private bool SendToClipBoard(string sendVal)
+    {
+      try
+      {
+        // クリップボードにセット
+        Clipboard.SetText(sendVal);
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+
+      return true;
+    }
+    #endregion
+
+    #region MultiRenameApp送信メソッド
+    private bool SendMultiRenameApp(string sendVal)
+    {
+      try
+      {
+        // アプリ開始
+        Process.Start(multiRenameAppPath, sendVal);
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+
+      return true;
     }
     #endregion
 
