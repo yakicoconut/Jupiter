@@ -1,5 +1,0 @@
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Release\CalcMinus.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Release\CalcMinus.pdb
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Release\ICalcPlugin.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\obj\Release\CalcMinus.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\obj\Release\CalcMinus.pdb

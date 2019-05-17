@@ -1,6 +1,0 @@
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Debug\CalcMinus.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Debug\CalcMinus.pdb
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\bin\Debug\ICalcPlugin.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\obj\Debug\CalcMinus.csprojResolveAssemblyReference.cache
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\obj\Debug\CalcMinus.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\CalcMinus\CalcMinus\obj\Debug\CalcMinus.pdb
