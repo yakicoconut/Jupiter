@@ -68,7 +68,7 @@ namespace WFA
     CommData srvCommData;
     // クライアント側プロセス間通信用クラス 
     CommData cltCommData;
-    
+
     #endregion
 
 
@@ -117,7 +117,7 @@ namespace WFA
     private void button3_Click(object sender, EventArgs e)
     {
       // 公開クラスの値を表示
-      textBox1.AppendText(srvCommData.Count.ToString() + Environment.NewLine);
+      textBox1.AppendText(srvCommData.Counter.ToString() + Environment.NewLine);
     }
     #endregion
 
@@ -162,20 +162,38 @@ namespace WFA
     #region クライアント_更新メソッド
     public void Clt_UpdateData()
     {
-      // カウントを1増やす
-      cltCommData.Count++;
+      // カウンタを1増やす
+      cltCommData.Counter++;
     }
     #endregion
   }
 
-    #region サーバ_プロセス間通信用公開クラス
-    /// <summary>
-    /// サーバ_プロセス間通信用クラス
-    /// </summary>
-    public class CommData : MarshalByRefObject
+  #region サーバ_プロセス間通信用公開クラス
+  /// <summary>
+  /// サーバ_プロセス間通信用クラス
+  /// </summary>
+  public class CommData : MarshalByRefObject
   {
-    // カウント
-    public int Count { get; set; }
+    #region プロパティ
+
+    /// <summary>
+    /// カウンタ
+    /// </summary> 
+    public int Counter { get; set; }
+
+    #endregion
+
+
+    #region カウンタ表示メソッド
+    /// <summary>
+    /// カウンタ表示メソッド
+    /// </summary>
+    public void ViewCounter()
+    {
+      // 自身のカウンタ表示
+      MessageBox.Show(Counter.ToString());
+    }
+    #endregion
   }
   #endregion
 }
