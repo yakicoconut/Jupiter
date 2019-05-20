@@ -4,10 +4,14 @@ echo ffmpegで動画分割
 
 
 : 参照バッチ
-  rem 時刻判定バッチ
-  set call_ChkTimeFormat="..\..\OwnLib\ChkTimeFormat.bat"
-  rem 経過時間計算バッチ
-  set call_ElapsedTime="..\..\OwnLib\ElapsedTime.bat"
+  rem ディレクトリファイル情報バッチ
+  set call_DirFilePathInfo="..\..\OwnLib\DirFilePathInfo.bat"
+  rem 時刻判定バッチの絶対パス取得
+  call %call_DirFilePathInfo% "..\..\OwnLib\ChkTimeFormat.bat" f
+  set call_ChkTimeFormat=%return_DirFilePathInfo%
+  rem 経過時間計算バッチの絶対パス取得
+  call %call_DirFilePathInfo% "..\..\OwnLib\ElapsedTime.bat" f
+  set call_ElapsedTime=%return_DirFilePathInfo%
 
 
 : ユーザ入力処理
