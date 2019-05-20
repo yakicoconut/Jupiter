@@ -89,6 +89,10 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // 最前面設定
+      this.TopMost = true;
+      cbIsTopMost.Checked = true;
+
       // フォームのキー押下イベントを受け取る設定
       this.KeyPreview = true;
 
@@ -96,9 +100,6 @@ namespace WFA
       lvProcessList.MultiSelect = false;
       // リストビュードロップ許可
       lvProcessList.AllowDrop = true;
-
-      // プロセスディクショナリ初期化
-      dicProcess = new Dictionary<string, Process>();
 
       // リストビュー初期化メソッド使用
       InitListView();
@@ -230,6 +231,14 @@ namespace WFA
       // リストビュー初期化メソッド使用
       InitListView();
     }
+    #endregion
+
+    #region 最善面チェックボックス変更イベント
+    private void cbIsTopMost_CheckedChanged(object sender, EventArgs e)
+    {
+      // 最前面設定
+      this.TopMost = cbIsTopMost.Checked;
+    } 
     #endregion
 
 

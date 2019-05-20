@@ -30,12 +30,13 @@
     {
       this.btRefresh = new System.Windows.Forms.Button();
       this.lvProcessList = new System.Windows.Forms.ListView();
+      this.cbIsTopMost = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // btRefresh
       // 
       this.btRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btRefresh.Location = new System.Drawing.Point(7, 599);
+      this.btRefresh.Location = new System.Drawing.Point(7, 610);
       this.btRefresh.Name = "btRefresh";
       this.btRefresh.Size = new System.Drawing.Size(75, 23);
       this.btRefresh.TabIndex = 1;
@@ -52,7 +53,7 @@
       this.lvProcessList.Location = new System.Drawing.Point(7, 8);
       this.lvProcessList.Margin = new System.Windows.Forms.Padding(2);
       this.lvProcessList.Name = "lvProcessList";
-      this.lvProcessList.Size = new System.Drawing.Size(228, 588);
+      this.lvProcessList.Size = new System.Drawing.Size(228, 597);
       this.lvProcessList.TabIndex = 4;
       this.lvProcessList.UseCompatibleStateImageBehavior = false;
       this.lvProcessList.View = System.Windows.Forms.View.List;
@@ -63,11 +64,24 @@
       this.lvProcessList.DragOver += new System.Windows.Forms.DragEventHandler(this.lvProcessList_DragOver);
       this.lvProcessList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvProcessList_KeyDown);
       // 
+      // cbIsTopMost
+      // 
+      this.cbIsTopMost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsTopMost.AutoSize = true;
+      this.cbIsTopMost.Location = new System.Drawing.Point(169, 614);
+      this.cbIsTopMost.Name = "cbIsTopMost";
+      this.cbIsTopMost.Size = new System.Drawing.Size(60, 16);
+      this.cbIsTopMost.TabIndex = 5;
+      this.cbIsTopMost.Text = "最前面";
+      this.cbIsTopMost.UseVisualStyleBackColor = true;
+      this.cbIsTopMost.CheckedChanged += new System.EventHandler(this.cbIsTopMost_CheckedChanged);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(241, 641);
+      this.Controls.Add(this.cbIsTopMost);
       this.Controls.Add(this.lvProcessList);
       this.Controls.Add(this.btRefresh);
       this.Name = "Form1";
@@ -75,6 +89,7 @@
       this.Load += new System.EventHandler(this.Form1_Load);
       this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -82,6 +97,7 @@
 
     private System.Windows.Forms.Button btRefresh;
     private System.Windows.Forms.ListView lvProcessList;
+    private System.Windows.Forms.CheckBox cbIsTopMost;
   }
 }
 
