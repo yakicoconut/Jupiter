@@ -39,7 +39,16 @@ namespace WFA
     public void GetConfig()
     {
       // アシストフォーム初期値
-      assistContents = _comLogic.GetConfigValue("Key01", "AssistContents");
+      assistContents = _comLogic.GetConfigValue("AssistContents", @"01234567891_
+01234567892_
+01234567893_
+01234567894_
+01234567895_
+01234567896_
+01234567897_
+01234567898_
+01234567899_
+01234567890_");
     }
     #endregion
 
