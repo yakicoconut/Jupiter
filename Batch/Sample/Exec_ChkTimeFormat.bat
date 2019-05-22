@@ -1,10 +1,10 @@
 @echo off
 title %~nx0
-echo 時刻判定バッチの使用例
+echo 時刻書式判定バッチの使用例
 
 
 : 参照バッチ
-  rem 時刻判定バッチ
+  rem 時刻書式判定バッチ
   set call_ChkTimeFormat="..\OwnLib\ChkTimeFormat.bat"
 
 
