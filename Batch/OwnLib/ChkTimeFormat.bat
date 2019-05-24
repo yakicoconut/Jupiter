@@ -62,7 +62,11 @@ SETLOCAL
     set isTime=1
 
 
-:RETURN
-  rem 戻り値
-  ENDLOCAL && set return_ChkTimeFormat1=%isTime% && set return_ChkTimeFormat2=%format%
-  exit /b
+  rem バッチ終了
+  :RETURN
+    rem 処理なし
+
+
+rem 戻り値
+ENDLOCAL && set return_ChkTimeFormat1=%isTime% && set return_ChkTimeFormat2=%format%
+exit /b
