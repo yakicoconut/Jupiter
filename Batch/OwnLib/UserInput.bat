@@ -32,6 +32,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   : 参照バッチ
     rem 呼び出しを想定して自身と同じフォルダを指定
+    rem 丸括弧含有判定バッチ
+    set call_ChkIncParenthesis=%~dp0"ChkIncParenthesis.bat"
     rem 数値判定バッチ
     set call_ChkNum=%~dp0"ChkNum.bat"
     rem 日付書式判定バッチ
@@ -58,11 +60,24 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 判定結果宣言
     set judgResult=
 
-    rem 無入力の場合
-    if %returnVal%=="" (
-      rem 無入力の場合、無効入力判断へ
-      goto :IS_Invalid_LOOP
-    )
+    : ねずみ返し_丸括弧判定
+      rem 丸括弧含有判定バッチ使用
+      call %call_ChkIncParenthesis% %returnVal%
+
+      rem 丸括弧を含む場合
+      if %return_ChkIncParenthesis%==1 (
+        set invalidErrStr=「^(」か、「^)」が含まれています
+        goto :IS_Invalid_LOOP
+      )
+
+    : ねずみ返し_無入力判定
+      if %returnVal%=="" (
+        rem 無効入力表示文言設定
+        set invalidErrStr=無入力です
+        rem 無効入力判断へ
+        goto :IS_Invalid_LOOP
+      )
+
     rem 判定結果を成功に設定
     set judgResult=1
 
@@ -72,7 +87,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       if %judgeMode%==PATH (
         rem パスが存在しない場合
         if not exist %returnVal% (
-          rem 無効入力判断へ
+          set invalidErrStr=パスが存在しません
           goto :IS_Invalid_LOOP
         )
       )
@@ -84,7 +99,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
         rem 数値でない場合
         if !return_ChkNum!==0 (
-          rem 無効入力判断へ
+          set invalidErrStr=数値ではありません
           goto :IS_Invalid_LOOP
         )
       )
@@ -96,7 +111,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
         rem 日付でない場合
         if !return_ChkDateFormat1!==0 (
-          rem 無効入力判断へ
+          set invalidErrStr=日付ではありません
           goto :IS_Invalid_LOOP
         )
         rem 判定結果を成功に書式を設定
@@ -110,7 +125,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
         rem 時刻でない場合
         if !return_ChkTimeFormat1!==0 (
-          rem 無効入力判断へ
+          set invalidErrStr=時刻ではありません
           goto :IS_Invalid_LOOP
         )
         rem 判定結果を成功に書式を設定
@@ -132,8 +147,9 @@ rem 無効入力判断
 :IS_Invalid_LOOP
   rem 無効入力ループが有効の場合
   if "%isInvalidLoop%"=="TRUE" (
+    rem 無効入力表示文言表示
     echo;
-    echo 入力値が不正です、再度入力してください
+    echo !invalidErrStr!、再度入力してください
     echo;
     rem 入力ループ
     goto :USER_INPUT
