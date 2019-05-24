@@ -52,7 +52,11 @@ SETLOCAL
     set isDate=1
 
 
-:RETURN
-  rem 戻り値
-  ENDLOCAL && set return_ChkDateFormat1=%isDate% && set return_ChkDateFormat2=%format%
-  exit /b
+  rem バッチ終了
+  :RETURN
+    rem 処理なし
+
+
+rem 戻り値(2つ以上の場合、戻り値2以降の「&&」直前スペース注意)
+ENDLOCAL && set return_ChkDateFormat1=%isDate%&& set return_ChkDateFormat2=%format%
+exit /b
