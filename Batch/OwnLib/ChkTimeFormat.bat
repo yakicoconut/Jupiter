@@ -68,5 +68,5 @@ SETLOCAL
 
 
 rem –ß‚è’l
-ENDLOCAL && set return_ChkTimeFormat1=%isTime% && set return_ChkTimeFormat2=%format%
+ENDLOCAL && set return_ChkTimeFormat1=%isTime%&& set return_ChkTimeFormat2=%format%
 exit /b
