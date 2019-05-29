@@ -1,2 +1,9 @@
+ダウンロード
+  Builds - Zeranoe FFmpeg
+  	https://ffmpeg.zeranoe.com/builds/
+
 バージョン
-  ffmpeg-20171102-d5995c5-win64-static
+  win32
+    4.1.3-static
+  win64
+    4.1.3-static
