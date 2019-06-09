@@ -33,7 +33,7 @@
       this.tbInsStr = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
-      this.tbInsPosition = new System.Windows.Forms.TextBox();
+      this.tbInsPos = new System.Windows.Forms.TextBox();
       this.cbIsStrFｍtMode = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
@@ -89,14 +89,14 @@
       this.label2.TabIndex = 6;
       this.label2.Text = "挿入文字:";
       // 
-      // tbInsPosition
+      // tbInsPos
       // 
-      this.tbInsPosition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbInsPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbInsPosition.Location = new System.Drawing.Point(107, 83);
-      this.tbInsPosition.Name = "tbInsPosition";
-      this.tbInsPosition.Size = new System.Drawing.Size(188, 25);
-      this.tbInsPosition.TabIndex = 7;
+      this.tbInsPos.Location = new System.Drawing.Point(107, 83);
+      this.tbInsPos.Name = "tbInsPos";
+      this.tbInsPos.Size = new System.Drawing.Size(188, 25);
+      this.tbInsPos.TabIndex = 7;
       // 
       // cbIsStrFｍtMode
       // 
@@ -114,7 +114,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(307, 207);
       this.Controls.Add(this.cbIsStrFｍtMode);
-      this.Controls.Add(this.tbInsPosition);
+      this.Controls.Add(this.tbInsPos);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.tbInsStr);
@@ -137,7 +137,7 @@
     private System.Windows.Forms.TextBox tbInsStr;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox tbInsPosition;
+    private System.Windows.Forms.TextBox tbInsPos;
     private System.Windows.Forms.CheckBox cbIsStrFｍtMode;
   }
 }

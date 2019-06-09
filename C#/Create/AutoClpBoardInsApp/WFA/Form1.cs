@@ -125,8 +125,8 @@ namespace WFA
       string targetStr = tbReadOnly.Text;
       int targetLength = targetStr.Length;
       string insStr = tbInsStr.Text;
-      string insPosition = tbInsPosition.Text;
-      bool isStrFｍt = cbIsStrFｍtMode.Checked;
+      string insPosStr = tbInsPos.Text;
+      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
 
       string cngTxt = string.Empty;
 
@@ -142,7 +142,7 @@ namespace WFA
       }
 
       // 書式指定挿入モード
-      if (isStrFｍt)
+      if (isStrFｍtMode)
       {
         // 文字列書式指定挿入メソッド使用
         cngTxt = InsFormatTxt(insStr, targetStr);
@@ -150,7 +150,7 @@ namespace WFA
       else
       {
         // 文字数指定挿入メソッド使用
-        cngTxt = InsPositionTxt(targetStr, insStr, insPosition);
+        cngTxt = InsPositionTxt(targetStr, insPosStr, insStr);
       }
 
       // ねずみ返し_挿入結果が空の場合
@@ -167,52 +167,52 @@ namespace WFA
     #endregion
 
 
-    #region 文字数指定挿入メソッド
-    private string InsPositionTxt(string targetStr, string insStr, string insPosition)
-    {
-      string returnStr = string.Empty;
-      int targetStrLen = targetStr.Length;
-      int insNum;
-
-      // ねずみ返し_数値でない場合
-      if (!int.TryParse(insPosition, out insNum))
-      {
-        return "";
-      }
-      // ねずみ返し_絶対値が文字数を超す場合
-      if (Math.Abs(insNum) > targetStrLen)
-      {
-        return "";
-      }
-
-      // マイナス値の場合
-      if (insNum < 0)
-      {
-        // 末尾から指定
-        insNum = targetStrLen + insNum;
-      }
-
-      // マイナスかつ0の場合
-      if (insPosition.Substring(0, 1) == "-" && insNum == 0)
-      {
-        // 末尾指定
-        insNum = targetStrLen;
-      }
-
-      // 文字数指定で挿入
-      returnStr = targetStr.Insert(insNum, insStr);
-
-      return returnStr;
-    }
-    #endregion
-
     #region 文字列書式指定挿入メソッド
-    private string InsFormatTxt(string insStr, string targetStr)
+    private string InsFormatTxt(string targetStr, string insStr)
     {
       string returnStr = string.Empty;
 
       // 文字列指定で挿入
       returnStr = string.Format(insStr, targetStr);
+
+      return returnStr;
+    }
+    #endregion
+
+    #region 文字数指定挿入メソッド
+    private string InsPositionTxt(string targetStr, string insPosStr, string insStr)
+    {
+      string returnStr = string.Empty;
+      int targetStrLen = targetStr.Length;
+      int insPosNum;
+
+      // ねずみ返し_数値でない場合
+      if (!int.TryParse(insPosStr, out insPosNum))
+      {
+        return "";
+      }
+      // ねずみ返し_絶対値が文字数を超す場合
+      if (Math.Abs(insPosNum) > targetStrLen)
+      {
+        return "";
+      }
+
+      // マイナス値の場合
+      if (insPosNum < 0)
+      {
+        // 末尾から指定
+        insPosNum = targetStrLen + insPosNum;
+      }
+
+      // マイナスかつ0の場合
+      if (insPosStr.Substring(0, 1) == "-" && insPosNum == 0)
+      {
+        // 末尾指定
+        insPosNum = targetStrLen;
+      }
+
+      // 文字数指定で挿入
+      returnStr = targetStr.Insert(insPosNum, insStr);
 
       return returnStr;
     }
