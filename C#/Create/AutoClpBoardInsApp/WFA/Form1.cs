@@ -126,7 +126,7 @@ namespace WFA
       int targetLength = targetStr.Length;
       string insStr = tbInsStr.Text;
       string insPosition = tbInsPosition.Text;
-      bool isStrFormat = cbIsStrFormat.Checked;
+      bool isStrFｍt = cbIsStrFｍtMode.Checked;
 
       string cngTxt = string.Empty;
 
@@ -142,7 +142,7 @@ namespace WFA
       }
 
       // 書式指定挿入モード
-      if (isStrFormat)
+      if (isStrFｍt)
       {
         // 文字列書式指定挿入メソッド使用
         cngTxt = InsFormatTxt(insStr, targetStr);

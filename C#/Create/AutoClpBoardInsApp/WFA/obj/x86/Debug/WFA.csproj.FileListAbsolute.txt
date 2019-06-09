@@ -34,3 +34,12 @@ D:\Cal_Git_Master\C#\Create\AutoClpInsApp\WFA\obj\x86\Debug\WFA.Properties.Resou
 D:\Cal_Git_Master\C#\Create\AutoClpInsApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
 D:\Cal_Git_Master\C#\Create\AutoClpInsApp\WFA\obj\x86\Debug\WFA.exe
 D:\Cal_Git_Master\C#\Create\AutoClpInsApp\WFA\obj\x86\Debug\WFA.pdb
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.Form1.resources
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.exe
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\obj\x86\Debug\WFA.pdb
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\bin\Debug\WFA.exe.config
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\bin\Debug\WFA.exe
+D:\Cal_Git_Master\C#\Create\AutoClpBoardInsApp\WFA\bin\Debug\WFA.pdb

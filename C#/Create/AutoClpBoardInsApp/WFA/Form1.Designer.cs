@@ -34,7 +34,7 @@
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.tbInsPosition = new System.Windows.Forms.TextBox();
-      this.cbIsStrFormat = new System.Windows.Forms.CheckBox();
+      this.cbIsStrFｍtMode = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // btOnOff
@@ -98,22 +98,22 @@
       this.tbInsPosition.Size = new System.Drawing.Size(188, 25);
       this.tbInsPosition.TabIndex = 7;
       // 
-      // cbIsStrFormat
+      // cbIsStrFｍtMode
       // 
-      this.cbIsStrFormat.AutoSize = true;
-      this.cbIsStrFormat.Location = new System.Drawing.Point(12, 43);
-      this.cbIsStrFormat.Name = "cbIsStrFormat";
-      this.cbIsStrFormat.Size = new System.Drawing.Size(106, 22);
-      this.cbIsStrFormat.TabIndex = 8;
-      this.cbIsStrFormat.Text = "書式指定";
-      this.cbIsStrFormat.UseVisualStyleBackColor = true;
+      this.cbIsStrFｍtMode.AutoSize = true;
+      this.cbIsStrFｍtMode.Location = new System.Drawing.Point(12, 43);
+      this.cbIsStrFｍtMode.Name = "cbIsStrFｍtMode";
+      this.cbIsStrFｍtMode.Size = new System.Drawing.Size(106, 22);
+      this.cbIsStrFｍtMode.TabIndex = 8;
+      this.cbIsStrFｍtMode.Text = "書式指定";
+      this.cbIsStrFｍtMode.UseVisualStyleBackColor = true;
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(307, 207);
-      this.Controls.Add(this.cbIsStrFormat);
+      this.Controls.Add(this.cbIsStrFｍtMode);
       this.Controls.Add(this.tbInsPosition);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
@@ -138,7 +138,7 @@
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.TextBox tbInsPosition;
-    private System.Windows.Forms.CheckBox cbIsStrFormat;
+    private System.Windows.Forms.CheckBox cbIsStrFｍtMode;
   }
 }
 
