@@ -31,10 +31,11 @@
       this.btOnOff = new System.Windows.Forms.Button();
       this.tbReadOnly = new System.Windows.Forms.TextBox();
       this.tbInsStr = new System.Windows.Forms.TextBox();
-      this.label1 = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
+      this.lbInsPos = new System.Windows.Forms.Label();
+      this.lbInsStr = new System.Windows.Forms.Label();
       this.tbInsPos = new System.Windows.Forms.TextBox();
       this.cbIsStrFｍtMode = new System.Windows.Forms.CheckBox();
+      this.cbIsRepMode = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // btOnOff
@@ -69,25 +70,25 @@
       this.tbInsStr.Size = new System.Drawing.Size(188, 25);
       this.tbInsStr.TabIndex = 4;
       // 
-      // label1
+      // lbInsPos
       // 
-      this.label1.AutoSize = true;
-      this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label1.Location = new System.Drawing.Point(12, 83);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(89, 18);
-      this.label1.TabIndex = 5;
-      this.label1.Text = "挿入位置:";
+      this.lbInsPos.AutoSize = true;
+      this.lbInsPos.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.lbInsPos.Location = new System.Drawing.Point(12, 83);
+      this.lbInsPos.Name = "lbInsPos";
+      this.lbInsPos.Size = new System.Drawing.Size(89, 18);
+      this.lbInsPos.TabIndex = 5;
+      this.lbInsPos.Text = "挿入位置:";
       // 
-      // label2
+      // lbInsStr
       // 
-      this.label2.AutoSize = true;
-      this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.label2.Location = new System.Drawing.Point(12, 120);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(89, 18);
-      this.label2.TabIndex = 6;
-      this.label2.Text = "挿入文字:";
+      this.lbInsStr.AutoSize = true;
+      this.lbInsStr.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.lbInsStr.Location = new System.Drawing.Point(12, 120);
+      this.lbInsStr.Name = "lbInsStr";
+      this.lbInsStr.Size = new System.Drawing.Size(89, 18);
+      this.lbInsStr.TabIndex = 6;
+      this.lbInsStr.Text = "挿入文字:";
       // 
       // tbInsPos
       // 
@@ -107,16 +108,29 @@
       this.cbIsStrFｍtMode.TabIndex = 8;
       this.cbIsStrFｍtMode.Text = "書式指定";
       this.cbIsStrFｍtMode.UseVisualStyleBackColor = true;
+      this.cbIsStrFｍtMode.CheckedChanged += new System.EventHandler(this.cbIsStrFｍtMode_CheckedChanged);
+      // 
+      // cbIsRepMode
+      // 
+      this.cbIsRepMode.AutoSize = true;
+      this.cbIsRepMode.Location = new System.Drawing.Point(124, 43);
+      this.cbIsRepMode.Name = "cbIsRepMode";
+      this.cbIsRepMode.Size = new System.Drawing.Size(98, 22);
+      this.cbIsRepMode.TabIndex = 9;
+      this.cbIsRepMode.Text = "置き換え";
+      this.cbIsRepMode.UseVisualStyleBackColor = true;
+      this.cbIsRepMode.CheckedChanged += new System.EventHandler(this.cbIsRepMode_CheckedChanged);
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(307, 207);
+      this.Controls.Add(this.cbIsRepMode);
       this.Controls.Add(this.cbIsStrFｍtMode);
       this.Controls.Add(this.tbInsPos);
-      this.Controls.Add(this.label2);
-      this.Controls.Add(this.label1);
+      this.Controls.Add(this.lbInsStr);
+      this.Controls.Add(this.lbInsPos);
       this.Controls.Add(this.tbInsStr);
       this.Controls.Add(this.tbReadOnly);
       this.Controls.Add(this.btOnOff);
@@ -135,10 +149,11 @@
         private System.Windows.Forms.Button btOnOff;
     private System.Windows.Forms.TextBox tbReadOnly;
     private System.Windows.Forms.TextBox tbInsStr;
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.Label lbInsPos;
+    private System.Windows.Forms.Label lbInsStr;
     private System.Windows.Forms.TextBox tbInsPos;
     private System.Windows.Forms.CheckBox cbIsStrFｍtMode;
+    private System.Windows.Forms.CheckBox cbIsRepMode;
   }
 }
 

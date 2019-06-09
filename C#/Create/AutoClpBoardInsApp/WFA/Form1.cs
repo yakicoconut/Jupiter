@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 /*
  * C#|クリップボードの変更を監視する | 貧脚レーサーのサボり日記
@@ -121,11 +122,15 @@ namespace WFA
     #region テキストボックス値変更イベント
     private void tbReadOnly_TextChanged(object sender, EventArgs e)
     {
-      // 値取得
+      // コピー文字列
       string targetStr = tbReadOnly.Text;
       int targetLength = targetStr.Length;
-      string insStr = tbInsStr.Text;
+      // 挿入位置文字列
       string insPosStr = tbInsPos.Text;
+      // 挿入文字列
+      string insStr = tbInsStr.Text;
+      // モードチェックボックス
+      bool isRepMode = cbIsRepMode.Checked;
       bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
 
       string cngTxt = string.Empty;
@@ -141,11 +146,16 @@ namespace WFA
         return;
       }
 
-      // 書式指定挿入モード
-      if (isStrFｍtMode)
+      // 置き換えモード
+      if (isRepMode)
+      {
+        // 文字列置き換えメソッド使用
+        cngTxt = ReplaceTxt(targetStr, insPosStr, insStr);
+      }
+      else if (isStrFｍtMode) // 書式指定挿入モード
       {
         // 文字列書式指定挿入メソッド使用
-        cngTxt = InsFormatTxt(insStr, targetStr);
+        cngTxt = InsFormatTxt(targetStr, insStr);
       }
       else
       {
@@ -166,6 +176,59 @@ namespace WFA
     }
     #endregion
 
+
+    #region 書式指定モードチェックボックスチェックイベント
+    private void cbIsStrFｍtMode_CheckedChanged(object sender, EventArgs e)
+    {
+      bool isRepMode = cbIsRepMode.Checked;
+      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
+
+      // 両モードがオンになった場合
+      if (isRepMode & isStrFｍtMode)
+      {
+        // 別モードは排他
+        cbIsRepMode.Checked = false;
+      }
+
+      // 置き換えモードの場合ラベル更新
+      lbInsPos.Text = isStrFｍtMode ? "不使用;" : "挿入位置:";
+      tbInsPos.Enabled = isStrFｍtMode ? false : true;
+      lbInsStr.Text = isStrFｍtMode ? "書式  ;" : "挿入文字:";
+    }
+    #endregion
+
+    #region 置き換えモードチェックボックスチェック押下イベント
+    private void cbIsRepMode_CheckedChanged(object sender, EventArgs e)
+    {
+      bool isRepMode = cbIsRepMode.Checked;
+      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
+
+      // 両モードがオンになった場合
+      if (isRepMode & isStrFｍtMode)
+      {
+        // 別モードは排他
+        cbIsStrFｍtMode.Checked = false;
+      }
+
+      // 置き換えモードの場合ラベル更新
+      lbInsPos.Text = isRepMode ? "置換前;" : "挿入位置:";
+      lbInsStr.Text = isRepMode ? "置換後;" : "挿入文字:";
+    }
+    #endregion
+
+
+    #region 文字列置き換えメソッド
+    private string ReplaceTxt(string targetStr, string regStr, string newStr)
+    {
+      string returnStr = string.Empty;
+      int targetStrLen = targetStr.Length;
+
+      // 正規表現置き換え
+      returnStr = Regex.Replace(targetStr, regStr, newStr, RegexOptions.Multiline);
+
+      return returnStr;
+    }
+    #endregion
 
     #region 文字列書式指定挿入メソッド
     private string InsFormatTxt(string targetStr, string insStr)
