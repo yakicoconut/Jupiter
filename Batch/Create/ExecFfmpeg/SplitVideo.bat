@@ -85,10 +85,30 @@ echo ffmpegで動画分割
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %start:"=% %dist:"=%
   set elapsed=%return_ElapsedTime%
-  rem 項目分割
-  set /a   hour=%elapsed:~0,2%
-  set /a minute=%elapsed:~3,2%
-  set /a second=%elapsed:~6,2%
+
+  : 項目分割
+    rem 文字列として分割
+    set   strHour=%elapsed:~0,2%
+    set strMinute=%elapsed:~3,2%
+    set strSecond=%elapsed:~6,2%
+
+    rem 二桁目が「0」の場合
+    if %strHour:~0,1%==0 (
+      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+      set strHour=%strHour:~1,1%
+    )
+    if %strMinute:~0,1%==0 (
+      set strMinute=%strMinute:~1,1%
+    )
+    if %strSecond:~0,1%==0 (
+      set strSecond=%strSecond:~1,1%
+    )
+
+    rem 数値変換
+    set /a   hour=%strHour%
+    set /a minute=%strMinute%
+    set /a second=%strSecond%
+
   rem 秒数変換
   set /a   secHour=%hour%*600
   set /a secMinute=%minute%*60
