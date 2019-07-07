@@ -86,7 +86,7 @@ rem 対象ファイルループ処理
 :TARGETDIRLOOP
   rem 動的変数取り出しカウンタ初期化
     set /a count=1
-  for /f "usebackq delims=" %%a in (`dir /a-d /b %targetRoot%`) do (
+  for /f "usebackq delims=" %%a in (`dir /a-d /b /on %targetRoot%`) do (
     set x=%%a
 
     rem 解凍処理サブルーチン使用
@@ -96,6 +96,8 @@ rem 対象ファイルループ処理
     set /a count+=1
   )
 
+  rem 出力した対象ファイル名テキスト削除
+  del TARGETLIST.txt
   exit
 
 
@@ -104,8 +106,19 @@ rem 解凍処理サブルーチン
   rem 対象ファイルパス作成
   set targetFilePath=%targetRoot:"=%\%x%
 
+  rem 対象ファイル名テキスト出力
+  echo %targetFilePath%>>TARGETLIST.txt
+
   rem 7za.exeを使用して解凍を実行
   "%~dp07Zip\7za.exe" x -p!pass_%count%! "%targetFilePath%"
+
+  rem エラーだった場合
+  if not %errorlevel%==0 (
+    echo;
+    echo 【エラー発生】
+    echo %targetFilePath%
+    pause
+  )
 
   rem サブルーチンを抜ける
   exit /b
