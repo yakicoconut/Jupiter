@@ -1,0 +1,5 @@
+# 結合対象ファイルリスト
+# 分割したサンプル動画を逆順に結合
+file 'MyResorce\Sample_Wildlife_03.mp4'
+file 'MyResorce\Sample_Wildlife_02.mp4'
+file 'MyResorce\Sample_Wildlife_01.mp4'
