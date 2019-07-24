@@ -11,16 +11,27 @@ echo 経過時間計算バッチの使用例
 : 実行時間パターン
   rem 処理前時刻取得
   set beforeTime=%time%
+  rem 二文字目取得
+  set hourColon=%beforeTime:~1,1%
+  rem 二文字目が「:」(時間が一桁)の場合
+  if %hourColon% == : (
+    rem 0埋めする
+    set beforeTime=0%beforeTime%
+  )
 
   rem タイムアウト処理
   timeout 4
 
   rem 処理後時刻取得
   set afterTime=%time%
+  set hourColon=%afterTime:~1,1%
+  if %hourColon% == : (
+    set afterTime=0%afterTime%
+  )
 
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %beforeTime% %afterTime%
-  echo %return_ElapsedTime%
+  echo %beforeTime% - %afterTime% → %return_ElapsedTime%
 
 
 : 差分計算_コンマ秒パターン
@@ -32,7 +43,7 @@ echo 経過時間計算バッチの使用例
 
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %beforeTime% %afterTime%
-  echo %return_ElapsedTime%
+  echo %beforeTime% - %afterTime% → %return_ElapsedTime%
 
 
 : 差分計算パターン
@@ -44,7 +55,7 @@ echo 経過時間計算バッチの使用例
 
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %beforeTime% %afterTime%
-  echo %return_ElapsedTime%
+  echo %beforeTime%    - %afterTime%    → %return_ElapsedTime%
 
 
 pause
