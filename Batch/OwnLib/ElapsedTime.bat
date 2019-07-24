@@ -12,6 +12,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 呼び出しを想定して自身と同じフォルダを指定
     rem ゼロ埋めバッチ
     set call_ZeroPadding=%~dp0"ZeroPadding.bat"
+    rem 8進数数値変換バッチ
+    set call_CngOctalNum=%~dp0"CngOctalNum.bat"
 
   : 引数
     rem 開始時刻
@@ -28,19 +30,28 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   : 項目分割
     rem 開始時刻
-    set /a   startHour=%startTime:~0,2%
-    set /a startMinute=%startTime:~3,2%
-    set /a startSecond=%startTime:~6,2%
+    rem 8進数数値変換バッチ使用
+    call %call_CngOctalNum% %startTime:~0,2%
+    set /a startHour=%return_CngOctalNum%
+    call %call_CngOctalNum% %startTime:~3,2%
+    set /a startMinute=%return_CngOctalNum%
+    call %call_CngOctalNum% %startTime:~6,2%
+    set /a startSecond=%return_CngOctalNum%
 
     rem 終了時刻
-    set /a   endHour=%endTime:~0,2%
-    set /a endMinute=%endTime:~3,2%
-    set /a endSecond=%endTime:~6,2%
+    call %call_CngOctalNum% %endTime:~0,2%
+    set /a endHour=%return_CngOctalNum%
+    call %call_CngOctalNum% %endTime:~3,2%
+    set /a endMinute=%return_CngOctalNum%
+    call %call_CngOctalNum% %endTime:~6,2%
+    set /a endSecond=%return_CngOctalNum%
 
     rem コンマ秒がある場合
     if %commaFlg%==1 (
-      set /a startComma=%startTime:~9,2%
-      set /a   endComma=%endTime:~9,2%
+      call %call_CngOctalNum% %startTime:~9,2%
+      set /a startComma=!return_CngOctalNum!
+      call %call_CngOctalNum% %endTime:~9,2%
+      set /a endComma=!return_CngOctalNum!
     ) else (
       rem ない場合、「00」を設定
       set /a startComma=00
