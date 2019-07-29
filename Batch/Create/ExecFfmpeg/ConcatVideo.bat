@@ -29,10 +29,10 @@ echo ffmpegで動画結合
 
 : 実行
   rem 分割実行
-    : -f   :
-    : -safe:
-    : -i   :
-    : -c   :
-  ffmpeg\win32\ffmpeg.exe -f concat -safe 0  -i %concatList% -c copy %outPath%
+    : -f     :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
+    : -safe  :
+    : -i     :動画指定
+    : -c copy:オリジナルファイルのコーデックを再エンコードすることなく処理する
+  ffmpeg\win32\ffmpeg.exe -f concat -safe 0 -i %concatList% -c copy %outPath%
   rem 結合_別解
 REM   ffmpeg\ffmpeg.exe -f concat -safe 0  -i %concatList% -vcodec h264 -acodec aac -strict experimental %outPath%
