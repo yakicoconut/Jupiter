@@ -69,6 +69,9 @@ namespace WFA
     // 監視対象外フラグ
     bool notMonitorFlg;
 
+    // 前回取得値
+    string lastStr;
+
     #endregion
 
 
@@ -146,6 +149,18 @@ namespace WFA
         return;
       }
 
+      // ねずみ返し_前回取得値と同じ場合
+      if (lastStr == targetStr)
+      {
+        // エクセル対策、セル値をコピーすると
+        // 二回以上、クリップボードにアクセスするため
+        notMonitorFlg = false;
+        return;
+      }
+
+      // 前回取得値に今回の値を設定
+      lastStr = targetStr;
+
       // 置き換えモード
       if (isRepMode)
       {
@@ -172,6 +187,12 @@ namespace WFA
 
       // クリップボードへ送る
       Clipboard.SetText(cngTxt);
+      // 採取モードの場合
+      if (cbCollection.Checked)
+      {
+        // 採取テキストボックスに追加
+        tbCollection.AppendText(cngTxt);
+      }
       notMonitorFlg = false;
     }
     #endregion
@@ -214,6 +235,28 @@ namespace WFA
       lbInsPos.Text = isRepMode ? "置換前;" : "挿入位置:";
       lbInsStr.Text = isRepMode ? "置換後;" : "挿入文字:";
     }
+    #endregion
+
+
+    #region 採取テキストボックスキーダウンイベント
+    private void tbCollection_KeyDown(object sender, KeyEventArgs e)
+    {
+      // Ctrl+A
+      if (e.Control && e.KeyCode == Keys.A)
+        tbCollection.SelectAll();
+    }
+    #endregion
+
+    #region 採取チェックボックスチェックイベント
+    private void cbCollection_CheckedChanged(object sender, EventArgs e)
+    {
+      // チェックした場合
+      if (cbCollection.Checked)
+      {
+        // 採取テキストボックスクリア
+        tbCollection.ResetText();
+      }
+    } 
     #endregion
 
 

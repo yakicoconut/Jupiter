@@ -36,15 +36,15 @@
       this.tbInsPos = new System.Windows.Forms.TextBox();
       this.cbIsStrFｍtMode = new System.Windows.Forms.CheckBox();
       this.cbIsRepMode = new System.Windows.Forms.CheckBox();
+      this.tbCollection = new System.Windows.Forms.TextBox();
+      this.cbCollection = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // btOnOff
       // 
-      this.btOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btOnOff.Location = new System.Drawing.Point(12, 160);
-      this.btOnOff.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+      this.btOnOff.Location = new System.Drawing.Point(7, 123);
       this.btOnOff.Name = "btOnOff";
-      this.btOnOff.Size = new System.Drawing.Size(125, 34);
+      this.btOnOff.Size = new System.Drawing.Size(75, 23);
       this.btOnOff.TabIndex = 1;
       this.btOnOff.UseVisualStyleBackColor = true;
       this.btOnOff.Click += new System.EventHandler(this.button1_Click);
@@ -53,11 +53,12 @@
       // 
       this.tbReadOnly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbReadOnly.Location = new System.Drawing.Point(12, 12);
+      this.tbReadOnly.Location = new System.Drawing.Point(7, 8);
+      this.tbReadOnly.Margin = new System.Windows.Forms.Padding(2);
       this.tbReadOnly.Multiline = true;
       this.tbReadOnly.Name = "tbReadOnly";
       this.tbReadOnly.ReadOnly = true;
-      this.tbReadOnly.Size = new System.Drawing.Size(283, 25);
+      this.tbReadOnly.Size = new System.Drawing.Size(171, 18);
       this.tbReadOnly.TabIndex = 2;
       this.tbReadOnly.TextChanged += new System.EventHandler(this.tbReadOnly_TextChanged);
       // 
@@ -65,18 +66,20 @@
       // 
       this.tbInsStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbInsStr.Location = new System.Drawing.Point(107, 117);
+      this.tbInsStr.Location = new System.Drawing.Point(64, 100);
+      this.tbInsStr.Margin = new System.Windows.Forms.Padding(2);
       this.tbInsStr.Name = "tbInsStr";
-      this.tbInsStr.Size = new System.Drawing.Size(188, 25);
+      this.tbInsStr.Size = new System.Drawing.Size(114, 19);
       this.tbInsStr.TabIndex = 4;
       // 
       // lbInsPos
       // 
       this.lbInsPos.AutoSize = true;
       this.lbInsPos.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.lbInsPos.Location = new System.Drawing.Point(12, 83);
+      this.lbInsPos.Location = new System.Drawing.Point(7, 77);
+      this.lbInsPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.lbInsPos.Name = "lbInsPos";
-      this.lbInsPos.Size = new System.Drawing.Size(89, 18);
+      this.lbInsPos.Size = new System.Drawing.Size(60, 12);
       this.lbInsPos.TabIndex = 5;
       this.lbInsPos.Text = "挿入位置:";
       // 
@@ -84,9 +87,10 @@
       // 
       this.lbInsStr.AutoSize = true;
       this.lbInsStr.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-      this.lbInsStr.Location = new System.Drawing.Point(12, 120);
+      this.lbInsStr.Location = new System.Drawing.Point(7, 102);
+      this.lbInsStr.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.lbInsStr.Name = "lbInsStr";
-      this.lbInsStr.Size = new System.Drawing.Size(89, 18);
+      this.lbInsStr.Size = new System.Drawing.Size(60, 12);
       this.lbInsStr.TabIndex = 6;
       this.lbInsStr.Text = "挿入文字:";
       // 
@@ -94,17 +98,19 @@
       // 
       this.tbInsPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbInsPos.Location = new System.Drawing.Point(107, 83);
+      this.tbInsPos.Location = new System.Drawing.Point(64, 77);
+      this.tbInsPos.Margin = new System.Windows.Forms.Padding(2);
       this.tbInsPos.Name = "tbInsPos";
-      this.tbInsPos.Size = new System.Drawing.Size(188, 25);
+      this.tbInsPos.Size = new System.Drawing.Size(114, 19);
       this.tbInsPos.TabIndex = 7;
       // 
       // cbIsStrFｍtMode
       // 
       this.cbIsStrFｍtMode.AutoSize = true;
-      this.cbIsStrFｍtMode.Location = new System.Drawing.Point(12, 43);
+      this.cbIsStrFｍtMode.Location = new System.Drawing.Point(7, 29);
+      this.cbIsStrFｍtMode.Margin = new System.Windows.Forms.Padding(2);
       this.cbIsStrFｍtMode.Name = "cbIsStrFｍtMode";
-      this.cbIsStrFｍtMode.Size = new System.Drawing.Size(106, 22);
+      this.cbIsStrFｍtMode.Size = new System.Drawing.Size(72, 16);
       this.cbIsStrFｍtMode.TabIndex = 8;
       this.cbIsStrFｍtMode.Text = "書式指定";
       this.cbIsStrFｍtMode.UseVisualStyleBackColor = true;
@@ -113,19 +119,47 @@
       // cbIsRepMode
       // 
       this.cbIsRepMode.AutoSize = true;
-      this.cbIsRepMode.Location = new System.Drawing.Point(124, 43);
+      this.cbIsRepMode.Location = new System.Drawing.Point(74, 29);
+      this.cbIsRepMode.Margin = new System.Windows.Forms.Padding(2);
       this.cbIsRepMode.Name = "cbIsRepMode";
-      this.cbIsRepMode.Size = new System.Drawing.Size(98, 22);
+      this.cbIsRepMode.Size = new System.Drawing.Size(66, 16);
       this.cbIsRepMode.TabIndex = 9;
       this.cbIsRepMode.Text = "置き換え";
       this.cbIsRepMode.UseVisualStyleBackColor = true;
       this.cbIsRepMode.CheckedChanged += new System.EventHandler(this.cbIsRepMode_CheckedChanged);
       // 
+      // tbCollection
+      // 
+      this.tbCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbCollection.Location = new System.Drawing.Point(7, 151);
+      this.tbCollection.Margin = new System.Windows.Forms.Padding(2);
+      this.tbCollection.Multiline = true;
+      this.tbCollection.Name = "tbCollection";
+      this.tbCollection.Size = new System.Drawing.Size(171, 119);
+      this.tbCollection.TabIndex = 10;
+      this.tbCollection.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbCollection_KeyDown);
+      // 
+      // cbCollection
+      // 
+      this.cbCollection.AutoSize = true;
+      this.cbCollection.Location = new System.Drawing.Point(7, 49);
+      this.cbCollection.Margin = new System.Windows.Forms.Padding(2);
+      this.cbCollection.Name = "cbCollection";
+      this.cbCollection.Size = new System.Drawing.Size(48, 16);
+      this.cbCollection.TabIndex = 11;
+      this.cbCollection.Text = "採取";
+      this.cbCollection.UseVisualStyleBackColor = true;
+      this.cbCollection.CheckedChanged += new System.EventHandler(this.cbCollection_CheckedChanged);
+      // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(307, 207);
+      this.ClientSize = new System.Drawing.Size(184, 281);
+      this.Controls.Add(this.cbCollection);
+      this.Controls.Add(this.tbCollection);
       this.Controls.Add(this.cbIsRepMode);
       this.Controls.Add(this.cbIsStrFｍtMode);
       this.Controls.Add(this.tbInsPos);
@@ -134,7 +168,6 @@
       this.Controls.Add(this.tbInsStr);
       this.Controls.Add(this.tbReadOnly);
       this.Controls.Add(this.btOnOff);
-      this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
       this.Name = "Form1";
       this.Text = "Form1";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -154,6 +187,8 @@
     private System.Windows.Forms.TextBox tbInsPos;
     private System.Windows.Forms.CheckBox cbIsStrFｍtMode;
     private System.Windows.Forms.CheckBox cbIsRepMode;
+    private System.Windows.Forms.TextBox tbCollection;
+    private System.Windows.Forms.CheckBox cbCollection;
   }
 }
 
