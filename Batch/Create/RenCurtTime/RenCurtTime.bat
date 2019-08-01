@@ -12,6 +12,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 : 参照バッチ
   rem ディレクトリファイル情報バッチ
   set call_DirFilePathInfo="..\..\OwnLib\DirFilePathInfo.bat"
+  rem 数値のみ年月日時分秒ミリ取得バッチ
+  set call_GetStrDateTime="..\..\OwnLib\GetStrDateTime.bat"
 
 
 : 事前準備
@@ -36,27 +38,32 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   )
 
   : 引数あり処理
+    rem 引数格納
+    set targetFile=%1
+
     rem ファイル名取得
     rem ディレクトリファイル情報バッチ使用
-    call %call_DirFilePathInfo% %1 nx
+    call %call_DirFilePathInfo% %targetFile% nx
     set beforeFileName=%return_DirFilePathInfo%
 
     rem 拡張子取得
     rem ディレクトリファイル情報バッチ使用
-    call %call_DirFilePathInfo% %1 x
+    call %call_DirFilePathInfo% %targetFile% x
     set extension=%return_DirFilePathInfo%
 
     echo;
     rem 引数のファイルをカレントフォルダに移動
-    move "%~1" %currentDir%
+    move %targetFile% %currentDir%
 
-    rem 現在日時取得サブルーチン使用
-    call :GETCURRENTTIME
+    rem 数値のみ年月日時分秒ミリ取得バッチ使用
+    call %call_GetStrDateTime%
+    set datetime=%return_GetStrDateTime%
+
     rem 変更後ファイル名作成
     set afterFileName=%datetime%%extension%
 
     rem リネーム
-    ren %beforeFileName% %afterFileName%
+    ren "%beforeFileName%" %afterFileName%
 
     rem 上位フォルダ移動サブルーチン使用
     call :MOVTOONEONTHEDIR %afterFileName%
@@ -79,16 +86,18 @@ rem 引数なし処理
       if "!x!" == "%~nx0"    (echo 処理中2) else (
         rem 拡張子取得
         rem ディレクトリファイル情報バッチ使用
-        call %call_DirFilePathInfo% !x! x
+        call %call_DirFilePathInfo% "!x!" x
         set extension=!return_DirFilePathInfo!
 
-        rem 現在日時取得サブルーチン使用
-        call :GETCURRENTTIME
+        rem 数値のみ年月日時分秒ミリ取得バッチ使用
+        call %call_GetStrDateTime%
+        set datetime=!return_GetStrDateTime!
+
         rem 変更後ファイル名作成
         set afterFileName=!datetime!!extension!
 
         rem リネーム
-        ren !x! !afterFileName!
+        ren "!x!" !afterFileName!
 
         rem 上位フォルダ移動サブルーチン使用
         call :MOVTOONEONTHEDIR !afterFileName!
@@ -99,17 +108,6 @@ rem 引数なし処理
   del FILES.txt
 
   exit
-
-
-rem 現在日時取得サブルーチン
-:GETCURRENTTIME
-  set datetime=%date:/=%%time: =0%
-  set datetime=%datetime::=%
-  set datetime=%datetime:.=%
-  set datetime=%datetime:~0,17%
-
-  rem サブルーチン終了
-  exit /b
 
 
 rem 上位フォルダ移動サブルーチン
