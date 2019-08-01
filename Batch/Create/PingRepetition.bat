@@ -3,6 +3,11 @@ title %~nx0
 echo pingコマンド連続実行
 
 
+: 参照バッチ
+  rem 数値のみ年月日時分秒ミリ取得バッチ
+  set call_GetStrDateTime="..\OwnLib\GetStrDateTime.bat"
+
+
 : 宣言
   rem 対象URL
   set targetUrl=yahoo.co.jp
@@ -11,11 +16,9 @@ echo pingコマンド連続実行
 
 
 : 事前準備
-  rem 年月日時分秒ミリ取得
-  set datetime=%date:/=%%time: =0%
-  set datetime=%datetime::=%
-  set datetime=%datetime:.=%
-  set datetime=%datetime:~0,17%
+  rem 数値のみ年月日時分秒ミリ取得バッチ使用
+  call %call_GetStrDateTime%
+  set datetime=%return_GetStrDateTime%
 
   set outFileName=PingRepetition_%datetime%.txt
 
@@ -30,7 +33,7 @@ echo pingコマンド連続実行
 
 : 実行
   rem ping連続実行
-  ping  -n %repetition% %targetUrl%>>%outFileName%
+  ping -n %repetition% %targetUrl%>>%outFileName%
 
 
 : 事後処理
