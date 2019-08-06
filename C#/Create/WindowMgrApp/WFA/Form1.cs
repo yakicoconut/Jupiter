@@ -133,6 +133,8 @@ namespace WFA
       int currentIndex = lvProcessList.SelectedItems[0].Index;
       // 最終行取得 
       int lastIndex = lvProcessList.Items.Count - 1;
+      // 対象アイテム
+      ListViewItem srcItem = lvProcessList.Items[currentIndex];
       // 操作後、次の項目へ行くかどうかフラグ
       bool isNext = false;
 
@@ -151,6 +153,11 @@ namespace WFA
           isNext = true;
           // リスト上下押下メソッド使用
           ListViewKeyDownUpDown(isNext, currentIndex, lastIndex, e);
+          break;
+
+        case Keys.Enter:
+          // リストエンター押下メソッド使用
+          ListViewKeyDownEnter(e.Shift, srcItem, currentIndex, lastIndex);
           break;
 
         default:
@@ -405,6 +412,36 @@ namespace WFA
 
       // 行選択メソッド使用
       SelectItemRow(currentIndex, destIndex, e);
+    }
+    #endregion
+
+    #region リストエンター押下メソッド
+    private void ListViewKeyDownEnter(bool isShift, ListViewItem srcItem, int currentIndex, int lastIndex)
+    {
+      // 
+      int destIndex;
+      // シフトフラグ
+      if (isShift)
+      {
+        // 現在行の一つ上が範囲内なら一つ上の行設定、範囲外なら最終行設定
+        destIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lastIndex;
+      }
+      else
+      {
+        // 現在行の一つ下が範囲内なら一つ下の行設定、範囲外なら先頭行設定
+        destIndex = currentIndex + 1 <= lastIndex ? currentIndex + 1 : 0;
+      }
+
+      // 元アイテム削除
+      lvProcessList.Items.Remove(srcItem);
+
+      // 挿入
+      ListViewItem newItem = lvProcessList.Items.Insert(destIndex, srcItem.Text);
+      // チェック有無取得
+      bool isChk = srcItem.Checked;
+      // チェック引継ぎ
+      newItem.Checked = isChk;
+      newItem.Selected = true;
     }
     #endregion
 
