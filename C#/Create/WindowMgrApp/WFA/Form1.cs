@@ -133,58 +133,28 @@ namespace WFA
       int currentIndex = lvProcessList.SelectedItems[0].Index;
       // 最終行取得 
       int lastIndex = lvProcessList.Items.Count - 1;
-      // 移動先行初期化
-      int destIndex = 0;
+      // 操作後、次の項目へ行くかどうかフラグ
+      bool isNext = false;
 
-      // ねずみ返し_全ての項目がチェックされている場合
-      if (lvProcessList.CheckedItems.Count == lvProcessList.Items.Count)
-        return;
-
-      // 上押下かつ先頭行の場合
-      if (e.KeyCode == Keys.Up)
+      // 押下キー分岐
+      switch (e.KeyCode)
       {
-        // 上へループ
-        while (true)
-        {
-          // 現在行の一つ上が範囲内なら一つ上の行設定、範囲外なら最終行設定
-          destIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lastIndex;
-
-          // 移動先がチェックされている場合
-          if (lvProcessList.Items[destIndex].Checked)
-          {
-            // 現在行数変数を更新
-            currentIndex = destIndex;
-            continue;
-          }
-
+        // 上
+        case Keys.Up:
+          // リスト上下押下メソッド使用
+          ListViewKeyDownUpDown(isNext, currentIndex, lastIndex, e);
           break;
-        }
 
-        // 行選択メソッド使用
-        SelectItemRow(currentIndex, destIndex, e);
-      }
-      // 下押下かつ最終行の場合
-      else if (e.KeyCode == Keys.Down)
-      {
-        // 下へループ
-        while (true)
-        {
-          // 現在行の一つ下が範囲内なら一つ下の行設定、範囲外なら先頭行設定
-          destIndex = currentIndex + 1 <= lastIndex ? currentIndex + 1 : 0;
-
-          // 移動先がチェックされている場合
-          if (lvProcessList.Items[destIndex].Checked)
-          {
-            // 現在行数変数を更新
-            currentIndex = destIndex;
-            continue;
-          }
-
+        // 下
+        case Keys.Down:
+          // 次の項目へフラグを立てる
+          isNext = true;
+          // リスト上下押下メソッド使用
+          ListViewKeyDownUpDown(isNext, currentIndex, lastIndex, e);
           break;
-        }
 
-        // 行選択メソッド使用
-        SelectItemRow(currentIndex, destIndex, e);
+        default:
+          break;
       }
     }
     #endregion
@@ -396,6 +366,45 @@ namespace WFA
       // デフォルト(一つ上を選択する)キー押下イベント無効化
       // 参照型のため値変更後返す必要はない
       e.Handled = true;
+    }
+    #endregion
+
+
+    #region リスト上下押下メソッド
+    private void ListViewKeyDownUpDown(bool isNext, int currentIndex, int lastIndex, KeyEventArgs e)
+    {
+      // ねずみ返し_全ての項目がチェックされている場合
+      if (lvProcessList.CheckedItems.Count == lvProcessList.Items.Count)
+        return;
+
+      int destIndex;
+
+      while (true)
+      {
+        if (isNext)
+        {
+          // 現在行の一つ下が範囲内なら一つ下の行設定、範囲外なら先頭行設定
+          destIndex = currentIndex + 1 <= lastIndex ? currentIndex + 1 : 0;
+        }
+        else
+        {
+          // 現在行の一つ上が範囲内なら一つ上の行設定、範囲外なら最終行設定
+          destIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lastIndex;
+        }
+
+        // 移動先がチェックされている場合
+        if (lvProcessList.Items[destIndex].Checked)
+        {
+          // 現在行数変数を更新
+          currentIndex = destIndex;
+          continue;
+        }
+
+        break;
+      }
+
+      // 行選択メソッド使用
+      SelectItemRow(currentIndex, destIndex, e);
     }
     #endregion
 
