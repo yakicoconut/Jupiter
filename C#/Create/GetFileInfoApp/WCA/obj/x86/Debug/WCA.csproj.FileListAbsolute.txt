@@ -1,0 +1,17 @@
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\obj\x86\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\obj\x86\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Template\VS_2010_Pro\WCA_template\WCA\bin\Debug\WCA.exe.config
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\bin\Debug\WCA.exe.config
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\obj\x86\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\obj\x86\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\bin\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\bin\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Create\GetHashApp\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\bin\Debug\WCA.exe.config
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\obj\x86\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\obj\x86\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\bin\Debug\WCA.exe
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\bin\Debug\WCA.pdb
+E:\Cal_Git_Master\C#\Create\GetFileInfoApp\WCA\obj\x86\Debug\WCA.csprojResolveAssemblyReference.cache
