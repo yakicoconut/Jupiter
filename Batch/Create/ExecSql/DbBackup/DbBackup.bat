@@ -2,17 +2,20 @@
 title %~nx0
 echo .batから指定した.sqlファイルを実行
 echo BDのバックアップスクリプトはsystemDBに対して実行するため
-echo 対象DBファイルは使用しない
+echo 対象DBは指定しない
 
 
 : 共通設定変数
   : 宣言
-    rem *ログインユーザ名*
+    rem ログインユーザ名
     set loginUser=sa
-    rem *ログインパスワード(「%」は「%」で要エスケープ)*
-    set loginPassword=PassWord
-    rem *実行SQLファイル名指定*
-    set cmdFileName=DbBackip.sql
+    rem ログインパスワード(「%」は「%」で要エスケープ)
+    set loginPassword=Sys$Admin%%Pass
+    rem 実行SQLファイル名指定
+    set cmdFileName=DbBackup.sql
+    rem ログファイル名
+    set logFileName=DbBackuplog.log
+
 
   : 表示
     echo;
@@ -20,10 +23,6 @@ echo 対象DBファイルは使用しない
     echo ログインユーザ名  :%loginUser%
     echo ログインパスワード:%loginPassword%
     echo 実行SQLファイル   :%cmdFileName%
-
-  : 一般
-    rem 本バッチ位置を取得
-    set execDir=%~dp0
 
 
 : 対象サーバ入力
@@ -52,7 +51,10 @@ rem コマンド実行サブルーチン
   sqlcmd -S %serverName%    ^
          -U %loginUser%     ^
          -P %loginPassword% ^
-         -i %cmdFileName%
+         -i %cmdFileName%   ^
+         -o %logFileName%
+
+  exit
 
 
 rem 入力正当性判断サブルーチン
