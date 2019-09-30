@@ -46,6 +46,7 @@ Sub FindAllBook()
   Dim isMatchCaseFlg As String
   Dim isSubFolderFlg As String
   Dim exclude() As String
+  Dim strPt As String
 
 
   Rem 初期値
@@ -58,7 +59,7 @@ Sub FindAllBook()
   ' 検索値
   findValue = thisWorkSheet.Cells(4, 9).MergeArea(1, 1).Value
   ' 結果出力開始セル初期値
-  rowNum = 14
+  rowNum = 15
   columnNum = 3
   ' 完全一致フラグ
   isLookAtFlg = thisWorkSheet.Cells(5, 9).MergeArea(1, 1).Value
@@ -68,12 +69,14 @@ Sub FindAllBook()
   isSubFolderFlg = thisWorkSheet.Cells(7, 9).MergeArea(1, 1).Value
   ' 除外ファイル拡張子配列
   exclude = Split(thisWorkSheet.Cells(8, 9).MergeArea(1, 1).Value, ",")
+  ' 対象ファイル正規表現
+  strPt = thisWorkSheet.Cells(9, 9).MergeArea(1, 1).Value
   ' 発見ファイルカウンタ
   factCounter = 0
   ' 全ファイルカウンタ
   denomCounter = 0
   ' 発見ファイルカウンタ出力行(発見ファイルカウンタの出力位置はこの変数から計算)
-  denomCounterRow = 12
+  denomCounterRow = 13
   ' 全ファイルカウンタ出力列(発見ファイルカウンタの出力位置はこの変数から計算)
   denomCounterColumn = 5
 
@@ -109,7 +112,7 @@ Sub FindAllBook()
   thisWorkSheet.Cells(denomCounterRow, denomCounterColumn).Value = "0"
 
   ' ファイル検索関数使用
-  Call FileSearch(targetPath, findValue, rowNum, columnNum, exclude)
+  Call FileSearch(targetPath, findValue, rowNum, columnNum, exclude, strPt)
 
 End Sub
 
@@ -120,7 +123,8 @@ Rem ファイル検索関数
 ' rowNum     :結果出力開始行
 ' columnNum  :結果出力開始列
 ' exclude    :除外ファイル拡張子配列
-Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, columnNum As Long, exclude() As String)
+' strPt      :対象ファイル正規表現
+Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, columnNum As Long, exclude() As String, strPt As String)
   Rem 宣言
   Dim FSO As Object, Folder As Variant, File As Variant
   Dim bOpened As Boolean
@@ -131,11 +135,17 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
   Dim sheetColumn As Long
   Dim isOutFileName As Boolean
   Dim excludeFilterResult() As String
+  Dim RE As Object
+  Dim matches As Variant
 
 
   Rem 代入
   ' FileSystemObjectオブジェクト作成
   Set FSO = CreateObject("Scripting.FileSystemObject")
+  ' 正規表現オブジェクト作成
+  Set RE = CreateObject("VBScript.RegExp")
+  ' 検索パターン設定
+  RE.Pattern = strPt
 
 
   Rem ファイル探索
@@ -154,6 +164,12 @@ Sub FileSearch(targetPath As String, findValue As String, rowNum As Long, column
     ' ねずみ返し_対象ファイル拡張子が除外ファイル拡張子の場合
     excludeFilterResult = Filter(exclude, "." + FSO.GetExtensionName(x))
     If UBound(excludeFilterResult) <> -1 Then
+      GoTo CONTINUE
+    End If
+
+    ' ねずみ返し_正規表現に一致しない場合
+    Set matches = RE.Execute(x)
+    If matches.Count <= 0 Then
       GoTo CONTINUE
     End If
 
@@ -254,7 +270,7 @@ CONTINUE:
   If isSubFolder Then
     For Each x In FSO.GetFolder(targetPath).SubFolders
       ' 本関数を回帰呼び出し
-      Call FileSearch(x.path, findValue, rowNum, columnNum, exclude)
+      Call FileSearch(x.path, findValue, rowNum, columnNum, exclude, strPt)
     Next x
   End If
 
