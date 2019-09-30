@@ -21,10 +21,8 @@ echo ※アイコンフォルダは本スクリプトの「\MyResorce\Icon」に配置
 <# 事前処理 #>
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
-  # アイコンフォルダパス作成(アイコンは絶対パスの必要がある)
+  # アイコンフォルダパス作成
   $iconDirPath = (Split-Path( & { $myInvocation.ScriptName } ) -parent) + "\MyResorce\Icon\"
-  # シェル変数生成
-  $wshShell = New-Object -comObject WScript.Shell
 
 
 <# CSVファイル内容ループ #>
@@ -35,13 +33,32 @@ echo ※アイコンフォルダは本スクリプトの「\MyResorce\Icon」に配置
   Write-Host("")
   foreach($x in $csv)
   {
+    # シェル変数生成
+    $wshShell = New-Object -comObject WScript.Shell
+
     try
     {
       Write-Host($x.名称)
 
       <# ショートカット作成 #>
+        # 出力フォルダ指定がある場合
+        $outFolder=$x.出力フォルダ
+        if($outFolder -ne "") {
+          # 文末が「\」でない場合
+          if($outFolder.Substring($outFolder.Length - 1, 1) -ne "\") {
+            # 「\」追記
+            $outFolder = $outFolder + "\"
+          }
+
+          # 出力先フォルダがない場合
+          if(-Not(Test-Path $outFolder)){
+            # フォルダ作成
+            New-Item $outFolder -ItemType Directory
+          }
+        }
+
         # ショートカットファイル作成
-        $shortcut = $wshShell.CreateShortcut($x.名称 + "-ShortCut.lnk")
+        $shortcut = $wshShell.CreateShortcut($outFolder + $x.名称 + "-ShortCut.lnk")
 
         # 相対パスで作成する場合
         if($x.相対フラグ -eq $true) {
