@@ -21,8 +21,10 @@ echo ※アイコンフォルダは本スクリプトの「\MyResorce\Icon」に配置
 <# 事前処理 #>
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
-  # アイコンフォルダパス作成
+  # アイコンフォルダパス作成(アイコンは絶対パスの必要がある)
   $iconDirPath = (Split-Path( & { $myInvocation.ScriptName } ) -parent) + "\MyResorce\Icon\"
+  # シェル変数生成
+  $wshShell = New-Object -comObject WScript.Shell
 
 
 <# CSVファイル内容ループ #>
@@ -33,9 +35,6 @@ echo ※アイコンフォルダは本スクリプトの「\MyResorce\Icon」に配置
   Write-Host("")
   foreach($x in $csv)
   {
-    # シェル変数生成
-    $wshShell = New-Object -comObject WScript.Shell
-
     try
     {
       Write-Host($x.名称)
