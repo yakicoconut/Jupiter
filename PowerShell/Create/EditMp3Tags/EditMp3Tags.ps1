@@ -86,6 +86,13 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
       $media.Tag.Album = $csv[$ind].アルバム
       $media.Tag.Track = $csv[$ind].トラック番号
       $media.Tag.Genres = $csv[$ind].ジャンル
+      # ジャケットの値がある場合
+      if ($csv[$ind].ジャケット -ne "")
+      {
+        # ジャケットはピクテゃに変換
+        $pic = [taglib.picture]::createfrompath($targetRootPath + "\" + $csv[$ind].ジャケット)
+        $media.Tag.Pictures  = $pic
+      }
 
       # 保存
       $media.Save()
