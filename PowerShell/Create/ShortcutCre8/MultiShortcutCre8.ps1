@@ -56,6 +56,12 @@ echo ※アイコンフォルダは本スクリプトの「\MyResorce\Icon」に配置
           }
         }
 
+        # ねずみ返し_名称の設定がない場合
+        if($x.名称 -eq "") {
+          # 上記処理のフォルダ作成は実行する
+          continue
+        }
+
         # ショートカットファイル作成
         $shortcut = $wshShell.CreateShortcut($outFolder + $x.名称 + "-ShortCut.lnk")
 
