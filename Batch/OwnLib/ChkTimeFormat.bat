@@ -38,6 +38,27 @@ SETLOCAL
       goto :FLAGON
     )
 
+    rem 「h:mm:ss.f」
+    echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9][0-9].[0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 (
+      set format=h:mm:ss.f
+      goto :FLAGON
+    )
+
+    rem 「h:mm:ss.ff」
+    echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 (
+      set format=h:mm:ss.ff
+      goto :FLAGON
+    )
+
+    rem 「h:mm:ss.fff」
+    echo %value%| findstr /r "^[0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 (
+      set format=h:mm:ss.fff
+      goto :FLAGON
+    )
+
     rem 「hh:mm:ss」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$" >NUL
     if %ERRORLEVEL% equ 0 (
@@ -45,10 +66,24 @@ SETLOCAL
       goto :FLAGON
     )
 
+    rem 「hh:mm:ss.f」
+    echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 (
+      set format=hh:mm:ss.f
+      goto :FLAGON
+    )
+
     rem 「hh:mm:ss.ff」
     echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
     if %ERRORLEVEL% equ 0 (
       set format=hh:mm:ss.ff
+      goto :FLAGON
+    )
+
+    rem 「hh:mm:ss.fff」
+    echo %value%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]$" >NUL
+    if %ERRORLEVEL% equ 0 (
+      set format=hh:mm:ss.fff
       goto :FLAGON
     )
 
