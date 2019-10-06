@@ -50,6 +50,7 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
     }
 
     # 対象表示
+    Write-Host
     Write-Host $x.name
 
 
@@ -60,24 +61,22 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
       $tracknum = $csv[$ind].トラック番号
       $genre    = $csv[$ind].ジャンル
       $artwork  = $csv[$ind].アートワーク
-      # 空の場合、「UNKNOWN」とする
-      if($title -eq "")   { $title = "UNKNOWN" }
-      if($artist -eq "")  { $artist = "UNKNOWN" }
-      if($album -eq "")   { $album = "UNKNOWN" }
-      if($tracknum -eq ""){ $tracknum = "UNKNOWN" }
-      if($genre -eq "")   { $genre = "UNKNOWN" }
-
-      # コマンドオプション作成
-      # オプションは「"」で括る、「"」は「`」でエスケープ、「`」による改行は無効?
-      $cmdOption = "`"--title`" $title `"--artist`" $artist `"--album`" $album `"--tracknum`" $tracknum `"--genre`" $genre"
-
-      # アートワーク設定がある場合
-      if($artwork -ne "") {
-        # コマンドオプション追加
-        $cmdOption += " `"--artwork`" $artwork"
-      }
+      # オプション引数用変数初期化
+      $optionTitle    = ""
+      $optionArtist   = ""
+      $optionAlbum    = ""
+      $optionTracknum = ""
+      $optionGenre    = ""
+      $optionArtwork  = ""
+      # 要素が空でない場合、オプション引数を設定
+      if($title -ne "")   { $optionTitle    = "--title"    }
+      if($artist -ne "")  { $optionArtist   = "--artist"   }
+      if($album -ne "")   { $optionAlbum    = "--album"    }
+      if($tracknum -ne ""){ $optionTracknum = "--tracknum" }
+      if($genre -ne "")   { $optionGenre    = "--genre"    }
+      if($artwork -ne "") { $optionArtwork  = "--artwork"  }
 
 
     # # コマンド実行
-    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe $x.FullName --overWrite $cmdOption
+    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe $x.FullName --overWrite $optionTitle $title $optionArtist $artist $optionAlbum $album $optionTracknum $tracknum $optionGenre $genre $optionArtwork $artwork
   }
