@@ -27,52 +27,60 @@ echo ffmpegで動画分割
   :START
     echo;
     rem バッチ内で「()」を使用できないためここで表示
-    echo 開始時間入力(hh:mm:ss)
+    echo 開始時間入力(hh:mm:ss.fff)
     rem ユーザ入力バッチ使用
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set start=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem コンマ秒が入力されている場合
-    if %targetTimeFormat%==hh:mm:ss.ff (
-      echo;
-      echo コンマ秒は入力しないでください
-      goto :START
+    rem ミリ秒が存在する場合
+    if %targetTimeFormat:~-2,2%==.f (
+      set startMilli=%start:~-3,2%
+    )
+    if %targetTimeFormat:~-3,3%==.ff (
+      set startMilli=%start:~-4,3%
+    )
+    if %targetTimeFormat:~-4,4%==.fff (
+      set startMilli=%start:~-5,4%
     )
 
-    rem 「hh:mm:ss」に変換
-    if %targetTimeFormat%==mm:ss (
-      set start=00:%start%
+    rem 先頭が「h」か「m」の場合」
+    if %targetTimeFormat:~0,2%==mm (
+      set start="00:%start:~1,5%"
     )
-    if %targetTimeFormat%==h:mm:ss (
-      set start=0:%start%
+    if %targetTimeFormat:~0,2%==h: (
+      set start="0%start:~1,7%"
     )
 
 
   rem 分割時間
   :LENGTH
     echo;
-    echo 分割時間入力(hh:mm:ss)
+    echo 分割時間入力(hh:mm:ss.fff)
     rem ユーザ入力バッチ使用
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem コンマ秒が入力されている場合
-    if %targetTimeFormat%==hh:mm:ss.ff (
-      echo;
-      echo コンマ秒は入力しないでください
-      goto :LENGTH
+    rem ミリ秒が存在する場合
+    if %targetTimeFormat:~-2,2%==.f (
+      set distMilli=%dist:~-3,2%
+    )
+    if %targetTimeFormat:~-3,3%==.ff (
+      set distMilli=%dist:~-4,3%
+    )
+    if %targetTimeFormat:~-4,4%==.fff (
+      set distMilli=%dist:~-5,4%
     )
 
-    rem 「hh:mm:ss」に変換
-    if %targetTimeFormat%==mm:ss (
-      set dist=00:%dist%
+    rem 先頭が「h」か「m」の場合」
+    if %targetTimeFormat:~0,2%==mm (
+      set dist="00:%dist:~1,5%"
     )
-    if %targetTimeFormat%==h:mm:ss (
-      set dist=0:%dist%
+    if %targetTimeFormat:~0,2%==h: (
+      set dist="0%dist:~1,7%"
     )
 
 
@@ -113,10 +121,10 @@ echo ffmpegで動画分割
     set /a minute=%strMinute%
     set /a second=%strSecond%
 
-  rem 秒数変換
-  set /a   secHour=%hour%*600
-  set /a secMinute=%minute%*60
-  set /a    length=%secHour%+%secMinute%+%second%
+    rem 秒数変換
+    set /a   secHour=%hour%*600
+    set /a secMinute=%minute%*60
+    set /a    length=%secHour%+%secMinute%+%second%
 
 
 : 実行
@@ -131,4 +139,4 @@ echo ffmpegで動画分割
   : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  ffmpeg\win32\ffmpeg.exe -y -ss %start% -ss 0 -i %sourcePath% -t %length% -c:v copy -c:a copy -async 1 %outPath%
+  ffmpeg\win32\ffmpeg.exe -y -ss %start%%startMilli% -ss 0 -i %sourcePath% -t %length%%distMilli% -c:v copy -c:a copy -async 1 %outPath%
