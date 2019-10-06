@@ -1,6 +1,10 @@
 @echo off
 title %~nx0
 echo ffmpegで動画分割
+: ffmpeg で音のボリュームを調整する。gain 調整 - それマグで！
+: 	https://takuya-1st.hatenablog.jp/entry/2016/04/13/023014
+: ffmpegで無劣化カット - 脳みそスワップアウト
+: 	http://iamapen.hatenablog.com/entry/2018/12/30/100811
 
 
 : 参照バッチ
@@ -117,8 +121,14 @@ echo ffmpegで動画分割
 
 : 実行
   rem 分割実行
-    : -y :上書き
-    : -i :動画指定
-    : -ss:開始位置(秒)
-    : -t :対象期間(秒)
-  ffmpeg\win32\ffmpeg.exe -y -i %sourcePath% -ss %start% -t %length% %outPath%
+  : -y         :上書き
+  : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
+  : -ss 0      :切り取り開始オフセット(「開始位置」と両方指定する)
+  : -i         :元ファイル
+  : -t         :対象期間(秒)
+  : -c:v copy  :映像無変換(無劣化)
+  : -c:a copy  :音声無変換(無劣化)
+  : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
+  :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
+  :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
+  ffmpeg\win32\ffmpeg.exe -y -ss %start% -ss 0 -i %sourcePath% -t %length% -c:v copy -c:a copy -async 1 %outPath%
