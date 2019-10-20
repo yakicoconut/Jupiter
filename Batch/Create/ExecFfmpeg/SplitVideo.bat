@@ -45,12 +45,16 @@ echo ffmpegで動画分割
       set startMilli=%start:~-5,4%
     )
 
-    rem 先頭が「h」か「m」の場合」
+    rem 先頭が「m」、「h」、「hh」判断
     if %targetTimeFormat:~0,2%==mm (
       set start="00:%start:~1,5%"
     )
     if %targetTimeFormat:~0,2%==h: (
       set start="0%start:~1,7%"
+    )
+    if %targetTimeFormat:~0,3%==hh: (
+      rem 「hh」の場合もミリ秒を抜く
+      set start="%start:~1,8%"
     )
 
 
@@ -81,6 +85,10 @@ echo ffmpegで動画分割
     )
     if %targetTimeFormat:~0,2%==h: (
       set dist="0%dist:~1,7%"
+    )
+    if %targetTimeFormat:~0,3%==hh: (
+      rem 「hh」の場合もミリ秒を抜く
+      set dist="%dist:~1,8%"
     )
 
 
@@ -122,7 +130,7 @@ echo ffmpegで動画分割
     set /a second=%strSecond%
 
     rem 秒数変換
-    set /a   secHour=%hour%*600
+    set /a   secHour=%hour%*3600
     set /a secMinute=%minute%*60
     set /a    length=%secHour%+%secMinute%+%second%
 
@@ -131,7 +139,6 @@ echo ffmpegで動画分割
   rem 分割実行
   : -y         :上書き
   : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
-  : -ss 0      :切り取り開始オフセット(「開始位置」と両方指定する)
   : -i         :元ファイル
   : -t         :対象期間(秒)
   : -c:v copy  :映像無変換(無劣化)
@@ -139,4 +146,4 @@ echo ffmpegで動画分割
   : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  ffmpeg\win32\ffmpeg.exe -y -ss %start%%startMilli% -ss 0 -i %sourcePath% -t %length%%distMilli% -c:v copy -c:a copy -async 1 %outPath%
+  ffmpeg\win32\ffmpeg.exe -y -ss %start:"=%%startMilli% -i %sourcePath% -t %length%%distMilli% -c:v copy -c:a copy -async 1 %outPath%
