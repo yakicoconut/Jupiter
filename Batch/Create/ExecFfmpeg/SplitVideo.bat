@@ -79,7 +79,7 @@ echo ffmpegで動画分割
       set distMilli=%dist:~-5,4%
     )
 
-    rem 先頭が「h」か「m」の場合」
+    rem 先頭が「m」、「h」、「hh」判断
     if %targetTimeFormat:~0,2%==mm (
       set dist="00:%dist:~1,5%"
     )
