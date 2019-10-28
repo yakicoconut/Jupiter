@@ -16,7 +16,7 @@ SETLOCAL
 
   : 引数
     rem オプション
-    set option=%1
+    set option="%1"
 
 
   : 引数有無確認
