@@ -25,9 +25,9 @@ echo ffmpegでtbn調整
     set sourcePath=%return_UserInput1%
 
     echo;
-    echo 対象画面サイズ
+    echo 対象tbnサイズ
     rem 動画情報取得バッチ使用
-    rem 画面サイズのみ取得オプション
+    rem 対象動画tbnのみ取得オプション
     call %call_GetMpegInfo% "-v error -select_streams v:0 -show_entries stream=time_base -of csv=s=x:p=0" %sourcePath%
 
   : tbn入力
