@@ -22,9 +22,7 @@ echo ffmpegで動画分割
     rem 入力値引継ぎ
     set sourcePath=%return_UserInput1%
 
-
-  rem 開始時間
-  :START
+  : 開始時間
     echo;
     rem バッチ内で「()」を使用できないためここで表示
     echo 開始時間入力(hh:mm:ss.fff)
@@ -34,32 +32,12 @@ echo ffmpegで動画分割
     set start=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem ミリ秒が存在する場合
-    if %targetTimeFormat:~-2,2%==.f (
-      set startMilli=%start:~-3,2%
-    )
-    if %targetTimeFormat:~-3,3%==.ff (
-      set startMilli=%start:~-4,3%
-    )
-    if %targetTimeFormat:~-4,4%==.fff (
-      set startMilli=%start:~-5,4%
-    )
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %start% %targetTimeFormat%
+    set start=%ret_DISMANTLE_TIME01%
+    set startMilli=%ret_DISMANTLE_TIME02%
 
-    rem 先頭が「m」、「h」、「hh」判断
-    if %targetTimeFormat:~0,2%==mm (
-      set start="00:%start:~1,5%"
-    )
-    if %targetTimeFormat:~0,2%==h: (
-      set start="0%start:~1,7%"
-    )
-    if %targetTimeFormat:~0,3%==hh: (
-      rem 「hh」の場合もミリ秒を抜く
-      set start="%start:~1,8%"
-    )
-
-
-  rem 分割時間
-  :LENGTH
+  : 分割時間
     echo;
     echo 分割時間入力(hh:mm:ss.fff)
     rem ユーザ入力バッチ使用
@@ -68,29 +46,10 @@ echo ffmpegで動画分割
     set dist=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem ミリ秒が存在する場合
-    if %targetTimeFormat:~-2,2%==.f (
-      set distMilli=%dist:~-3,2%
-    )
-    if %targetTimeFormat:~-3,3%==.ff (
-      set distMilli=%dist:~-4,3%
-    )
-    if %targetTimeFormat:~-4,4%==.fff (
-      set distMilli=%dist:~-5,4%
-    )
-
-    rem 先頭が「m」、「h」、「hh」判断
-    if %targetTimeFormat:~0,2%==mm (
-      set dist="00:%dist:~1,5%"
-    )
-    if %targetTimeFormat:~0,2%==h: (
-      set dist="0%dist:~1,7%"
-    )
-    if %targetTimeFormat:~0,3%==hh: (
-      rem 「hh」の場合もミリ秒を抜く
-      set dist="%dist:~1,8%"
-    )
-
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %dist% %targetTimeFormat%
+    set dist=%ret_DISMANTLE_TIME01%
+    set distMilli=%ret_DISMANTLE_TIME02%
 
   : 出力ファイル名
     echo;
@@ -147,3 +106,45 @@ echo ffmpegで動画分割
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
   ffmpeg\win32\ffmpeg.exe -y -ss %start:"=%%startMilli% -i %sourcePath% -t %length%%distMilli% -c:v copy -c:a copy -async 1 %outPath%
+  pause
+
+
+exit
+
+
+rem 時刻解体サブルーチン
+:DISMANTLE_TIME
+SETLOCAL
+  : 引数
+    rem 入力時刻
+    set inpTime=%1
+    rem 時刻フォーマット
+    set format=%2
+
+  : ミリ秒が存在する場合
+    if %format:~-2,2%==.f (
+      set milli=%inpTime:~-3,2%
+    )
+    if %format:~-3,3%==.ff (
+      set milli=%inpTime:~-4,3%
+    )
+    if %format:~-4,4%==.fff (
+      set milli=%inpTime:~-5,4%
+    )
+
+  : 先頭「m」、「h」、「hh」判断
+    if %format:~0,2%==mm (
+      set tms="00:%inpTime:~1,5%"
+    )
+    if %format:~0,2%==h: (
+      set tms="0%inpTime:~1,7%"
+    )
+    if %format:~0,3%==hh: (
+      rem 「hh」の場合もミリ秒を抜く
+      set tms="%inpTime:~1,8%"
+    )
+
+rem 返り値1:時分秒
+rem 返り値2:ミリ秒
+ENDLOCAL && set ret_DISMANTLE_TIME01=%tms%&& set ret_DISMANTLE_TIME02=%milli%
+exit /b
