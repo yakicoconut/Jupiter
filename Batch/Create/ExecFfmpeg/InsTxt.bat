@@ -88,7 +88,7 @@ echo ffmpeg‚Å•¶š—ñ‘}“ü
 
 : Às
   rem tbn•ÏX
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -filter_complex "drawtext=fontfile=/path/to/fontfile:text=%txt%:enable='between(t,%starSec%,%distSec%)" %outPath%
+  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -filter_complex "drawtext=fontfile=/path/to/fontfile:text=%txt%:enable='between(t,%starSec%%startMilli%,%distSec%%distMilli%)" %outPath%
   pause
 
 
