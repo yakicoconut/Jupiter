@@ -1,8 +1,8 @@
 @echo off
 title %~nx0
 rem 経過時間計算バッチ
-rem 引数01:開始時刻(「hh:mm:ss.ff」もしくは「hh:mm:ss」)
-rem 引数02:終了時刻(「hh:mm:ss.ff」もしくは「hh:mm:ss」)
+rem 引数01:開始時刻
+rem 引数02:終了時刻
 rem 戻値:経過時間(文字列)
 
 
@@ -14,6 +14,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set call_ZeroPadding=%~dp0"ZeroPadding.bat"
     rem 8進数数値変換バッチ
     set call_CngOctalNum=%~dp0"CngOctalNum.bat"
+    rem 時刻書式判定バッチ
+    set call_ChkTimeFormat=%~dp0"ChkTimeFormat.bat"
+    rem 時分秒ミリ解体バッチ
+    set call_DismantleTime=%~dp0"DismantleTime.bat"
 
   : 引数
     rem 開始時刻
@@ -21,42 +25,51 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 終了時刻
     set   endTime=%2
 
-  : コンマ秒有無判定
-    set commaFlg=0
-    rem 「hh:mm:ss.ff」
-    echo %startTime%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
-    echo %endTime%| findstr /r "^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]$" >NUL
-    if %ERRORLEVEL% equ 0 set commaFlg=1
+  : 時分秒ミリ解体
+    : 開始
+      rem 時刻書式判定バッチ使用
+      call %call_ChkTimeFormat% %startTime%
+      set startFormat=%return_ChkTimeFormat2%
 
-  : 項目分割
-    rem 開始時刻
-    rem 8進数数値変換バッチ使用
-    call %call_CngOctalNum% %startTime:~0,2%
-    set /a startHour=%return_CngOctalNum%
-    call %call_CngOctalNum% %startTime:~3,2%
-    set /a startMinute=%return_CngOctalNum%
-    call %call_CngOctalNum% %startTime:~6,2%
-    set /a startSecond=%return_CngOctalNum%
+      rem 時分秒ミリ解体バッチ使用
+      call %call_DismantleTime% %startTime% %startFormat%
+      set startTime=%return_DismantleTime1%
+      set startComma=%return_DismantleTime2%
+      rem ミリ秒がない場合は0を設定
+      if "%startComma%"=="" set /a startComma=0
+      rem ミリ秒はゼロ下駄
+      call %call_ZeroPadding% %startComma% -3
+      set startComma=%return_ZeroPadding%
 
-    rem 終了時刻
-    call %call_CngOctalNum% %endTime:~0,2%
-    set /a endHour=%return_CngOctalNum%
-    call %call_CngOctalNum% %endTime:~3,2%
-    set /a endMinute=%return_CngOctalNum%
-    call %call_CngOctalNum% %endTime:~6,2%
-    set /a endSecond=%return_CngOctalNum%
+    : 終了
+      call %call_ChkTimeFormat% %endTime%
+      set endFormat=%return_ChkTimeFormat2%
 
-    rem コンマ秒がある場合
-    if %commaFlg%==1 (
-      call %call_CngOctalNum% %startTime:~9,2%
-      set /a startComma=!return_CngOctalNum!
-      call %call_CngOctalNum% %endTime:~9,2%
-      set /a endComma=!return_CngOctalNum!
-    ) else (
-      rem ない場合、「00」を設定
-      set /a startComma=00
-      set /a   endComma=00
-    )
+      call %call_DismantleTime% %endTime% %endFormat%
+      set endTime=%return_DismantleTime1%
+      set endComma=%return_DismantleTime2%
+      if "%endComma%"=="" set /a endComma=0
+      call %call_ZeroPadding% %endComma% -3
+      set endComma=%return_ZeroPadding%
+
+  : 8進数数値変換
+    : 開始
+      rem 8進数数値変換バッチ使用
+      call %call_CngOctalNum% %startTime:~0,2%
+      set /a startHour=%return_CngOctalNum%
+      call %call_CngOctalNum% %startTime:~3,2%
+      set /a startMinute=%return_CngOctalNum%
+      call %call_CngOctalNum% %startTime:~6,2%
+      set /a startSecond=%return_CngOctalNum%
+      rem ミリ秒はゼロ埋めしないため対象外
+
+    : 終了
+      call %call_CngOctalNum% %endTime:~0,2%
+      set /a endHour=%return_CngOctalNum%
+      call %call_CngOctalNum% %endTime:~3,2%
+      set /a endMinute=%return_CngOctalNum%
+      call %call_CngOctalNum% %endTime:~6,2%
+      set /a endSecond=%return_CngOctalNum%
 
   : 処理時間計算
     rem 単純計算
@@ -85,8 +98,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
     rem コンマ秒
     if %startComma% gtr %endComma% (
-      rem コンマ秒は100まで数える
-      set /a elapsedComma=100 - %startComma% + %endComma%
+      rem コンマ秒は1000まで数える
+      set /a elapsedComma=1000 - %startComma% + %endComma%
       set /a elapsedSecond=!elapsedSecond!-1
       if !elapsedSecond! == -1 set /a elapsedSecond=59
     )
@@ -102,18 +115,13 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 秒
     call %call_ZeroPadding% %elapsedSecond% 2
     set elapsedSecond=%return_ZeroPadding%
-    rem コンマ秒
-    call %call_ZeroPadding% %elapsedComma% 2
-    set elapsedComma=%return_ZeroPadding%
 
   : 結果
-    rem 計算結果を時間表記にする
-    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%
-    rem コンマ秒がある場合
-    if %commaFlg%==1 (
-      set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%.%elapsedComma%
-    )
+    rem ミリ秒が0でない場合、コンマをつけて変数化
+    if not %elapsedComma% == 0 set retElapsedComma=.%elapsedComma%
 
+    rem 返却用変数作成
+    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%%retElapsedComma%
 
 rem 戻り値
 ENDLOCAL && set return_ElapsedTime=%elapsedTime%
