@@ -20,59 +20,34 @@ echo ffmpegで画像取得
     rem 入力値引継ぎ
     set sourcePath=%return_UserInput1%
 
-
-  rem 開始時間
-  :START
+  : 開始時間
     echo;
     rem バッチ内で「()」を使用できないためここで表示
-    echo 開始時間入力(hh:mm:ss)
+    echo 開始時間入力(hh:mm:ss.fff)
     rem ユーザ入力バッチ使用
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set start=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem コンマ秒が入力されている場合
-    if %targetTimeFormat%==hh:mm:ss.ff (
-      echo;
-      echo コンマ秒は入力しないでください
-      goto :START
-    )
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %start% %targetTimeFormat%
+    set start=%ret_DISMANTLE_TIME01%
+    set startMilli=%ret_DISMANTLE_TIME02%
 
-    rem 「hh:mm:ss」に変換
-    if %targetTimeFormat%==mm:ss (
-      set start=00:%start%
-    )
-    if %targetTimeFormat%==h:mm:ss (
-      set start=0:%start%
-    )
-
-
-  rem 分割時間
-  :LENGTH
+  : 分割時間
     echo;
-    echo 分割時間入力(hh:mm:ss)
+    echo 分割時間入力(hh:mm:ss.fff)
     rem ユーザ入力バッチ使用
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
     set targetTimeFormat=%return_UserInput2%
 
-    rem コンマ秒が入力されている場合
-    if %targetTimeFormat%==hh:mm:ss.ff (
-      echo;
-      echo コンマ秒は入力しないでください
-      goto :LENGTH
-    )
-
-    rem 「hh:mm:ss」に変換
-    if %targetTimeFormat%==mm:ss (
-      set dist=00:%dist%
-    )
-    if %targetTimeFormat%==h:mm:ss (
-      set dist=0:%dist%
-    )
-
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %dist% %targetTimeFormat%
+    set dist=%ret_DISMANTLE_TIME01%
+    set distMilli=%ret_DISMANTLE_TIME02%
 
   : 1秒あたり何枚
     echo;
@@ -86,22 +61,83 @@ echo ffmpegで画像取得
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %start:"=% %dist:"=%
   set elapsed=%return_ElapsedTime%
-  rem 項目分割
-  set /a   hour=%elapsed:~0,2%
-  set /a minute=%elapsed:~3,2%
-  set /a second=%elapsed:~6,2%
-  rem 秒数変換
-  set /a   secHour=%hour%*600
-  set /a secMinute=%minute%*60
-  set /a    length=%secHour%+%secMinute%+%second%
+
+  : 項目分割
+    rem 文字列として分割
+    set   strHour=%elapsed:~0,2%
+    set strMinute=%elapsed:~3,2%
+    set strSecond=%elapsed:~6,2%
+
+    rem 二桁目が「0」の場合
+    if %strHour:~0,1%==0 (
+      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+      set strHour=%strHour:~1,1%
+    )
+    if %strMinute:~0,1%==0 (
+      set strMinute=%strMinute:~1,1%
+    )
+    if %strSecond:~0,1%==0 (
+      set strSecond=%strSecond:~1,1%
+    )
+
+    rem 数値変換
+    set /a   hour=%strHour%
+    set /a minute=%strMinute%
+    set /a second=%strSecond%
+
+    rem 秒数変換
+    set /a   secHour=%hour%*3600
+    set /a secMinute=%minute%*60
+    set /a    length=%secHour%+%secMinute%+%second%
 
 
-: 実行
-  rem 画像取得実行
-    : -i :動画指定
-    : -ss:開始位置(秒)
-    : -t :対象期間(秒)
-    : -r :1秒あたり何枚抜き出すか
-    :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
-    : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -ss %start% -t %length% -r %rate% -f image2 %%06d.jpg
+: 画像取得実行
+  : -i :動画指定
+  : -ss:開始位置(秒)
+  : -t :対象期間(秒)
+  : -r :1秒あたり何枚抜き出すか
+  :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
+  : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
+  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -ss %start% -t %length% -r %rate% -f image2 Img_%%06d.png
+  pause
+
+
+exit
+
+
+rem 時刻解体サブルーチン
+:DISMANTLE_TIME
+SETLOCAL
+  : 引数
+    rem 入力時刻
+    set inpTime=%1
+    rem 時刻フォーマット
+    set format=%2
+
+  : ミリ秒が存在する場合
+    if %format:~-2,2%==.f (
+      set milli=%inpTime:~-3,2%
+    )
+    if %format:~-3,3%==.ff (
+      set milli=%inpTime:~-4,3%
+    )
+    if %format:~-4,4%==.fff (
+      set milli=%inpTime:~-5,4%
+    )
+
+  : 先頭「m」、「h」、「hh」判断
+    if %format:~0,2%==mm (
+      set tms="00:%inpTime:~1,5%"
+    )
+    if %format:~0,2%==h: (
+      set tms="0%inpTime:~1,7%"
+    )
+    if %format:~0,3%==hh: (
+      rem 「hh」の場合もミリ秒を抜く
+      set tms="%inpTime:~1,8%"
+    )
+
+rem 返り値1:時分秒
+rem 返り値2:ミリ秒
+ENDLOCAL && set ret_DISMANTLE_TIME01=%tms%&& set ret_DISMANTLE_TIME02=%milli%
+exit /b
