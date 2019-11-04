@@ -34,12 +34,12 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       rem 時分秒ミリ解体バッチ使用
       call %call_DismantleTime% %startTime% %startFormat%
       set startTime=%return_DismantleTime1%
-      set startComma=%return_DismantleTime2%
+      set startMilli=%return_DismantleTime2%
       rem ミリ秒がない場合は0を設定
-      if "%startComma%"=="" set /a startComma=0
+      if "%startMilli%"=="" set /a startMilli=0
       rem ミリ秒はゼロ下駄
-      call %call_ZeroPadding% %startComma% -3
-      set startComma=%return_ZeroPadding%
+      call %call_ZeroPadding% %startMilli% -3
+      set startMilli=%return_ZeroPadding%
 
     : 終了
       call %call_ChkTimeFormat% %endTime%
@@ -47,10 +47,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
       call %call_DismantleTime% %endTime% %endFormat%
       set endTime=%return_DismantleTime1%
-      set endComma=%return_DismantleTime2%
-      if "%endComma%"=="" set /a endComma=0
-      call %call_ZeroPadding% %endComma% -3
-      set endComma=%return_ZeroPadding%
+      set endMilli=%return_DismantleTime2%
+      if "%endMilli%"=="" set /a endMilli=0
+      call %call_ZeroPadding% %endMilli% -3
+      set endMilli=%return_ZeroPadding%
 
   : 8進数数値変換
     : 開始
@@ -76,7 +76,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set /a   elapsedHour=%endHour%   - %startHour%
     set /a elapsedMinute=%endMinute% - %startMinute%
     set /a elapsedSecond=%endSecond% - %startSecond%
-    set /a  elapsedComma=%endComma%  - %startComma%
+    set /a  elapsedMilli=%endMilli%  - %startMilli%
 
     : 絶対値(開始時間 > 終了時間)処理
       rem 分
@@ -96,13 +96,13 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         if !elapsedMinute! == -1 set /a elapsedMinute=59
       )
 
-    rem コンマ秒
-    if %startComma% gtr %endComma% (
-      rem コンマ秒は1000まで数える
-      set /a elapsedComma=1000 - %startComma% + %endComma%
-      set /a elapsedSecond=!elapsedSecond!-1
-      if !elapsedSecond! == -1 set /a elapsedSecond=59
-    )
+      rem ミリ秒
+      if %startMilli% gtr %endMilli% (
+        rem ミリ秒は1000まで数える
+        set /a elapsedMilli=1000 - %startMilli% + %endMilli%
+        set /a elapsedSecond=!elapsedSecond!-1
+        if !elapsedSecond! == -1 set /a elapsedSecond=59
+      )
 
   : 文字列変換
     rem ゼロ埋めバッチ使用
@@ -118,10 +118,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   : 結果
     rem ミリ秒が0でない場合、コンマをつけて変数化
-    if not %elapsedComma% == 0 set retElapsedComma=.%elapsedComma%
+    if not %elapsedMilli% == 0 set retElapsedMilli=.%elapsedMilli%
 
     rem 返却用変数作成
-    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%%retElapsedComma%
+    set elapsedTime=%elapsedHour%:%elapsedMinute%:%elapsedSecond%%retElapsedMilli%
 
 rem 戻り値
 ENDLOCAL && set return_ElapsedTime=%elapsedTime%
