@@ -20,8 +20,12 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
-    echo    2.0 ←期待結果
+    rem 結果に少数がある場合だけ設定する
+    rem 少数結果変数初期化
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
+    echo    2 ←期待結果
 
   echo;
   echo 左右辺別パターン
@@ -31,7 +35,9 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
     echo    4.6 ←期待結果
 
   echo;
@@ -42,7 +48,9 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo   %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo   %return_CalcDecimal01%%decResult%
     echo   13.4 ←期待結果
 
   echo;
@@ -53,7 +61,9 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
     echo    5.79 ←期待結果
 
   echo;
@@ -64,8 +74,10 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
-    echo    3.00 ←期待結果
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
+    echo    3 ←期待結果
 
   echo;
   echo 桁違いパターン
@@ -75,7 +87,9 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
     echo    5.73 ←期待結果
 
   echo;
@@ -86,7 +100,9 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
     echo    5.17 ←期待結果
 
   echo;
@@ -97,8 +113,10 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
-    echo    10.01 ←期待結果
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo   %return_CalcDecimal01%%decResult%
+    echo   10.01 ←期待結果
 
   echo;
   echo 第一位0(右辺のみ)桁違いパターン
@@ -108,18 +126,22 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
     echo    1.2534 ←期待結果
 
   echo;
-  echo 第一位0(右辺のみ)桁違いパターン
+  echo 第一位0繰り上がりパターン
     set left=0.9998
     set right=0.0002
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
-    echo    1.0 ←期待結果
+    set decResult=
+    if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
+    echo    %return_CalcDecimal01%%decResult%
+    echo    1 ←期待結果
 
 pause
