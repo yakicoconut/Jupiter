@@ -33,4 +33,18 @@ echo ƒ[ƒ––”öíœƒoƒbƒ`‚Ìg—p—á
     echo %return_DelZeroEnd%
     echo ---------------
 
+  : ƒ[ƒ‚Ì‚İ
+    set target=0
+    call %call_DelZeroEnd% %target%
+    echo %target%
+    echo %return_DelZeroEnd%
+    echo ---------------
+
+  : ƒ[ƒƒ[ƒ
+    set target=00
+    call %call_DelZeroEnd% %target%
+    echo %target%
+    echo %return_DelZeroEnd%
+    echo ---------------
+
 pause
