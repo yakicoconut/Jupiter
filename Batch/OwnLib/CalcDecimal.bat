@@ -3,7 +3,8 @@ title %~nx0
 rem 少数計算バッチ
 rem 引数01:左辺
 rem 引数02:右辺
-rem 戻値01:計算結果
+rem 戻値01:整数計算結果
+rem 戻値02:少数計算結果
 
 
 rem 変数ローカル化
@@ -94,5 +95,5 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
 rem 戻り値
-ENDLOCAL && set return_CalcDecimal=%integer%.%decimal%
+ENDLOCAL && set return_CalcDecimal01=%integer%&& set return_CalcDecimal02=%decimal%
 exit /b
