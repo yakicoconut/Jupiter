@@ -16,6 +16,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set call_GetLen=%~dp0"..\OwnLib\GetLen.bat"
     rem ゼロ埋めバッチ
     set call_ZeroPadding=%~dp0"..\OwnLib\ZeroPadding.bat"
+    rem ゼロ末尾削除バッチ
+    set call_DelZeroEnd="..\OwnLib\DelZeroEnd.bat"
 
   : 引数
     set leftVal=%1
@@ -93,6 +95,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         rem 繰り上がった値を抜いた値(先頭が0の場合、エラーとなるため文字列で格納)
         set decimal=!decimal:~-%srcDecLen%!
       )
+      rem ゼロ末尾削除バッチ使用
+      call %call_DelZeroEnd% %decimal%
+      set decimal=%return_DelZeroEnd%
 
 rem 戻り値
 ENDLOCAL && set return_CalcDecimal01=%integer%&& set return_CalcDecimal02=%decimal%
