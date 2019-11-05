@@ -20,7 +20,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    2.0 ←期待結果
 
   echo;
@@ -31,7 +31,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    4.6 ←期待結果
 
   echo;
@@ -42,7 +42,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo   %return_CalcDecimal%
+    echo   %return_CalcDecimal01%.%return_CalcDecimal02%
     echo   13.4 ←期待結果
 
   echo;
@@ -53,7 +53,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    5.79 ←期待結果
 
   echo;
@@ -64,7 +64,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    3.00 ←期待結果
 
   echo;
@@ -75,7 +75,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    5.73 ←期待結果
 
   echo;
@@ -86,7 +86,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    5.17 ←期待結果
 
   echo;
@@ -97,7 +97,7 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    10.01 ←期待結果
 
   echo;
@@ -108,7 +108,18 @@ echo 少数計算バッチの使用例
     echo    %left%
     echo +  %right%
     echo --------
-    echo    %return_CalcDecimal%
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
     echo    1.2534 ←期待結果
+
+  echo;
+  echo 第一位0(右辺のみ)桁違いパターン
+    set left=0.9998
+    set right=0.0002
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal01%.%return_CalcDecimal02%
+    echo    1.0 ←期待結果
 
 pause
