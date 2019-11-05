@@ -9,68 +9,74 @@ echo 少数計算バッチの使用例
 
 
 : 処理
-  REM echo;
-  REM echo 1.0パターン
-  REM   rem 対象値設定
-  REM   set left=1.0
-  REM   set right=1.0
+  echo;
+  echo 1.0パターン
+    rem 対象値設定
+    set left=1.0
+    set right=1.0
 
-  REM   rem 数値判定バッチ使用
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo    %return_CalcDecimal%
+    rem 数値判定バッチ使用
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    2.0 ←期待結果
 
-  REM echo;
-  REM echo 左右辺別パターン
-  REM   set left=1.2
-  REM   set right=3.4
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo    %return_CalcDecimal%
+  echo;
+  echo 左右辺別パターン
+    set left=1.2
+    set right=3.4
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    4.6 ←期待結果
 
-  REM echo;
-  REM echo 繰り上がりパターン
-  REM   set left=5.6
-  REM   set right=7.8
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo   %return_CalcDecimal%
+  echo;
+  echo 繰り上がりパターン
+    set left=5.6
+    set right=7.8
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo   %return_CalcDecimal%
+    echo   13.4 ←期待結果
 
-  REM echo;
-  REM echo 二桁パターン
-  REM   set left=1.23
-  REM   set right=4.56
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo    %return_CalcDecimal%
+  echo;
+  echo 二桁パターン
+    set left=1.23
+    set right=4.56
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    5.79 ←期待結果
 
-  REM echo;
-  REM echo 二桁繰り上げパターン
-  REM   set left=1.88
-  REM   set right=1.12
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo    %return_CalcDecimal%
+  echo;
+  echo 二桁繰り上げパターン
+    set left=1.88
+    set right=1.12
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    3.00 ←期待結果
 
-  REM echo;
-  REM echo 桁違いパターン
-  REM   set left=1.23
-  REM   set right=4.5
-  REM   call %call_CalcDecimal% %left% %right%
-  REM   echo    %left%
-  REM   echo +  %right%
-  REM   echo --------
-  REM   echo    %return_CalcDecimal%
+  echo;
+  echo 桁違いパターン
+    set left=1.23
+    set right=4.5
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    5.73 ←期待結果
 
   echo;
   echo 第一位0パターン
@@ -82,5 +88,27 @@ echo 少数計算バッチの使用例
     echo --------
     echo    %return_CalcDecimal%
     echo    5.17 ←期待結果
+
+  echo;
+  echo 第一位0(左辺のみ)繰り上がりパターン
+    set left=0.02
+    set right=9.99
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    10.01 ←期待結果
+
+  echo;
+  echo 第一位0(右辺のみ)桁違いパターン
+    set left=1.23
+    set right=0.0234
+    call %call_CalcDecimal% %left% %right%
+    echo    %left%
+    echo +  %right%
+    echo --------
+    echo    %return_CalcDecimal%
+    echo    1.2534 ←期待結果
 
 pause
