@@ -4,7 +4,7 @@ echo ゼロ末尾削除バッチの使用例
 
 
 : 参照バッチ
-  rem 数値判定バッチ
+  rem ゼロ末尾削除バッチ
   set call_DelZeroEnd="..\OwnLib\DelZeroEnd.bat"
 
 
