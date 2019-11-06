@@ -19,7 +19,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     rem 結果に少数がある場合だけ設定する
     rem 少数結果変数初期化
     set decResult=
@@ -34,7 +34,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -47,7 +47,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo   %return_CalcDecimal01%%decResult%
@@ -60,7 +60,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -73,7 +73,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -86,7 +86,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -99,7 +99,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -112,7 +112,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo   %return_CalcDecimal01%%decResult%
@@ -125,7 +125,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
@@ -138,7 +138,7 @@ echo 少数計算バッチの使用例
     call %call_CalcDecimal% %left% %right%
     echo    %left%
     echo +  %right%
-    echo --------
+    echo   --------
     set decResult=
     if not "%return_CalcDecimal02%"=="" set decResult=.%return_CalcDecimal02%
     echo    %return_CalcDecimal01%%decResult%
