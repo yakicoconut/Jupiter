@@ -82,7 +82,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       rem 0始まりの場合、数値型エラーとなるため計算用整数1を使用して計算
       set /a decimal = %leftCalcInt%%leftDec% + %rightCalcInt%%rightDec%
       rem 計算用整数をクリア
-      set /a decimal = decimal - %sumCalcInt%
+      set /a decimal = %decimal% - %sumCalcInt%
 
     : 少数処理
       rem 桁数取得バッチ使用
