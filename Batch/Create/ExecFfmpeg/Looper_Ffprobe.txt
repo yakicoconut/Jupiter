@@ -27,9 +27,11 @@
 #   	https://nico-lab.net/how_to_use_ffprobe/
 #
 
-# フレームレート取得用オプション
-#option:-show_entries stream=r_frame_rate -i
+# # フレームレート取得用オプション
+# #option:-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate
 
+# tbn取得用オプション
+#option:-v error -select_streams v:0 -show_entries stream=time_base -of csv=s=x:p=0
 # 対象動画パス
 ExecFfmpeg\MyResorce\Sample_Wildlife_01.mp4
 ExecFfmpeg\MyResorce\Sample_Wildlife_02.mp4
