@@ -18,6 +18,28 @@ echo ffmpegで動画結合
     rem 入力値引継ぎ
     set concatList=%return_UserInput1%
 
+  : コーデック
+    echo;
+    echo コーデック入力(-c:v 動画ｺｰﾃﾞｯｸ -c:a 音声ｺｰﾃﾞｯｸ)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set codec=%return_UserInput1:"=%
+
+  : 1秒あたり何枚
+    echo;
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% 1秒あたり枚数入力 TRUE NUM
+    rem 入力値引継ぎ
+    set rate=%return_UserInput1%
+
+  : tbn入力
+    echo;
+    echo tbn入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set tbn=%return_UserInput1%
 
   : 出力ファイル名
     echo;
@@ -28,11 +50,10 @@ echo ffmpegで動画結合
 
 
 : 実行
-  rem 分割実行
-    : -f     :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
-    : -safe  :
-    : -i     :動画指定
-    : -c copy:オリジナルファイルのコーデックを再エンコードすることなく処理する
-  ffmpeg\win32\ffmpeg.exe -f concat -safe 0 -i %concatList% -c copy %outPath%
-  rem 結合_別解
-REM   ffmpeg\ffmpeg.exe -f concat -safe 0  -i %concatList% -vcodec h264 -acodec aac -strict experimental %outPath%
+  rem 結合
+    : -f concat:
+    : -safe 0  :
+    : -i       :
+    : -c copy  :
+  ffmpeg\win32\ffmpeg.exe -f concat -safe 0 -i %concatList% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+  pause
