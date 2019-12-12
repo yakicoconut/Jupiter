@@ -6,6 +6,8 @@ echo ffmpegでフレームレートを変更する
 : 参照バッチ
   rem ユーザ入力バッチ
   set call_UserInput="..\..\OwnLib\UserInput.bat"
+  rem 動画情報取得バッチ
+  set call_GetMpegInfo="GetMpegInfo.bat"
 
 
 : ユーザ入力処理
@@ -16,6 +18,15 @@ echo ffmpegでフレームレートを変更する
     rem 入力値引継ぎ
     set inPath=%return_UserInput1%
 
+    echo;
+    echo 対象fps
+    echo r_frame_rate  :全タイムスタンプを正確に表すことができる
+    echo                最低のフレームレート(ストリーム内のすべての
+    echo                フレームレートの最小公倍数)
+    echo avg_frame_rate:平均フレームレート
+    rem 動画情報取得バッチ使用
+    rem 対象動画fpsのみ取得オプション
+    call %call_GetMpegInfo% "-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate" %inPath%
 
   : フレームレート
     echo;
@@ -23,7 +34,6 @@ echo ffmpegでフレームレートを変更する
     call %call_UserInput% フレームレート TRUE NUM
     rem 入力値引継ぎ
     set fps=%return_UserInput1%
-
 
   : 出力ファイル名
     echo;
