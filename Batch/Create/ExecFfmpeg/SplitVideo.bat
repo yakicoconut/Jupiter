@@ -34,7 +34,7 @@ echo ffmpegで動画分割
 
     rem 時刻解体サブルーチン使用
     call :DISMANTLE_TIME %start% %targetTimeFormat%
-    set start=%ret_DISMANTLE_TIME01%
+    set start=%ret_DISMANTLE_TIME01:"=%
     set startMilli=%ret_DISMANTLE_TIME02%
 
   : 分割時間
@@ -51,6 +51,29 @@ echo ffmpegで動画分割
     set dist=%ret_DISMANTLE_TIME01%
     set distMilli=%ret_DISMANTLE_TIME02%
 
+  : コーデック
+    echo;
+    echo コーデック入力(-c:v 動画Codec -c:a 音声Codec)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set codec=%return_UserInput1:"=%
+
+  : 1秒あたり何枚
+    echo;
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% 1秒あたり枚数入力 TRUE NUM
+    rem 入力値引継ぎ
+    set rate=%return_UserInput1%
+
+  : tbn入力
+    echo;
+    echo tbn入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set tbn=%return_UserInput1%
+
   : 出力ファイル名
     echo;
     echo 出力ファイル名入力(要拡張子)
@@ -60,7 +83,36 @@ echo ffmpegで動画分割
     set outPath=%return_UserInput1%
 
 
-: 秒数変換
+: 開始時間秒数変換
+    rem 文字列として分割
+    set   strHour=%start:~0,2%
+    set strMinute=%start:~3,2%
+    set strSecond=%start:~6,2%
+
+    rem 二桁目が「0」の場合
+    if %strHour:~0,1%==0 (
+      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+      set strHour=%strHour:~1,1%
+    )
+    if %strMinute:~0,1%==0 (
+      set strMinute=%strMinute:~1,1%
+    )
+    if %strSecond:~0,1%==0 (
+      set strSecond=%strSecond:~1,1%
+    )
+
+    rem 数値変換
+    set /a   hour=%strHour%
+    set /a minute=%strMinute%
+    set /a second=%strSecond%
+
+    rem 秒数変換
+    set /a   secHour=%hour%*3600
+    set /a secMinute=%minute%*60
+    set /a  startSec=%secHour%+%secMinute%+%second%
+
+
+: 分割時間秒数変換
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %start:"=% %dist:"=%
   set elapsed=%return_ElapsedTime%
@@ -105,7 +157,7 @@ echo ffmpegで動画分割
   : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  ffmpeg\win32\ffmpeg.exe -y -ss %start:"=%%startMilli% -i %sourcePath% -t %length%%distMilli% -c:v copy -c:a copy -async 1 %outPath%
+  ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %sourcePath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
   pause
 
 
