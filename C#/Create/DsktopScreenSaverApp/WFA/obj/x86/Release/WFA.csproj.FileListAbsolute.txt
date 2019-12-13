@@ -1,0 +1,38 @@
+E:\Cal_Git_Master\C#\Create\DsktopDrawerApp\WFA\bin\Release\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\bin\Release\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\bin\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\bin\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\bin\Release\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\bin\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\bin\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\DsktopCoverApp - コピー\WFA\obj\x86\Release\WFA.FrmSubScreen.resources
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\WFA.exe.config
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.exe
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.pdb
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\WFA.exe
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\WFA.pdb
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.Form1.resources
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.FrmSubScreen.resources
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.Properties.Resources.resources
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\01_Desert.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\02_Lighthouse.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\03_Penguins.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\04_Koala.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\05_Hydrangeas.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\06_Jellyfish.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\07_Tulips.jpg
+D:\Root486\Git\Cal_Master\C#\Create\DsktopScreenSaverApp\WFA\bin\Release\MyResource\Sample\08_Chrysanthemum.jpg
