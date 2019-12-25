@@ -22,16 +22,18 @@ SETLOCAL
   : 引数
     set datetime=%~1
     set counter=%~2
-    set option=%~3
+    set option1=%~3
     set arg=%~4
+    set option2=%~5
 
   : コマンド実行
-    echo %datetime%
-    echo %counter%
-    echo %option%
-    echo %arg%
+    echo   実行時間   :%datetime%
+    echo   カウンタ   :%counter%
+    echo   オプション1:%option1%
+    echo   引数       :%arg%
+    echo   オプション2:%option2%
 
-    "C:\Program Files\Mozilla Firefox\firefox.exe" %option% %arg%
+    "C:\Program Files\Mozilla Firefox\firefox.exe" %option1% %arg% %option2%
     echo;
     echo;
 

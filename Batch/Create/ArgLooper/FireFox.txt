@@ -2,7 +2,8 @@
 
 
 # オプションは未設定
-#option:
+#option1:
+#option2:
 
 # 引数にURL設定
 # Hyper-Vのネットワーク設定についての覚え書き - Qiita
