@@ -31,7 +31,7 @@ SETLOCAL
     echo %counter%:%arg%>>ffprobe_%datetime%.txt
 
     rem ffprobeŽÀs
-    ".\ExecFfmpeg\ffmpeg\win32\ffprobe.exe" %option% %arg%>>ffprobe_%datetime%.txt
+    "..\ffmpeg\win32\ffprobe.exe" %option% %arg%>>ffprobe_%datetime%.txt
     echo;>>ffprobe_%datetime%.txt
     echo;
     echo;
