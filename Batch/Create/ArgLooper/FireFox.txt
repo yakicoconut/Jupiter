@@ -1,0 +1,13 @@
+# # FireFox.exeに対する引数 # #
+
+
+# オプションは未設定
+#option:
+
+# 引数にURL設定
+# Hyper-Vのネットワーク設定についての覚え書き - Qiita
+https://qiita.com/kit/items/56916c4285f353e89ea0
+# デタッチとアタッチを使用してデータベースを移動する方法 (Transact-SQL) - SQL Server | Microsoft Docs
+https://docs.microsoft.com/ja-jp/sql/relational-databases/databases/move-a-database-using-detach-and-attach-transact-sql?view=sql-server-ver15
+# 正規表現についてお教えください。Windowsに標準で搭載されているPowerShe... - Yahoo!知恵袋
+https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11166674006
