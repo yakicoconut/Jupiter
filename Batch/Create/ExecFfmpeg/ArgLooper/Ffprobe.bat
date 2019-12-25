@@ -20,18 +20,24 @@ SETLOCAL
     )
 
   : 引数
-    rem 引数引継ぎ
     set datetime=%~1
     set counter=%~2
-    set option=%~3
+    set option1=%~3
     set arg=%~4
+    set option2=%~5
 
   : コマンド実行
+    echo   実行時間   :%datetime%
+    echo   カウンタ   :%counter%
+    echo   オプション1:%option1%
+    echo   引数       :%arg%
+    echo   オプション2:%option2%
+
     rem ファイル名見出し出力
     echo %counter%:%arg%>>ffprobe_%datetime%.txt
 
     rem ffprobe実行
-    "..\ffmpeg\win32\ffprobe.exe" %option% %arg%>>ffprobe_%datetime%.txt
+    "..\ffmpeg\win32\ffprobe.exe" %option1% %arg% %option2%>>ffprobe_%datetime%.txt
     echo;>>ffprobe_%datetime%.txt
     echo;
     echo;

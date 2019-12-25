@@ -28,10 +28,13 @@
 #
 
 # # フレームレート取得用オプション
-# #option:-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate
+# #option1:-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate
+# #option2:
 
 # tbn取得用オプション
-#option:-v error -select_streams v:0 -show_entries stream=time_base -of csv=s=x:p=0
+#option1:-v error -select_streams v:0 -show_entries stream=time_base -of csv=s=x:p=0
+#option2:
+
 # 対象動画パス
 ..\MyResorce\Sample_Wildlife_01.mp4
 ..\MyResorce\Sample_Wildlife_02.mp4
