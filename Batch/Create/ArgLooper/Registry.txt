@@ -1,0 +1,17 @@
+# # reg.exeに対する引数 # #
+
+
+# # オプション
+# 値取得
+#option1:query
+# 再帰的
+#option2:/s
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Macromedia\FlashPlayer
+HKEY_LOCAL_MACHINE\SOFTWARE\Windows
+
+
+# 引数後オプション初期化
+#option2:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Macromedia\FlashPlayer
