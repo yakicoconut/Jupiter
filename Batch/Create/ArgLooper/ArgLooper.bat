@@ -21,7 +21,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   : 参照バッチ
     rem 数値のみ年月日時分秒ミリ取得バッチ
-    set call_GetStrDateTime="..\OwnLib\GetStrDateTime.bat"
+    set call_GetStrDateTime="..\..\OwnLib\GetStrDateTime.bat"
     rem 数値のみ年月日時分秒ミリ取得バッチ使用
     call %call_GetStrDateTime%
     set datetime=%return_GetStrDateTime%
@@ -39,7 +39,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
     : 指定ファイルの設定がされていない場合
       rem ユーザ入力バッチ
-      set call_UserInput="..\OwnLib\UserInput.bat"
+      set call_UserInput="..\..\OwnLib\UserInput.bat"
       rem ユーザ入力サブルーチン使用
       call :USER_INPT
 
