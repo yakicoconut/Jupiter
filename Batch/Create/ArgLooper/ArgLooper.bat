@@ -25,6 +25,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 数値のみ年月日時分秒ミリ取得バッチ使用
     call %call_GetStrDateTime%
     set datetime=%return_GetStrDateTime%
+    rem ディレクトリファイル情報バッチ
+    set call_DirFilePathInfo="..\..\OwnLib\DirFilePathInfo.bat"
 
 
   : 設定有無確認
@@ -46,6 +48,14 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   rem 引数指定ファイル処理
   :ARG_FILE_PROCESS
+    echo;
+    echo;
+
+    rem ディレクトリファイル情報バッチ使用
+    call %call_DirFilePathInfo% %cmdFile% dp
+    rem 対象バッチ位置にカレントディレクトリ変更
+    cd /d %return_DirFilePathInfo%
+
     rem 指定したファイルを行ごとにループ
     set /a counter=0
     rem オプション用変数初期化(スペース×1)
