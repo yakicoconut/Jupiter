@@ -59,7 +59,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 指定したファイルを行ごとにループ
     set /a counter=0
     rem オプション用変数初期化(スペース×1)
-    set option=" "
+    set option1=" "
+    rem 引数より後に来るオプション
+    set option2=""
     for /f "usebackq delims=" %%a in (%argFile%) do (
       rem 対象一行
       set row=%%a
@@ -72,13 +74,16 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         set /a counter=!counter!+1
 
         rem 実行コマンドファイル使用
-        call !cmdFile! %datetime% !counter! !option! "!row!"
+        call !cmdFile! %datetime% !counter! !option1! "!row!" !option2!
       )
 
-      rem 行の先頭が「#option 」の場合
-      if "!row:~0,8!"=="#option:" (
+      rem 行の先頭が「#option1 」の場合
+      if "!row:~0,9!"=="#option1:" (
         rem オプション用変数に設定
-        set option="!row:~8!"
+        set option1="!row:~9!"
+      )
+      if "!row:~0,9!"=="#option2:" (
+        set option2="!row:~9!"
       )
     )
 
