@@ -1,7 +1,6 @@
 @echo off
 title %~nx0
-echo 実行コマンドファイル
-echo;
+echo コマンドループ_Ping
 : 引数01:ループ開始時の数値のみ年月日時分秒ミリ
 : 引数02:ループカウンタ
 : 引数03:オプション
@@ -13,7 +12,8 @@ SETLOCAL
   : 引数判定
     rem ねずみ返し_引数がない場合
     if "%~1"=="" (
-      echo ※本ファイルは単体で実行しないでください
+      echo 本ファイルは単体で実行せず、
+      echo ArgLooper.batから呼び出してください
       echo 終了します
       pause
       exit
@@ -26,10 +26,10 @@ SETLOCAL
     set arg=%~4
 
   : コマンド実行
-    echo %datetime%
-    echo %counter%
-    echo %option%
-    echo %arg%
+    echo   実行時間  :%datetime%
+    echo   カウンタ  :%counter%
+    echo   オプション:%option%
+    echo   引数      :%arg%
 
     ping %option% %arg%
     echo;
