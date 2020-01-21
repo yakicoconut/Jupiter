@@ -85,6 +85,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       if "!row:~0,9!"=="#option2:" (
         set option2="!row:~9!"
       )
+      if "!row:~0,9!"=="#command:" (
+        rem コマンド実行
+        !row:~9!
+      )
     )
 
 
