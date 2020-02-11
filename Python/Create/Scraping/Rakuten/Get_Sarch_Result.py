@@ -23,8 +23,8 @@ outputFileName = "out.csv"
 
 
 # # コメントクラス取得関数 # #
-# # 引数1:
-# # 戻値 :
+# # 引数1:bsタグ
+# # 戻値 :配列[タイトル, URL]
 
 
 def get_content_class(soup_tag):
@@ -59,8 +59,8 @@ def get_content_class(soup_tag):
 
 
 # # エクストラコメントクラス取得関数 # #
-# # 引数1:
-# # 戻値 :
+# # 引数1:bsタグ
+# # 戻値 :品質情報
 
 
 def get_extra_class(soup_tag):
@@ -78,15 +78,15 @@ def get_extra_class(soup_tag):
     if z is None:
         return
 
-    # 中古品質取得
+    # 品質取得
     used_quality = z.text
 
     return used_quality
 
 
 # # コメントディスクリプションプライスクラス取得関数 # #
-# # 引数1:
-# # 戻値 :
+# # 引数1:bsタグ
+# # 戻値 :価格情報
 
 
 def get_description_class(soup_tag):
@@ -94,7 +94,7 @@ def get_description_class(soup_tag):
     # 返却配列初期化
     result_list = []
 
-    # 中古品質タグ取得
+    # 価格タグ取得
     z = soup_tag.find(class_="important")
     # # とりあえず表示
     # print("#######################################")
@@ -104,10 +104,10 @@ def get_description_class(soup_tag):
     if z is None:
         return
 
-    # 中古品質取得
-    used_quality = z.text
+    # 価格取得
+    price = z.text
 
-    return used_quality
+    return price
 
 
 # # ファイルの読み込み # #
@@ -148,15 +148,17 @@ for x in list_dui_item:
         # クラス名連結
         class_name = ",".join(y['class'])
 
-        # クラス名分岐
+        # タイトル、URL
         if class_name == "content":
             # コメントクラス取得関数使用
             res_list.extend(get_content_class(y))
 
+        # 品質情報
         elif class_name == "extra,content":
             # エクストラコメントクラス取得関数使用
             res_list.append(get_extra_class(y))
 
+        # 価格情報
         elif class_name == "content,description,price":
             # コメントディスクリプションプライスクラス取得関数
             res_list.append(get_description_class(y))
@@ -164,29 +166,30 @@ for x in list_dui_item:
         # 出力値格納配列追加
         outputArray.append(res_list)
 
-# とりあえず表示
-for a in outputArray:
-    print("#######################################")
-    for b in a:
-        print(b)
+# # とりあえず表示
+# for x in outputArray:
+#     print("#######################################")
+#     for y in x:
+#         print(y)
+#         # タイトル、URL、状態、価格
 
 
-# # # CSV出力 # #
-# print("CSV出力処理開始")
-# # CSVファイルオープン(無ければ作成)
-# f = open(outputFileName, 'w', 1, 'utf_8')  # shift_jisは変換できない文字が多いので保留
-# writer = csv.writer(f, lineterminator='\n')
-#
-# # CSV書き込み
-# writer.writerows(outputArray)
-#
-# # CSVファイルクローズ
-# f.close()
-# print("CSV出力処理完了")
-#
-#
-# # # 文字コード変換 # #
-# # BOM付きUTF-8変換関数使用 #
-# # 同一ファイルに上書き
-# convert_utf8bom(outputFileName, outputFileName)
-# print("文字コード変換完了")
+# # CSV出力 # #
+print("CSV出力処理開始")
+# CSVファイルオープン(無ければ作成)
+f = open(outputFileName, 'w', 1, 'utf_8')  # shift_jisは変換できない文字が多いので保留
+writer = csv.writer(f, lineterminator='\n')
+
+# CSV書き込み
+writer.writerows(outputArray)
+
+# CSVファイルクローズ
+f.close()
+print("CSV出力処理完了")
+
+
+# # 文字コード変換 # #
+# BOM付きUTF-8変換関数使用 #
+# 同一ファイルに上書き
+convert_utf8bom(outputFileName, outputFileName)
+print("文字コード変換完了")
