@@ -147,6 +147,17 @@ echo ffmpegで動画分割
 
 
 : 実行
+  rem 実行前ログ出力
+  echo %date%%time%>SplitVideo.log
+  echo;>>SplitVideo.log
+  echo %sourcePath:"=%>>SplitVideo.log
+  echo %start:"=%>>SplitVideo.log
+  echo %dist:"=%>>SplitVideo.log
+  echo %codec:"=%>>SplitVideo.log
+  echo %rate:"=%>>SplitVideo.log
+  echo %tbn:"=%>>SplitVideo.log
+  echo %outPath:"=%>>SplitVideo.log
+
   rem 分割実行
   : -y         :上書き
   : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
@@ -158,6 +169,10 @@ echo ffmpegで動画分割
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
   ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %sourcePath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+
+  rem 実行前ログ出力
+  echo;>>SplitVideo.log
+  echo %date%%time%>>SplitVideo.log
   pause
 
 
