@@ -4,38 +4,59 @@
 # 使用方法
 #   本ファイルには対象コマンドの引数部分を記述
 # 引数
-#   -v ログレベル  :・ログレベルを満たす状況だけログを出力する
-#                   ・指定しない場合、標準出力に情報が出力される
-#                   ・ログレベル
-#                     quiet  :ログを出力しない
-#                     panic  :クラッシュを引き起こす致命的なエラーのみ表示(現在未使用)
-#                     fatal  :致命的なエラーのみ表示
-#                     error  :すべてのエラーを表示
-#                     warning:すべての警告、エラーを表示
-#                     info   :警告、エラーを含む実行中の有益な情報を表示
-#                     verbose:infoと同等のレベルの情報をより詳細に表示する
-#                     debug  :デバッグ用情報を含むすべての情報を表示
-#                     trace  :トレース情報を表示
-#   -i 対象動画パス:対象動画指定
-#   -show_entries  :stream=r_frame_rate:フレームレートのみ抽出
-#                                       出力される値は計算式のためfpsを求めるには計算が必要
-#                                       (例:「r_frame_rate=30000/1001」→30000÷1001→29.97fps
+#   -v ログレベル
+#     ・ログレベルを満たす状況だけログを出力する
+#     ・指定しない場合、標準出力に情報が出力される
+#     ・ログレベル
+#       quiet  :ログを出力しない
+#       panic  :クラッシュを引き起こす致命的なエラーのみ表示(現在未使用)
+#       fatal  :致命的なエラーのみ表示
+#       error  :すべてのエラーを表示
+#       warning:すべての警告、エラーを表示
+#       info   :警告、エラーを含む実行中の有益な情報を表示
+#       verbose:infoと同等のレベルの情報をより詳細に表示する
+#       debug  :デバッグ用情報を含むすべての情報を表示
+#       trace  :トレース情報を表示
+#   -i 動画パス
+#     対象動画指定
+#   -select_streams 対象
+#     対象
+#       v[:数値]:ビデオを対象とする
+#                数値
+#                  対象インデックス
+#       a[:数値]:オーディオを選択
+#   -show_entries stream[=要素名]
+#     要素名
+#       なし          :要素名含めすべて出力
+#       codec_name    :コーデック
+#       r_frame_rate  :フレームレート
+#                      出力される値は計算式のためfpsを求めるには計算が必要
+#                      (例:「r_frame_rate=30000/1001」→30000÷1001→29.97fps
+#       avg_frame_rate:平均フレームレート
+#       time_base     :tbn
+#   -of csv=s=x:p=0
+#    未確認
 # サイト
 #   ffprobeで動画を解析する - Qiita
 #   	https://qiita.com/makotok7/items/0e7d2f941e5da8cec8d1
 #   ffprobe の使い方 | ニコラボ
 #   	https://nico-lab.net/how_to_use_ffprobe/
-#
 
-# # フレームレート取得用オプション
-# #option1:-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate
-# #option2:
 
-# tbn取得用オプション
-#option1:-v error -select_streams v:0 -show_entries stream=time_base -of csv=s=x:p=0
-#option2:
+# 対象変数化
+#command:set var="..\MyResorce\Sample_Wildlife_03.mp4"
 
+
+# 動画コーデック、フレームレート、平均フレームレート、tbn取得
+#option1:-v error -select_streams v -show_entries stream=codec_name -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate -show_entries stream=time_base
 # 対象動画パス
 ..\MyResorce\Sample_Wildlife_01.mp4
 ..\MyResorce\Sample_Wildlife_02.mp4
-..\MyResorce\Sample_Wildlife_03.mp4
+%var%
+
+# 音声コーデック
+#option1:-v error -select_streams a -show_entries stream=codec_name
+# 対象動画パス
+..\MyResorce\Sample_Wildlife_01.mp4
+..\MyResorce\Sample_Wildlife_02.mp4
+%var%
