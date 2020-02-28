@@ -151,8 +151,8 @@ echo ffmpeg‚Å“®‰æ•ªŠ„
   echo %date%%time%>SplitVideo.log
   echo;>>SplitVideo.log
   echo %sourcePath:"=%>>SplitVideo.log
-  echo %start:"=%>>SplitVideo.log
-  echo %dist:"=%>>SplitVideo.log
+  echo %start:"=%%startMilli%>>SplitVideo.log
+  echo %dist:"=%%distMilli%>>SplitVideo.log
   echo %codec:"=%>>SplitVideo.log
   echo %rate:"=%>>SplitVideo.log
   echo %tbn:"=%>>SplitVideo.log
