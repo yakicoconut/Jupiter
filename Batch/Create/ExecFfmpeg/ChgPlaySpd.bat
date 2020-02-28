@@ -8,6 +8,7 @@ echo ffmpegで再生速度調整
 : ffmpegの使い方やコマンド一覧をまとめました。動画リサイズ・静止画変換・フレーム補間について|おちゃカメラ。
 : 	https://photo-tea.com/p/17/ffmpeg-command-list/
 
+
 : 参照バッチ
   rem ユーザ入力バッチ
   set call_UserInput="..\..\OwnLib\UserInput.bat"
@@ -28,6 +29,29 @@ echo ffmpegで再生速度調整
     call %call_UserInput% "" TRUE NUM
     rem 入力値引継ぎ
     set spdRatio=%return_UserInput1%
+
+  : コーデック
+    echo;
+    echo コーデック入力(-c:v 動画Codec -c:a 音声Codec)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set codec=%return_UserInput1:"=%
+
+  : 1秒あたり何枚
+    echo;
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% 1秒あたり枚数入力 TRUE NUM
+    rem 入力値引継ぎ
+    set rate=%return_UserInput1%
+
+  : tbn入力
+    echo;
+    echo tbn入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set tbn=%return_UserInput1%
 
   : 出力ファイル名
     echo;
@@ -51,4 +75,5 @@ echo ffmpegで再生速度調整
   :                      
   :                 (例2:
   :                      
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -vf setpts=PTS/%spdRatio% -af atempo=%spdRatio% %outPath%
+  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -vf setpts=PTS/%spdRatio% -af atempo=%spdRatio% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+  pause
