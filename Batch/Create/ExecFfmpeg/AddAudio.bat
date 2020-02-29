@@ -27,6 +27,14 @@ echo ffmpegで音声追加
     rem 入力値引継ぎ
     set audioPath=%return_UserInput1%
 
+  : コーデック
+    echo;
+    echo コーデック入力(-c:v 動画Codec -c:a 音声Codec)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set codec=%return_UserInput1:"=%
+
   : 1秒あたり何枚
     echo;
     rem ユーザ入力バッチ使用
