@@ -1,0 +1,427 @@
+
+(.*\n)(\n)*
+
+\t
+( *)<(.*)(\n)
+"(\n)
+Plugin *Id="
+" *Assembly="
+" *Class="
+" *Singleton="
+Group *Id="
+" *Interface="
+</Group> *
+
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+
+\t
+( *)<(.*)(\n)
+"(\n)
+Plugin *Id="
+" *Assembly="
+" *Class="
+" *Singleton="
+Group *Id="
+" *Interface="
+</Group> *
+
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+
+-----
+" *Interface="
+</Group> *
+
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+
+\t
+"(\n)
+" *Assembly="
+" *Singleton="
+" *Interface="
+
+
+
+
+
+
+
+/>
+\t
+"(\n)
+" *Assembly="
+" *Singleton="
+" *Interface="
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+$1
+----------
+
+( *)<(.*)(\n)
+Plugin *Id="
+" *Class="
+Group *Id="
+</Group> *
+
+
+
+
+
+
+
+/>
+( *)<(.*)(\n)
+Plugin *Id="
+" *Class="
+Group *Id="
+</Group> *
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+$1
+----------
+"(\n)
+" *Assembly="
+" *Singleton="
+" *Interface="
+</Group> *
+
+
+
+
+
+
+
+/>
+"(\n)
+" *Assembly="
+" *Singleton="
+" *Interface="
+</Group> *
+
+
+
+
+
+
+
+/>
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt-----Replace-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+-----Replace-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+-----Replace-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+-----Replace-----
+\t
+( *)&amplt(.*)(\n)
+&ampquot(\n)
+Plugin *Id=&ampquot
+&ampquot *Assembly=&ampquot
+&ampquot *Class=&ampquot
+&ampquot *Singleton=&ampquot
+Group *Id=&ampquot
+&ampquot *Interface=&ampquot
+&amplt/Group&ampgt *
+
+
+
+
+
+
+
+/&ampgt
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&lt(.*)(\n)
+&quot(\n)
+Plugin *Id=&quot
+&quot *Assembly=&quot
+&quot *Class=&quot
+&quot *Singleton=&quot
+Group *Id=&quot
+&quot *Interface=&quot
+&lt/Group&gt *
+
+
+
+
+
+
+
+/&gt
+-----Replace-----
+\t
+( *)&lt(.*)(\n)
+&quot(\n)
+Plugin *Id=&quot
+&quot *Assembly=&quot
+&quot *Class=&quot
+&quot *Singleton=&quot
+Group *Id=&quot
+&quot *Interface=&quot
+&lt/Group&gt *
+
+
+
+
+
+
+
+/&gt
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&lt;(.*)(\n)
+&quot;(\n)
+Plugin *Id=&quot;
+&quot; *Assembly=&quot;
+&quot; *Class=&quot;
+&quot; *Singleton=&quot;
+Group *Id=&quot;
+&quot; *Interface=&quot;
+&lt;/Group&gt; *
+
+
+
+
+
+
+
+/&gt;
+-----Replace-----
+\t
+( *)&lt;(.*)(\n)
+&quot;(\n)
+Plugin *Id=&quot;
+&quot; *Assembly=&quot;
+&quot; *Class=&quot;
+&quot; *Singleton=&quot;
+Group *Id=&quot;
+&quot; *Interface=&quot;
+&lt;/Group&gt; *
+
+
+
+
+
+
+
+/&gt;
+(.*\n)(\n)*
+$1
+-----Search-----
+\t
+( *)&lt;(.*)(\n)
+&quot;(\n)
+Plugin *Id=&quot;
+&quot; *Assembly=&quot;
+&quot; *Class=&quot;
+&quot; *Singleton=&quot;
+Group *Id=&quot;
+&quot; *Interface=&quot;
+&lt;/Group&gt; *
+
+
+
+
+
+
+
+
+/&gt;
+(.*\n)(\n)*
+-----Replace-----
+ 
+$3$1&lt;$2 
+&quot;
+Plugin Id=&quot;
+&quot; Assembly=&quot;
+&quot; Class=&quot;
+&quot; Singleton=&quot;
+Group Id=&quot;
+&quot; Interface=&quot;
+&lt;/Group&gt;
+
+
+
+
+
+
+
+
+ /&gt;
+$1
