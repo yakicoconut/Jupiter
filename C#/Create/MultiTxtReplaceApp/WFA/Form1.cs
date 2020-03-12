@@ -12,13 +12,18 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 
+#region メモ
+/*
+ * ※リッチテキストボックスは
+ *   改行コードを自動的に\nに変換する
+ * 
+ */
+#endregion
 namespace WFA
 {
-  /*
-   * ※リッチテキストボックスは
-   * 改行コードを自動的に\nに変換する
-   * 
-   */
+  /// <summary>
+  /// メインフォーム
+  /// </summary>
   public partial class Form1 : Form
   {
     #region コンストラクタ
@@ -38,7 +43,7 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
-    public void GetConfig()
+    private void GetConfig()
     {
       outputPatternFile = ConfigurationManager.AppSettings["OutputPatternFile"];
 
@@ -86,12 +91,25 @@ namespace WFA
     }
     #endregion
 
-    #region メンバ
 
+    #region 宣言
+
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLogic = new MCSComLogic();
+
+    //
     string outputPatternFile;
+
 
     #endregion
 
+
+    #region フォームロードイベント
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
 
     #region 置換ボタン押下イベント
     private void btReplace_Click(object sender, EventArgs e)
@@ -174,16 +192,6 @@ namespace WFA
       tbReplace18.ResetText();
       tbReplace19.ResetText();
       tbReplace20.ResetText();
-    }
-    #endregion
-
-
-
-
-    #region 雛形メソッド
-    public void template()
-    {
-
     }
     #endregion
 
@@ -403,6 +411,14 @@ namespace WFA
       {
         sw.WriteLine("-----Search-----" + outStrSearch + "\r\n-----Replace-----" + outStrReplace);
       }
+    }
+    #endregion
+
+
+    #region 雛形メソッド
+    private void template()
+    {
+
     }
     #endregion
   }
