@@ -413,12 +413,19 @@ namespace WFA
     #region コントロール値初期化メソッド
     private void InitCtrlValue()
     {
+      // 値初期化
       for (int i = 0; i < 20; i++)
       {
-        // 値初期化
-        listChkBox[i].Checked = dicInitValue["Check" + listChkBox[i].Name.Substring(listChkBox[i].Name.Length - 2, 2)].ToLower() == "true";
-        listTbSearch[i].Text = dicInitValue["Search" + listTbSearch[i].Name.Substring(listTbSearch[i].Name.Length - 2, 2)];
-        listTbReplace[i].Text = dicInitValue["Replace" + listTbReplace[i].Name.Substring(listTbReplace[i].Name.Length - 2, 2)];
+        // ディクショナリの添え字は1始まり
+        string padTwo = (i + 1).ToString().PadLeft(2, '0');
+        
+        // ディクショナリ存在確認
+        if(dicInitValue.ContainsKey("Check" + padTwo))
+          listChkBox[i].Checked = dicInitValue["Check" + padTwo].ToLower() == "true";
+        if (dicInitValue.ContainsKey("Search" + padTwo))
+          listTbSearch[i].Text = dicInitValue["Search" + padTwo];
+        if (dicInitValue.ContainsKey("Replace" + padTwo))
+          listTbReplace[i].Text = dicInitValue["Replace" + padTwo];
       }
     }
     #endregion
