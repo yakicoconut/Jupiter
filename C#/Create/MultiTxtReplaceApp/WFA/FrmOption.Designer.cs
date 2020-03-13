@@ -139,7 +139,7 @@
       this.tbCommitPath.ReadOnly = true;
       this.tbCommitPath.Size = new System.Drawing.Size(230, 15);
       this.tbCommitPath.TabIndex = 2;
-      this.tbCommitPath.Text = "testpath";
+      this.tbCommitPath.Text = "-";
       // 
       // btConfirm
       // 

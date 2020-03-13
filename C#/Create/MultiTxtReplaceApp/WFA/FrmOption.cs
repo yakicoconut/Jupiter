@@ -20,9 +20,6 @@ namespace WFA
 
       // 親フォーム設定
       form1 = fm1;
-
-      // タイトル設定
-      this.Text = "Option";
     }
     #endregion
 
@@ -38,7 +35,19 @@ namespace WFA
     #region フォームロードイベント
     private void Form2_Load(object sender, EventArgs e)
     {
-      this.Text = "Option";
+      this.Text = "パターン管理";
+
+      // 検索対象パス設定
+      tbSearchPath.Text = form1.PtDirName; 
+      // 検索対象が存在する場合
+      if (Directory.Exists(tbSearchPath.Text))
+      {
+        // コミットパスに設定
+        tbCommitPath.Text = tbSearchPath.Text;
+
+        // ファイルリストフォーム初期化メソッド使用
+        InitFileListForm(tbCommitPath.Text);
+      }
     }
     #endregion
 

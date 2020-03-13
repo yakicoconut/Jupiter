@@ -58,8 +58,8 @@ namespace WFA
     #region コンフィグ取得メソッド
     private void GetConfig()
     {
-      // 出力パターンファイルパス
-      outputPatternFile = _comLogic.GetConfigValue("OutputPatternFile", "Pattern.txt");
+      // パターンXMLフォルダ名称初期値
+      PtDirName = _comLogic.GetConfigValue("DefPtFileDirName", "Pattern");
 
       // 検索対象初期値
       for (int i = 1; i <= 20; i++)
@@ -81,8 +81,6 @@ namespace WFA
     // オプションフォーム
     FrmOption fmOption;
 
-    // 出力パターンファイル初期値パス
-    string outputPatternFile;
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
 
@@ -92,6 +90,16 @@ namespace WFA
     List<TextBox> listTbSearch = new List<TextBox>();
     // 置換文字列テキストボックスリスト
     List<TextBox> listTbReplace = new List<TextBox>();
+
+    #endregion
+
+
+    #region プロパティ
+
+    // パターンXMLフォルダ名称
+    public string PtDirName { get; set; }
+    // 入力パターンXMLファイルパス
+    public string InpPtFilePath { get; set; }
 
     #endregion
 
@@ -387,6 +395,7 @@ namespace WFA
     }
     #endregion
 
+
     #region パターンXML読み込みメソッド
     private void ReadPatternFile(string targetPath)
     {
@@ -444,7 +453,7 @@ namespace WFA
       // 現在時刻取得
       DateTime now = DateTime.Now;
       string outputDate = now.ToString("yyyyMMddHHmmssfff");
-      string outputFileName = Path.GetFileNameWithoutExtension(outputPatternFile) + "_" + outputDate + Path.GetExtension(outputPatternFile);
+      string outputFileName = Path.GetFileNameWithoutExtension("Pattern") + "_" + outputDate + Path.GetExtension("Pattern.xml");
 
       // 出力用変数
       string outStrChk = string.Empty;
