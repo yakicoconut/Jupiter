@@ -50,8 +50,9 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      // パターン管理フォームインスタンス生成
+      // サブフォームインスタンス生成
       fmPtMng = new FrmPtMng(this);
+      fmComment = new FrmPtComment(this);
     }
     #endregion
 
@@ -62,6 +63,7 @@ namespace WFA
       PtDirName = _comLogic.GetConfigValue("DefPtFileDirName", "Pattern");
 
       // 検索対象初期値
+      dicInitValue.Add("Comment", _comLogic.GetConfigValue("Comment", ""));
       for (int i = 1; i <= 20; i++)
       {
         // 1~20を二桁で作成
@@ -80,6 +82,8 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
     // パターン管理フォーム
     FrmPtMng fmPtMng;
+    // コメントフォーム
+    FrmPtComment fmComment;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
@@ -191,6 +195,13 @@ namespace WFA
 
       // コントロール値初期化メソッド使用
       InitCtrlValue();
+
+      // コメントフォームのプロパティに本クラスを設定
+      fmComment.form1 = this;
+      // 常にメインフォームの手前に表示
+      fmComment.Owner = this;
+      // コメントフォーム表示
+      fmComment.Show();
     }
     #endregion
 
@@ -398,7 +409,11 @@ namespace WFA
     #region コントロール値初期化メソッド
     private void InitCtrlValue()
     {
-      // 値初期化
+      // コメント
+      if (dicInitValue.ContainsKey("Comment"))
+        fmComment.tbComment.Text = dicInitValue["Comment"];
+
+      // 各コントロール値初期化
       for (int i = 0; i < 20; i++)
       {
         // ディクショナリの添え字は1始まり
@@ -451,7 +466,7 @@ namespace WFA
           xmlReader.MoveToFirstAttribute();
           string keyName = xmlReader.Value;
           // ねずみ返し_キーの値が違う場合
-          if (!Regex.Match(keyName, @"Check\d\d|Search\d\d|Replace\d\d").Success)
+          if (!Regex.Match(keyName, @"Comment|Check\d\d|Search\d\d|Replace\d\d").Success)
           {
             continue;
           }
@@ -476,9 +491,11 @@ namespace WFA
       string outputFileName = outPtDirPath + @"\" + outPtFileName + "_" + outputDate + ".xml";
 
       // 出力用変数
+      string outStrComment = string.Empty;
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
+      string commentFormat = "  <add key=\"Comment\" value=\"{0}\"/>";
       string chkFormat = "  <add key=\"Check{0}\" value=\"{1}\"/>";
       string searchFormat = "  <add key=\"Search{0}\" value=\"{1}\"/>";
       string replaceFormat = "  <add key=\"Replace{0}\" value=\"{1}\"/>";
@@ -486,6 +503,17 @@ namespace WFA
       string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
       string xmlRootStart = "<Root>";
       string xmlRootEnd = "</Root>";
+
+      // コメントフォームのコメントテキストボックスから文字列取得
+      outStrComment = fmComment.tbComment.Text;
+      // XML用文字に変換
+      outStrComment = Regex.Replace(outStrComment, "&", "&amp;");
+      outStrComment = Regex.Replace(outStrComment, "\"", "&quot;");
+      outStrComment = Regex.Replace(outStrComment, "'", "&apos;");
+      outStrComment = Regex.Replace(outStrComment, "<", "&lt;");
+      outStrComment = Regex.Replace(outStrComment, ">", "&gt;");
+      outStrComment = Regex.Replace(outStrComment, "\r\n", "&#xD;&#xA;");
+      outStrComment = string.Format(commentFormat, outStrComment);
 
       // 全チェックボックスループ
       int i = 0;
@@ -520,7 +548,15 @@ namespace WFA
       // 引数:対象ファイル、上書き可不可、文字コード
       using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
       {
-        sw.WriteLine(xmlDec + Environment.NewLine + xmlRootStart + Environment.NewLine + outStrChk + outStrSearch + outStrReplace + xmlRootEnd);
+        sw.WriteLine(
+          xmlDec + Environment.NewLine +
+          xmlRootStart + Environment.NewLine +
+          outStrComment + Environment.NewLine +
+          outStrChk +
+          outStrSearch +
+          outStrReplace +
+          xmlRootEnd
+          );
       }
     }
     #endregion

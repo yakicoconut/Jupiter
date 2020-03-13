@@ -71,4 +71,8 @@ E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmOption.r
 >>>>>>> 4803742... C#_MultiTxtReplaceApp_修正_パターン管理フォーム追加
 =======
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.resources
+<<<<<<< HEAD
 >>>>>>> ed0fea9... C#_MultiTxtReplaceApp_修正_パターン管理フォームソースファイル名変更
+=======
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtComment.resources
+>>>>>>> dd46819... C#_MultiTxtReplaceApp_修正_コメントフォーム対応
