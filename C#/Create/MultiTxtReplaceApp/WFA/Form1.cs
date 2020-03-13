@@ -230,36 +230,48 @@ namespace WFA
     #region パターン保存ボタン押下イベント
     private void btPatternSave_Click(object sender, EventArgs e)
     {
+      // 現在時刻取得
+      DateTime now = DateTime.Now;
+      string outputDate = now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+
+      // 出力用変数
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
+      string searchFormat = "<add key=\"Search{0}\" value=\"{1}\"/>";
+      string replaceFormat = "<add key=\"Replace{0}\" value=\"{1}\"/>";
 
       // 全チェックボックスループ
       int i = 0;
       foreach (CheckBox x in listchkBox)
       {
-        // 全行格納
-        outStrSearch += "\r\n" + listTbSearch[i].Text;
-        outStrReplace += "\r\n" + listTbReplace[i].Text;
-        i += 1;
-      }
+        string searchStr = listTbSearch[i].Text;
+        string replaceStr = listTbReplace[i].Text;
 
-      // XML用文字に変換
-      outStrSearch = Regex.Replace(outStrSearch, "&", "&amp;");
-      outStrSearch = Regex.Replace(outStrSearch, "\"", "&quot;");
-      outStrSearch = Regex.Replace(outStrSearch, "'", "&apos;");
-      outStrSearch = Regex.Replace(outStrSearch, "<", "&lt;");
-      outStrSearch = Regex.Replace(outStrSearch, ">", "&gt;");
-      outStrReplace = Regex.Replace(outStrReplace, "&", "&amp;");
-      outStrReplace = Regex.Replace(outStrReplace, "\"", "&quot;");
-      outStrReplace = Regex.Replace(outStrReplace, "'", "&apos;");
-      outStrReplace = Regex.Replace(outStrReplace, "<", "&lt;");
-      outStrReplace = Regex.Replace(outStrReplace, ">", "&gt;");
+        // XML用文字に変換
+        searchStr = Regex.Replace(searchStr, "&", "&amp;");
+        searchStr = Regex.Replace(searchStr, "\"", "&quot;");
+        searchStr = Regex.Replace(searchStr, "'", "&apos;");
+        searchStr = Regex.Replace(searchStr, "<", "&lt;");
+        searchStr = Regex.Replace(searchStr, ">", "&gt;");
+        replaceStr = Regex.Replace(replaceStr, "&", "&amp;");
+        replaceStr = Regex.Replace(replaceStr, "\"", "&quot;");
+        replaceStr = Regex.Replace(replaceStr, "'", "&apos;");
+        replaceStr = Regex.Replace(replaceStr, "<", "&lt;");
+        replaceStr = Regex.Replace(replaceStr, ">", "&gt;");
+
+        // コンフィグの番号は1始まりのためここでインクリメント
+        i += 1;
+
+        // 変数格納
+        outStrSearch += string.Format(searchFormat, i.ToString().PadLeft(2, '0'), searchStr) + Environment.NewLine;
+        outStrReplace += string.Format(replaceFormat, i.ToString().PadLeft(2, '0'), replaceStr) + Environment.NewLine;
+      }
 
       // 出力ファイルの作成
       // 引数:対象ファイル、上書き可不可、文字コード
       using (StreamWriter sw = new StreamWriter(outputPatternFile, true, Encoding.GetEncoding("shift_jis")))
       {
-        sw.WriteLine("-----Search-----" + outStrSearch + "\r\n-----Replace-----" + outStrReplace);
+        sw.WriteLine("-----" + outputDate + "-----" + Environment.NewLine + outStrSearch + outStrReplace);
       }
     }
     #endregion
