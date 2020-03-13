@@ -201,88 +201,6 @@ namespace WFA
     }
     #endregion
 
-
-    #region 検索対象全削除ボタン押下イベント
-    private void btAllCrearSearch_Click(object sender, EventArgs e)
-    {
-      // 検索対象ボックス全削除
-      foreach (TextBox x in listTbSearch)
-      {
-        x.ResetText();
-      }
-    }
-    #endregion
-
-    #region 置換文字列全削除ボタン押下イベント
-    private void btAllCrearReplace_Click(object sender, EventArgs e)
-    {
-      // 置換文字列ボックス全削除
-      foreach (TextBox x in listTbReplace)
-      {
-        x.ResetText();
-      }
-    }
-    #endregion
-
-
-    #region パターンパネルスクロールイベント
-    private void splcSearchReplace_Scroll(object sender, ScrollEventArgs e)
-    {
-      // 最上位へのスクロール時
-      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
-      {
-        // パネル1のスクロールを完全に0にするためスクロールバーを一時的に表示
-        splcSearchReplace.Panel1.VerticalScroll.Visible = true;
-      }
-
-      // 置換文字列パネルのスクロール値を検索文字列パネルのスクロール値に合わせる
-      splcSearchReplace.Panel1.VerticalScroll.Value = splcSearchReplace.Panel2.VerticalScroll.Value;
-
-      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
-      {
-        // スクロールバー表示を戻す
-        splcSearchReplace.Panel1.VerticalScroll.Visible = false;
-        splcSearchReplace.Panel1.AutoScroll = false;
-      }
-    }
-    #endregion
-
-
-    #region テキストボックスキーダウンイベント
-    private void tb_KeyDown(object sender, KeyEventArgs e)
-    {
-      // Ctrl+Aキーの場合
-      if (e.Control && e.KeyCode == Keys.A)
-      {
-        // イベント発生元のテキストボックスの内容を全選択する
-        TextBox ctrl = (TextBox)sender;
-        ctrl.SelectAll();
-      }
-    }
-    #endregion
-
-
-    #region 全選択チェックボックス押下イベント
-    private void cbAllCheck_CheckedChanged(object sender, EventArgs e)
-    {
-      bool chk = false;
-
-      // 全選択チェックボックスがチェックの場合
-      if (cbAllCheck.Checked)
-      {
-        // 全チェック設定
-        chk = true;
-      }
-
-      // 全チェックボックスループ
-      foreach (CheckBox x in listchkBox)
-      {
-        x.Checked = chk;
-      }
-    }
-    #endregion
-
-
     #region パターン保存ボタン押下イベント
     private void btPatternSave_Click(object sender, EventArgs e)
     {
@@ -321,6 +239,84 @@ namespace WFA
     #endregion
 
 
+    #region 全選択チェックボックス押下イベント
+    private void cbAllCheck_CheckedChanged(object sender, EventArgs e)
+    {
+      bool chk = false;
+
+      // 全選択チェックボックスがチェックの場合
+      if (cbAllCheck.Checked)
+      {
+        // 全チェック設定
+        chk = true;
+      }
+
+      // 全チェックボックスループ
+      foreach (CheckBox x in listchkBox)
+      {
+        x.Checked = chk;
+      }
+    }
+    #endregion
+
+    #region 検索対象全削除ボタン押下イベント
+    private void btAllCrearSearch_Click(object sender, EventArgs e)
+    {
+      // 検索対象ボックス全削除
+      foreach (TextBox x in listTbSearch)
+      {
+        x.ResetText();
+      }
+    }
+    #endregion
+
+    #region 置換文字列全削除ボタン押下イベント
+    private void btAllCrearReplace_Click(object sender, EventArgs e)
+    {
+      // 置換文字列ボックス全削除
+      foreach (TextBox x in listTbReplace)
+      {
+        x.ResetText();
+      }
+    }
+    #endregion
+
+
+    #region テキストボックスキーダウンイベント
+    private void tb_KeyDown(object sender, KeyEventArgs e)
+    {
+      // Ctrl+Aキーの場合
+      if (e.Control && e.KeyCode == Keys.A)
+      {
+        // イベント発生元のテキストボックスの内容を全選択する
+        TextBox ctrl = (TextBox)sender;
+        ctrl.SelectAll();
+      }
+    }
+    #endregion
+
+    #region パターンパネルスクロールイベント
+    private void splcSearchReplace_Scroll(object sender, ScrollEventArgs e)
+    {
+      // 最上位へのスクロール時
+      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
+      {
+        // パネル1のスクロールを完全に0にするためスクロールバーを一時的に表示
+        splcSearchReplace.Panel1.VerticalScroll.Visible = true;
+      }
+
+      // 置換文字列パネルのスクロール値を検索文字列パネルのスクロール値に合わせる
+      splcSearchReplace.Panel1.VerticalScroll.Value = splcSearchReplace.Panel2.VerticalScroll.Value;
+
+      if (splcSearchReplace.Panel2.VerticalScroll.Value == 0)
+      {
+        // スクロールバー表示を戻す
+        splcSearchReplace.Panel1.VerticalScroll.Visible = false;
+        splcSearchReplace.Panel1.AutoScroll = false;
+      }
+    }
+    #endregion
+        
     #region スプリットパネル上下変更イベント
     private void splcPatternResult_SplitterMoved(object sender, SplitterEventArgs e)
     {
