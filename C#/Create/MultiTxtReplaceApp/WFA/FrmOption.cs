@@ -80,6 +80,12 @@ namespace WFA
     #region 開くボタン押下イベント
     private void btOpen_Click(object sender, EventArgs e)
     {
+      // ねずみ返し_対象フォルダが存在しない場合
+      if (!Directory.Exists(tbCommitPath.Text))
+      {
+        return;
+      }
+
       // 対象フォルダを開く
       Process.Start(tbCommitPath.Text);
     }

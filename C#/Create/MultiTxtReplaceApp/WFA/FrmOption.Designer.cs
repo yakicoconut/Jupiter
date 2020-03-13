@@ -96,7 +96,7 @@
       // 
       // btOpen
       // 
-      this.btOpen.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+      this.btOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.btOpen.Location = new System.Drawing.Point(237, 33);
       this.btOpen.Name = "btOpen";
       this.btOpen.Size = new System.Drawing.Size(43, 23);
