@@ -77,6 +77,7 @@ E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.re
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtComment.resources
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dd46819... C#_MultiTxtReplaceApp_修正_コメントフォーム対応
 =======
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.CoreCompileInputs.cache
@@ -84,3 +85,18 @@ E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.Copy
 >>>>>>> 77bbb30... C#_MultiTxtReplaceApp_修正_変換後改行対応
 =======
 >>>>>>> ddca81a... C#_MultiTxtReplaceApp_修正_サブフォームのアイコンをタスクバーに表示しない
+=======
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.exe.config
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.exe
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.pdb
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.exe
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.pdb
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.dll
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.xml
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Form1.resources
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtComment.resources
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.resources
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+>>>>>>> 24e6704... C#_MultiTxtReplaceApp_修正

@@ -1,0 +1,16 @@
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\WFA.pdb
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\FastTxtDiff.dll
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\FastTxtDiff.xml
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.Form1.resources
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.FrmPtComment.resources
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.FrmPtMng.resources
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.Properties.Resources.resources
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.exe
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.pdb
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Release\WFA.exe.config
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.exe
+D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Release\WFA.pdb
