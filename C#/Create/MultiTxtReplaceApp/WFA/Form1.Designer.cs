@@ -224,8 +224,9 @@
       this.cbAllCheck.CheckState = System.Windows.Forms.CheckState.Checked;
       this.cbAllCheck.Location = new System.Drawing.Point(12, 5);
       this.cbAllCheck.Name = "cbAllCheck";
-      this.cbAllCheck.Size = new System.Drawing.Size(15, 14);
+      this.cbAllCheck.Size = new System.Drawing.Size(36, 16);
       this.cbAllCheck.TabIndex = 44;
+      this.cbAllCheck.Text = "全";
       this.cbAllCheck.UseVisualStyleBackColor = true;
       this.cbAllCheck.CheckedChanged += new System.EventHandler(this.cbAllCheck_CheckedChanged);
       // 
@@ -676,7 +677,7 @@
       this.tbReplace20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace20.Location = new System.Drawing.Point(3, 442);
       this.tbReplace20.Name = "tbReplace20";
-      this.tbReplace20.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace20.Size = new System.Drawing.Size(182, 19);
       this.tbReplace20.TabIndex = 19;
       // 
       // btAllCrearReplace
@@ -696,7 +697,7 @@
       this.tbReplace19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace19.Location = new System.Drawing.Point(3, 420);
       this.tbReplace19.Name = "tbReplace19";
-      this.tbReplace19.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace19.Size = new System.Drawing.Size(182, 19);
       this.tbReplace19.TabIndex = 18;
       // 
       // tbReplace18
@@ -706,7 +707,7 @@
       this.tbReplace18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace18.Location = new System.Drawing.Point(3, 398);
       this.tbReplace18.Name = "tbReplace18";
-      this.tbReplace18.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace18.Size = new System.Drawing.Size(182, 19);
       this.tbReplace18.TabIndex = 17;
       // 
       // tbReplace17
@@ -715,7 +716,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace17.Location = new System.Drawing.Point(3, 376);
       this.tbReplace17.Name = "tbReplace17";
-      this.tbReplace17.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace17.Size = new System.Drawing.Size(182, 19);
       this.tbReplace17.TabIndex = 16;
       // 
       // tbReplace16
@@ -725,7 +726,7 @@
       this.tbReplace16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace16.Location = new System.Drawing.Point(3, 354);
       this.tbReplace16.Name = "tbReplace16";
-      this.tbReplace16.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace16.Size = new System.Drawing.Size(182, 19);
       this.tbReplace16.TabIndex = 15;
       // 
       // tbReplace15
@@ -734,7 +735,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace15.Location = new System.Drawing.Point(3, 332);
       this.tbReplace15.Name = "tbReplace15";
-      this.tbReplace15.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace15.Size = new System.Drawing.Size(182, 19);
       this.tbReplace15.TabIndex = 14;
       // 
       // tbReplace14
@@ -744,7 +745,7 @@
       this.tbReplace14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace14.Location = new System.Drawing.Point(3, 310);
       this.tbReplace14.Name = "tbReplace14";
-      this.tbReplace14.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace14.Size = new System.Drawing.Size(182, 19);
       this.tbReplace14.TabIndex = 13;
       // 
       // tbReplace13
@@ -753,7 +754,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace13.Location = new System.Drawing.Point(3, 288);
       this.tbReplace13.Name = "tbReplace13";
-      this.tbReplace13.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace13.Size = new System.Drawing.Size(182, 19);
       this.tbReplace13.TabIndex = 12;
       // 
       // tbReplace12
@@ -763,7 +764,7 @@
       this.tbReplace12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace12.Location = new System.Drawing.Point(3, 266);
       this.tbReplace12.Name = "tbReplace12";
-      this.tbReplace12.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace12.Size = new System.Drawing.Size(182, 19);
       this.tbReplace12.TabIndex = 11;
       // 
       // tbReplace11
@@ -772,7 +773,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace11.Location = new System.Drawing.Point(3, 244);
       this.tbReplace11.Name = "tbReplace11";
-      this.tbReplace11.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace11.Size = new System.Drawing.Size(182, 19);
       this.tbReplace11.TabIndex = 10;
       // 
       // tbReplace10
@@ -782,7 +783,7 @@
       this.tbReplace10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace10.Location = new System.Drawing.Point(3, 222);
       this.tbReplace10.Name = "tbReplace10";
-      this.tbReplace10.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace10.Size = new System.Drawing.Size(182, 19);
       this.tbReplace10.TabIndex = 9;
       // 
       // tbReplace09
@@ -791,7 +792,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace09.Location = new System.Drawing.Point(3, 200);
       this.tbReplace09.Name = "tbReplace09";
-      this.tbReplace09.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace09.Size = new System.Drawing.Size(182, 19);
       this.tbReplace09.TabIndex = 8;
       // 
       // tbReplace08
@@ -801,7 +802,7 @@
       this.tbReplace08.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace08.Location = new System.Drawing.Point(3, 178);
       this.tbReplace08.Name = "tbReplace08";
-      this.tbReplace08.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace08.Size = new System.Drawing.Size(182, 19);
       this.tbReplace08.TabIndex = 7;
       // 
       // tbReplace07
@@ -810,7 +811,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace07.Location = new System.Drawing.Point(3, 156);
       this.tbReplace07.Name = "tbReplace07";
-      this.tbReplace07.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace07.Size = new System.Drawing.Size(182, 19);
       this.tbReplace07.TabIndex = 6;
       // 
       // tbReplace06
@@ -820,7 +821,7 @@
       this.tbReplace06.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace06.Location = new System.Drawing.Point(3, 134);
       this.tbReplace06.Name = "tbReplace06";
-      this.tbReplace06.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace06.Size = new System.Drawing.Size(182, 19);
       this.tbReplace06.TabIndex = 5;
       // 
       // tbReplace05
@@ -829,7 +830,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace05.Location = new System.Drawing.Point(3, 112);
       this.tbReplace05.Name = "tbReplace05";
-      this.tbReplace05.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace05.Size = new System.Drawing.Size(182, 19);
       this.tbReplace05.TabIndex = 4;
       // 
       // tbReplace04
@@ -839,7 +840,7 @@
       this.tbReplace04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace04.Location = new System.Drawing.Point(3, 90);
       this.tbReplace04.Name = "tbReplace04";
-      this.tbReplace04.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace04.Size = new System.Drawing.Size(182, 19);
       this.tbReplace04.TabIndex = 3;
       // 
       // tbReplace03
@@ -848,7 +849,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace03.Location = new System.Drawing.Point(3, 68);
       this.tbReplace03.Name = "tbReplace03";
-      this.tbReplace03.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace03.Size = new System.Drawing.Size(182, 19);
       this.tbReplace03.TabIndex = 2;
       // 
       // tbReplace02
@@ -858,7 +859,7 @@
       this.tbReplace02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace02.Location = new System.Drawing.Point(3, 45);
       this.tbReplace02.Name = "tbReplace02";
-      this.tbReplace02.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace02.Size = new System.Drawing.Size(182, 19);
       this.tbReplace02.TabIndex = 1;
       // 
       // tbReplace01
@@ -867,7 +868,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace01.Location = new System.Drawing.Point(3, 23);
       this.tbReplace01.Name = "tbReplace01";
-      this.tbReplace01.Size = new System.Drawing.Size(205, 19);
+      this.tbReplace01.Size = new System.Drawing.Size(182, 19);
       this.tbReplace01.TabIndex = 0;
       // 
       // splcTargetResult
@@ -885,7 +886,7 @@
       // splcTargetResult.Panel2
       // 
       this.splcTargetResult.Panel2.Controls.Add(this.rtbResult);
-      this.splcTargetResult.Size = new System.Drawing.Size(705, 263);
+      this.splcTargetResult.Size = new System.Drawing.Size(705, 252);
       this.splcTargetResult.SplitterDistance = 322;
       this.splcTargetResult.SplitterWidth = 20;
       this.splcTargetResult.TabIndex = 0;
@@ -897,7 +898,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.rtbTarget.Location = new System.Drawing.Point(0, 0);
       this.rtbTarget.Name = "rtbTarget";
-      this.rtbTarget.Size = new System.Drawing.Size(319, 260);
+      this.rtbTarget.Size = new System.Drawing.Size(319, 249);
       this.rtbTarget.TabIndex = 0;
       this.rtbTarget.Text = "";
       this.rtbTarget.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbTarget_KeyDown);
@@ -909,7 +910,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.rtbResult.Location = new System.Drawing.Point(3, 0);
       this.rtbResult.Name = "rtbResult";
-      this.rtbResult.Size = new System.Drawing.Size(309, 257);
+      this.rtbResult.Size = new System.Drawing.Size(293, 246);
       this.rtbResult.TabIndex = 0;
       this.rtbResult.Text = "";
       // 

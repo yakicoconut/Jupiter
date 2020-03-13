@@ -64,6 +64,7 @@ namespace WFA
         string padTwo = i.ToString().PadLeft(2, '0');
         dicConfigSearch.Add("Search" + padTwo, _comLogic.GetConfigValue("Search" + padTwo, ""));
         dicConfigReplace.Add("Replace" + padTwo, _comLogic.GetConfigValue("Replace" + padTwo, ""));
+        dicConfigCheck.Add("Check" + padTwo, _comLogic.GetConfigValue("Check" + padTwo, "false") == "true");
       }
     }
     #endregion
@@ -77,17 +78,19 @@ namespace WFA
     // 出力パターンファイルパス
     string outputPatternFile;
 
+    // チェックボックスリスト
+    List<CheckBox> listChkBox = new List<CheckBox>();
     // 検索対象テキストボックスリスト
     List<TextBox> listTbSearch = new List<TextBox>();
     // 置換文字列テキストボックスリスト
     List<TextBox> listTbReplace = new List<TextBox>();
-    // チェックボックスリスト
-    List<CheckBox> listchkBox = new List<CheckBox>();
 
     // 検索対象テキストボックス初期値ディクショナリ
     Dictionary<string, string> dicConfigSearch = new Dictionary<string, string>();
     // 置換文字列テキストボックス初期値ディクショナリ
     Dictionary<string, string> dicConfigReplace = new Dictionary<string, string>();
+    // チェックボックス初期値ディクショナリ
+    Dictionary<string, bool> dicConfigCheck = new Dictionary<string, bool>();
 
     #endregion
 
@@ -97,6 +100,26 @@ namespace WFA
     {
       #region リストにコントロール格納
 
+      listChkBox.Add(cb01);
+      listChkBox.Add(cb02);
+      listChkBox.Add(cb03);
+      listChkBox.Add(cb04);
+      listChkBox.Add(cb05);
+      listChkBox.Add(cb06);
+      listChkBox.Add(cb07);
+      listChkBox.Add(cb08);
+      listChkBox.Add(cb09);
+      listChkBox.Add(cb10);
+      listChkBox.Add(cb11);
+      listChkBox.Add(cb12);
+      listChkBox.Add(cb13);
+      listChkBox.Add(cb14);
+      listChkBox.Add(cb15);
+      listChkBox.Add(cb16);
+      listChkBox.Add(cb17);
+      listChkBox.Add(cb18);
+      listChkBox.Add(cb19);
+      listChkBox.Add(cb20);
       listTbSearch.Add(tbSearch01);
       listTbSearch.Add(tbSearch02);
       listTbSearch.Add(tbSearch03);
@@ -137,41 +160,25 @@ namespace WFA
       listTbReplace.Add(tbReplace18);
       listTbReplace.Add(tbReplace19);
       listTbReplace.Add(tbReplace20);
-      listchkBox.Add(cb01);
-      listchkBox.Add(cb02);
-      listchkBox.Add(cb03);
-      listchkBox.Add(cb04);
-      listchkBox.Add(cb05);
-      listchkBox.Add(cb06);
-      listchkBox.Add(cb07);
-      listchkBox.Add(cb08);
-      listchkBox.Add(cb09);
-      listchkBox.Add(cb10);
-      listchkBox.Add(cb11);
-      listchkBox.Add(cb12);
-      listchkBox.Add(cb13);
-      listchkBox.Add(cb14);
-      listchkBox.Add(cb15);
-      listchkBox.Add(cb16);
-      listchkBox.Add(cb17);
-      listchkBox.Add(cb18);
-      listchkBox.Add(cb19);
-      listchkBox.Add(cb20);
 
       #endregion
 
 
+      // チェックボックス設定
+      foreach (CheckBox x in listChkBox)
+      {
+        // チェックボックス初期値リスト
+        x.Checked = dicConfigCheck["Check" + x.Name.Substring(x.Name.Length - 2, 2)];
+      }
       // 検索対象テキストボックス設定
       foreach (TextBox x in listTbSearch)
       {
-        // 検索対象テキストボックス初期値リスト
         x.Text = dicConfigSearch["Search" + x.Name.Substring(x.Name.Length - 2, 2)];
       }
       // 置換文字列テキストボックス設定
       foreach (TextBox x in listTbReplace)
       {
         x.Text = dicConfigReplace["Replace" + x.Name.Substring(x.Name.Length - 2, 2)];
-
         // SplitContainer内のコントロールのサイズ位置を無理やり変更
         x.Size = new Size(402, 19);
       }
@@ -197,7 +204,7 @@ namespace WFA
       string resultStr = target.Text;
 
       int i = 0;
-      foreach (CheckBox x in listchkBox)
+      foreach (CheckBox x in listChkBox)
       {
         // ねずみ返し_チェックが付いていない場合
         if (!x.Checked)
@@ -265,15 +272,18 @@ namespace WFA
       string outputDate = now.ToString("yyyy/MM/dd HH:mm:ss.fff");
 
       // 出力用変数
+      string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
+      string chkFormat = "<add key=\"Check{0}\" value=\"{1}\"/>";
       string searchFormat = "<add key=\"Search{0}\" value=\"{1}\"/>";
       string replaceFormat = "<add key=\"Replace{0}\" value=\"{1}\"/>";
 
       // 全チェックボックスループ
       int i = 0;
-      foreach (CheckBox x in listchkBox)
+      foreach (CheckBox x in listChkBox)
       {
+        string chkStr = listChkBox[i].Checked.ToString();
         string searchStr = listTbSearch[i].Text;
         string replaceStr = listTbReplace[i].Text;
 
@@ -293,6 +303,7 @@ namespace WFA
         i += 1;
 
         // 変数格納
+        outStrChk += string.Format(chkFormat, i.ToString().PadLeft(2, '0'), chkStr) + Environment.NewLine;
         outStrSearch += string.Format(searchFormat, i.ToString().PadLeft(2, '0'), searchStr) + Environment.NewLine;
         outStrReplace += string.Format(replaceFormat, i.ToString().PadLeft(2, '0'), replaceStr) + Environment.NewLine;
       }
@@ -301,7 +312,7 @@ namespace WFA
       // 引数:対象ファイル、上書き可不可、文字コード
       using (StreamWriter sw = new StreamWriter(outputPatternFile, true, Encoding.GetEncoding("shift_jis")))
       {
-        sw.WriteLine("-----" + outputDate + "-----" + Environment.NewLine + outStrSearch + outStrReplace);
+        sw.WriteLine("-----" + outputDate + "-----" + Environment.NewLine + outStrChk + outStrSearch + outStrReplace);
       }
     }
     #endregion
@@ -329,7 +340,7 @@ namespace WFA
       }
 
       // 全チェックボックスループ
-      foreach (CheckBox x in listchkBox)
+      foreach (CheckBox x in listChkBox)
       {
         x.Checked = chk;
       }
