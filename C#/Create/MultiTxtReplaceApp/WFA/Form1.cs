@@ -329,19 +329,6 @@ namespace WFA
     #endregion
 
 
-    #region テキストボックスキーダウンイベント
-    private void tb_KeyDown(object sender, KeyEventArgs e)
-    {
-      // Ctrl+Aキーの場合
-      if (e.Control && e.KeyCode == Keys.A)
-      {
-        // イベント発生元のテキストボックスの内容を全選択する
-        TextBox ctrl = (TextBox)sender;
-        ctrl.SelectAll();
-      }
-    }
-    #endregion
-
     #region パターンパネルスクロールイベント
     private void splcSearchReplace_Scroll(object sender, ScrollEventArgs e)
     {
