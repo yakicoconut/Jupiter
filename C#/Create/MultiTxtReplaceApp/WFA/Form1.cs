@@ -254,6 +254,12 @@ namespace WFA
 
         /* 置換え */
         resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text);
+        // 改行チェック
+        if(cbNewLine.Checked)
+        {
+          // 「\n」を改行とする
+          resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
+        }
 
         i += 1;
       }
