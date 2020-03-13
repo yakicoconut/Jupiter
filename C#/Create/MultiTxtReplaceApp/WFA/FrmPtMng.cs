@@ -11,10 +11,10 @@ using System.Diagnostics;
 
 namespace WFA
 {
-  public partial class FrmOption : Form
+  public partial class FrmPtMng : Form
   {
     #region コンストラクタ
-    public FrmOption(Form1 fm1)
+    public FrmPtMng(Form1 fm1)
     {
       InitializeComponent();
 

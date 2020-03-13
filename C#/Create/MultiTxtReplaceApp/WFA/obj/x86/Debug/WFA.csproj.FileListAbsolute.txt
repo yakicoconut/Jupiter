@@ -64,7 +64,11 @@ E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.Gene
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.dll
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.xml
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 3741f4e... C#_MultiTxtReplaceApp_修正
 =======
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmOption.resources
 >>>>>>> 4803742... C#_MultiTxtReplaceApp_修正_パターン管理フォーム追加
+=======
+E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.resources
+>>>>>>> ed0fea9... C#_MultiTxtReplaceApp_修正_パターン管理フォームソースファイル名変更

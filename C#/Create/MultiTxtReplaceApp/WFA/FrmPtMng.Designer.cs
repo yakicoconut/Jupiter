@@ -1,6 +1,6 @@
 ﻿namespace WFA
 {
-  partial class FrmOption
+  partial class FrmPtMng
   {
     /// <summary>
     /// Required designer variable.

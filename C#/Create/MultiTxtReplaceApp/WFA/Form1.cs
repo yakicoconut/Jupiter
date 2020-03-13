@@ -51,7 +51,7 @@ namespace WFA
       GetConfig();
 
       // オプションフォームインスタンス生成
-      fmOption = new FrmOption(this);
+      fmOption = new FrmPtMng(this);
     }
     #endregion
 
@@ -79,7 +79,7 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
     // オプションフォーム
-    FrmOption fmOption;
+    FrmPtMng fmOption;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
