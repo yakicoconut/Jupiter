@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace WFA
 {
@@ -38,7 +40,7 @@ namespace WFA
       this.Text = "パターン管理";
 
       // 検索対象パス設定
-      tbSearchPath.Text = form1.PtDirName; 
+      tbSearchPath.Text = form1.PtDirName;
       // 検索対象が存在する場合
       if (Directory.Exists(tbSearchPath.Text))
       {
@@ -116,6 +118,69 @@ namespace WFA
     #endregion
 
 
+    #region リストビュー選択変更イベント
+    private void lvFileList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      // ねずみ返し_選択行が0以下の場合
+      if (lvFileList.SelectedItems.Count <= 0)
+      {
+        // 選択変更時に選択が外れてもイベントが発生するため
+        return;
+      }
+
+      /* StringReader設定 */
+      XmlReaderSettings setting = new XmlReaderSettings();
+      // コメントを無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreComments = false;
+      // 処理命令(スタイルシートの宣言等)を無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreProcessingInstructions = false;
+      // 意味のない空白を無視するかどうか
+      setting.IgnoreWhitespace = true;
+
+      // コメントボックス更新用変数
+      string cmment = string.Empty;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml"), setting))
+      {
+        // ルートタグへ移動
+        bool root = xmlReader.ReadToFollowing("Root");
+        // ねずみ返し_対象タグが存在しない場合
+        if (!root)
+        {
+          return;
+        }
+
+        // 「add」タグを巡回
+        while (xmlReader.Read())
+        {
+          // 最初の属性「Key」へ
+          xmlReader.MoveToFirstAttribute();
+          string keyName = xmlReader.Value;
+
+          // キーの値がコメントの場合
+          if (Regex.Match(keyName, @"Comment").Success)
+          {
+            // 二番目の属性「value」へ
+            xmlReader.MoveToNextAttribute();
+
+            // コメントボックスに設定
+            cmment = xmlReader.Value;
+
+            break;
+          }
+
+          continue;
+        }
+      }
+
+      // コメントボックスに設定
+      tbPtCommentPreview.Text = cmment;
+    }
+    #endregion
+
     #region リストビューダブルクリックイベント
     private void lvFileList_DoubleClick(object sender, EventArgs e)
     {
@@ -133,6 +198,17 @@ namespace WFA
     #endregion
 
 
+    #region 保存ボタン押下イベント
+    private void btSaveXml_Click(object sender, EventArgs e)
+    {
+      // メインフォーム_パターンXML保存メソッド使用
+      form1.SavePatternXml(tbCommitPath.Text, "Pattern");
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm(tbCommitPath.Text);
+    }
+    #endregion
+
     #region 取込ボタン押下イベント
     private void btInputXml_Click(object sender, EventArgs e)
     {
@@ -146,17 +222,6 @@ namespace WFA
       form1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
       // フォーム閉じる
       this.Close();
-    }
-    #endregion
-
-    #region 保存ボタン押下イベント
-    private void btSaveXml_Click(object sender, EventArgs e)
-    {
-      // メインフォーム_パターンXML保存メソッド使用
-      form1.SavePatternXml(tbCommitPath.Text, "Pattern");
-
-      // ファイルリストフォーム初期化メソッド使用
-      InitFileListForm(tbCommitPath.Text);
     }
     #endregion
 

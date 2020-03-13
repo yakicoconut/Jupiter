@@ -410,14 +410,24 @@ namespace WFA
     private void InitCtrlValue()
     {
       // コメント
+      // デフォルト値
+      fmComment.tbComment.Text = string.Empty;
       if (dicInitValue.ContainsKey("Comment"))
+      {
+        // 設定値から取得
         fmComment.tbComment.Text = dicInitValue["Comment"];
+      }
 
       // 各コントロール値初期化
       for (int i = 0; i < 20; i++)
       {
         // ディクショナリの添え字は1始まり
         string padTwo = (i + 1).ToString().PadLeft(2, '0');
+
+        // デフォルト値
+        listChkBox[i].Checked = true;
+        listTbSearch[i].Text = string.Empty;
+        listTbReplace[i].Text = string.Empty;
 
         // ディクショナリ存在確認
         if (dicInitValue.ContainsKey("Check" + padTwo))
@@ -445,7 +455,7 @@ namespace WFA
       // 処理命令(スタイルシートの宣言等)を無視するかどうか
       // ※デフォルトもfalseだがサンプルのため明示的に設定
       setting.IgnoreProcessingInstructions = false;
-      //意味のない空白を無視するかどうか
+      // 意味のない空白を無視するかどうか
       setting.IgnoreWhitespace = true;
 
       // ファイルからXmlReaderでXMLを取得

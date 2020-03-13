@@ -41,6 +41,7 @@
       this.btConfirm = new System.Windows.Forms.Button();
       this.lvFileList = new System.Windows.Forms.ListView();
       this.tbSearchPath = new System.Windows.Forms.TextBox();
+      this.tbPtCommentPreview = new System.Windows.Forms.TextBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
@@ -78,10 +79,11 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
+      this.panel1.Controls.Add(this.tbPtCommentPreview);
       this.panel1.Controls.Add(this.btOpen);
       this.panel1.Controls.Add(this.btSaveXml);
       this.panel1.Controls.Add(this.btInputXml);
@@ -129,8 +131,8 @@
       // 
       // tbCommitPath
       // 
-      this.tbCommitPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbCommitPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbCommitPath.BackColor = System.Drawing.SystemColors.Window;
       this.tbCommitPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -155,30 +157,42 @@
       // 
       // lvFileList
       // 
-      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lvFileList.ContextMenuStrip = this.contextMenuStrip1;
       this.lvFileList.Location = new System.Drawing.Point(10, 62);
       this.lvFileList.MultiSelect = false;
       this.lvFileList.Name = "lvFileList";
-      this.lvFileList.Size = new System.Drawing.Size(270, 390);
+      this.lvFileList.Size = new System.Drawing.Size(270, 315);
       this.lvFileList.TabIndex = 0;
       this.lvFileList.UseCompatibleStateImageBehavior = false;
       this.lvFileList.View = System.Windows.Forms.View.List;
+      this.lvFileList.SelectedIndexChanged += new System.EventHandler(this.lvFileList_SelectedIndexChanged);
       this.lvFileList.DoubleClick += new System.EventHandler(this.lvFileList_DoubleClick);
       // 
       // tbSearchPath
       // 
-      this.tbSearchPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbSearchPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearchPath.Location = new System.Drawing.Point(10, 12);
       this.tbSearchPath.Name = "tbSearchPath";
       this.tbSearchPath.Size = new System.Drawing.Size(189, 19);
       this.tbSearchPath.TabIndex = 0;
       // 
-      // FrmOption
+      // tbPtComment
+      // 
+      this.tbPtCommentPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbPtCommentPreview.Location = new System.Drawing.Point(10, 383);
+      this.tbPtCommentPreview.Multiline = true;
+      this.tbPtCommentPreview.Name = "tbPtComment";
+      this.tbPtCommentPreview.ReadOnly = true;
+      this.tbPtCommentPreview.Size = new System.Drawing.Size(270, 69);
+      this.tbPtCommentPreview.TabIndex = 6;
+      // 
+      // FrmPtMng
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -189,7 +203,7 @@
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
-      this.Name = "FrmOption";
+      this.Name = "FrmPtMng";
       this.Opacity = 0.8D;
       this.Text = "Form2";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
@@ -215,5 +229,6 @@
     private System.Windows.Forms.Button btSaveXml;
     private System.Windows.Forms.Button btInputXml;
     private System.Windows.Forms.Button btOpen;
+    private System.Windows.Forms.TextBox tbPtCommentPreview;
   }
 }

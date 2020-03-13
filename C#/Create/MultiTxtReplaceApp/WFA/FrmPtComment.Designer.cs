@@ -70,12 +70,12 @@
       // 
       // tbComment
       // 
-      this.tbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbComment.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
       this.tbComment.Location = new System.Drawing.Point(7, 6);
-      this.tbComment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+      this.tbComment.Margin = new System.Windows.Forms.Padding(4);
       this.tbComment.Multiline = true;
       this.tbComment.Name = "tbComment";
       this.tbComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -91,9 +91,9 @@
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.tbComment);
       this.Font = new System.Drawing.Font("MS UI Gothic", 11F);
-      this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+      this.Margin = new System.Windows.Forms.Padding(4);
       this.Name = "FrmPtComment";
-      this.Opacity = 0.7D;
+      this.Opacity = 0.8D;
       this.Text = "Form2";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
       this.Load += new System.EventHandler(this.Form2_Load);
