@@ -269,15 +269,20 @@ namespace WFA
     {
       // 現在時刻取得
       DateTime now = DateTime.Now;
-      string outputDate = now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+      string outputDate = now.ToString("yyyyMMddHHmmssfff");
+      string outputFileName = Path.GetFileNameWithoutExtension(outputPatternFile) + "_" + outputDate + Path.GetExtension(outputPatternFile);
 
       // 出力用変数
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
-      string chkFormat = "<add key=\"Check{0}\" value=\"{1}\"/>";
-      string searchFormat = "<add key=\"Search{0}\" value=\"{1}\"/>";
-      string replaceFormat = "<add key=\"Replace{0}\" value=\"{1}\"/>";
+      string chkFormat = "  <add key=\"Check{0}\" value=\"{1}\"/>";
+      string searchFormat = "  <add key=\"Search{0}\" value=\"{1}\"/>";
+      string replaceFormat = "  <add key=\"Replace{0}\" value=\"{1}\"/>";
+      // XML用
+      string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+      string xmlRootStart = "<Root>";
+      string xmlRootEnd = "</Root>";
 
       // 全チェックボックスループ
       int i = 0;
@@ -310,9 +315,9 @@ namespace WFA
 
       // 出力ファイルの作成
       // 引数:対象ファイル、上書き可不可、文字コード
-      using (StreamWriter sw = new StreamWriter(outputPatternFile, true, Encoding.GetEncoding("shift_jis")))
+      using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
       {
-        sw.WriteLine("-----" + outputDate + "-----" + Environment.NewLine + outStrChk + outStrSearch + outStrReplace);
+        sw.WriteLine(xmlDec + Environment.NewLine + xmlRootStart + Environment.NewLine + outStrChk + outStrSearch + outStrReplace + xmlRootEnd);
       }
     }
     #endregion
