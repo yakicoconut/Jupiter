@@ -64,7 +64,7 @@ namespace WFA
         string padTwo = i.ToString().PadLeft(2, '0');
         dicConfigSearch.Add("Search" + padTwo, _comLogic.GetConfigValue("Search" + padTwo, ""));
         dicConfigReplace.Add("Replace" + padTwo, _comLogic.GetConfigValue("Replace" + padTwo, ""));
-        dicConfigCheck.Add("Check" + padTwo, _comLogic.GetConfigValue("Check" + padTwo, "false") == "true");
+        dicConfigCheck.Add("Check" + padTwo, _comLogic.GetConfigValue("Check" + padTwo, "false").ToLower() == "true");
       }
     }
     #endregion
@@ -186,7 +186,7 @@ namespace WFA
       // SplitContainer内のコントロールのサイズ位置を無理やり変更
       rtbTarget.Size = new Size(315, 210);
       rtbResult.Size = new Size(360, 210);
-      splcTargetResult.Size = new Size(705, 345);
+      splcTargetResult.Size = new Size(705, 335);
 
       // 対象・結果ボックスでタブ記号が入力されるようにする
       rtbTarget.AcceptsTab = true;
