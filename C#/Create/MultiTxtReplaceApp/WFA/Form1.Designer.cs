@@ -96,7 +96,7 @@
       this.splcTargetResult = new System.Windows.Forms.SplitContainer();
       this.rtbTarget = new System.Windows.Forms.RichTextBox();
       this.rtbResult = new System.Windows.Forms.RichTextBox();
-      this.btPatternSave = new System.Windows.Forms.Button();
+      this.btPattern = new System.Windows.Forms.Button();
       this.btReplace = new System.Windows.Forms.Button();
       this.btOpen = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.splcPatternResult)).BeginInit();
@@ -914,16 +914,16 @@
       this.rtbResult.TabIndex = 0;
       this.rtbResult.Text = "";
       // 
-      // btPatternSave
+      // btPattern
       // 
-      this.btPatternSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btPatternSave.Location = new System.Drawing.Point(536, 11);
-      this.btPatternSave.Name = "btPatternSave";
-      this.btPatternSave.Size = new System.Drawing.Size(75, 23);
-      this.btPatternSave.TabIndex = 46;
-      this.btPatternSave.Text = "パターン保存";
-      this.btPatternSave.UseVisualStyleBackColor = true;
-      this.btPatternSave.Click += new System.EventHandler(this.btPatternSave_Click);
+      this.btPattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btPattern.Location = new System.Drawing.Point(536, 11);
+      this.btPattern.Name = "btPattern";
+      this.btPattern.Size = new System.Drawing.Size(75, 23);
+      this.btPattern.TabIndex = 46;
+      this.btPattern.Text = "パターン";
+      this.btPattern.UseVisualStyleBackColor = true;
+      this.btPattern.Click += new System.EventHandler(this.btPattern_Click);
       // 
       // btReplace
       // 
@@ -953,7 +953,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(713, 664);
       this.Controls.Add(this.btOpen);
-      this.Controls.Add(this.btPatternSave);
+      this.Controls.Add(this.btPattern);
       this.Controls.Add(this.splcPatternResult);
       this.Controls.Add(this.btReplace);
       this.Name = "Form1";
@@ -1048,7 +1048,7 @@
     private System.Windows.Forms.Button btReplace;
     private System.Windows.Forms.Button btAllCrearSearch;
     private System.Windows.Forms.Button btAllCrearReplace;
-    private System.Windows.Forms.Button btPatternSave;
+    private System.Windows.Forms.Button btPattern;
     private System.Windows.Forms.Button btOpen;
   }
 }

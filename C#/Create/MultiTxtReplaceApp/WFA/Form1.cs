@@ -49,6 +49,9 @@ namespace WFA
 
       // コンフィグ取得メソッド使用
       GetConfig();
+
+      // オプションフォームインスタンス生成
+      fmOption = new FrmOption(this);
     }
     #endregion
 
@@ -75,6 +78,8 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
+    // オプションフォーム
+    FrmOption fmOption;
 
     // 出力パターンファイル初期値パス
     string outputPatternFile;
@@ -251,11 +256,13 @@ namespace WFA
     }
     #endregion
 
-    #region パターン保存ボタン押下イベント
-    private void btPatternSave_Click(object sender, EventArgs e)
+    #region パターンボタン押下イベント
+    private void btPattern_Click(object sender, EventArgs e)
     {
-      // パターンXML保存メソッド使用
-      SavePatternXml();
+      // オプションフォームのプロパティに本クラスを設定
+      fmOption.form1 = this;
+      // オプションフォーム呼び出し
+      fmOption.ShowDialog();
     }
     #endregion
 
