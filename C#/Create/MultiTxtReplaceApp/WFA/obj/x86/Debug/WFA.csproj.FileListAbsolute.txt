@@ -76,8 +76,11 @@ E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.re
 =======
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtComment.resources
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dd46819... C#_MultiTxtReplaceApp_修正_コメントフォーム対応
 =======
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.CoreCompileInputs.cache
 E:\Cal_Git_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.CopyComplete
 >>>>>>> 77bbb30... C#_MultiTxtReplaceApp_修正_変換後改行対応
+=======
+>>>>>>> ddca81a... C#_MultiTxtReplaceApp_修正_サブフォームのアイコンをタスクバーに表示しない

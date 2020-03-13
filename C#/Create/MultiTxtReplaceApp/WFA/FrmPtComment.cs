@@ -42,6 +42,9 @@ namespace WFA
       // 横幅は85(二行分)固定
       this.Size = new Size(parentW, 85);
       this.Location = new Point(parentX, parentY + parentH);
+
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
     }
     #endregion
 

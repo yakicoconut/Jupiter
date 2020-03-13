@@ -50,6 +50,9 @@ namespace WFA
         // ファイルリストフォーム初期化メソッド使用
         InitFileListForm(tbCommitPath.Text);
       }
+
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
     }
     #endregion
 
