@@ -12,11 +12,15 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using FastTxtDiff;
 
 #region メモ
 /*
  * ※リッチテキストボックスは
  *   改行コードを自動的に\nに変換する
+ *   
+ * ※差分比較は以下のパターンで正常にならない
+ *   「abc」→「acb」
  * 
  * ・SplitContainerのスクロールバーを表示すると
  *   内部のコントロールのデザイナー上のサイズと実行時の表示が変わる
@@ -72,7 +76,7 @@ namespace WFA
 
     // 出力パターンファイルパス
     string outputPatternFile;
-    
+
     // 検索対象テキストボックスリスト
     List<TextBox> listTbSearch = new List<TextBox>();
     // 置換文字列テキストボックスリスト
@@ -84,7 +88,7 @@ namespace WFA
     Dictionary<string, string> dicConfigSearch = new Dictionary<string, string>();
     // 置換文字列テキストボックス初期値ディクショナリ
     Dictionary<string, string> dicConfigReplace = new Dictionary<string, string>();
-    
+
     #endregion
 
 
@@ -187,18 +191,22 @@ namespace WFA
     #region 置換ボタン押下イベント
     private void btReplace_Click(object sender, EventArgs e)
     {
-      // 結果ボックス初期化
-      rtbResult.ResetText();
-
-      // 置換え実行
+      // コントロール変数化
       RichTextBox target = rtbTarget;
-      string result = rtbTarget.Text;
+      RichTextBox result = rtbResult;
+      string resultStr = target.Text;
 
       int i = 0;
       foreach (CheckBox x in listchkBox)
       {
         // ねずみ返し_チェックが付いていない場合
         if (!x.Checked)
+        {
+          i += 1;
+          continue;
+        }
+        // ねずみ返し_検索対象が空の場合
+        if (listTbSearch[i].Text == string.Empty)
         {
           i += 1;
           continue;
@@ -221,13 +229,31 @@ namespace WFA
         }
 
         /* 置換え */
-        result = Regex.Replace(result, listTbSearch[i].Text, listTbReplace[i].Text);
-        
+        resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text);
+
         i += 1;
       }
 
-      // 結果表示
-      rtbResult.Text = result;
+      // 置換えた文字列をリッチテキストに設定
+      result.Text = resultStr;
+
+      // 対象と結果の比較から差分を取得
+      DiffResult[] diffResult = FastDiff.DiffChar(target.Text, result.Text);
+      foreach (DiffResult x in diffResult)
+      {
+        // 差異が存在する場合
+        if (x.Modified)
+        {
+          // 対象選択
+          result.Select(x.ModifiedStart, x.ModifiedLength);
+          // カラーリング
+          result.SelectionColor = Color.Red;
+        }
+      }
+
+      // コミット
+      rtbTarget = target;
+      rtbResult = result;
     }
     #endregion
 
@@ -285,7 +311,7 @@ namespace WFA
     {
       // 自身のフォルダを開く
       string myLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-      Process.Start(myLocation);      
+      Process.Start(myLocation);
     }
     #endregion
 
