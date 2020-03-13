@@ -302,6 +302,8 @@ namespace WFA
       ReadPatternFile(InpPtFilePath);
       // コントロール値初期化メソッド
       InitCtrlValue();
+      // ファイル名テキストボックス更新
+      tbPatternFileName.Text = Path.GetFileNameWithoutExtension(InpPtFilePath);
     }
     #endregion
 
