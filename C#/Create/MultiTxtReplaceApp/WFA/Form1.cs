@@ -267,10 +267,24 @@ namespace WFA
     #region パターンボタン押下イベント
     private void btPattern_Click(object sender, EventArgs e)
     {
+      // 入力パターンXMLファイルパス初期化
+      InpPtFilePath = string.Empty;
+
       // オプションフォームのプロパティに本クラスを設定
       fmOption.form1 = this;
       // オプションフォーム呼び出し
       fmOption.ShowDialog();
+
+      // ねずみ返し_オプションフォームでファイル選択されなかった場合
+      if (InpPtFilePath == string.Empty)
+      {
+        return;
+      }
+
+      // パターンXML読み込みメソッド使用
+      ReadPatternFile(InpPtFilePath);
+      // コントロール値初期化メソッド
+      InitCtrlValue();
     }
     #endregion
 

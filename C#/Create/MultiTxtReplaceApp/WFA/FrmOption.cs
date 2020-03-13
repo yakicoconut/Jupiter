@@ -109,6 +109,40 @@ namespace WFA
     }
     #endregion
 
+
+    #region リストビューダブルクリックイベント
+    private void lvFileList_DoubleClick(object sender, EventArgs e)
+    {
+      // ねずみ返し_項目が選択されていない場合
+      if (lvFileList.SelectedItems.Count == 0)
+      {
+        return;
+      }
+
+      // 選択項目からパス作成
+      form1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      // フォーム閉じる
+      this.Close();
+    }
+    #endregion
+
+
+    #region 取込ボタン押下イベント
+    private void btInputXml_Click(object sender, EventArgs e)
+    {
+      // ねずみ返し_項目が選択されていない場合
+      if (lvFileList.SelectedItems.Count == 0)
+      {
+        return;
+      }
+
+      // 選択項目からパス作成
+      form1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      // フォーム閉じる
+      this.Close();
+    }
+    #endregion
+
     #region 保存ボタン押下イベント
     private void btSaveXml_Click(object sender, EventArgs e)
     {
@@ -148,7 +182,10 @@ namespace WFA
     {
       // リストボックス破棄
       lvFileList.Items.Clear();
-      
+
+      // パターンXMLフォルダ名称をコミットパスに更新
+      form1.PtDirName = tbCommitPath.Text;
+
       //// クローズキャンセル
       //if (e.CloseReason == CloseReason.UserClosing)
       //  e.Cancel = true;

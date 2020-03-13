@@ -125,6 +125,7 @@
       this.btInputXml.TabIndex = 3;
       this.btInputXml.Text = "取込";
       this.btInputXml.UseVisualStyleBackColor = true;
+      this.btInputXml.Click += new System.EventHandler(this.btInputXml_Click);
       // 
       // tbCommitPath
       // 
@@ -165,6 +166,7 @@
       this.lvFileList.TabIndex = 0;
       this.lvFileList.UseCompatibleStateImageBehavior = false;
       this.lvFileList.View = System.Windows.Forms.View.List;
+      this.lvFileList.DoubleClick += new System.EventHandler(this.lvFileList_DoubleClick);
       // 
       // tbSearchPath
       // 
