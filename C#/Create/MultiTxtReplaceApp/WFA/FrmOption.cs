@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace WFA
 {
@@ -66,11 +68,68 @@ namespace WFA
     #endregion
 
 
+    #region 開くボタン押下イベント
+    private void btOpen_Click(object sender, EventArgs e)
+    {
+      // 対象フォルダを開く
+      Process.Start(tbCommitPath.Text);
+    }
+    #endregion
+
+    #region 確定ボタン押下イベント
+    private void btConfirm_Click(object sender, EventArgs e)
+    {
+      string searchPath = tbSearchPath.Text;
+
+      // ねずみ返し_空の場合
+      if (searchPath == string.Empty)
+      {
+        return;
+      }
+      // ねずみ返し_フォルダが存在しない場合
+      if (!Directory.Exists(searchPath))
+      {
+        return;
+      }
+
+      // コミットパスに設定
+      tbCommitPath.Text = searchPath;
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm(tbCommitPath.Text);
+    }
+    #endregion
+
     #region 保存ボタン押下イベント
     private void btSaveXml_Click(object sender, EventArgs e)
     {
       // メインフォーム_パターンXML保存メソッド使用
       form1.SavePatternXml();
+
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm(tbCommitPath.Text);
+    }
+    #endregion
+
+
+    #region ファイルリストフォーム初期化メソッド
+    /// <summary>
+    /// ファイルリストフォーム初期化メソッド
+    /// </summary>
+    private void InitFileListForm(string searchPath)
+    {
+      // 対象フォルダパス内のXMLファイルを全て取得
+      string[] files = Directory.GetFiles(searchPath, "*.xml", SearchOption.TopDirectoryOnly);
+
+      // リストビュー初期化
+      lvFileList.Items.Clear();
+
+      // ファイルディクショナリをループ処理
+      foreach (var x in files)
+      {
+        // リストビューにファイル名のみ追加
+        lvFileList.Items.Add(Path.GetFileNameWithoutExtension(x));
+      }
     }
     #endregion
 
@@ -78,6 +137,9 @@ namespace WFA
     #region フォームクロージングイベント
     private void Form2_FormClosing(object sender, FormClosingEventArgs e)
     {
+      // リストボックス破棄
+      lvFileList.Items.Clear();
+      
       //// クローズキャンセル
       //if (e.CloseReason == CloseReason.UserClosing)
       //  e.Cancel = true;

@@ -103,6 +103,7 @@
       this.btOpen.TabIndex = 5;
       this.btOpen.Text = "開く";
       this.btOpen.UseVisualStyleBackColor = true;
+      this.btOpen.Click += new System.EventHandler(this.btOpen_Click);
       // 
       // btSaveXml
       // 
@@ -149,6 +150,7 @@
       this.btConfirm.TabIndex = 1;
       this.btConfirm.Text = "確定";
       this.btConfirm.UseVisualStyleBackColor = true;
+      this.btConfirm.Click += new System.EventHandler(this.btConfirm_Click);
       // 
       // lvFileList
       // 
