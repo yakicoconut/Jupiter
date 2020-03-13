@@ -203,6 +203,12 @@ namespace WFA
       RichTextBox result = rtbResult;
       string resultStr = target.Text;
 
+      // 対象・結果の色を黒で初期化
+      rtbTarget.SelectAll();
+      rtbTarget.SelectionColor = Color.Black;
+      rtbResult.SelectAll();
+      rtbResult.SelectionColor = Color.Black;
+
       int i = 0;
       foreach (CheckBox x in listChkBox)
       {
