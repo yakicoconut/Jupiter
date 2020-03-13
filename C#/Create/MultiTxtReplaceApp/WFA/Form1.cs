@@ -50,8 +50,8 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
-      // オプションフォームインスタンス生成
-      fmOption = new FrmPtMng(this);
+      // パターン管理フォームインスタンス生成
+      fmPtMng = new FrmPtMng(this);
     }
     #endregion
 
@@ -78,8 +78,8 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
-    // オプションフォーム
-    FrmPtMng fmOption;
+    // パターン管理フォーム
+    FrmPtMng fmPtMng;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
@@ -276,10 +276,10 @@ namespace WFA
       // 入力パターンXMLファイルパス初期化
       InpPtFilePath = string.Empty;
 
-      // オプションフォームのプロパティに本クラスを設定
-      fmOption.form1 = this;
-      // オプションフォーム呼び出し
-      fmOption.ShowDialog();
+      // パターン管理フォームのプロパティに本クラスを設定
+      fmPtMng.form1 = this;
+      // パターン管理フォーム呼び出し
+      fmPtMng.ShowDialog();
 
       // ねずみ返し_オプションフォームでファイル選択されなかった場合
       if (InpPtFilePath == string.Empty)
