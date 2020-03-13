@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 #region メモ
 /*
@@ -49,49 +50,51 @@ namespace WFA
     #region コンフィグ取得メソッド
     private void GetConfig()
     {
-      outputPatternFile = ConfigurationManager.AppSettings["OutputPatternFile"];
+      // 出力パターンファイルパス
+      outputPatternFile = _comLogic.GetConfigValue("OutputPatternFile", "Pattern.txt");
 
-      tbSearch01.Text = ConfigurationManager.AppSettings["Search01"];
-      tbSearch02.Text = ConfigurationManager.AppSettings["Search02"];
-      tbSearch03.Text = ConfigurationManager.AppSettings["Search03"];
-      tbSearch04.Text = ConfigurationManager.AppSettings["Search04"];
-      tbSearch05.Text = ConfigurationManager.AppSettings["Search05"];
-      tbSearch06.Text = ConfigurationManager.AppSettings["Search06"];
-      tbSearch07.Text = ConfigurationManager.AppSettings["Search07"];
-      tbSearch08.Text = ConfigurationManager.AppSettings["Search08"];
-      tbSearch09.Text = ConfigurationManager.AppSettings["Search09"];
-      tbSearch10.Text = ConfigurationManager.AppSettings["Search10"];
-      tbSearch11.Text = ConfigurationManager.AppSettings["Search11"];
-      tbSearch12.Text = ConfigurationManager.AppSettings["Search12"];
-      tbSearch13.Text = ConfigurationManager.AppSettings["Search13"];
-      tbSearch14.Text = ConfigurationManager.AppSettings["Search14"];
-      tbSearch15.Text = ConfigurationManager.AppSettings["Search15"];
-      tbSearch16.Text = ConfigurationManager.AppSettings["Search16"];
-      tbSearch17.Text = ConfigurationManager.AppSettings["Search17"];
-      tbSearch18.Text = ConfigurationManager.AppSettings["Search18"];
-      tbSearch19.Text = ConfigurationManager.AppSettings["Search19"];
-      tbSearch20.Text = ConfigurationManager.AppSettings["Search20"];
-
-      tbReplace01.Text = ConfigurationManager.AppSettings["Replace01"];
-      tbReplace02.Text = ConfigurationManager.AppSettings["Replace02"];
-      tbReplace03.Text = ConfigurationManager.AppSettings["Replace03"];
-      tbReplace04.Text = ConfigurationManager.AppSettings["Replace04"];
-      tbReplace05.Text = ConfigurationManager.AppSettings["Replace05"];
-      tbReplace06.Text = ConfigurationManager.AppSettings["Replace06"];
-      tbReplace07.Text = ConfigurationManager.AppSettings["Replace07"];
-      tbReplace08.Text = ConfigurationManager.AppSettings["Replace08"];
-      tbReplace09.Text = ConfigurationManager.AppSettings["Replace09"];
-      tbReplace10.Text = ConfigurationManager.AppSettings["Replace10"];
-      tbReplace11.Text = ConfigurationManager.AppSettings["Replace11"];
-      tbReplace12.Text = ConfigurationManager.AppSettings["Replace12"];
-      tbReplace13.Text = ConfigurationManager.AppSettings["Replace13"];
-      tbReplace14.Text = ConfigurationManager.AppSettings["Replace14"];
-      tbReplace15.Text = ConfigurationManager.AppSettings["Replace15"];
-      tbReplace16.Text = ConfigurationManager.AppSettings["Replace16"];
-      tbReplace17.Text = ConfigurationManager.AppSettings["Replace17"];
-      tbReplace18.Text = ConfigurationManager.AppSettings["Replace18"];
-      tbReplace19.Text = ConfigurationManager.AppSettings["Replace19"];
-      tbReplace20.Text = ConfigurationManager.AppSettings["Replace20"];
+      // 検索対象変数
+      search01 = _comLogic.GetConfigValue("Search01", "");
+      search02 = _comLogic.GetConfigValue("Search02", "");
+      search03 = _comLogic.GetConfigValue("Search03", "");
+      search04 = _comLogic.GetConfigValue("Search04", "");
+      search05 = _comLogic.GetConfigValue("Search05", "");
+      search06 = _comLogic.GetConfigValue("Search06", "");
+      search07 = _comLogic.GetConfigValue("Search07", "");
+      search08 = _comLogic.GetConfigValue("Search08", "");
+      search09 = _comLogic.GetConfigValue("Search09", "");
+      search10 = _comLogic.GetConfigValue("Search10", "");
+      search11 = _comLogic.GetConfigValue("Search11", "");
+      search12 = _comLogic.GetConfigValue("Search12", "");
+      search13 = _comLogic.GetConfigValue("Search13", "");
+      search14 = _comLogic.GetConfigValue("Search14", "");
+      search15 = _comLogic.GetConfigValue("Search15", "");
+      search16 = _comLogic.GetConfigValue("Search16", "");
+      search17 = _comLogic.GetConfigValue("Search17", "");
+      search18 = _comLogic.GetConfigValue("Search18", "");
+      search19 = _comLogic.GetConfigValue("Search19", "");
+      search20 = _comLogic.GetConfigValue("Search20", "");
+      // 置換文字列変数
+      replace01 = _comLogic.GetConfigValue("Replace01", "");
+      replace02 = _comLogic.GetConfigValue("Replace02", "");
+      replace03 = _comLogic.GetConfigValue("Replace03", "");
+      replace04 = _comLogic.GetConfigValue("Replace04", "");
+      replace05 = _comLogic.GetConfigValue("Replace05", "");
+      replace06 = _comLogic.GetConfigValue("Replace06", "");
+      replace07 = _comLogic.GetConfigValue("Replace07", "");
+      replace08 = _comLogic.GetConfigValue("Replace08", "");
+      replace09 = _comLogic.GetConfigValue("Replace09", "");
+      replace10 = _comLogic.GetConfigValue("Replace10", "");
+      replace11 = _comLogic.GetConfigValue("Replace11", "");
+      replace12 = _comLogic.GetConfigValue("Replace12", "");
+      replace13 = _comLogic.GetConfigValue("Replace13", "");
+      replace14 = _comLogic.GetConfigValue("Replace14", "");
+      replace15 = _comLogic.GetConfigValue("Replace15", "");
+      replace16 = _comLogic.GetConfigValue("Replace16", "");
+      replace17 = _comLogic.GetConfigValue("Replace17", "");
+      replace18 = _comLogic.GetConfigValue("Replace18", "");
+      replace19 = _comLogic.GetConfigValue("Replace19", "");
+      replace20 = _comLogic.GetConfigValue("Replace20", "");
     }
     #endregion
 
@@ -101,8 +104,72 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    //
+    // 出力パターンファイルパス
     string outputPatternFile;
+
+    // 検索対象変数
+    string search01 = string.Empty;
+    string search02 = string.Empty;
+    string search03 = string.Empty;
+    string search04 = string.Empty;
+    string search05 = string.Empty;
+    string search06 = string.Empty;
+    string search07 = string.Empty;
+    string search08 = string.Empty;
+    string search09 = string.Empty;
+    string search10 = string.Empty;
+    string search11 = string.Empty;
+    string search12 = string.Empty;
+    string search13 = string.Empty;
+    string search14 = string.Empty;
+    string search15 = string.Empty;
+    string search16 = string.Empty;
+    string search17 = string.Empty;
+    string search18 = string.Empty;
+    string search19 = string.Empty;
+    string search20 = string.Empty;
+    // 検索対象変数
+    string replace01 = string.Empty;
+    string replace02 = string.Empty;
+    string replace03 = string.Empty;
+    string replace04 = string.Empty;
+    string replace05 = string.Empty;
+    string replace06 = string.Empty;
+    string replace07 = string.Empty;
+    string replace08 = string.Empty;
+    string replace09 = string.Empty;
+    string replace10 = string.Empty;
+    string replace11 = string.Empty;
+    string replace12 = string.Empty;
+    string replace13 = string.Empty;
+    string replace14 = string.Empty;
+    string replace15 = string.Empty;
+    string replace16 = string.Empty;
+    string replace17 = string.Empty;
+    string replace18 = string.Empty;
+    string replace19 = string.Empty;
+    string replace20 = string.Empty;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     #endregion
@@ -111,45 +178,89 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-
+      // 検索対象ボックス初期化
+      tbSearch01.Text = search01;
+      tbSearch02.Text = search02;
+      tbSearch03.Text = search03;
+      tbSearch04.Text = search04;
+      tbSearch05.Text = search05;
+      tbSearch06.Text = search06;
+      tbSearch07.Text = search07;
+      tbSearch08.Text = search08;
+      tbSearch09.Text = search09;
+      tbSearch10.Text = search10;
+      tbSearch11.Text = search11;
+      tbSearch12.Text = search12;
+      tbSearch13.Text = search13;
+      tbSearch14.Text = search14;
+      tbSearch15.Text = search15;
+      tbSearch16.Text = search16;
+      tbSearch17.Text = search17;
+      tbSearch18.Text = search18;
+      tbSearch19.Text = search19;
+      tbSearch20.Text = search20;
+      // 置換文字列ボックス初期化
+      tbReplace01.Text = replace01;
+      tbReplace02.Text = replace02;
+      tbReplace03.Text = replace03;
+      tbReplace04.Text = replace04;
+      tbReplace05.Text = replace05;
+      tbReplace06.Text = replace06;
+      tbReplace07.Text = replace07;
+      tbReplace08.Text = replace08;
+      tbReplace09.Text = replace09;
+      tbReplace10.Text = replace10;
+      tbReplace11.Text = replace11;
+      tbReplace12.Text = replace12;
+      tbReplace13.Text = replace13;
+      tbReplace14.Text = replace14;
+      tbReplace15.Text = replace15;
+      tbReplace16.Text = replace16;
+      tbReplace17.Text = replace17;
+      tbReplace18.Text = replace18;
+      tbReplace19.Text = replace19;
+      tbReplace20.Text = replace20;
     }
     #endregion
 
     #region 置換ボタン押下イベント
     private void btReplace_Click(object sender, EventArgs e)
     {
+      // 結果ボックス初期化
       rtbResult.ResetText();
 
+      // 置き換え実行
       string result = rtbTarget.Text;
+      result = cb01.Checked ? Regex.Replace(result, search01, replace01) : result;
+      result = cb02.Checked ? Regex.Replace(result, search02, replace02) : result;
+      result = cb03.Checked ? Regex.Replace(result, search03, replace03) : result;
+      result = cb04.Checked ? Regex.Replace(result, search04, replace04) : result;
+      result = cb05.Checked ? Regex.Replace(result, search05, replace05) : result;
+      result = cb06.Checked ? Regex.Replace(result, search06, replace06) : result;
+      result = cb07.Checked ? Regex.Replace(result, search07, replace07) : result;
+      result = cb08.Checked ? Regex.Replace(result, search08, replace08) : result;
+      result = cb09.Checked ? Regex.Replace(result, search09, replace09) : result;
+      result = cb10.Checked ? Regex.Replace(result, search10, replace10) : result;
+      result = cb11.Checked ? Regex.Replace(result, search11, replace11) : result;
+      result = cb12.Checked ? Regex.Replace(result, search12, replace12) : result;
+      result = cb13.Checked ? Regex.Replace(result, search13, replace13) : result;
+      result = cb14.Checked ? Regex.Replace(result, search14, replace14) : result;
+      result = cb15.Checked ? Regex.Replace(result, search15, replace15) : result;
+      result = cb16.Checked ? Regex.Replace(result, search16, replace16) : result;
+      result = cb17.Checked ? Regex.Replace(result, search17, replace17) : result;
+      result = cb18.Checked ? Regex.Replace(result, search18, replace18) : result;
+      result = cb19.Checked ? Regex.Replace(result, search19, replace19) : result;
+      result = cb20.Checked ? Regex.Replace(result, search20, replace20) : result;
 
-      result = cb01.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch01.Text, tbReplace01.Text) : result;
-      result = cb02.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch02.Text, tbReplace02.Text) : result;
-      result = cb03.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch03.Text, tbReplace03.Text) : result;
-      result = cb04.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch04.Text, tbReplace04.Text) : result;
-      result = cb05.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch05.Text, tbReplace05.Text) : result;
-      result = cb06.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch06.Text, tbReplace06.Text) : result;
-      result = cb07.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch07.Text, tbReplace07.Text) : result;
-      result = cb08.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch08.Text, tbReplace08.Text) : result;
-      result = cb09.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch09.Text, tbReplace09.Text) : result;
-      result = cb10.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch10.Text, tbReplace10.Text) : result;
-      result = cb11.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch11.Text, tbReplace11.Text) : result;
-      result = cb12.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch12.Text, tbReplace12.Text) : result;
-      result = cb13.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch13.Text, tbReplace13.Text) : result;
-      result = cb14.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch14.Text, tbReplace14.Text) : result;
-      result = cb15.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch15.Text, tbReplace15.Text) : result;
-      result = cb16.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch16.Text, tbReplace16.Text) : result;
-      result = cb17.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch17.Text, tbReplace17.Text) : result;
-      result = cb18.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch18.Text, tbReplace18.Text) : result;
-      result = cb19.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch19.Text, tbReplace19.Text) : result;
-      result = cb20.Checked ? System.Text.RegularExpressions.Regex.Replace(result, tbSearch20.Text, tbReplace20.Text) : result;
-
+      // 結果表示
       rtbResult.Text = result;
     }
     #endregion
 
-    #region 検索文字列全削除ボタン押下イベント
+    #region 検索対象全削除ボタン押下イベント
     private void btAllCrearSearch_Click(object sender, EventArgs e)
     {
+      // 検索対象ボックス全削除
       tbSearch01.ResetText();
       tbSearch02.ResetText();
       tbSearch03.ResetText();
@@ -173,9 +284,10 @@ namespace WFA
     }
     #endregion
 
-    #region 検索文字列全削除ボタン押下イベント
+    #region 置換文字列全削除ボタン押下イベント
     private void btAllCrearReplace_Click(object sender, EventArgs e)
     {
+      // 置換文字列ボックス全削除
       tbReplace01.ResetText();
       tbReplace02.ResetText();
       tbReplace03.ResetText();
