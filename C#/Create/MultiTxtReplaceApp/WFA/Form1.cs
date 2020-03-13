@@ -374,9 +374,24 @@ namespace WFA
       // キーボードペースト
       if (e.Control == true && e.KeyCode == Keys.V)
       {
+        // クリップボードテキスト取得
+        string clipStr = Clipboard.GetText();
+        
         // 置換え時の色変更を引き継いでしまうときがあるため
         // ペースト時に黒を設定
         rtbTarget.SelectionColor = Color.Black;
+
+        // クリップボードテキストが空の場合
+        if (Clipboard.GetText() == string.Empty)
+        {
+          // 文字列以外も貼り付けてしまうため処理終了
+          e.Handled = true;
+          return;
+        }
+
+        // クリップボードにテキストだけを貼り付けて
+        // エクセル等のRTBで表示可能なフォーマットを文字列に変換する
+        Clipboard.SetText(clipStr);
       }
     }
     #endregion
