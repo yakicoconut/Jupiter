@@ -62,9 +62,9 @@ namespace WFA
       {
         // 1~20を二桁で作成
         string padTwo = i.ToString().PadLeft(2, '0');
-        dicConfigSearch.Add("Search" + padTwo, _comLogic.GetConfigValue("Search" + padTwo, ""));
-        dicConfigReplace.Add("Replace" + padTwo, _comLogic.GetConfigValue("Replace" + padTwo, ""));
-        dicConfigCheck.Add("Check" + padTwo, _comLogic.GetConfigValue("Check" + padTwo, "false").ToLower() == "true");
+        dicInitValue.Add("Search" + padTwo, _comLogic.GetConfigValue("Search" + padTwo, ""));
+        dicInitValue.Add("Replace" + padTwo, _comLogic.GetConfigValue("Replace" + padTwo, ""));
+        dicInitValue.Add("Check" + padTwo, _comLogic.GetConfigValue("Check" + padTwo, "false"));
       }
     }
     #endregion
@@ -75,8 +75,10 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // 出力パターンファイルパス
+    // 出力パターンファイル初期値パス
     string outputPatternFile;
+    // 各コントロール初期値ディクショナリ
+    Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
 
     // チェックボックスリスト
     List<CheckBox> listChkBox = new List<CheckBox>();
@@ -84,13 +86,6 @@ namespace WFA
     List<TextBox> listTbSearch = new List<TextBox>();
     // 置換文字列テキストボックスリスト
     List<TextBox> listTbReplace = new List<TextBox>();
-
-    // 検索対象テキストボックス初期値ディクショナリ
-    Dictionary<string, string> dicConfigSearch = new Dictionary<string, string>();
-    // 置換文字列テキストボックス初期値ディクショナリ
-    Dictionary<string, string> dicConfigReplace = new Dictionary<string, string>();
-    // チェックボックス初期値ディクショナリ
-    Dictionary<string, bool> dicConfigCheck = new Dictionary<string, bool>();
 
     #endregion
 
@@ -164,21 +159,9 @@ namespace WFA
       #endregion
 
 
-      // チェックボックス設定
-      foreach (CheckBox x in listChkBox)
-      {
-        // チェックボックス初期値リスト
-        x.Checked = dicConfigCheck["Check" + x.Name.Substring(x.Name.Length - 2, 2)];
-      }
-      // 検索対象テキストボックス設定
-      foreach (TextBox x in listTbSearch)
-      {
-        x.Text = dicConfigSearch["Search" + x.Name.Substring(x.Name.Length - 2, 2)];
-      }
       // 置換文字列テキストボックス設定
       foreach (TextBox x in listTbReplace)
       {
-        x.Text = dicConfigReplace["Replace" + x.Name.Substring(x.Name.Length - 2, 2)];
         // SplitContainer内のコントロールのサイズ位置を無理やり変更
         x.Size = new Size(402, 19);
       }
@@ -191,6 +174,9 @@ namespace WFA
       // 対象・結果ボックスでタブ記号が入力されるようにする
       rtbTarget.AcceptsTab = true;
       rtbResult.AcceptsTab = true;
+
+      // コントロール値初期化メソッド使用
+      InitCtrlValue();
     }
     #endregion
 
@@ -419,6 +405,20 @@ namespace WFA
       splcSearchReplace.Panel1.VerticalScroll.Value = splcSearchReplace.Panel2.VerticalScroll.Value;
       splcSearchReplace.Panel1.VerticalScroll.Visible = false;
       splcSearchReplace.Panel1.AutoScroll = false;
+    }
+    #endregion
+
+
+    #region コントロール値初期化メソッド
+    private void InitCtrlValue()
+    {
+      for (int i = 0; i < 20; i++)
+      {
+        // 値初期化
+        listChkBox[i].Checked = dicInitValue["Check" + listChkBox[i].Name.Substring(listChkBox[i].Name.Length - 2, 2)].ToLower() == "true";
+        listTbSearch[i].Text = dicInitValue["Search" + listTbSearch[i].Name.Substring(listTbSearch[i].Name.Length - 2, 2)];
+        listTbReplace[i].Text = dicInitValue["Replace" + listTbReplace[i].Name.Substring(listTbReplace[i].Name.Length - 2, 2)];
+      }
     }
     #endregion
 
