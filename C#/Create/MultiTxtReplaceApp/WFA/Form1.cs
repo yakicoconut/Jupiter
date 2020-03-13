@@ -185,8 +185,8 @@ namespace WFA
       }
 
       // SplitContainer内のコントロールのサイズ位置を無理やり変更
-      rtbTarget.Size = new Size(315, 210);
-      rtbResult.Size = new Size(360, 210);
+      rtbTarget.Size = new Size(315, 242);
+      rtbResult.Size = new Size(360, 242);
       splcTargetResult.Size = new Size(705, 335);
 
       // 対象・結果ボックスでタブ記号が入力されるようにする
@@ -255,7 +255,7 @@ namespace WFA
         /* 置換え */
         resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text);
         // 改行チェック
-        if(cbNewLine.Checked)
+        if (cbNewLine.Checked)
         {
           // 「\n」を改行とする
           resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
@@ -310,15 +310,6 @@ namespace WFA
       InitCtrlValue();
       // ファイル名テキストボックス更新
       tbPatternFileName.Text = Path.GetFileNameWithoutExtension(InpPtFilePath);
-    }
-    #endregion
-
-    #region 開くボタン押下イベント
-    private void btOpen_Click(object sender, EventArgs e)
-    {
-      // 自身のフォルダを開く
-      string myLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-      Process.Start(myLocation);
     }
     #endregion
 
@@ -576,6 +567,16 @@ namespace WFA
           xmlRootEnd
           );
       }
+    }
+    #endregion
+
+
+    #region Exe位置を開くメソッド
+    private void OpenExe()
+    {
+      // 自身のフォルダを開く
+      string myLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      Process.Start(myLocation);
     }
     #endregion
 
