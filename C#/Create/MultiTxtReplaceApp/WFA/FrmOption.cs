@@ -147,7 +147,7 @@ namespace WFA
     private void btSaveXml_Click(object sender, EventArgs e)
     {
       // メインフォーム_パターンXML保存メソッド使用
-      form1.SavePatternXml();
+      form1.SavePatternXml(tbCommitPath.Text, "Pattern");
 
       // ファイルリストフォーム初期化メソッド使用
       InitFileListForm(tbCommitPath.Text);

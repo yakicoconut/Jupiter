@@ -462,12 +462,12 @@ namespace WFA
     #endregion
 
     #region パターンXML保存メソッド
-    public void SavePatternXml()
+    public void SavePatternXml(string outPtDirPath, string outPtFileName)
     {
       // 現在時刻取得
       DateTime now = DateTime.Now;
       string outputDate = now.ToString("yyyyMMddHHmmssfff");
-      string outputFileName = Path.GetFileNameWithoutExtension("Pattern") + "_" + outputDate + Path.GetExtension("Pattern.xml");
+      string outputFileName = outPtDirPath + @"\" + outPtFileName + "_" + outputDate + ".xml";
 
       // 出力用変数
       string outStrChk = string.Empty;
