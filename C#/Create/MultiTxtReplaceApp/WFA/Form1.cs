@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using FastTxtDiff;
+using System.Xml;
 
 #region メモ
 /*
@@ -418,6 +419,57 @@ namespace WFA
         listChkBox[i].Checked = dicInitValue["Check" + listChkBox[i].Name.Substring(listChkBox[i].Name.Length - 2, 2)].ToLower() == "true";
         listTbSearch[i].Text = dicInitValue["Search" + listTbSearch[i].Name.Substring(listTbSearch[i].Name.Length - 2, 2)];
         listTbReplace[i].Text = dicInitValue["Replace" + listTbReplace[i].Name.Substring(listTbReplace[i].Name.Length - 2, 2)];
+      }
+    }
+    #endregion
+
+    #region パターンXML読み込みメソッド
+    private void ReadPatternFile(string targetPath)
+    {
+      // 各コントロール初期値ディクショナリクリア
+      dicInitValue.Clear();
+
+      /* StringReader設定 */
+      XmlReaderSettings setting = new XmlReaderSettings();
+      // コメントを無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreComments = false;
+      // 処理命令(スタイルシートの宣言等)を無視するかどうか
+      // ※デフォルトもfalseだがサンプルのため明示的に設定
+      setting.IgnoreProcessingInstructions = false;
+      //意味のない空白を無視するかどうか
+      setting.IgnoreWhitespace = true;
+
+      // ファイルからXmlReaderでXMLを取得
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      {
+        // ルートタグへ移動
+        bool root = xmlReader.ReadToFollowing("Root");
+        // ねずみ返し_対象タグが存在しない場合
+        if (!root)
+        {
+          return;
+        }
+
+        // 「add」タグを巡回
+        while (xmlReader.Read())
+        {
+          // 最初の属性「Key」へ
+          xmlReader.MoveToFirstAttribute();
+          string keyName = xmlReader.Value;
+          // ねずみ返し_キーの値が違う場合
+          if (!Regex.Match(keyName, @"Check\d\d|Search\d\d|Replace\d\d").Success)
+          {
+            continue;
+          }
+
+          // 二番目の属性「value」へ
+          xmlReader.MoveToNextAttribute();
+          string keyValue = xmlReader.Value;
+
+          // 各コントロール初期値ディクショナリ追加        
+          dicInitValue.Add(keyName, keyValue);
+        }
       }
     }
     #endregion
