@@ -187,12 +187,38 @@ namespace WFA
       rtbResult.ResetText();
 
       // 置換え実行
+      RichTextBox target = rtbTarget;
       string result = rtbTarget.Text;
+
       int i = 0;
       foreach (CheckBox x in listchkBox)
       {
-        // チェックが付いていれば該当行の置換え実行
-        result = x.Checked ? Regex.Replace(result, listTbSearch[i].Text, listTbReplace[i].Text) : result;
+        // ねずみ返し_チェックが付いていない場合
+        if (!x.Checked)
+        {
+          i += 1;
+          continue;
+        }
+
+        /* 色変更 */
+        // Regexオブジェクト作成
+        Regex regex = new Regex(listTbSearch[i].Text, RegexOptions.IgnoreCase);
+
+        // 正規表現と一致する対象をすべて検索
+        MatchCollection matchCollect = regex.Matches(target.Text);
+        foreach (Match y in matchCollect)
+        {
+          // 対象選択
+          target.Select(y.Index, y.Length);
+          // カラーリング
+          target.SelectionColor = Color.Red;
+          // 反映
+          rtbTarget = target;
+        }
+
+        /* 置換え */
+        result = Regex.Replace(result, listTbSearch[i].Text, listTbReplace[i].Text);
+        
         i += 1;
       }
 
