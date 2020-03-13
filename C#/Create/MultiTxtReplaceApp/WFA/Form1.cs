@@ -276,6 +276,15 @@ namespace WFA
     }
     #endregion
 
+    #region 開くボタン押下イベント
+    private void btOpen_Click(object sender, EventArgs e)
+    {
+      // 自身のフォルダを開く
+      string myLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      Process.Start(myLocation);      
+    }
+    #endregion
+
 
     #region 全選択チェックボックス押下イベント
     private void cbAllCheck_CheckedChanged(object sender, EventArgs e)
