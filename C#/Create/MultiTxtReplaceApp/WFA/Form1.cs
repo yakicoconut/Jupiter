@@ -175,7 +175,11 @@ namespace WFA
       // SplitContainer内のコントロールのサイズ位置を無理やり変更
       rtbTarget.Size = new Size(315, 210);
       rtbResult.Size = new Size(360, 210);
-      splcTargetResult.Size = new Size(705, 380);
+      splcTargetResult.Size = new Size(705, 345);
+
+      // 対象・結果ボックスでタブ記号が入力されるようにする
+      rtbTarget.AcceptsTab = true;
+      rtbResult.AcceptsTab = true;
     }
     #endregion
 
@@ -329,6 +333,20 @@ namespace WFA
     #endregion
 
 
+    #region 検索対象ボックスキー押下イベント
+    private void rtbTarget_KeyDown(object sender, KeyEventArgs e)
+    {
+      // キーボードペースト
+      if (e.Control == true && e.KeyCode == Keys.V)
+      {
+        // 置換え時の色変更を引き継いでしまうときがあるため
+        // ペースト時に黒を設定
+        rtbTarget.SelectionColor = Color.Black;
+      }
+    }
+    #endregion
+
+
     #region パターンパネルスクロールイベント
     private void splcSearchReplace_Scroll(object sender, ScrollEventArgs e)
     {
@@ -350,7 +368,7 @@ namespace WFA
       }
     }
     #endregion
-        
+
     #region スプリットパネル上下変更イベント
     private void splcPatternResult_SplitterMoved(object sender, SplitterEventArgs e)
     {
