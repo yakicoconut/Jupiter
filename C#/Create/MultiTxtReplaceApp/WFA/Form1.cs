@@ -254,58 +254,8 @@ namespace WFA
     #region パターン保存ボタン押下イベント
     private void btPatternSave_Click(object sender, EventArgs e)
     {
-      // 現在時刻取得
-      DateTime now = DateTime.Now;
-      string outputDate = now.ToString("yyyyMMddHHmmssfff");
-      string outputFileName = Path.GetFileNameWithoutExtension(outputPatternFile) + "_" + outputDate + Path.GetExtension(outputPatternFile);
-
-      // 出力用変数
-      string outStrChk = string.Empty;
-      string outStrSearch = string.Empty;
-      string outStrReplace = string.Empty;
-      string chkFormat = "  <add key=\"Check{0}\" value=\"{1}\"/>";
-      string searchFormat = "  <add key=\"Search{0}\" value=\"{1}\"/>";
-      string replaceFormat = "  <add key=\"Replace{0}\" value=\"{1}\"/>";
-      // XML用
-      string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-      string xmlRootStart = "<Root>";
-      string xmlRootEnd = "</Root>";
-
-      // 全チェックボックスループ
-      int i = 0;
-      foreach (CheckBox x in listChkBox)
-      {
-        string chkStr = listChkBox[i].Checked.ToString();
-        string searchStr = listTbSearch[i].Text;
-        string replaceStr = listTbReplace[i].Text;
-
-        // XML用文字に変換
-        searchStr = Regex.Replace(searchStr, "&", "&amp;");
-        searchStr = Regex.Replace(searchStr, "\"", "&quot;");
-        searchStr = Regex.Replace(searchStr, "'", "&apos;");
-        searchStr = Regex.Replace(searchStr, "<", "&lt;");
-        searchStr = Regex.Replace(searchStr, ">", "&gt;");
-        replaceStr = Regex.Replace(replaceStr, "&", "&amp;");
-        replaceStr = Regex.Replace(replaceStr, "\"", "&quot;");
-        replaceStr = Regex.Replace(replaceStr, "'", "&apos;");
-        replaceStr = Regex.Replace(replaceStr, "<", "&lt;");
-        replaceStr = Regex.Replace(replaceStr, ">", "&gt;");
-
-        // コンフィグの番号は1始まりのためここでインクリメント
-        i += 1;
-
-        // 変数格納
-        outStrChk += string.Format(chkFormat, i.ToString().PadLeft(2, '0'), chkStr) + Environment.NewLine;
-        outStrSearch += string.Format(searchFormat, i.ToString().PadLeft(2, '0'), searchStr) + Environment.NewLine;
-        outStrReplace += string.Format(replaceFormat, i.ToString().PadLeft(2, '0'), replaceStr) + Environment.NewLine;
-      }
-
-      // 出力ファイルの作成
-      // 引数:対象ファイル、上書き可不可、文字コード
-      using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
-      {
-        sw.WriteLine(xmlDec + Environment.NewLine + xmlRootStart + Environment.NewLine + outStrChk + outStrSearch + outStrReplace + xmlRootEnd);
-      }
+      // パターンXML保存メソッド使用
+      SavePatternXml();
     }
     #endregion
 
@@ -418,9 +368,9 @@ namespace WFA
       {
         // ディクショナリの添え字は1始まり
         string padTwo = (i + 1).ToString().PadLeft(2, '0');
-        
+
         // ディクショナリ存在確認
-        if(dicInitValue.ContainsKey("Check" + padTwo))
+        if (dicInitValue.ContainsKey("Check" + padTwo))
           listChkBox[i].Checked = dicInitValue["Check" + padTwo].ToLower() == "true";
         if (dicInitValue.ContainsKey("Search" + padTwo))
           listTbSearch[i].Text = dicInitValue["Search" + padTwo];
@@ -477,6 +427,64 @@ namespace WFA
           // 各コントロール初期値ディクショナリ追加        
           dicInitValue.Add(keyName, keyValue);
         }
+      }
+    }
+    #endregion
+
+    #region パターンXML保存メソッド
+    public void SavePatternXml()
+    {
+      // 現在時刻取得
+      DateTime now = DateTime.Now;
+      string outputDate = now.ToString("yyyyMMddHHmmssfff");
+      string outputFileName = Path.GetFileNameWithoutExtension(outputPatternFile) + "_" + outputDate + Path.GetExtension(outputPatternFile);
+
+      // 出力用変数
+      string outStrChk = string.Empty;
+      string outStrSearch = string.Empty;
+      string outStrReplace = string.Empty;
+      string chkFormat = "  <add key=\"Check{0}\" value=\"{1}\"/>";
+      string searchFormat = "  <add key=\"Search{0}\" value=\"{1}\"/>";
+      string replaceFormat = "  <add key=\"Replace{0}\" value=\"{1}\"/>";
+      // XML用
+      string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+      string xmlRootStart = "<Root>";
+      string xmlRootEnd = "</Root>";
+
+      // 全チェックボックスループ
+      int i = 0;
+      foreach (CheckBox x in listChkBox)
+      {
+        string chkStr = listChkBox[i].Checked.ToString();
+        string searchStr = listTbSearch[i].Text;
+        string replaceStr = listTbReplace[i].Text;
+
+        // XML用文字に変換
+        searchStr = Regex.Replace(searchStr, "&", "&amp;");
+        searchStr = Regex.Replace(searchStr, "\"", "&quot;");
+        searchStr = Regex.Replace(searchStr, "'", "&apos;");
+        searchStr = Regex.Replace(searchStr, "<", "&lt;");
+        searchStr = Regex.Replace(searchStr, ">", "&gt;");
+        replaceStr = Regex.Replace(replaceStr, "&", "&amp;");
+        replaceStr = Regex.Replace(replaceStr, "\"", "&quot;");
+        replaceStr = Regex.Replace(replaceStr, "'", "&apos;");
+        replaceStr = Regex.Replace(replaceStr, "<", "&lt;");
+        replaceStr = Regex.Replace(replaceStr, ">", "&gt;");
+
+        // コンフィグの番号は1始まりのためここでインクリメント
+        i += 1;
+
+        // 変数格納
+        outStrChk += string.Format(chkFormat, i.ToString().PadLeft(2, '0'), chkStr) + Environment.NewLine;
+        outStrSearch += string.Format(searchFormat, i.ToString().PadLeft(2, '0'), searchStr) + Environment.NewLine;
+        outStrReplace += string.Format(replaceFormat, i.ToString().PadLeft(2, '0'), replaceStr) + Environment.NewLine;
+      }
+
+      // 出力ファイルの作成
+      // 引数:対象ファイル、上書き可不可、文字コード
+      using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
+      {
+        sw.WriteLine(xmlDec + Environment.NewLine + xmlRootStart + Environment.NewLine + outStrChk + outStrSearch + outStrReplace + xmlRootEnd);
       }
     }
     #endregion
