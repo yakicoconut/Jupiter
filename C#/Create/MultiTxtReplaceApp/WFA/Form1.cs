@@ -236,9 +236,19 @@ namespace WFA
           continue;
         }
 
+        // Regexオプション
+        RegexOptions regOption;
+        regOption = RegexOptions.None;
+        // 大小文字判別チェック
+        if (cbIgnoreCase.Checked)
+        {
+          // 大小文字判別しない
+          regOption = RegexOptions.IgnoreCase;
+        }
+
         /* 色変更 */
         // Regexオブジェクト作成
-        Regex regex = new Regex(listTbSearch[i].Text, RegexOptions.IgnoreCase);
+        Regex regex = new Regex(listTbSearch[i].Text, regOption);
 
         // 正規表現と一致する対象をすべて検索
         MatchCollection matchCollect = regex.Matches(target.Text);
@@ -253,7 +263,8 @@ namespace WFA
         }
 
         /* 置換え */
-        resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text);
+        // 複数行モード(「^」と「$」の有効化)
+        resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text, RegexOptions.Multiline);
         // 改行チェック
         if (cbNewLine.Checked)
         {
