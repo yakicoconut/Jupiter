@@ -18,3 +18,11 @@ E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\WFA.exe
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\WFA.pdb
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.Form2.resources
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\01.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\02.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\03.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\04.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\05.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\06.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\07.JPG
+E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\08.JPG

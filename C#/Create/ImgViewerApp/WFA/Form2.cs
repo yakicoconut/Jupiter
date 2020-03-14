@@ -91,10 +91,10 @@ namespace WFA
     private void checkBox1_CheckedChanged(object sender, EventArgs e)
     {
       // チェック済の場合
-      if (cbIsFunctionCtrl.Checked)
+      if (cbIsModePageEject.Checked)
       {
         // シフトチェックをはずす
-        cbIsFunctionShift.Checked = false;
+        cbIsModeZoom.Checked = false;
       }
     }
     #endregion
@@ -103,12 +103,17 @@ namespace WFA
     private void cbIsFunctionShift_CheckedChanged(object sender, EventArgs e)
     {
       // チェック済の場合
-      if (cbIsFunctionShift.Checked)
+      if (cbIsModeZoom.Checked)
       {
         // コントロールチェックをはずす
-        cbIsFunctionCtrl.Checked = false;
+        cbIsModePageEject.Checked = false;
       }
     }
     #endregion
+
+    private void Form2_KeyDown(object sender, KeyEventArgs e)
+    {
+      //form1.Form1_KeyDown(sender, e);
+    }
   }
 }
