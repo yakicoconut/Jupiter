@@ -8,4 +8,4 @@ E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.exe
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.pdb
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.FrmFileList.resources
 E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.FrmOption.resources
-E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.csprojResolveAssemblyReference.cache
+E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Release\WFA.FrmFileMng.resources
