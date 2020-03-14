@@ -83,6 +83,9 @@ namespace WFA
 
       // 最小化から復帰
       this.WindowState = FormWindowState.Normal;
+
+      // 退避した画像の復元
+      this.BackgroundImage = Image.FromFile(@"DsktopDrawerEvacuation.png");
     }
     #endregion
 

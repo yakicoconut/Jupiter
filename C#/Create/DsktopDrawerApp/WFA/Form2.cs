@@ -41,6 +41,9 @@ namespace WFA
     // 線カラー
     Color lineColor;
 
+    // 退避用ビットマップ
+    Bitmap evacuationBmp;
+
     #endregion
 
 
@@ -55,6 +58,9 @@ namespace WFA
       // 描画線デフォルト設定
       lineSize = 2;
       lineColor = Color.Black;
+
+      // 退避用ビットマップ生成
+      evacuationBmp = new Bitmap(fmParent.Width, fmParent.Height);
     }
     #endregion
 
@@ -93,6 +99,13 @@ namespace WFA
         using (Graphics objGrp = fmParent.CreateGraphics())
         {
           // 線描画
+          objGrp.DrawLine(objPen, prevX, prevY, e.Location.X, e.Location.Y);
+        }
+
+        // 同時に退避用ビットマップにも描画
+        // ※CreateGraphics()での描写は最小化するとクリアされるため
+        using (Graphics objGrp = Graphics.FromImage(evacuationBmp))
+        {
           objGrp.DrawLine(objPen, prevX, prevY, e.Location.X, e.Location.Y);
         }
       }
@@ -247,6 +260,9 @@ namespace WFA
     #region コンテキスト_最小化押下イベント
     private void toolStripMenuItemMin_Click(object sender, EventArgs e)
     {
+      // 描画済線退避
+      evacuationBmp.Save(@"DsktopDrawerEvacuation.png", ImageFormat.Png);
+
       // 最小化
       fmParent.WindowState = FormWindowState.Minimized;
     }
