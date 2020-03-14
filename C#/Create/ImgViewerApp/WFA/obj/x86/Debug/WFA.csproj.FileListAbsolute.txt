@@ -26,3 +26,6 @@ E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\06.JPG
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\07.JPG
 E:\Calacala_ActualFolder\Sync\PG\C#\Create\ImgViewerApp\WFA\bin\Debug\MyResorce\TestImg\08.JPG
+E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\bin\Debug\WFA.exe.config
+E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.exe
+E:\Cal_Git_Master\C#\Create\ImgViewerApp\WFA\obj\x86\Debug\WFA.pdb
