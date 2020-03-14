@@ -46,7 +46,6 @@
       this.toolStripMenuItemBlue = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemMin = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
