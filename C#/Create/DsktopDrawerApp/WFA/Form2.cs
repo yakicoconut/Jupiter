@@ -36,6 +36,11 @@ namespace WFA
     int prevX;
     int prevY;
 
+    // 線サイズ
+    int lineSize;
+    // 線カラー
+    Color lineColor;
+
     #endregion
 
 
@@ -46,6 +51,10 @@ namespace WFA
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.form2_MouseDown);
       this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.form2_MouseUp);
       this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form2_MouseMove);
+
+      // 描画線デフォルト設定
+      lineSize = 2;
+      lineColor = Color.Black;
     }
     #endregion
 
@@ -77,7 +86,7 @@ namespace WFA
       }
 
       // ペンオブジェクト生成
-      using (Pen objPen = new Pen(Color.Black, 1))
+      using (Pen objPen = new Pen(lineColor, lineSize))
       {
         // グラフィックスオブジェクト生成
         // 親フォームのグラフィックに直接アクセス
@@ -143,6 +152,7 @@ namespace WFA
     }
     #endregion
 
+
     #region コンテキスト_タスクバー押下イベント
     private void ToolStripMenuItemTaskBar_Click(object sender, EventArgs e)
     {
@@ -185,6 +195,51 @@ namespace WFA
         // 保存
         bmp.Save(string.Format(@"ScreenCap\{0}.png", fileName), ImageFormat.Png);
       }
+    }
+    #endregion
+
+
+    #region コンテキスト_サイズ押下イベント
+    private void toolStripMenuItemSize_Click(object sender, EventArgs e)
+    {
+      // 線サイズをデフォルトに戻す
+      lineSize = 2;
+    }
+    #endregion
+
+    #region コンテキスト_サイズ上げ押下イベント
+    private void toolStripMenuItemSizeUp_Click(object sender, EventArgs e)
+    {
+      lineSize += 1;
+    }
+    #endregion
+
+    #region コンテキスト_サイズ下げ押下イベント
+    private void toolStripMenuItemSizeDown_Click(object sender, EventArgs e)
+    {
+      lineSize -= 1;
+    }
+    #endregion
+
+
+    #region コンテキスト_カラーBlack押下イベント
+    private void toolStripMenuItemBlack_Click(object sender, EventArgs e)
+    {
+      lineColor = Color.Black;
+    }
+    #endregion
+
+    #region コンテキスト_カラーRed押下イベント
+    private void toolStripMenuItemRed_Click(object sender, EventArgs e)
+    {
+      lineColor = Color.Red;
+    }
+    #endregion
+
+    #region コンテキスト_カラーBlue押下イベント
+    private void toolStripMenuItemBlue_Click(object sender, EventArgs e)
+    {
+      lineColor = Color.Blue;
     }
     #endregion
 

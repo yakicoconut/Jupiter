@@ -35,6 +35,15 @@
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemOpacityTransparent = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolStripMenuItemTaskBar = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemPalette = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemSize = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemSizeUp = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemSizeDown = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemColor = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemBlack = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemRed = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItemBlue = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemMin = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemCapture = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +56,7 @@
             this.toolStripMenuItemOpacity,
             this.ToolStripMenuItemTaskBar,
             this.toolStripMenuItemCapture,
+            this.toolStripMenuItemPalette,
             this.toolStripMenuItemMin,
             this.toolStripMenuItemClose});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -112,6 +122,69 @@
       this.toolStripMenuItemCapture.Text = "キャプチャ";
       this.toolStripMenuItemCapture.Click += new System.EventHandler(this.ToolStripMenuItemCapture_Click);
       // 
+      // toolStripMenuItemPalette
+      // 
+      this.toolStripMenuItemPalette.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSize,
+            this.toolStripMenuItemColor});
+      this.toolStripMenuItemPalette.Name = "toolStripMenuItemPalette";
+      this.toolStripMenuItemPalette.Size = new System.Drawing.Size(136, 22);
+      this.toolStripMenuItemPalette.Text = "パレット";
+      // 
+      // toolStripMenuItemSize
+      // 
+      this.toolStripMenuItemSize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSizeUp,
+            this.toolStripMenuItemSizeDown});
+      this.toolStripMenuItemSize.Name = "toolStripMenuItemSize";
+      this.toolStripMenuItemSize.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemSize.Text = "サイズ";
+      this.toolStripMenuItemSize.Click += new System.EventHandler(this.toolStripMenuItemSize_Click);
+      // 
+      // toolStripMenuItemSizeUp
+      // 
+      this.toolStripMenuItemSizeUp.Name = "toolStripMenuItemSizeUp";
+      this.toolStripMenuItemSizeUp.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemSizeUp.Text = "上げ";
+      this.toolStripMenuItemSizeUp.Click += new System.EventHandler(this.toolStripMenuItemSizeUp_Click);
+      // 
+      // toolStripMenuItemSizeDown
+      // 
+      this.toolStripMenuItemSizeDown.Name = "toolStripMenuItemSizeDown";
+      this.toolStripMenuItemSizeDown.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemSizeDown.Text = "下げ";
+      this.toolStripMenuItemSizeDown.Click += new System.EventHandler(this.toolStripMenuItemSizeDown_Click);
+      // 
+      // toolStripMenuItemColor
+      // 
+      this.toolStripMenuItemColor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemBlack,
+            this.toolStripMenuItemRed,
+            this.toolStripMenuItemBlue});
+      this.toolStripMenuItemColor.Name = "toolStripMenuItemColor";
+      this.toolStripMenuItemColor.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemColor.Text = "カラー";
+      // 
+      // toolStripMenuItemBlack
+      // 
+      this.toolStripMenuItemBlack.Name = "toolStripMenuItemBlack";
+      this.toolStripMenuItemBlack.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemBlack.Text = "Black";
+      this.toolStripMenuItemBlack.Click += new System.EventHandler(this.toolStripMenuItemBlack_Click);
+      // 
+      // toolStripMenuItemRed
+      // 
+      this.toolStripMenuItemRed.Name = "toolStripMenuItemRed";
+      this.toolStripMenuItemRed.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemRed.Text = "Red";
+      this.toolStripMenuItemRed.Click += new System.EventHandler(this.toolStripMenuItemRed_Click);
+      // 
+      // toolStripMenuItemBlue
+      // 
+      this.toolStripMenuItemBlue.Name = "toolStripMenuItemBlue";
+      this.toolStripMenuItemBlue.Size = new System.Drawing.Size(152, 22);
+      this.toolStripMenuItemBlue.Text = "Blue";
+      this.toolStripMenuItemBlue.Click += new System.EventHandler(this.toolStripMenuItemBlue_Click);      // 
       // Form2
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -128,7 +201,6 @@
 
     #endregion
 
-    private System.Windows.Forms.PictureBox pictureBox1;
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacity;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
@@ -138,5 +210,13 @@
     private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpacityTransparent;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMin;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCapture;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalette;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSize;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemColor;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBlack;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRed;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBlue;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSizeUp;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSizeDown;
   }
 }
