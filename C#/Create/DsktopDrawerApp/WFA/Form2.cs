@@ -260,6 +260,15 @@ namespace WFA
     #region コンテキスト_最小化押下イベント
     private void toolStripMenuItemMin_Click(object sender, EventArgs e)
     {
+      // 一回でも最小化されていれば
+      if (fmParent.BackgroundImage != null)
+      {
+        // 背景画像を破棄する
+        // ※最小化から復帰した時点で画像ファイルがつかまれるため
+        //   二回目以降の保存が行えない
+        fmParent.BackgroundImage.Dispose();
+        fmParent.BackgroundImage = null;
+      }
       // 描画済線退避
       evacuationBmp.Save(@"DsktopDrawerEvacuation.png", ImageFormat.Png);
 
