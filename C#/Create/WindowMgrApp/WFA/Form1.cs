@@ -173,6 +173,10 @@ namespace WFA
       if (windowTitle.Count <= 0)
         return;
 
+      // ねずみ返し_選択中アイテムにチェックがある場合
+      if (windowTitle[0].Checked)
+        return;
+
       #region コメント_VBウィンドウアクティブメソッド使用
 
       //// VBウィンドウアクティブメソッド使用
