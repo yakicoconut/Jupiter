@@ -256,6 +256,15 @@ namespace WFA
     }
     #endregion
 
+    #region コンテキスト_消しゴム押下イベント
+    private void toolStripMenuItemEraser_Click(object sender, EventArgs e)
+    {
+      // 透明色を緑に設定しているため
+      lineColor = Color.Green;
+      lineSize = 30;
+    }
+    #endregion
+
 
     #region コンテキスト_最小化押下イベント
     private void toolStripMenuItemMin_Click(object sender, EventArgs e)
