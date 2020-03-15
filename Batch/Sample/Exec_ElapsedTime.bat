@@ -25,10 +25,10 @@ echo 経過時間計算バッチの使用例
 
 : 差分計算_コンマ秒パターン
   rem 開始時刻
-  set beforeTime=00:13:19.40
+  set beforeTime=01:59:19.40
 
   rem 終了時刻
-  set afterTime=01:14:00.39
+  set  afterTime=01:00:00.39
 
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %beforeTime% %afterTime%
@@ -37,10 +37,10 @@ echo 経過時間計算バッチの使用例
 
 : 差分計算パターン
   rem 開始時刻
-  set beforeTime=00:13:19
+  set beforeTime=00:13:30
 
   rem 終了時刻
-  set afterTime=01:14:00
+  set  afterTime=00:14:00
 
   rem 経過時間計算バッチ使用
   call %call_ElapsedTime% %beforeTime% %afterTime%
