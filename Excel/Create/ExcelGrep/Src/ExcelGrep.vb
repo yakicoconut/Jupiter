@@ -76,34 +76,39 @@ Sub FileSearch(path As String, rowNum As Long)
 
         ' 検索実行
         Set foundCell = range.Find(What:=.Worksheets("Sheet1").Cells(4, 9).MergeArea(1, 1).Value, LookIn:=xlValues)
-        ' 検索結果が存在
-        If Not foundCell Is Nothing Then
-          ' 検索結果最上位位置
-          firstAddress = foundCell.Address
 
-          ' 該当シート名出力
-          .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = y.Name
-          rowNum = rowNum + 1
-
-          ' 検索結果ループ
-          Do
-            ' 検索結果(発見位置)出力
-            .Worksheets("Sheet1").Cells(rowNum, sheetColumn + 1).Value = foundCell.Address(RowAbsolute:=False, ColumnAbsolute:=False)
-            rowNum = rowNum + 1
-
-            ' 次の検索結果位置へ
-            Set foundCell = range.FindNext(foundCell)
-
-            ' 検索結果最上位位置
-            If foundCell Is Nothing Then Exit Do
-
-          ' 最上位位置になるまでループ
-          Loop Until foundCell.Address = firstAddress
-
+        ' ねずみ返し_検索結果が存在しない
+        If foundCell Is Nothing Then
+          ' 次のシートへ
+          GoTo NEXTSEET
         End If
 
+        ' 検索結果最上位位置
+        firstAddress = foundCell.Address
+
+        ' 該当シート名出力
+        .Worksheets("Sheet1").Cells(rowNum, sheetColumn).Value = y.Name
+        rowNum = rowNum + 1
+
+        ' 検索結果ループ
+        Do
+          ' 検索結果(発見位置)出力
+          .Worksheets("Sheet1").Cells(rowNum, sheetColumn + 1).Value = foundCell.Address(RowAbsolute:=False, ColumnAbsolute:=False)
+          rowNum = rowNum + 1
+
+          ' 次の検索結果位置へ
+          Set foundCell = range.FindNext(foundCell)
+
+          ' 検索結果最上位位置
+          If foundCell Is Nothing Then Exit Do
+
+        ' 最上位位置になるまでループ
+        Loop Until foundCell.Address = firstAddress
+
+NEXTSEET:
       ' 次のシートへ
       Next y
+
       ' ブッククローズ
       wb.Close
 
@@ -141,3 +146,4 @@ Function IsBookOpened(a_sFilePath) As Boolean
   End If
 
 End Function
+
