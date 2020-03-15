@@ -14,7 +14,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -23,7 +24,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -32,7 +34,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -41,7 +44,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -50,7 +54,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -59,7 +64,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -68,7 +74,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -77,7 +84,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -86,7 +94,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -95,7 +104,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -104,7 +114,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -113,7 +124,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -122,7 +134,8 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
@@ -131,16 +144,18 @@ echo 時刻判定バッチの使用例
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
   : 「hh:mm:ss」パターン
-    set target=09:10:50
+    set target=12:34:56.78
 
     call %call_ChkTimeFormat% %target%
     echo %target%
-    echo %return_ChkTimeFormat%
+    echo %return_ChkTimeFormat1%
+    echo %return_ChkTimeFormat2%
     echo ---------------
 
 
