@@ -55,14 +55,14 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set /P USR="入力してください:"
 
     rem 「""」入力対策
-    set returnVal=%USR:"=%
-    set returnVal="%returnVal%"
+    set retVal=%USR:"=%
+    set retVal="%retVal%"
     rem 判定結果宣言
     set judgResult=
 
     : ねずみ返し_丸括弧判定
       rem 丸括弧含有判定バッチ使用
-      call %call_ChkIncParenthesis% %returnVal%
+      call %call_ChkIncParenthesis% %retVal%
 
       rem 丸括弧を含む場合
       if %return_ChkIncParenthesis%==1 (
@@ -71,7 +71,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
     : ねずみ返し_無入力判定
-      if %returnVal%=="" (
+      if %retVal%=="" (
         rem 無効入力表示文言設定
         set invalidErrStr=無入力です
         rem 無効入力判断へ
@@ -86,7 +86,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : ファイルパスモード
       if %mode%==PATH (
         rem パスが存在しない場合
-        if not exist %returnVal% (
+        if not exist %retVal% (
           set invalidErrStr=パスが存在しません
           goto :IS_Invalid_LOOP
         )
@@ -95,7 +95,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 数値モード
       if %mode%==NUM (
         rem 数値判定バッチ使用
-        call %call_ChkNum% %returnVal:"=%
+        call %call_ChkNum% %retVal:"=%
 
         rem 数値でない場合
         if !return_ChkNum!==0 (
@@ -107,7 +107,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 日付モード
       if %mode%==DATE (
         rem 日付書式判定バッチ使用
-        call %call_ChkDateFormat% %returnVal:"=%
+        call %call_ChkDateFormat% %retVal:"=%
 
         rem 日付でない場合
         if !return_ChkDateFormat1!==0 (
@@ -121,7 +121,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 時刻モード
       if %mode%==TIME (
         rem 時刻書式判定バッチ使用
-        call %call_ChkTimeFormat% %returnVal:"=%
+        call %call_ChkTimeFormat% %retVal:"=%
 
         rem 時刻でない場合
         if !return_ChkTimeFormat1!==0 (
@@ -139,7 +139,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 
 rem 戻り値(2つ以上の場合、戻り値2以降の「&&」直前スペース注意)
-ENDLOCAL && set return_UserInput1=%returnVal%&& set return_UserInput2=%judgResult%
+ENDLOCAL && set return_UserInput1=%retVal%&& set return_UserInput2=%judgResult%
 exit /b
 
 
