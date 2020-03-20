@@ -27,7 +27,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 無効入力ループ
     set isInvalidLoop=%2
     rem 判断モード
-    set judgeMode=%3
+    set mode=%3
 
 
   : 参照バッチ
@@ -84,7 +84,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
   : 判断処理
     : ファイルパスモード
-      if %judgeMode%==PATH (
+      if %mode%==PATH (
         rem パスが存在しない場合
         if not exist %returnVal% (
           set invalidErrStr=パスが存在しません
@@ -93,7 +93,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
     : 数値モード
-      if %judgeMode%==NUM (
+      if %mode%==NUM (
         rem 数値判定バッチ使用
         call %call_ChkNum% %returnVal:"=%
 
@@ -105,7 +105,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
     : 日付モード
-      if %judgeMode%==DATE (
+      if %mode%==DATE (
         rem 日付書式判定バッチ使用
         call %call_ChkDateFormat% %returnVal:"=%
 
@@ -119,7 +119,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
     : 時刻モード
-      if %judgeMode%==TIME (
+      if %mode%==TIME (
         rem 時刻書式判定バッチ使用
         call %call_ChkTimeFormat% %returnVal:"=%
 
