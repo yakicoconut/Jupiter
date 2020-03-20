@@ -13,7 +13,7 @@ echo ユーザ入力バッチの使用例
   echo ================================
   echo 文字列入力例1_文字入力
   echo   設定
-  echo     表示文言      :任意
+  echo     表示文言      :丸括弧検証
   echo     無効入力ループ:有効
   echo     判断モード    :デフォルト(文字列)
   echo   期待結果
@@ -21,7 +21,7 @@ echo ユーザ入力バッチの使用例
   echo     任意入力⇒戻値1:入力文字列
   echo               戻値2:1
   echo --------------------------------
-  call %call_UserInput% 文字入力パターン TRUE STR
+  call %call_UserInput% 文字入力パターン(丸括弧検証) TRUE STR
   echo %return_UserInput1%
   echo %return_UserInput2%
 
@@ -47,7 +47,7 @@ echo ユーザ入力バッチの使用例
   echo ================================
   echo 文字列入力例3_文字入力 - 無効入力ループ無効
   echo   設定
-  echo     表示文言      :任意
+  echo     表示文言      :丸括弧検証(開始のみ)
   echo     無効入力ループ:無効
   echo     判断モード    :デフォルト(文字列)
   echo   期待結果
@@ -56,7 +56,7 @@ echo ユーザ入力バッチの使用例
   echo     任意入力⇒戻値1:入力文字列
   echo               戻値2:1
   echo --------------------------------
-  call %call_UserInput% "文字入力 - 無効入力ループ無効パターン" FALSE STR
+  call %call_UserInput% "文字入力 - 無効入力ループ無効パターン(丸括弧検証" FALSE STR
   echo %return_UserInput1%
   echo %return_UserInput2%
 
@@ -65,7 +65,7 @@ echo ユーザ入力バッチの使用例
   echo ================================
   echo パス入力例1_パス入力
   echo   設定
-  echo     表示文言      :任意
+  echo     表示文言      :丸括弧検証(終了のみ)
   echo     無効入力ループ:有効
   echo     判断モード    :パス
   echo   期待結果
@@ -73,7 +73,7 @@ echo ユーザ入力バッチの使用例
   echo     有効入力⇒戻値1:入力文字列
   echo               戻値2:1
   echo --------------------------------
-  call %call_UserInput% パス入力パターン TRUE PATH
+  call %call_UserInput% パス入力パターン)丸括弧検証 TRUE PATH
   echo %return_UserInput1%
   echo %return_UserInput2%
 
@@ -82,7 +82,7 @@ echo ユーザ入力バッチの使用例
   echo ================================
   echo パス入力例2_パス入力 - 無効入力ループ無効
   echo   設定
-  echo     表示文言      :任意
+  echo     表示文言      :丸括弧検証(終了×2)
   echo     無効入力ループ:無効
   echo     判断モード    :パス
   echo   期待結果
@@ -91,7 +91,7 @@ echo ユーザ入力バッチの使用例
   echo     有効入力⇒戻値1:入力文字列
   echo               戻値2:1
   echo --------------------------------
-  call %call_UserInput% "パス入力 - 無効入力ループ無効パターン" FALSE PATH
+  call %call_UserInput% "パス入力 - 無効入力ループ無効パターン))丸括弧検証" FALSE PATH
   echo %return_UserInput1%
   echo %return_UserInput2%
 
