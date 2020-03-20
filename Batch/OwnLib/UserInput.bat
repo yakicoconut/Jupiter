@@ -58,7 +58,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     set retVal=%USR:"=%
     set retVal="%retVal%"
     rem 判定結果宣言
-    set judgResult=
+    set jdgResult=
 
     : ねずみ返し_丸括弧判定
       rem 丸括弧含有判定バッチ使用
@@ -79,7 +79,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       )
 
     rem 判定結果を成功に設定
-    set judgResult=1
+    set jdgResult=1
 
 
   : 判断処理
@@ -115,7 +115,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
           goto :IS_Invalid_LOOP
         )
         rem 判定結果を成功に書式を設定
-        set judgResult=!return_ChkDateFormat2!
+        set jdgResult=!return_ChkDateFormat2!
       )
 
     : 時刻モード
@@ -129,7 +129,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
           goto :IS_Invalid_LOOP
         )
         rem 判定結果を成功に書式を設定
-        set judgResult=!return_ChkTimeFormat2!
+        set jdgResult=!return_ChkTimeFormat2!
       )
 
 
@@ -139,7 +139,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 
 rem 戻り値(2つ以上の場合、戻り値2以降の「&&」直前スペース注意)
-ENDLOCAL && set return_UserInput1=%retVal%&& set return_UserInput2=%judgResult%
+ENDLOCAL && set return_UserInput1=%retVal%&& set return_UserInput2=%jdgResult%
 exit /b
 
 
@@ -156,7 +156,7 @@ rem 無効入力判断
   )
 
   rem 判定結果を失敗に設定
-  set judgResult=0
+  set jdgResult=0
 
   rem バッチ終了へ
   goto :RETURN
