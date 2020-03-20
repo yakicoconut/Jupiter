@@ -47,7 +47,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 表示文言が「""」のみでない場合
     if not %description%=="" (
       rem 文言表示
-      echo %description:"=%
+      echo !description:"=!
     )
 
     rem 変数初期化
