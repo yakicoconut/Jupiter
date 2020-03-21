@@ -83,7 +83,9 @@ echo ffmpegで動画分割
     set outPath=%return_UserInput1%
 
 
-: 開始時間秒数変換
+rem 本処理
+:RUN
+  : 開始時間秒数変換
     rem 文字列として分割
     set   strHour=%start:~0,2%
     set strMinute=%start:~3,2%
@@ -112,68 +114,68 @@ echo ffmpegで動画分割
     set /a  startSec=%secHour%+%secMinute%+%second%
 
 
-: 分割時間秒数変換
-  rem 経過時間計算バッチ使用
-  call %call_ElapsedTime% %start:"=% %dist:"=%
-  set elapsed=%return_ElapsedTime%
+  : 分割時間秒数変換
+    rem 経過時間計算バッチ使用
+    call %call_ElapsedTime% %start:"=% %dist:"=%
+    set elapsed=%return_ElapsedTime%
 
-  : 項目分割
-    rem 文字列として分割
-    set   strHour=%elapsed:~0,2%
-    set strMinute=%elapsed:~3,2%
-    set strSecond=%elapsed:~6,2%
+    : 項目分割
+      rem 文字列として分割
+      set   strHour=%elapsed:~0,2%
+      set strMinute=%elapsed:~3,2%
+      set strSecond=%elapsed:~6,2%
 
-    rem 二桁目が「0」の場合
-    if %strHour:~0,1%==0 (
-      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
-      set strHour=%strHour:~1,1%
-    )
-    if %strMinute:~0,1%==0 (
-      set strMinute=%strMinute:~1,1%
-    )
-    if %strSecond:~0,1%==0 (
-      set strSecond=%strSecond:~1,1%
-    )
+      rem 二桁目が「0」の場合
+      if %strHour:~0,1%==0 (
+        rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+        set strHour=%strHour:~1,1%
+      )
+      if %strMinute:~0,1%==0 (
+        set strMinute=%strMinute:~1,1%
+      )
+      if %strSecond:~0,1%==0 (
+        set strSecond=%strSecond:~1,1%
+      )
 
-    rem 数値変換
-    set /a   hour=%strHour%
-    set /a minute=%strMinute%
-    set /a second=%strSecond%
+      rem 数値変換
+      set /a   hour=%strHour%
+      set /a minute=%strMinute%
+      set /a second=%strSecond%
 
-    rem 秒数変換
-    set /a   secHour=%hour%*3600
-    set /a secMinute=%minute%*60
-    set /a    length=%secHour%+%secMinute%+%second%
+      rem 秒数変換
+      set /a   secHour=%hour%*3600
+      set /a secMinute=%minute%*60
+      set /a    length=%secHour%+%secMinute%+%second%
 
 
-: 実行
-  rem 実行前ログ出力
-  echo %date%%time%>SplitVideo.log
-  echo;>>SplitVideo.log
-  echo %srcPath:"=%>>SplitVideo.log
-  echo %start:"=%%startMilli%>>SplitVideo.log
-  echo %dist:"=%%distMilli%>>SplitVideo.log
-  echo %codec:"=%>>SplitVideo.log
-  echo %rate:"=%>>SplitVideo.log
-  echo %tbn:"=%>>SplitVideo.log
-  echo %outPath:"=%>>SplitVideo.log
+  : 実行
+    rem 実行前ログ出力
+    echo %date%%time%>SplitVideo.log
+    echo;>>SplitVideo.log
+    echo %srcPath:"=%>>SplitVideo.log
+    echo %start:"=%%startMilli%>>SplitVideo.log
+    echo %dist:"=%%distMilli%>>SplitVideo.log
+    echo %codec:"=%>>SplitVideo.log
+    echo %rate:"=%>>SplitVideo.log
+    echo %tbn:"=%>>SplitVideo.log
+    echo %outPath:"=%>>SplitVideo.log
 
-  rem 分割実行
-  : -y         :上書き
-  : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
-  : -i         :元ファイル
-  : -t         :対象期間(秒)
-  : -c:v copy  :映像無変換(無劣化)
-  : -c:a copy  :音声無変換(無劣化)
-  : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
-  :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
-  :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+    rem 分割実行
+    : -y         :上書き
+    : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
+    : -i         :元ファイル
+    : -t         :対象期間(秒)
+    : -c:v copy  :映像無変換(無劣化)
+    : -c:a copy  :音声無変換(無劣化)
+    : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
+    :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
+    :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
+    ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
 
-  rem 実行前ログ出力
-  echo;>>SplitVideo.log
-  echo %date%%time%>>SplitVideo.log
-  pause
+    rem 実行前ログ出力
+    echo;>>SplitVideo.log
+    echo %date%%time%>>SplitVideo.log
+    pause
 
 
 exit
