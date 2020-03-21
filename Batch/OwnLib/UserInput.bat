@@ -60,16 +60,6 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 判定結果宣言
     set jdgResult=
 
-    : ねずみ返し_丸括弧判定
-      rem 丸括弧含有判定バッチ使用
-      call %call_ChkIncParenthesis% %retVal%
-
-      rem 丸括弧を含む場合
-      if %return_ChkIncParenthesis%==1 (
-        set invalidErrStr=「^(」か、「^)」が含まれています
-        goto :IS_Invalid_LOOP
-      )
-
     : ねずみ返し_無入力判定
       if %retVal%=="" (
         rem 無効入力表示文言設定
@@ -86,7 +76,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : ファイルパスモード
       if %mode%==PATH (
         rem パスが存在しない場合
-        if not exist %retVal% (
+        if not exist !retVal! (
           set invalidErrStr=パスが存在しません
           goto :IS_Invalid_LOOP
         )
@@ -95,7 +85,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 数値モード
       if %mode%==NUM (
         rem 数値判定バッチ使用
-        call %call_ChkNum% %retVal:"=%
+        call %call_ChkNum% !retVal:"=!
 
         rem 数値でない場合
         if !return_ChkNum!==0 (
@@ -107,7 +97,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 日付モード
       if %mode%==DATE (
         rem 日付書式判定バッチ使用
-        call %call_ChkDateFormat% %retVal:"=%
+        call %call_ChkDateFormat% !retVal:"=!
 
         rem 日付でない場合
         if !return_ChkDateFormat1!==0 (
@@ -121,7 +111,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     : 時刻モード
       if %mode%==TIME (
         rem 時刻書式判定バッチ使用
-        call %call_ChkTimeFormat% %retVal:"=%
+        call %call_ChkTimeFormat% !retVal:"=!
 
         rem 時刻でない場合
         if !return_ChkTimeFormat1!==0 (
