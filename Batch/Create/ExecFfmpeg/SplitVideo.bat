@@ -9,9 +9,9 @@ echo ffmpegで動画分割
 
 : 参照バッチ
   rem ユーザ入力バッチ
-  set call_UserInput="..\..\OwnLib\UserInput.bat"
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
   rem 経過時間計算バッチ
-  set call_ElapsedTime="..\..\OwnLib\ElapsedTime.bat"
+  set call_ElapsedTime=%~dp0"..\..\OwnLib\ElapsedTime.bat"
 
 
 : ユーザ入力処理
@@ -149,16 +149,19 @@ rem 本処理
 
 
   : 実行
+    rem ログファイルパス
+    set logPath=%~dp0SplitVideo.log
+
     rem 実行前ログ出力
-    echo %date%%time%>SplitVideo.log
-    echo;>>SplitVideo.log
-    echo %srcPath:"=%>>SplitVideo.log
-    echo %start:"=%%startMilli%>>SplitVideo.log
-    echo %dist:"=%%distMilli%>>SplitVideo.log
-    echo %codec:"=%>>SplitVideo.log
-    echo %rate:"=%>>SplitVideo.log
-    echo %tbn:"=%>>SplitVideo.log
-    echo %outPath:"=%>>SplitVideo.log
+    echo %date%%time%>%logPath%
+    echo;>>%logPath%
+    echo %srcPath:"=%>>%logPath%
+    echo %start:"=%%startMilli%>>%logPath%
+    echo %dist:"=%%distMilli%>>%logPath%
+    echo %codec:"=%>>%logPath%
+    echo %rate:"=%>>%logPath%
+    echo %tbn:"=%>>%logPath%
+    echo %outPath:"=%>>%logPath%
 
     rem 分割実行
     : -y         :上書き
@@ -170,11 +173,11 @@ rem 本処理
     : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
     :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
     :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-    ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
 
     rem 実行前ログ出力
-    echo;>>SplitVideo.log
-    echo %date%%time%>>SplitVideo.log
+    echo;>>%logPath%
+    echo %date%%time%>>%logPath%
     pause
 
 
