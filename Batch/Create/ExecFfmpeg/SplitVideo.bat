@@ -20,7 +20,7 @@ echo ffmpegで動画分割
     rem ユーザ入力バッチ使用
     call %call_UserInput% 対象ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
-    set sourcePath=%return_UserInput1%
+    set srcPath=%return_UserInput1%
 
   : 開始時間
     echo;
@@ -30,10 +30,10 @@ echo ffmpegで動画分割
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set start=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
+    set tgtTimeFmt=%return_UserInput2%
 
     rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %start% %targetTimeFormat%
+    call :DISMANTLE_TIME %start% %tgtTimeFmt%
     set start=%ret_DISMANTLE_TIME01:"=%
     set startMilli=%ret_DISMANTLE_TIME02%
 
@@ -44,10 +44,10 @@ echo ffmpegで動画分割
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
+    set tgtTimeFmt=%return_UserInput2%
 
     rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %dist% %targetTimeFormat%
+    call :DISMANTLE_TIME %dist% %tgtTimeFmt%
     set dist=%ret_DISMANTLE_TIME01%
     set distMilli=%ret_DISMANTLE_TIME02%
 
@@ -150,7 +150,7 @@ echo ffmpegで動画分割
   rem 実行前ログ出力
   echo %date%%time%>SplitVideo.log
   echo;>>SplitVideo.log
-  echo %sourcePath:"=%>>SplitVideo.log
+  echo %srcPath:"=%>>SplitVideo.log
   echo %start:"=%%startMilli%>>SplitVideo.log
   echo %dist:"=%%distMilli%>>SplitVideo.log
   echo %codec:"=%>>SplitVideo.log
@@ -168,7 +168,7 @@ echo ffmpegで動画分割
   : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
   :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
   :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %sourcePath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+  ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec% -r %rate% -video_track_timescale %tbn% %outPath%
 
   rem 実行前ログ出力
   echo;>>SplitVideo.log
