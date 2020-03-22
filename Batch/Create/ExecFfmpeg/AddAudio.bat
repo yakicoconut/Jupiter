@@ -5,6 +5,8 @@ echo ffmpegで音声追加
 : 	https://qiita.com/developer-kikikaikai/items/47a13cbcb6fdb535345a
 : ffmpegを使って動画と音声を結合する方法 | 非IT企業に勤める中年サラリーマンのIT日記
 : 	http://pineplanter.moo.jp/non-it-salaryman/2019/04/21/ffmpeg-join/
+: ffmpegを使って映像と音声を結合する - Qiita
+: 	https://qiita.com/niusounds/items/f69a4438f52fbf81f0bd
 
 
 : 参照バッチ
@@ -61,7 +63,7 @@ echo ffmpegで音声追加
 
 : 実行
   rem 音声合成
-  ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -map 0:v:0 -map a:a:0 %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+  ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec% -r %rate% -video_track_timescale %tbn% %outPath%
   REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
   REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
   pause
