@@ -11,10 +11,30 @@ echo ffmpegで音声追加
 
 : 参照バッチ
   rem ユーザ入力バッチ
-  set call_UserInput="..\..\OwnLib\UserInput.bat"
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
+  rem 引数型判定バッチ
+  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
 
-: ユーザ入力処理
+: 引数チェック
+  rem 引数カウント
+  set argc=0
+  for %%a in ( %* ) do set /a argc+=1
+
+  rem 引数がない場合、ユーザ入力へ
+  if %argc%==0 goto :USER_INPUT
+  rem 引数が定義通りの場合、引数判定へ
+  if %argc%==6 goto :CHK_ARG
+
+  echo 引数の数が定義と異なるため、終了します
+  echo 引数:%argc%
+  echo 定義:6
+  pause
+  exit /b
+
+
+rem ユーザ入力処理
+:USER_INPUT
   : 対象ファイルパス
     echo;
     rem ユーザ入力バッチ使用
@@ -60,10 +80,57 @@ echo ffmpegで音声追加
     rem 入力値引継ぎ
     set outPath=%return_UserInput1%
 
+    rem 本処理へ
+    goto :RUN
 
-: 実行
-  rem 音声合成
-  ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec% -r %rate% -video_track_timescale %tbn% %outPath%
-  REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
-  REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
-  pause
+
+rem 引数判定
+:CHK_ARG
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% "PATH PATH STR NUM NUM STR" %1 %2 %3 %4 %5 %6
+  rem 判定結果が失敗の場合、終了へ
+  if %ret_ChkArgDataType1%==0 goto :EOF
+
+  : 引数引継ぎ
+    set   srcPath=%1
+    set audioPath=%2
+    set     codec=%3
+    set      rate=%4
+    set       tbn=%5
+    set   outPath=%6
+
+
+rem 本処理
+:RUN
+  : 実行
+    rem ファイル名でログファイルパス設定
+    set logPath=%~dp0%~n0.log
+    rem 実行前ログ出力
+    echo %date% %time%>>%logPath%
+    echo;>>%logPath%
+
+    rem 音声合成
+      : -y:上書き
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
+    REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
+
+
+:END
+  rem ログ出力
+  echo %srcPath:"=%>>%logPath%
+  echo %audioPath:"=%>>%logPath%
+  echo %codec:"=%>>%logPath%
+  echo %rate:"=%>>%logPath%
+  echo %tbn:"=%>>%logPath%
+  echo %outPath:"=%>>%logPath%
+  echo;>>%logPath%
+  echo %date% %time%>>%logPath%
+  echo;>>%logPath%
+  echo;>>%logPath%
+
+  rem 引数がない(ユーザ入力で実行した)場合、ポーズ
+  if %argc%==0 pause
+
+
+exit /b
