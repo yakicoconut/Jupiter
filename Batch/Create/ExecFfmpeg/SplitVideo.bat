@@ -107,8 +107,8 @@ rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
   call %call_ChkArgDataType% "PATH TIME TIME STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
-  REM rem 判定結果が失敗の場合、へ
-  REM if %ret_ChkArgDataType1%==0 goto :
+  rem 判定結果が失敗の場合、終了へ
+  if %ret_ChkArgDataType1%==0 goto :END
   rem 型判定結果引継ぎ
   for /f "tokens=2,3" %%a in (%ret_ChkArgDataType2%) do (
     rem 時刻フォーマット取得
@@ -202,19 +202,11 @@ rem 本処理
 
 
   : 実行
-    rem ログファイルパス
-    set logPath=%~dp0SplitVideo.log
-
+    rem ファイル名でログファイルパス設定
+    set logPath=%~dp0%~n0.log
     rem 実行前ログ出力
-    echo %date%%time%>%logPath%
+    echo %date% %time%>>%logPath%
     echo;>>%logPath%
-    echo %srcPath:"=%>>%logPath%
-    echo %start:"=%%startMilli%>>%logPath%
-    echo %dist:"=%%distMilli%>>%logPath%
-    echo %codec:"=%>>%logPath%
-    echo %rate:"=%>>%logPath%
-    echo %tbn:"=%>>%logPath%
-    echo %outPath:"=%>>%logPath%
 
     rem 分割実行
     : -y         :上書き
@@ -228,10 +220,20 @@ rem 本処理
     :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
     %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
-    rem 実行前ログ出力
-    echo;>>%logPath%
-    echo %date%%time%>>%logPath%
-    pause
+:END
+  rem ログ出力
+  echo %srcPath:"=%>>%logPath%
+  echo %start:"=%%startMilli%>>%logPath%
+  echo %dist:"=%%distMilli%>>%logPath%
+  echo %codec:"=%>>%logPath%
+  echo %rate:"=%>>%logPath%
+  echo %tbn:"=%>>%logPath%
+  echo %outPath:"=%>>%logPath%
+  echo;>>%logPath%
+  echo %date% %time%>>%logPath%
+  echo;>>%logPath%
+  echo;>>%logPath%
+  pause
 
 
 exit
