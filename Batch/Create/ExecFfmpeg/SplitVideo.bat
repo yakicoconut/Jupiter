@@ -21,17 +21,10 @@ echo ffmpegで動画分割
   set argc=0
   for %%a in ( %* ) do set /a argc+=1
 
-  rem 引数がない場合
-  if %argc%==0 (
-    rem ユーザ入力へ
-    goto :USER_INPUT
-  )
-  
-  rem 引数が定義通りの場合
-  if %argc%==7 (
-    rem 引数判定へ
-    goto :CHK_ARG
-  )
+  rem 引数がない場合、ユーザ入力へ
+  if %argc%==0 goto :USER_INPUT
+  rem 引数が定義通りの場合、引数判定へ
+  if %argc%==7 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
@@ -220,6 +213,7 @@ rem 本処理
     :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
     %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
+
 :END
   rem ログ出力
   echo %srcPath:"=%>>%logPath%
@@ -233,10 +227,12 @@ rem 本処理
   echo %date% %time%>>%logPath%
   echo;>>%logPath%
   echo;>>%logPath%
-  pause
+
+  rem 引数がない(ユーザ入力で実行した)場合、ポーズ
+  if %argc%==0 pause
 
 
-exit
+exit /b
 
 
 rem 時刻解体サブルーチン
