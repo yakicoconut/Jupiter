@@ -100,8 +100,8 @@ rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
   call %call_ChkArgDataType% "PATH TIME TIME STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
-  rem 判定結果が失敗の場合、終了へ
-  if %ret_ChkArgDataType1%==0 goto :END
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType1%==0 goto :EOF
   rem 型判定結果引継ぎ
   for /f "tokens=2,3" %%a in (%ret_ChkArgDataType2%) do (
     rem 時刻フォーマット取得
@@ -230,7 +230,6 @@ rem 本処理
 
   rem 引数がない(ユーザ入力で実行した)場合、ポーズ
   if %argc%==0 pause
-
 
 exit /b
 
