@@ -18,7 +18,7 @@ echo ffmpegで音声追加
     rem ユーザ入力バッチ使用
     call %call_UserInput% 対象ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
-    set sourcePath=%return_UserInput1%
+    set srcPath=%return_UserInput1%
 
   : 対象音声ファイル
     echo;
@@ -61,7 +61,7 @@ echo ffmpegで音声追加
 
 : 実行
   rem 音声合成
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -i %audioPath% -filter_complex amix=inputs=2:duration=first -r %rate% -video_track_timescale %tbn% %outPath%
-  REM ffmpeg\win32\ffmpeg.exe -i %sourcePath% -i %audioPath% %outPath%
-  REM ffmpeg\win32\ffmpeg.exe -i %sourcePath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
+  ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -map 0:v:0 -map a:a:0 %codec% -r %rate% -video_track_timescale %tbn% %outPath%
+  REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
+  REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
   pause
