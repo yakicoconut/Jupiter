@@ -5,24 +5,46 @@ echo ffmpegで画像取得
 : 	https://qiita.com/matoken/items/664e7a7e8f31e8a46a6:
 : ffmpegデフォルト出力フレームレート
 : 	https://avp.stackovernet.com/ja/q/6007
+: 注意
+:   開始時間を途中に設定するとその位置まで処理待ちとなる
 
 
 : 参照バッチ
   rem ユーザ入力バッチ
-  set call_UserInput="..\..\OwnLib\UserInput.bat"
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
   rem 経過時間計算バッチ
-  set call_ElapsedTime="..\..\OwnLib\ElapsedTime.bat"
+  set call_ElapsedTime=%~dp0"..\..\OwnLib\ElapsedTime.bat"
   rem 動画情報取得バッチ
-  set call_GetMpegInfo="GetMpegInfo.bat"
+  set call_GetMpegInfo=%~dp0"GetMpegInfo.bat"
+  rem 引数型判定バッチ
+  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
 
-: ユーザ入力処理
+: 引数チェック
+  rem 引数カウント
+  set argc=0
+  for %%a in ( %* ) do set /a argc+=1
+
+  rem 引数がない場合、ユーザ入力へ
+  if %argc%==0 goto :USER_INPUT
+  rem 引数が定義通りの場合、引数判定へ
+  if %argc%==4 goto :CHK_ARG
+
+  echo 引数の数が定義と異なるため、終了します
+  echo 引数:%argc%
+  echo 定義:4
+  pause
+  exit /b
+
+
+rem ユーザ入力処理
+:USER_INPUT
   : 対象ファイルパス
     echo;
     rem ユーザ入力バッチ使用
     call %call_UserInput% 対象ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
-    set sourcePath=%return_UserInput1%
+    set srcPath=%return_UserInput1%
 
     echo;
     echo 対象fps
@@ -32,7 +54,7 @@ echo ffmpegで画像取得
     echo avg_frame_rate:平均フレームレート
     rem 動画情報取得バッチ使用
     rem 対象動画fpsのみ取得オプション
-    call %call_GetMpegInfo% "-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate" %sourcePath%
+    call %call_GetMpegInfo% "-v error -select_streams v -show_entries stream=r_frame_rate -show_entries stream=avg_frame_rate" %srcPath%
 
   : 開始時間
     echo;
@@ -42,12 +64,7 @@ echo ffmpegで画像取得
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set start=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
-
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %start% %targetTimeFormat%
-    set start=%ret_DISMANTLE_TIME01:"=%
-    set startMilli=%ret_DISMANTLE_TIME02%
+    set starFmt=%return_UserInput2%
 
   : 分割時間
     echo;
@@ -56,12 +73,7 @@ echo ffmpegで画像取得
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
-
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %dist% %targetTimeFormat%
-    set dist=%ret_DISMANTLE_TIME01%
-    set distMilli=%ret_DISMANTLE_TIME02%
+    set distFmt=%return_UserInput2%
 
   : 1秒あたり何枚
     echo;
@@ -70,8 +82,38 @@ echo ffmpegで画像取得
     rem 入力値引継ぎ
     set rate=%return_UserInput1%
 
+    rem 本処理へ
+    goto :RUN
 
-: 開始時間秒数変換
+
+rem 引数判定
+:CHK_ARG
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% "PATH TIME TIME NUM" %1 %2 %3 %4
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType1%==0 goto :EOF
+  rem 型判定結果引継ぎ
+  for /f "tokens=2,3" %%a in (%ret_ChkArgDataType2%) do (
+    rem 時刻フォーマット取得
+    set starFmt=%%a
+    set distFmt=%%b
+  )
+
+  : 引数引継ぎ
+    set srcPath=%1
+    set   start="%2"
+    set    dist="%3"
+    set    rate=%4
+
+
+rem 本処理
+:RUN
+  : 開始時間秒数変換
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %start% %starFmt%
+    set start=%ret_DISMANTLE_TIME01:"=%
+    set startMilli=%ret_DISMANTLE_TIME02%
+
     rem 文字列として分割
     set   strHour=%start:~0,2%
     set strMinute=%start:~3,2%
@@ -100,10 +142,15 @@ echo ffmpegで画像取得
     set /a  startSec=%secHour%+%secMinute%+%second%
 
 
-: 分割時間秒数変換
-  rem 経過時間計算バッチ使用
-  call %call_ElapsedTime% %start:"=% %dist:"=%
-  set elapsed=%return_ElapsedTime%
+  : 分割時間秒数変換
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %dist% %distFmt%
+    set dist=%ret_DISMANTLE_TIME01%
+    set distMilli=%ret_DISMANTLE_TIME02%
+
+    rem 経過時間計算バッチ使用
+    call %call_ElapsedTime% %start:"=% %dist:"=%
+    set elapsed=%return_ElapsedTime%
 
   : 項目分割
     rem 文字列として分割
@@ -134,18 +181,38 @@ echo ffmpegで画像取得
     set /a    length=%secHour%+%secMinute%+%second%
 
 
-: 画像取得実行
-  : -i :動画指定
-  : -ss:開始位置(秒)
-  : -t :対象期間(秒)
-  : -r :1秒あたり何枚抜き出すか
-  :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
-  : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -ss %startSec%%startMilli% -t %length%%distMilli% -r %rate% -f image2 Img_%%06d.png
-  pause
+  : 実行
+    rem ファイル名でログファイルパス設定
+    set logPath=%~dp0%~n0.log
+    rem 実行前ログ出力
+    echo %date% %time%>>%logPath%
+    echo;>>%logPath%
+
+    rem 画像取得実行
+    : -i :動画指定
+    : -ss:開始位置(秒)
+    : -t :対象期間(秒)
+    : -r :1秒あたり何枚抜き出すか
+    :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
+    : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
+    %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -ss %startSec%%startMilli% -t %length%%distMilli% -r %rate% -f image2 Img_%%06d.png
 
 
-exit
+:END
+  rem ログ出力
+  echo %srcPath:"=%>>%logPath%
+  echo %start:"=%%startMilli%>>%logPath%
+  echo %dist:"=%%distMilli%>>%logPath%
+  echo %rate:"=%>>%logPath%
+  echo;>>%logPath%
+  echo %date% %time%>>%logPath%
+  echo;>>%logPath%
+  echo;>>%logPath%
+
+  rem 引数がない(ユーザ入力で実行した)場合、ポーズ
+  if %argc%==0 pause
+
+exit /b
 
 
 rem 時刻解体サブルーチン
