@@ -1,0 +1,4 @@
+Seed
+  sbt new playframework/play-scala-seed.g8
+rest-api-example-2.7.x
+  https://developer.lightbend.com/start/?group=play&project=play-samples-play-scala-rest-api-example
