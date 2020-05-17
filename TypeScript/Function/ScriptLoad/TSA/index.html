@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <!-- 文字コード設定 -->
+    <meta charset="utf-8" />
+    <!-- 
+        埋め込みスクリプト
+          Body読み込み前のためボタン表示前に実行される
+        -->
+    <script>
+        alert("HelloWorld1");
+    </script>
+</head>
+<body>
+    <!-- ボタン1 -->
+    <button>Hello! (A)</button>
+    <!--
+        ボタン1表示後、ボタン2表示前に実行
+        -->
+    <script>
+        alert("HelloWorld2");
+    </script>
+    <!-- ボタン2 -->
+    <button>Hello! (B)</button>
+
+    <!--
+        実行スクリプト
+          読み込みのみ
+        -->
+    <script src="app.js"></script>
+    <!-- ボタン3 -->
+    <button onclick='button1_click();'>Hello! (C)</button>
+    <!-- ボタン4 -->
+    <button onclick='button2_click();'>Hello! (D)</button>
+    <!-- 実行スクリプト -->
+    <script src="app2.js"></script>
+</body>
+</html>
