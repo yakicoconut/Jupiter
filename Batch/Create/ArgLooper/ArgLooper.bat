@@ -67,14 +67,21 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       set row=%%a
       rem 頭文字取得
       set initChar=!row:~0,1!
+      rem 引数フラグ初期化
+      set isArg=TRUE
 
-      rem 頭文字が「#」(コメント行)でない場合
-      if not !initChar!==# (
+      rem 頭文字が「#」(コメント行)の場合、引数フラグを折る
+      if !initChar!==# ( set isArg="" )
+      rem スペース
+      if "!initChar!"==" " ( set isArg="" )
+
+      rem 引数フラグが立っている場合
+      if !isArg!==TRUE (
         rem カウンタインクリメント
         set /a counter=!counter!+1
 
         rem 実行コマンドファイル使用
-        call !cmdFile! %datetime% !counter! !option1! "!row!" !option2!
+        call !cmdFile! %datetime% !counter! !option1! !option2! !row!
       )
 
       rem 行の先頭が「#option1 」の場合
@@ -107,3 +114,5 @@ rem ユーザ入力サブルーチン
   rem 引数指定ファイル
   call %call_UserInput% 引数指定ファイル指定 TRUE PATH
   set argFile=%return_UserInput1%
+
+  exit /b
