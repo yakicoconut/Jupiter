@@ -80,6 +80,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         rem カウンタインクリメント
         set /a counter=!counter!+1
 
+        REM rem デバッグ用サブルーチン使用
+        REM call :DEBUG !cmdFile! %datetime% !counter! !option1! !option2! !row!
+
         rem 実行コマンドファイル使用
         call !cmdFile! %datetime% !counter! !option1! !option2! !row!
       )
@@ -115,4 +118,39 @@ rem ユーザ入力サブルーチン
   call %call_UserInput% 引数指定ファイル指定 TRUE PATH
   set argFile=%return_UserInput1%
 
+  exit /b
+
+rem デバッグ用サブルーチン
+:DEBUG
+SETLOCAL ENABLEDELAYEDEXPANSION
+  set cmdFile=%~1
+  set datetime=%~2
+  set counter=%3
+  set option1=%4
+  set option2=%5
+  set arg=%6
+
+  rem 複数引数項目ラベル
+  :MULTI_ARG
+    rem 値がある場合
+    if not "%~7"=="" (
+
+      rem 引数項目に追加
+      set arg=%arg% %7
+      rem 引数シフト
+      shift
+      rem 複数引数項目ラベルへ
+      goto :MULTI_ARG
+    )
+
+  echo !cmdFile!
+  echo !datetime!
+  echo !counter!
+  echo !option1!
+  echo !option2!
+  echo !arg!
+  pause
+  echo;
+
+ENDLOCAL
   exit /b
