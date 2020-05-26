@@ -65,40 +65,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     for /f "usebackq delims=" %%a in (%argFile%) do (
       rem 対象一行
       set row=%%a
-      rem 頭文字取得
-      set initChar=!row:~0,1!
-      rem 引数フラグ初期化
-      set isArg=TRUE
 
-      rem 頭文字が「#」(コメント行)の場合、引数フラグを折る
-      if !initChar!==# ( set isArg="" )
-      rem スペース
-      if "!initChar!"==" " ( set isArg="" )
-
-      rem 引数フラグが立っている場合
-      if !isArg!==TRUE (
-        rem カウンタインクリメント
-        set /a counter=!counter!+1
-
-        REM rem デバッグ用サブルーチン使用
-        REM call :DEBUG !cmdFile! %datetime% !counter! !option1! !option2! !row!
-
-        rem 実行コマンドファイル使用
-        call !cmdFile! %datetime% !counter! !option1! !option2! !row!
-      )
-
-      rem 行の先頭が「#option1 」の場合
-      if "!row:~0,9!"=="#option1:" (
-        rem オプション用変数に設定
-        set option1="!row:~9!"
-      )
-      if "!row:~0,9!"=="#option2:" (
-        set option2="!row:~9!"
-      )
-      if "!row:~0,9!"=="#command:" (
-        rem コマンド実行
-        !row:~9!
-      )
+      rem ファイル呼び出しサブルーチン使用
+      call :EXEC_FILE
     )
 
 
@@ -153,4 +122,45 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   echo;
 
 ENDLOCAL
+  exit /b
+
+rem ファイル呼び出しサブルーチン
+:EXEC_FILE
+  rem 頭文字取得
+  set initChar=%row:~0,1%
+  rem 引数フラグ初期化
+  set isArg=TRUE
+
+  rem 頭文字が「#」(コメント行)の場合、引数フラグを折る
+  if %initChar%==# ( set isArg="" )
+  rem スペース
+  if "%initChar%"==" " ( set isArg="" )
+
+  rem 引数フラグが立っている場合
+  if %isArg%==TRUE (
+    REM rem デバッグ用サブルーチン使用
+    REM call :DEBUG %cmdFile% %datetime% %counter% %option1% %option2% %row%
+
+    rem 実行コマンドファイル使用
+    call %cmdFile% %datetime% %counter% %option1% %option2% %row%
+
+    rem カウンタインクリメント
+    set /a counter=%counter%+1
+
+    exit /b
+  )
+
+  rem 行の先頭が「#option1 」の場合
+  if "%row:~0,9%"=="#option1:" (
+    rem オプション用変数に設定
+    set option1="%row:~9%"
+  )
+  if "%row:~0,9%"=="#option2:" (
+    set option2="%row:~9%"
+  )
+  if "%row:~0,9%"=="#command:" (
+    rem コマンド実行
+    %row:~9%
+  )
+
   exit /b
