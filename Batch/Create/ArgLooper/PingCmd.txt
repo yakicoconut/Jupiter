@@ -1,0 +1,17 @@
+# # Pingコマンドに対する引数 # #
+
+
+# オプションは未設定
+#option1:
+#option2:
+
+# 引数にURL設定
+www.yahoo.co.jp
+
+#option1:-n 1
+www.yahoo.co.jp
+www.yahoo.co.jp
+
+#option1:-n 2
+www.yahoo.co.jp
+
