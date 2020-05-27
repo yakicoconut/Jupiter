@@ -5,8 +5,8 @@ echo;
 rem テキストファイルの内容を引数にコマンドをループ実行する
 
 
-rem 遅延環境変数オン
-SETLOCAL ENABLEDELAYEDEXPANSION
+rem 遅延環境変数オフ
+SETLOCAL DISABLEDELAYEDEXPANSION
   : 設定
     rem 実行コマンドファイル
     set cmdFile=""
@@ -66,8 +66,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       rem 対象一行
       set row=%%a
 
-      rem ファイル呼び出しサブルーチン使用
-      call :EXEC_FILE
+      rem 行分析サブルーチン使用
+      call :ANA_ROW
     )
 
 
@@ -91,7 +91,7 @@ rem ユーザ入力サブルーチン
 
 rem デバッグ用サブルーチン
 :DEBUG
-SETLOCAL ENABLEDELAYEDEXPANSION
+SETLOCAL
   set cmdFile=%~1
   set datetime=%~2
   set counter=%3
@@ -103,64 +103,115 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   :MULTI_ARG
     rem 値がある場合
     if not "%~7"=="" (
-
-      rem 引数項目に追加
-      set arg=%arg% %7
       rem 引数シフト
       shift
+
+      rem 複数引数格納サブルーチン使用
+      call :ARG_PLUS %7
+
       rem 複数引数項目ラベルへ
       goto :MULTI_ARG
     )
 
-  echo !cmdFile!
-  echo !datetime!
-  echo !counter!
-  echo !option1!
-  echo !option2!
-  echo !arg!
+  rem 値表示
+  echo %cmdFile%
+  echo %datetime%
+  echo %counter%
+  echo %option1%
+  echo %option2%
+  echo %arg%
   pause
   echo;
+  exit /b
+
+  rem 複数引数格納サブルーチン
+  :ARG_PLUS
+    rem 引数項目に追加
+    set arg=%arg% %1
+    exit /b
+
+ENDLOCAL
+
+rem 行分析サブルーチン
+:ANA_ROW
+  rem 頭文字取得
+  set initChar=%row:~0,1%
+  rem 実行コマンド変数初期化
+  set execCmd=
+
+  : 対象値分岐
+    rem 頭文字がWクォートの場合、引数受け渡しラベルへ
+    if %initChar%^"=="^" ( goto :DELIVERY_ARG )
+    rem 頭文字が「#」の場合、シャープ分析ラベルへ
+    if %initChar%==# ( goto :ANA_SHARP )
+    rem 頭文字がスペースの場合、行分析終了ラベルへ
+    if "%initChar%"==" " ( goto :ANA_ROW_END )
+    rem 上記いずれでもない場合、そのまま引数受け渡しラベルへ
+
+  rem 引数受け渡しラベル
+  :DELIVERY_ARG
+    rem カウンタインクリメント
+    set /a counter=%counter%+1
+
+    rem バッチ実行サブルーチン使用
+    call :EXEC_BAT
+    exit /b
+
+  rem シャープ分析ラベル
+  :ANA_SHARP
+    rem 先頭予約語取得
+    set reserveWord=%row:~0,9%
+    rem Wクォート奇数対策
+    set reserveWord="%reserveWord:"=%"
+
+    rem 遅延環境変数処理
+    if %reserveWord%=="#option1:" (
+      rem 丸括弧対策として変数設定をサブルーチン化
+      rem 前オプション設定サブルーチン使用
+      call :OPT_ONE
+    )
+    if %reserveWord%=="#option2:" (
+      rem 前オプション設定サブルーチン使用
+      call :OPT_TWO
+    )
+    if %reserveWord%=="#command:" (
+      rem 実行コマンド設定サブルーチン使用
+      call :SET_EXEC_CMD
+    )
+
+    rem コマンド実行
+    %execCmd%
+    exit /b
+
+  rem 行分析終了ラベル
+  :ANA_ROW_END
+    exit /b
 
 ENDLOCAL
   exit /b
 
-rem ファイル呼び出しサブルーチン
-:EXEC_FILE
-  rem 頭文字取得
-  set initChar=%row:~0,1%
-  rem 引数フラグ初期化
-  set isArg=TRUE
+rem バッチ実行サブルーチン
+:EXEC_BAT
+  REM rem デバッグ用サブルーチン使用
+  REM call :DEBUG %cmdFile% %datetime% %counter% %option1% %option2% %row%
 
-  rem 頭文字が「#」(コメント行)の場合、引数フラグを折る
-  if %initChar%==# ( set isArg="" )
-  rem スペース
-  if "%initChar%"==" " ( set isArg="" )
+  rem 実行コマンドファイル使用
+  call %cmdFile% %datetime% %counter% %option1% %option2% %row%
+  exit /b
 
-  rem 引数フラグが立っている場合
-  if %isArg%==TRUE (
-    REM rem デバッグ用サブルーチン使用
-    REM call :DEBUG %cmdFile% %datetime% %counter% %option1% %option2% %row%
+rem 前オプション設定サブルーチン
+:OPT_ONE
+  rem 予約語意向を変数に設定
+  set option1="%row:~9%"
+  exit /b
 
-    rem 実行コマンドファイル使用
-    call %cmdFile% %datetime% %counter% %option1% %option2% %row%
+rem 後オプション設定サブルーチン
+:OPT_TWO
+  set option2="%row:~9%"
+  exit /b
 
-    rem カウンタインクリメント
-    set /a counter=%counter%+1
-
-    exit /b
-  )
-
-  rem 行の先頭が「#option1 」の場合
-  if "%row:~0,9%"=="#option1:" (
-    rem オプション用変数に設定
-    set option1="%row:~9%"
-  )
-  if "%row:~0,9%"=="#option2:" (
-    set option2="%row:~9%"
-  )
-  if "%row:~0,9%"=="#command:" (
-    rem コマンド実行
-    %row:~9%
-  )
-
+rem 実行コマンド設定サブルーチン
+:SET_EXEC_CMD
+  rem 実行コマンド設定
+  set execCmd=%row:~9%
   exit /b
