@@ -103,11 +103,11 @@ SETLOCAL
   :MULTI_ARG
     rem 値がある場合
     if not "%~7"=="" (
-      rem 引数シフト
-      shift
-
       rem 複数引数格納サブルーチン使用
       call :ARG_PLUS %7
+
+      rem 引数シフト
+      shift
 
       rem 複数引数項目ラベルへ
       goto :MULTI_ARG
