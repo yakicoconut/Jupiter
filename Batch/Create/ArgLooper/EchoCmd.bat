@@ -31,11 +31,12 @@ SETLOCAL
   :MULTI_ARG
     rem 値がある場合
     if not "%~6"=="" (
+      rem 複数引数格納サブルーチン使用
+      call :ARG_PLUS %6
 
-      rem 引数項目に追加
-      set arg=%arg% %6
       rem 引数シフト
       shift
+
       rem 複数引数項目ラベルへ
       goto :MULTI_ARG
     )
@@ -50,6 +51,12 @@ SETLOCAL
     echo %option1% %arg% %option2%>>EchoCmd_%datetime%.txt
     echo;
     echo;
+    exit /b
+
+  rem 複数引数格納サブルーチン
+  :ARG_PLUS
+    rem 引数項目に追加
+    set arg=%arg% %1
+    exit /b
 
 ENDLOCAL
-exit /b
