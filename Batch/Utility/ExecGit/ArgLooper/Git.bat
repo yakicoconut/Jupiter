@@ -3,8 +3,9 @@ title %~nx0
 echo コマンドループ_Git
 : 引数01:ループ開始時の数値のみ年月日時分秒ミリ
 : 引数02:ループカウンタ
-: 引数03:オプション
-: 引数04:対象引数
+: 引数03:前オプション
+: 引数04:後オプション
+: 引数05:対象引数
 : 戻値  :なし
 
 
@@ -27,8 +28,22 @@ SETLOCAL
     set datetime=%~1
     set counter=%~2
     set option1=%~3
-    set arg=%~4
-    set option2=%~5
+    set option2=%~4
+    set arg=%5
+
+    rem 複数引数項目ラベル
+    :MULTI_ARG
+      rem 値がある場合
+      if not "%~6"=="" (
+        rem 複数引数格納サブルーチン使用
+        call :ARG_PLUS %6
+
+        rem 引数シフト
+        shift
+
+        rem 複数引数項目ラベルへ
+        goto :MULTI_ARG
+      )
 
   : コマンド実行
     echo   実行時間   :%datetime%
@@ -45,6 +60,12 @@ SETLOCAL
     echo;>>%crDir%Git_%datetime%.txt
     echo;
     echo;
+    exit /b
+
+  rem 複数引数格納サブルーチン
+  :ARG_PLUS
+    rem 引数項目に追加
+    set arg=%arg% %1
+    exit /b
 
 ENDLOCAL
-exit /b
