@@ -52,8 +52,14 @@ echo 対象フォルダコミット履歴取得
 
 
 :EXEC
+  rem 自身のフォルダパス取得
+  set currentDir=%~dp0
+
+  rem ログ取得にはcdを対象リポジトリ内にする必要がある
+  cd /d %tgtDir%
+
   rem ログ取得実行
-  git log --reverse --pretty=oneline -- %tgtDir:"=%>%return_GetStrDateTime%.txt
+  git log --reverse --pretty=oneline -- %tgtDir:"=%>%currentDir%%return_GetStrDateTime%.txt
 
 
 pause
