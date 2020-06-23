@@ -91,8 +91,10 @@ rem 引数判定
 rem 本処理
 :RUN
   : 実行
+    rem ログフォルダ作成
+    if not exist %~dp0Log ( mkdir %~dp0Log )
     rem ファイル名でログファイルパス設定
-    set logPath=%~dp0%~n0.log
+    set logPath=%~dp0Log\%~n0.log
     rem 実行前ログ出力
     echo %date% %time%>>%logPath%
     echo;>>%logPath%
@@ -124,7 +126,6 @@ rem 本処理
 
   rem 引数がない(ユーザ入力で実行した)場合、ポーズ
   if %argc%==0 pause
-
 
 exit /b
 
