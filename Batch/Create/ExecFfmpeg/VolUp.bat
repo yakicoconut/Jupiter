@@ -99,27 +99,28 @@ rem 引数判定
 
 rem 本処理
 :RUN
-  rem ログフォルダ作成
-  if not exist %~dp0Log ( mkdir %~dp0Log )
-  rem ファイル名でログファイルパス設定
-  set logPath=%~dp0Log\%~n0.log
-  rem 実行前ログ出力
-  echo %date% %time%>>%logPath%
-  echo;>>%logPath%
+  : 実行
+    rem ログフォルダ作成
+    if not exist %~dp0Log ( mkdir %~dp0Log )
+    rem ファイル名でログファイルパス設定
+    set logPath=%~dp0Log\%~n0.log
+    rem 実行前ログ出力
+    echo %date% %time%>>%logPath%
+    echo;>>%logPath%
 
-  rem 音量調整
-  : -i                :元ファイル
-  : -af "volume=数値" :音量調整
-  :                    (例1:音量指定アップ
-  :                         -af "volume=+5dB"
-  :                    (例2:音量指定ダウン
-  :                         -af "volume=-5dB"
-  :                    (例3:音量%アップ
-  :                         -af "volume=1.5"
-  : -async 数値       :音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
-  :                    数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
-  :                    「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-  %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -af "volume=%vol%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath% -async 1
+    rem 音量調整
+    : -i                :元ファイル
+    : -af "volume=数値" :音量調整
+    :                    (例1:音量指定アップ
+    :                         -af "volume=+5dB"
+    :                    (例2:音量指定ダウン
+    :                         -af "volume=-5dB"
+    :                    (例3:音量%アップ
+    :                         -af "volume=1.5"
+    : -async 数値       :音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
+    :                    数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
+    :                    「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
+    %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -af "volume=%vol%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath% -async 1
 
 
 :END
