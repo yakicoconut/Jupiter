@@ -99,8 +99,10 @@ rem 引数判定
 
 rem 本処理
 :RUN
+  rem ログフォルダ作成
+  if not exist %~dp0Log ( mkdir %~dp0Log )
   rem ファイル名でログファイルパス設定
-  set logPath=%~dp0%~n0.log
+  set logPath=%~dp0Log\%~n0.log
   rem 実行前ログ出力
   echo %date% %time%>>%logPath%
   echo;>>%logPath%
