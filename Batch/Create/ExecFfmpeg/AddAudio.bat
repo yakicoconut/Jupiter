@@ -112,7 +112,13 @@ rem 本処理
     echo;>>%logPath%
 
     rem 音声合成
-      : -y:上書き
+      : -y     :上書き
+      : -i     :対象ファイル
+      : -map   :
+      : -c:v   :動画コーデック
+      : -c:a   :音声コーデック
+      : -r     :フレームレート
+      : -video~:tbn設定
     %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
