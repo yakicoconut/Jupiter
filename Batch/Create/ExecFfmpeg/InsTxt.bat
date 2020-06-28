@@ -3,22 +3,44 @@ title %~nx0
 echo ffmpegで文字列挿入
 : ffmpegで動画上にテキストを描画する - Qiita
 : 	https://qiita.com/niusounds/items/797fe0743a9d59681446
+: FFmpeg Filters Documentation
+: 	https://www.ffmpeg.org/ffmpeg-filters.html#Syntax
 
 
 : 参照バッチ
   rem ユーザ入力バッチ
-  set call_UserInput="..\..\OwnLib\UserInput.bat"
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
   rem 経過時間計算バッチ
-  set call_ElapsedTime="..\..\OwnLib\ElapsedTime.bat"
+  set call_ElapsedTime=%~dp0"..\..\OwnLib\ElapsedTime.bat"
+  rem 引数型判定バッチ
+  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
 
-: ユーザ入力処理
+: 引数チェック
+  rem 引数カウント
+  set argc=0
+  for %%a in ( %* ) do set /a argc+=1
+
+  rem 引数がない場合、ユーザ入力へ
+  if %argc%==0 goto :USER_INPUT
+  rem 引数が定義通りの場合、引数判定へ
+  if %argc%==11 goto :CHK_ARG
+
+  echo 引数の数が定義と異なるため、終了します
+  echo 引数:%argc%
+  echo 定義:11
+  pause
+  exit /b
+
+
+rem ユーザ入力処理
+:USER_INPUT
   : 対象ファイルパス
     echo;
     rem ユーザ入力バッチ使用
     call %call_UserInput% 対象ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
-    set sourcePath=%return_UserInput1%
+    set srcPath=%return_UserInput1%
 
   : 挿入テキスト
     echo;
@@ -28,6 +50,30 @@ echo ffmpegで文字列挿入
     rem 入力値引継ぎ
     set txt=%return_UserInput1%
 
+  : カラー
+    echo;
+    echo カラー(white、#88e5ff等)入力
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set color=%return_UserInput1%
+
+  : サイズ入力
+    echo;
+    echo サイズ入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set size=%return_UserInput1%
+
+  : 配置位置
+    echo;
+    echo 配置位置(x=数値:y=数値)入力
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set point=%return_UserInput1%
+
   : 開始時間
     echo;
     rem バッチ内で「()」を使用できないためここで表示
@@ -36,12 +82,7 @@ echo ffmpegで文字列挿入
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set start=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
-
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %start% %targetTimeFormat%
-    set start=%ret_DISMANTLE_TIME01%
-    set startMilli=%ret_DISMANTLE_TIME02%
+    set starFmt=%return_UserInput2%
 
   : 完了時間
     echo;
@@ -50,12 +91,30 @@ echo ffmpegで文字列挿入
     call %call_UserInput% "" TRUE TIME
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
-    set targetTimeFormat=%return_UserInput2%
+    set distFmt=%return_UserInput2%
 
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %dist% %targetTimeFormat%
-    set dist=%ret_DISMANTLE_TIME01%
-    set distMilli=%ret_DISMANTLE_TIME02%
+  : コーデック
+    echo;
+    echo コーデック入力(-c:v 動画Codec -c:a 音声Codec)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set codec=%return_UserInput1:"=%
+
+  : 1秒あたり何枚
+    echo;
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% 1秒あたり枚数入力 TRUE NUM
+    rem 入力値引継ぎ
+    set rate=%return_UserInput1%
+
+  : tbn入力
+    echo;
+    echo tbn入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set tbn=%return_UserInput1%
 
   : 出力ファイル名
     echo;
@@ -65,34 +124,178 @@ echo ffmpegで文字列挿入
     rem 入力値引継ぎ
     set outPath=%return_UserInput1%
 
-
-: 秒数変換
-  : 開始時間
-    rem 経過時間計算バッチ使用
-    call %call_ElapsedTime% 00:00:00 %start:"=%
-    set startElapsed=%return_ElapsedTime%
-
-    rem 秒数変換サブルーチン使用
-    call :CONV_SEC %startElapsed%
-    set starSec=%ret_CONV_SEC%
-
-  : 完了時間
-    rem 経過時間計算バッチ使用
-    call %call_ElapsedTime% 00:00:00 %dist:"=%
-    set distElapsed=%return_ElapsedTime%
-
-    rem 秒数変換サブルーチン使用
-    call :CONV_SEC %distElapsed%
-    set distSec=%ret_CONV_SEC%
+    rem 本処理へ
+    goto :RUN
 
 
-: 実行
-  rem tbn変更
-  ffmpeg\win32\ffmpeg.exe -i %sourcePath% -filter_complex "drawtext=fontfile=/path/to/fontfile:text=%txt%:enable='between(t,%starSec%%startMilli%,%distSec%%distMilli%)" %outPath%
-  pause
+rem 引数判定
+:CHK_ARG
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% "PATH STR STR NUM STR TIME TIME STR NUM" %1 %2 %3 %4 %5 %6 %7 %8 %9
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType1%==0 goto :EOF
+  rem 型判定結果引継ぎ
+  for /f "tokens=6,7" %%a in (%ret_ChkArgDataType2%) do (
+    rem 時刻フォーマット取得
+    set starFmt=%%a
+    set distFmt=%%b
+  )
+  : 引数引継ぎ
+    set batName=%0
+    set srcPath=%1
+    set     txt=%2
+    set   color=%3
+    set    size=%4
+    set   point=%5
+    set   start="%6"
+    set    dist="%7"
+    set   codec=%8
+    set    rate=%9
+
+  : 10以降の引数処理
+    rem 「%8」、「%9」のみ引数シフト
+    shift /8
+    shift /8
+
+    call %call_ChkArgDataType% "NUM STR" %8 %9
+    if %ret_ChkArgDataType1%==0 goto :EOF
+    set     tbn=%8
+    set outPath=%9
 
 
-exit
+rem 本処理
+:RUN
+  : 開始時間秒数変換
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %start% %starFmt%
+    set start=%ret_DISMANTLE_TIME01:"=%
+    set startMilli=%ret_DISMANTLE_TIME02%
+
+    rem 文字列として分割
+    set   strHour=%start:~0,2%
+    set strMinute=%start:~3,2%
+    set strSecond=%start:~6,2%
+
+    rem 二桁目が「0」の場合
+    if %strHour:~0,1%==0 (
+      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+      set strHour=%strHour:~1,1%
+    )
+    if %strMinute:~0,1%==0 (
+      set strMinute=%strMinute:~1,1%
+    )
+    if %strSecond:~0,1%==0 (
+      set strSecond=%strSecond:~1,1%
+    )
+
+    rem 数値変換
+    set /a   hour=%strHour%
+    set /a minute=%strMinute%
+    set /a second=%strSecond%
+
+    rem 秒数変換
+    set /a   secHour=%hour%*3600
+    set /a secMinute=%minute%*60
+    set /a  startSec=%secHour%+%secMinute%+%second%
+
+
+  : 完了時間秒数変換
+    rem 時刻解体サブルーチン使用
+    call :DISMANTLE_TIME %dist% %distFmt%
+    set dist=%ret_DISMANTLE_TIME01:"=%
+    set distMilli=%ret_DISMANTLE_TIME02%
+
+    rem 文字列として分割
+    set   strHour=%dist:~0,2%
+    set strMinute=%dist:~3,2%
+    set strSecond=%dist:~6,2%
+
+    rem 二桁目が「0」の場合
+    if %strHour:~0,1%==0 (
+      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
+      set strHour=%strHour:~1,1%
+    )
+    if %strMinute:~0,1%==0 (
+      set strMinute=%strMinute:~1,1%
+    )
+    if %strSecond:~0,1%==0 (
+      set strSecond=%strSecond:~1,1%
+    )
+
+    rem 数値変換
+    set /a   hour=%strHour%
+    set /a minute=%strMinute%
+    set /a second=%strSecond%
+
+    rem 秒数変換
+    set /a   secHour=%hour%*3600
+    set /a secMinute=%minute%*60
+    set /a   distSec=%secHour%+%secMinute%+%second%
+
+  : 実行
+    rem ログフォルダ作成
+    if not exist %~dp0Log ( mkdir %~dp0Log )
+    rem ファイル名でログファイルパス設定
+    set logPath=%~dp0Log\%~n0.log
+    rem 実行前ログ出力
+    echo %date% %time%>>%logPath%
+    echo;>>%logPath%
+
+    rem 分割実行
+      : -y      :上書き
+      : -i      :対象ファイル
+      : -filter~:drawtext=
+      :            テキスト描写
+      :            fontfile=ttfファイルパス
+      :              フォント指定
+      :              ※要調査
+      :            text=対象テキスト
+      :              描画対象テキスト
+      :            fontcolor=フォント色
+      :              フォント色(white、#88e5ff等)
+      :            fontsize=数値
+      :              フォントサイズ
+      :            x=(y=)
+      :              テキスト配置位置
+      :              数値
+      :                配置位置X
+      :              main_w(w)、main_h(h)
+      :                対象動画幅、高さ予約語
+      :              text_w(tw)、text_h(th)
+      :                入力テキスト幅、高さ予約語
+      :              (例:画面中央に配置
+      :                  x=(w-text_w)/2:y=(h-text_h-line_h)/2
+      :            enable='between(t,開始時間,完了時間)'
+      :              描画時間
+      : -c:v    :動画コーデック
+      : -c:a    :音声コーデック
+      : -r      :フレームレート
+      : -video~ :tbn設定
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -filter_complex drawtext="text=%txt:"=%: fontcolor=%color%: fontsize=%size%: %point:"=%: enable='between(t,%startSec%%startMilli%,%distSec%%distMilli%)'" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+
+
+:END
+  rem ログ出力
+  echo %srcPath:"=%>>%logPath%
+  echo %txt:"=%>>%logPath%
+  echo %color:"=%>>%logPath%
+  echo %size:"=%>>%logPath%
+  echo %point:"=%>>%logPath%
+  echo %start:"=%%startMilli%>>%logPath%
+  echo %dist:"=%%distMilli%>>%logPath%
+  echo %codec:"=%>>%logPath%
+  echo %rate:"=%>>%logPath%
+  echo %tbn:"=%>>%logPath%
+  echo %outPath:"=%>>%logPath%
+  echo;>>%logPath%
+  echo %date% %time%>>%logPath%
+  echo;>>%logPath%
+  echo;>>%logPath%
+
+  rem 引数がない(ユーザ入力で実行した)場合、ポーズ
+  if %argc%==0 pause
+
+exit /b
 
 
 rem 時刻解体サブルーチン
@@ -130,44 +333,4 @@ SETLOCAL
 rem 返り値1:時分秒
 rem 返り値2:ミリ秒
 ENDLOCAL && set ret_DISMANTLE_TIME01=%tms%&& set ret_DISMANTLE_TIME02=%milli%
-exit /b
-
-
-rem 秒数変換サブルーチン
-:CONV_SEC
-SETLOCAL
-  : 引数
-    rem 時間
-    set formalTime=%1
-
-  : 項目分割
-    rem 文字列として分割
-    set   strHour=%formalTime:~0,2%
-    set strMinute=%formalTime:~3,2%
-    set strSecond=%formalTime:~6,2%
-
-    rem 二桁目が「0」の場合
-    if %strHour:~0,1%==0 (
-      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
-      set strHour=%strHour:~1,1%
-    )
-    if %strMinute:~0,1%==0 (
-      set strMinute=%strMinute:~1,1%
-    )
-    if %strSecond:~0,1%==0 (
-      set strSecond=%strSecond:~1,1%
-    )
-
-  : 数値変換
-    set /a   hour=%strHour%
-    set /a minute=%strMinute%
-    set /a second=%strSecond%
-
-  : 秒数変換
-    set /a   secHour=%hour%*3600
-    set /a secMinute=%minute%*60
-    set /a   secTime=%secHour%+%secMinute%+%second%
-
-rem 戻り値:秒数
-ENDLOCAL && set ret_CONV_SEC=%secTime%
 exit /b
