@@ -40,7 +40,7 @@ rem ユーザ入力処理
 
   : コーデック
     echo;
-    echo コーデック入力(-c:v 動画Codec -c:a 音声Codec)
+    echo コーデック入力(-c:v 動画Codec)
     rem ユーザ入力バッチ使用
     call %call_UserInput% "" FALSE STR
     rem 入力値引継ぎ
@@ -100,16 +100,29 @@ rem 本処理
     echo;>>%logPath%
 
     rem 分割実行
-    : -y         :上書き
-    : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
-    : -i         :元ファイル
-    : -t         :対象期間(秒)
-    : -c:v copy  :映像無変換(無劣化)
-    : -c:a copy  :音声無変換(無劣化)
-    : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
-    :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
-    :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -f lavfi -i aevalsrc=0 -c:v copy -map 0:0 -map 1:0 -shortest -ac 2 -strict -2  %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+      : -y       :上書き
+      : -i       :対象ファイル
+      : -f       :lavf
+      :             
+      : -i       :aevalsrc=0
+      :             
+      : -c:v     :動画コーデック
+      :           copy
+      :             
+      : -map     :0:0
+      :             
+      :          :1:0
+      :            
+      : -shortest:最短の入力ストリームが終了したらエンコード終了
+      : -ac      :2
+      :             
+      : -strict  :-2
+      :             
+      : -c:v     :動画コーデック
+      : -c:a     :音声コーデック
+      : -r       :フレームレート
+      : -video~  :tbn設定
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -f lavfi -i aevalsrc=0 %codec:"=% -map 0:0 -map 1:0 -shortest -ac 2 -strict -2 -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
