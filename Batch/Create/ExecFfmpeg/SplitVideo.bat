@@ -204,15 +204,14 @@ rem 本処理
     echo;>>%logPath%
 
     rem 分割実行
-    : -y         :上書き
-    : -ss        :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
-    : -i         :元ファイル
-    : -t         :対象期間(秒)
-    : -c:v copy  :映像無変換(無劣化)
-    : -c:a copy  :音声無変換(無劣化)
-    : -async 数値:音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
-    :             数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
-    :             「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
+      : -y     :上書き
+      : -ss    :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
+      : -i     :対象ファイル
+      : -t     :対象期間(秒)
+      : -c:v   :動画コーデック
+      : -c:a   :音声コーデック
+      : -r     :フレームレート
+      : -video~:tbn設定
     %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
