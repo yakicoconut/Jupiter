@@ -11,7 +11,7 @@ echo ffmpegで再生速度調整
 
 : 参照バッチ
   rem ユーザ入力バッチ
-  set call_UserInput="..\..\OwnLib\UserInput.bat"
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
   rem 引数型判定バッチ
   set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
@@ -81,6 +81,9 @@ rem ユーザ入力処理
     rem 入力値引継ぎ
     set outPath=%return_UserInput1%
 
+    rem 本処理へ
+    goto :RUN
+
 
 rem 引数判定
 :CHK_ARG
@@ -109,20 +112,17 @@ rem 本処理
     echo %date% %time%>>%logPath%
     echo;>>%logPath%
 
-    rem 音量調整
-    : -y             :上書き
-    : -i             :元ファイル
-    : -vf            :
-    : setpts=PTS/数値:
-    :                 (例1:
-    :                      
-    :                 (例2:
-    :                      
-    : -af atempo=数値:
-    :                 (例1:
-    :                      
-    :                 (例2:
-    :                      
+    rem 動画速度調整
+      : -y     :上書き
+      : -i     :対象ファイル
+      : -vf    :setpts=PTS/数値
+      :           (例1:
+      : -af    :atempo=数値
+      :           (例1:
+      : -c:v   :動画コーデック
+      : -c:a   :音声コーデック
+      : -r     :フレームレート
+      : -video~:tbn
     %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -vf setpts=PTS/%spdRatio% -af atempo=%spdRatio% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
