@@ -3,6 +3,8 @@ title %~nx0
 echo ffmpegで動画分割
 : 【ffmpeg】 マルチトラックの動画の作り方 - ニコニコ動画研究所
 : 	https://looooooooop.blog.fc2.com/blog-entry-960.html
+: FFMpegでDVD(VOB)系音声(AC3・DTS)を変換する
+: 	http://49.212.76.154/pc/ffmpeg_dvd.html
 
 
 : 参照バッチ
@@ -20,11 +22,11 @@ echo ffmpegで動画分割
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==2 goto :CHK_ARG
+  if %argc%==3 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:2
+  echo 定義:3
   pause
   exit /b
 
@@ -37,6 +39,14 @@ rem ユーザ入力処理
     call %call_UserInput% 対象ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
     set srcPath=%return_UserInput1%
+
+  : ビットレート入力
+    echo;
+    echo 出力ビットレート入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set bitRate=%return_UserInput1%
 
   : 出力ファイル名
     echo;
@@ -53,13 +63,14 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH STR" %1 %2
+  call %call_ChkArgDataType% "PATH NUM STR" %1 %2 %3
   rem 判定結果が失敗の場合、終了
   if %ret_ChkArgDataType1%==0 goto :EOF
 
   : 引数引継ぎ
     set srcPath=%1
-    set outPath=%2
+    set bitRate=%2
+    set outPath=%3
 
 
 rem 本処理
@@ -73,24 +84,28 @@ rem 本処理
     echo %date% %time%>>%logPath%
     echo;>>%logPath%
 
-    rem 分割実行
-    : -y      :上書き
-    : -i      :元ファイル
-    : -ab     :ビットレート指定(kで指定)
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% %outPath%>>%logPath%
+    rem 音声抽出実行
+      : -y     :上書き
+      : -i     :対象ファイル
+      : -ab    :ビットレート指定
+      :          k指定
+      :          →低すぎる場合、以下警告出力
+      :            (例:「192」指定→「Bitrate 192 is extremely low, maybe you mean 192k」
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -acodec libmp3lame -ab %bitRate%k %outPath%
 
     rem 時間プロパティがおかしくなるオプション
-    : -vcodec :copy
-    :            コーデックコピー
-    : -map    :直後の数字が入力順、「:」 で区切って次の数字が
-    :          コンテナフォーマットに割り当てられている順番
-    :          一般的な動画は「0:0」が映像、「0:1」が音声で、「0:2」以降が副音声または字幕
+      : -vcodec :copy
+      :            コーデックコピー
+      : -map    :直後の数字が入力順、「:」 で区切って次の数字が
+      :          コンテナフォーマットに割り当てられている順番
+      :          一般的な動画は「0:0」が映像、「0:1」が音声で、「0:2」以降が副音声または字幕
     REM %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath%  -vcodec copy -map 0:1 %outPath%
 
 
 :END
   rem ログ出力
   echo %srcPath:"=%>>%logPath%
+  echo %bitRate:"=%>>%logPath%
   echo %outPath:"=%>>%logPath%
   echo;>>%logPath%
   echo %date% %time%>>%logPath%
