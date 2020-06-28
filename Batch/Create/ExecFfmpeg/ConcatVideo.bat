@@ -98,12 +98,17 @@ rem 本処理
     echo %date% %time%>>%logPath%
     echo;>>%logPath%
 
-    rem 結合
-      : -y       :上書き
-      : -f concat:
-      : -safe 0  :
-      : -i       :
-      : -c copy  :
+    rem 動画結合
+      : -y     :上書き
+      : -f     :concat
+      :           
+      : -safe  :0
+      :           
+      : -i     :対象ファイル(結合動画リストファイル)
+      : -c:v   :動画コーデック
+      : -c:a   :音声コーデック
+      : -r     :フレームレート
+      : -video~:tbn設定
     %~dp0ffmpeg\win32\ffmpeg.exe -y -f concat -safe 0 -i %concatList% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
