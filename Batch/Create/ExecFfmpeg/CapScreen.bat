@@ -191,12 +191,12 @@ rem 本処理
     echo;>>%logPath%
 
     rem 画像取得実行
-    : -i :動画指定
-    : -ss:開始位置(秒)
-    : -t :対象期間(秒)
-    : -r :1秒あたり何枚抜き出すか
-    :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
-    : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
+      : -i :対象ファイル
+      : -ss:開始位置(秒)
+      : -t :対象期間(秒)
+      : -r :1秒あたり何枚抜き出すか
+      :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
+      : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
     %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -ss %startSec%%startMilli% -t %length%%distMilli% -r %rate% -f image2 Img_%%06d.png
 
 
