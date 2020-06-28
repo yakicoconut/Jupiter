@@ -109,18 +109,21 @@ rem 本処理
     echo;>>%logPath%
 
     rem 音量調整
-    : -i                :元ファイル
-    : -af "volume=数値" :音量調整
-    :                    (例1:音量指定アップ
-    :                         -af "volume=+5dB"
-    :                    (例2:音量指定ダウン
-    :                         -af "volume=-5dB"
-    :                    (例3:音量%アップ
-    :                         -af "volume=1.5"
-    : -async 数値       :音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
-    :                    数値(1~1000)は音がズレたときに１秒間で何サンプルまで変更していいかを指定する
-    :                    「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
-    %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -af "volume=%vol%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath% -async 1
+      : -y     :上書き
+      : -i     :対象ファイル
+      : -af    :"volume=数値"
+      :           音量調整
+      :           (例1:音量指定アップ
+      :                -af "volume=+5dB"
+      :           (例2:音量指定ダウン
+      :                -af "volume=-5dB"
+      :           (例3:音量%アップ
+      :                -af "volume=1.5"
+      : -async:数値
+      :          音声サンプルを Stretch/Squeeze (つまりサンプルの持続時間を変更) して同期する
+      :          数値(1~1000)は音がズレたときに1秒間で何サンプルまで変更していいかを指定する
+      :          「1」指定は特別で、音声の最初だけ同期して後続のサンプルはそのまま
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -async 1 -af "volume=%vol%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
