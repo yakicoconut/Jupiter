@@ -116,9 +116,12 @@ rem 本処理
     echo;>>%logPath%
 
     rem 変更実行
-    : -i :動画指定
-    : -r :1秒あたり何枚抜き出すか
-    :     フレームレートの確認は「ffprobe.exe 対象動画」
+      : -y     :上書き
+      : -i     :対象ファイル
+      : -c:v   :動画コーデック
+      : -c:a   :音声コーデック
+      : -r     :フレームレート
+      : -video~:tbn設定
     %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
