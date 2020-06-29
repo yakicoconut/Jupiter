@@ -28,11 +28,11 @@ echo ffmpegで画像取得
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==4 goto :CHK_ARG
+  if %argc%==5 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:4
+  echo 定義:5
   pause
   exit /b
 
@@ -82,6 +82,15 @@ rem ユーザ入力処理
     rem 入力値引継ぎ
     set rate=%return_UserInput1%
 
+  : 出力ファイル名
+    echo;
+    echo 出力ファイル名入力(拡張子不要)
+    echo ※ファイル名の後に連番で番号が付く
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE STR
+    rem 入力値引継ぎ
+    set outPath=%return_UserInput1%
+
     rem 本処理へ
     goto :RUN
 
@@ -89,7 +98,7 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH TIME TIME NUM" %1 %2 %3 %4
+  call %call_ChkArgDataType% "PATH TIME TIME NUM STR" %1 %2 %3 %4 %5
   rem 判定結果が失敗の場合、終了
   if %ret_ChkArgDataType1%==0 goto :EOF
   rem 型判定結果引継ぎ
@@ -104,6 +113,7 @@ rem 引数判定
     set   start="%2"
     set    dist="%3"
     set    rate=%4
+    set outPath=%5
 
 
 rem 本処理
@@ -197,7 +207,7 @@ rem 本処理
       : -r :1秒あたり何枚抜き出すか
       :     fps(フレームレート)の確認は「ffprobe.exe 対象動画」
       : -f :「image2 %%06d.jpg」指定で「000001.jpg」から連番出力指定
-    %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -ss %startSec%%startMilli% -t %length%%distMilli% -r %rate% -f image2 Img_%%06d.png
+    %~dp0ffmpeg\win32\ffmpeg.exe -i %srcPath% -ss %startSec%%startMilli% -t %length%%distMilli% -r %rate% -f image2 %outPath:"=%%%06d.png
 
 
 :END
@@ -206,6 +216,7 @@ rem 本処理
   echo %start:"=%%startMilli%>>%logPath%
   echo %dist:"=%%distMilli%>>%logPath%
   echo %rate:"=%>>%logPath%
+  echo %outPath:"=%>>%logPath%
   echo;>>%logPath%
   echo %date% %time%>>%logPath%
   echo;>>%logPath%
