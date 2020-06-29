@@ -1,0 +1,53 @@
+# # èÄîı # #
+.\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:03.000 00:00:06.000 "-c:v h264 -c:a aac" 30 30 Test\temp_1.mp4
+.\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:00.000 00:00:03.000 "-c:v h264 -c:a aac" 30 30 Test\temp_2.mp4
+# ExtraAudio
+..\ExtraAudio.bat Test\temp_1.mp4 192 Test\ExtraAudio.mp3
+
+
+# # AddAudios # #
+..\AddAudio.bat Test\temp_2.mp4 Test\ExtraAudio.mp3 "-c:v h264 -c:a aac" 30 30 Test\AddAudios.mp4
+
+
+# CapScreen # #
+..\CapScreen.bat Test\temp_1.mp4 00:00:01.000 00:00:02.000 30 Test\Img_
+
+
+# # ChgInfo # #
+..\ChgInfo.bat Test\temp_1.mp4 "-c:v flv1 -c:a aac" 30 30 Test\ChgInfo.flv
+
+
+# # ChgPlaySpd # #
+..\ChgPlaySpd.bat Test\temp_1.mp4 5.0 "-c:v h264 -c:a aac" 30 30 Test\ChgPlaySpd.mp4
+
+
+# # ConcatVideo # #
+..\ConcatVideo.bat ConcatList.txt "-c:v h264 -c:a aac" 30 30 Test\ConcatVideo.mp4
+
+
+# # ConvGif_Mov # #
+..\ConvGif_Mov.bat Test\temp_1.mp4 1024x768 30 Test\ConvGif_Mov.gif
+
+
+# # Crop # #
+..\Crop.bat Test\temp_1.mp4 500:500:250:50 "-c:v h264 -c:a aac" 30 30 Test\Crop.mp4
+
+
+# # ImgCompo # #
+..\ImgCompo.bat Test\temp_1.mp4 ..\MyResorce\Sample_Img01.png "x=(W-w)/2:y=(H-h)/2+100" "-c:v h264 -c:a aac" 30 30 Test\ImgCompo.mp4
+
+
+# # ImgToVideo # #
+..\ImgToVideo.bat ..\MyResorce\Sample_Img01.png 00:00:05.000 "-c:v h264 -c:a aac" 30 30 Test\ImgToVideo.mp4
+
+
+# # InsTxt # #
+..\InsTxt.bat Test\temp_1.mp4 "TEST" white 30 "x=(w-text_w)/2:y=(h-text_h-line_h)/2+100" 00:00:01.000 00:00:02.000 "-c:v h264 -c:a aac" 30 30 Test\InsTxt.mp4
+
+
+# # SilentAudio # #
+..\SilentAudio.bat Test\temp_1.mp4 "-c:v h264" 30 30 Test\SilentAudio.mp4
+
+
+# # VolUp # #
+..\VolUp.bat Test\temp_1.mp4 0.1 "-c:v h264 -c:a aac" 30 30 Test\VolUp.mp4
