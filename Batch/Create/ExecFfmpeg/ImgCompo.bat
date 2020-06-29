@@ -3,6 +3,8 @@ title %~nx0
 echo ffmpegで動画に画像を合成
 : ffmpeg 動画にウォーターマーク（ロゴ）をつけてみる - 脳内メモ＋＋
 : 	http://fftest33.blog.fc2.com/blog-entry-80.html
+: FFmpeg Filters Documentation
+: 	https://ffmpeg.org/ffmpeg-filters.html
 
 
 : 参照バッチ
@@ -22,11 +24,11 @@ echo ffmpegで動画に画像を合成
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==6 goto :CHK_ARG
+  if %argc%==7 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:6
+  echo 定義:7
   pause
   exit /b
 
@@ -46,6 +48,14 @@ rem ユーザ入力処理
     call %call_UserInput% 合成ファイルパス入力 TRUE PATH
     rem 入力値引継ぎ
     set compPath=%return_UserInput1%
+
+  : 配置位置
+    echo;
+    echo 配置位置(x=数値:y=数値)入力
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set point=%return_UserInput1%
 
   : コーデック
     echo;
@@ -85,17 +95,18 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH PATH STR NUM NUM STR" %1 %2 %3 %4 %5 %6
+  call %call_ChkArgDataType% "PATH PATH STR STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
   rem 判定結果が失敗の場合、終了へ
   if %ret_ChkArgDataType1%==0 goto :EOF
 
   : 引数引継ぎ
     set  srcPath=%1
     set compPath=%2
-    set    codec=%3
-    set     rate=%4
-    set      tbn=%5
-    set  outPath=%6
+    set    point=%3
+    set    codec=%4
+    set     rate=%5
+    set      tbn=%6
+    set  outPath=%7
 
 
 rem 本処理
@@ -112,13 +123,19 @@ rem 本処理
     rem 画像合成実行
       : -y      :上書き
       : -i      :対象ファイル
-      : -filter~:overlay
-      :            
+      : -filter~:overlay=
+      :            別のビデオ・画像を重ねる
+      :            x=(y=)
+      :              配置位置
+      :              main_w, W(main_h, H)
+      :                背景ファイル画面寸法
+      :              overlay_w, w(overlay_h, h)
+      :                配置ファイル画面寸法
       : -c:v    :動画コーデック
       : -c:a    :音声コーデック
       : -r      :フレームレート
       : -video~ :tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %compPath% -filter_complex overlay %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %compPath% -filter_complex overlay="%point:"=%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
