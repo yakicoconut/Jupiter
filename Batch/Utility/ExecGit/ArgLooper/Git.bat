@@ -37,19 +37,19 @@ SETLOCAL
     set batName=%~nx0
     set logFile=%crDir%%batName:.bat=%_%datetime%.txt
 
-    rem 複数引数項目ラベル
-    :MULTI_ARG
-      rem 値がある場合
-      if not "%~6"=="" (
-        rem 複数引数格納サブルーチン使用
-        call :ARG_PLUS %6
+  rem 複数引数項目ラベル
+  :MULTI_ARG
+    rem 値がある場合
+    if not "%~6"=="" (
+      rem 複数引数格納サブルーチン使用
+      call :ARG_PLUS %6
 
-        rem 引数シフト
-        shift
+      rem 引数シフト
+      shift
 
-        rem 複数引数項目ラベルへ
-        goto :MULTI_ARG
-      )
+      rem 複数引数項目ラベルへ
+      goto :MULTI_ARG
+    )
 
   : コマンド実行
     echo   実行時間   :%datetime%
