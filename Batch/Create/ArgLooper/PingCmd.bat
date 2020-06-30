@@ -20,12 +20,22 @@ SETLOCAL
       exit
     )
 
+  : 宣言
+    rem ログ用実行バッチフォルダ取得
+    set crDir=%~dp0
+    rem 数値のみ年月日時分秒ミリ取得バッチ使用
+    set execTime=%time: =0%
+
   : 引数
     set datetime=%~1
     set counter=%~2
     set option1=%~3
     set option2=%~4
     set arg=%5
+
+    rem ログファイルパス生成
+    set batName=%~nx0
+    set logFile=%crDir%%batName:.bat=%_%datetime%.txt
 
   rem 複数引数項目ラベル
   :MULTI_ARG
@@ -48,7 +58,13 @@ SETLOCAL
     echo   引数       :%arg%
     echo   オプション2:%option2%
 
-    ping %option1% %arg% %option2%>>PingCmd_%datetime%.txt
+    rem ファイル名見出し出力
+    echo %counter%:%arg%>>%logFile%
+    echo   %execTime%>>%logFile%
+
+    rem コマンド実行
+    ping %option1% %arg% %option2%>>%logFile%
+    echo;>>%logFile%
     echo;
     echo;
     exit /b
