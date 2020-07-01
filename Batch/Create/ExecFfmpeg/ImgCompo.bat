@@ -1,6 +1,6 @@
 @echo off
 title %~nx0
-echo ffmpegで動画に画像を合成
+echo ffmpegで動画にメディア合成
 : ffmpeg 動画にウォーターマーク（ロゴ）をつけてみる - 脳内メモ＋＋
 : 	http://fftest33.blog.fc2.com/blog-entry-80.html
 : FFmpeg Filters Documentation
@@ -124,7 +124,7 @@ rem 本処理
       : -y      :上書き
       : -i      :対象ファイル
       : -filter~:overlay=
-      :            別のビデオ・画像を重ねる
+      :            メディア(ビデオ・画像)を重ねる
       :            x=(y=)
       :              配置位置
       :              main_w, W(main_h, H)
