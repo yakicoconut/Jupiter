@@ -5,6 +5,10 @@ echo ffmpegで動画にメディア合成
 : 	http://fftest33.blog.fc2.com/blog-entry-80.html
 : FFmpeg Filters Documentation
 : 	https://ffmpeg.org/ffmpeg-filters.html
+: FFmpegを利用した動画の合成、クロマキー合成 - Qiita
+: 	https://qiita.com/developer-kikikaikai/items/47a13cbcb6fdb535345a
+: ffmpeg でクロマキー合成 | ニコラボ
+: 	https://nico-lab.net/ffmpeg_with_chroma_key_by_colorkey/
 
 
 : 参照バッチ
@@ -24,11 +28,11 @@ echo ffmpegで動画にメディア合成
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==7 goto :CHK_ARG
+  if %argc%==8 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:7
+  echo 定義:8
   pause
   exit /b
 
@@ -56,6 +60,15 @@ rem ユーザ入力処理
     call %call_UserInput% "" FALSE STR
     rem 入力値引継ぎ
     set point=%return_UserInput1%
+
+  : 透明色指定
+    echo;
+    echo 透明色(white、#88e5ff等)入力
+    echo ※無入力は無指定
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set alpha=%return_UserInput1%
 
   : コーデック
     echo;
@@ -95,7 +108,7 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH PATH STR STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
+  call %call_ChkArgDataType% "PATH PATH STR STR STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7 %8
   rem 判定結果が失敗の場合、終了へ
   if %ret_ChkArgDataType1%==0 goto :EOF
 
@@ -103,14 +116,19 @@ rem 引数判定
     set  srcPath=%1
     set compPath=%2
     set    point=%3
-    set    codec=%4
-    set     rate=%5
-    set      tbn=%6
-    set  outPath=%7
+    set    alpha=%4
+    set    codec=%5
+    set     rate=%6
+    set      tbn=%7
+    set  outPath=%8
 
 
 rem 本処理
 :RUN
+  : 引数個別処理
+    rem 透明色指定がある場合、オプション設定
+    if not "%alpha:"=%"=="" ( set alpha=[1:0]colorkey=%alpha:"=%:0.01:1[tgt];[0:0][tgt])
+
   : 実行
     rem ログフォルダ作成
     if not exist %~dp0Log ( mkdir %~dp0Log )
@@ -123,25 +141,44 @@ rem 本処理
     rem 画像合成実行
       : -y      :上書き
       : -i      :対象ファイル
-      : -filter~:overlay=
-      :            メディア(ビデオ・画像)を重ねる
-      :            x=(y=)
-      :              配置位置
-      :              main_w, W(main_h, H)
-      :                背景ファイル画面寸法
-      :              overlay_w, w(overlay_h, h)
-      :                配置ファイル画面寸法
+      : -filter~:[入力情報]オプション[定義名]
+      :            入力ファイルに適用するオプションを
+      :            定義名に格納し、使用可能
+      :            [入力情報]
+      :              [0:0]:一つ目の対象ファイル
+      :              [1:0]:二つ目の対象ファイル
+      :            [定義名]
+      :              (例:[tgt]
+      :            オプション
+      :              colorkey=
+      :                透明色指定
+      :              overlay=
+      :                メディア(ビデオ・画像)を重ねる
+      :                x=(y=)
+      :                  配置位置
+      :                  main_w, W(main_h, H)
+      :                    背景ファイル画面寸法
+      :                  overlay_w, w(overlay_h, h)
+      :                    配置ファイル画面寸法
+      :            (例:白を透明色に指定して(100,100)に配置
+      :                [1:0]colorkey=white:0.01:1[tgt];[0:0][tgt]overlay=x=100:y100
+      :                  [1:0]colorkey=white:0.01:1[tgt];
+      :                    →二つ目の対象ファイルを透明色「白」で設定し、定義名「[tgt]」とする
+      :                  [0:0][tgt]overlay=x=100:y100
+      :                    →一つ目の対象ファイルの(100,100)に定義名「[tgt]」を合成
       : -c:v    :動画コーデック
       : -c:a    :音声コーデック
       : -r      :フレームレート
       : -video~ :tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %compPath% -filter_complex overlay="%point:"=%" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %compPath% -filter_complex %alpha%overlay="%point:"=%:" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
   rem ログ出力
   echo %srcPath:"=%>>%logPath%
   echo %compPath:"=%>>%logPath%
+  echo %point:"=%>>%logPath%
+  echo %alpha:"=%>>%logPath%
   echo %codec:"=%>>%logPath%
   echo %rate:"=%>>%logPath%
   echo %tbn:"=%>>%logPath%
