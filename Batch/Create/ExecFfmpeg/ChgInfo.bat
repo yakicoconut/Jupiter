@@ -1,6 +1,6 @@
 @echo off
 title %~nx0
-echo ffmpegで動画設定を変更する
+echo ffmpegで動画設定変更
 : ffmpeg でのフレームレート設定の違い | ニコラボ
 : 	https://nico-lab.net/setting_fps_with_ffmpeg/
 : ffmpegで動画の各種情報を確認する - Qiita
