@@ -1,6 +1,6 @@
 @echo off
 title %~nx0
-echo ffmpegで動画分割
+echo ffmpegで動画無音化
 : FFmpegで動画の一部を無音にするときは音声を削除せずに無音データで埋めないとダメ
 : 	https://hori-ryota.com/blog/ffmpeg-mp4-part-to-silence-nosound-missing/
 
