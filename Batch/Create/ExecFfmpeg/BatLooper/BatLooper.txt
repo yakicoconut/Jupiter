@@ -14,7 +14,7 @@
 ..\AudioMix.bat Test\ExtraAudio_1.mp3 Test\ExtraAudio_2.mp3 192 Test\AudioMix.mp3
 
 
-# CapScreen # #
+# # CapScreen # #
 ..\CapScreen.bat Test\temp_1.mp4 00:00:01.000 00:00:02.000 30 Test\Img_
 
 
@@ -48,6 +48,10 @@
 
 # # InsTxt # #
 ..\InsTxt.bat Test\temp_1.mp4 "TEST" white 30 "x=(w-text_w)/2:y=(h-text_h-line_h)/2+100" 00:00:01.000 00:00:02.000 "-c:v h264 -c:a aac" 30 30 Test\InsTxt.mp4
+
+
+# # SplitAudio # #
+..\SplitAudio.bat Test\ExtraAudio_2.mp3 00:00:00.000 00:00:02.000 192 Test\SplitAudio.mp3
 
 
 # # SilentAudio # #
