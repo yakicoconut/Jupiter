@@ -89,4 +89,5 @@ rem 行分析サブルーチン
 rem コマンド実行サブルーチン
 :EXEC_CMD
   call %row%
+  echo;
   exit /b
