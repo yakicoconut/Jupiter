@@ -1,6 +1,6 @@
 @echo off
 title %~nx0
-echo ffmpegで動画分割
+echo ffmpegで音声抽出
 : 【ffmpeg】 マルチトラックの動画の作り方 - ニコニコ動画研究所
 : 	https://looooooooop.blog.fc2.com/blog-entry-960.html
 : FFMpegでDVD(VOB)系音声(AC3・DTS)を変換する
@@ -87,10 +87,13 @@ rem 本処理
     rem 音声抽出実行
       : -y     :上書き
       : -i     :対象ファイル
+      : -acodec:
+      :         libmp3lame
+      :           
       : -ab    :ビットレート指定
-      :          k指定
-      :          →低すぎる場合、以下警告出力
-      :            (例:「192」指定→「Bitrate 192 is extremely low, maybe you mean 192k」
+      :         k指定
+      :         →低すぎる場合、以下警告出力
+      :           (例:「192」指定→「Bitrate 192 is extremely low, maybe you mean 192k」
     %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -acodec libmp3lame -ab %bitRate%k %outPath%
 
     rem 時間プロパティがおかしくなるオプション
