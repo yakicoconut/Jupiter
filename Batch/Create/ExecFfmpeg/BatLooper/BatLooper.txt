@@ -2,11 +2,16 @@
 ..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:03.000 00:00:06.000 "-c:v h264 -c:a aac" 30 30 Test\temp_1.mp4
 ..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:00.000 00:00:03.000 "-c:v h264 -c:a aac" 30 30 Test\temp_2.mp4
 # ExtraAudio
-..\ExtraAudio.bat Test\temp_1.mp4 192 Test\ExtraAudio.mp3
+..\ExtraAudio.bat Test\temp_1.mp4 192 Test\ExtraAudio_1.mp3
+..\ExtraAudio.bat Test\temp_2.mp4 192 Test\ExtraAudio_2.mp3
 
 
 # # AddAudios # #
-..\AddAudio.bat Test\temp_2.mp4 Test\ExtraAudio.mp3 "-c:v h264 -c:a aac" 30 30 Test\AddAudios.mp4
+..\AddAudio.bat Test\temp_2.mp4 Test\ExtraAudio_1.mp3 "-c:v h264 -c:a aac" 30 30 Test\AddAudios.mp4
+
+
+# # AudioMix # #
+..\AudioMix.bat Test\ExtraAudio_1.mp3 Test\ExtraAudio_2.mp3 192 Test\AudioMix.mp3
 
 
 # CapScreen # #
