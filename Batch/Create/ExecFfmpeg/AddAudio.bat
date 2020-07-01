@@ -7,6 +7,8 @@ echo ffmpegで音声追加
 : 	http://pineplanter.moo.jp/non-it-salaryman/2019/04/21/ffmpeg-join/
 : ffmpegを使って映像と音声を結合する - Qiita
 : 	https://qiita.com/niusounds/items/f69a4438f52fbf81f0bd
+: android - ffmpegで動画と音声を結合するときに先頭に無音を追加するには - スタック・オーバーフロー
+: 	https://ja.stackoverflow.com/questions/18161/ffmpeg%E3%81%A7%E5%8B%95%E7%94%BB%E3%81%A8%E9%9F%B3%E5%A3%B0%E3%82%92%E7%B5%90%E5%90%88%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AB%E5%85%88%E9%A0%AD%E3%81%AB%E7%84%A1%E9%9F%B3%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF
 
 
 : 参照バッチ
@@ -24,11 +26,11 @@ echo ffmpegで音声追加
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==6 goto :CHK_ARG
+  if %argc%==7 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:6
+  echo 定義:7
   pause
   exit /b
 
@@ -48,6 +50,16 @@ rem ユーザ入力処理
     call %call_UserInput% 対象音声ファイル入力 TRUE PATH
     rem 入力値引継ぎ
     set audioPath=%return_UserInput1%
+
+  : 開始時間
+    echo;
+    rem バッチ内で「()」を使用できないためここで表示
+    echo 開始時間入力(hh:mm:ss.fff)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE TIME
+    rem 入力値引継ぎ
+    set start=%return_UserInput1%
+    set starFmt=%return_UserInput2%
 
   : コーデック
     echo;
@@ -87,17 +99,18 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH PATH STR NUM NUM STR" %1 %2 %3 %4 %5 %6
+  call %call_ChkArgDataType% "PATH PATH TIME STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
   rem 判定結果が失敗の場合、終了へ
   if %ret_ChkArgDataType1%==0 goto :EOF
 
   : 引数引継ぎ
     set   srcPath=%1
     set audioPath=%2
-    set     codec=%3
-    set      rate=%4
-    set       tbn=%5
-    set   outPath=%6
+    set     start=%3
+    set     codec=%4
+    set      rate=%5
+    set       tbn=%6
+    set   outPath=%7
 
 
 rem 本処理
@@ -112,14 +125,16 @@ rem 本処理
     echo;>>%logPath%
 
     rem 音声合成
-      : -y     :上書き
-      : -i     :対象ファイル
-      : -map   :
-      : -c:v   :動画コーデック
-      : -c:a   :音声コーデック
-      : -r     :フレームレート
-      : -video~:tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+      : -y        :上書き
+      : -i        :対象ファイル
+      : -itsoffset:開始時間
+      :            挿入ファイルより前に記述必須
+      : -map      :
+      : -c:v      :動画コーデック
+      : -c:a      :音声コーデック
+      : -r        :フレームレート
+      : -video~   :tbn設定
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -itsoffset %start:"=% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
 
