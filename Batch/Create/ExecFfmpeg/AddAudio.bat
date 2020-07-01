@@ -142,6 +142,7 @@ rem –{ˆ—
 :END
   rem ƒƒOo—Í
   echo %srcPath:"=%>>%logPath%
+  echo %start:"=%>>%logPath%
   echo %audioPath:"=%>>%logPath%
   echo %codec:"=%>>%logPath%
   echo %rate:"=%>>%logPath%
