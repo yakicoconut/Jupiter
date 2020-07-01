@@ -1,9 +1,6 @@
 @echo off
 title %~nx0
-echo ffmpegで動画情報を取得する
-rem 引数01:オプション
-rem 引数02:対象ファイルパス
-rem 戻値  :なし
+echo ffprobeで動画情報取得
 
 
 rem 変数ローカル化
