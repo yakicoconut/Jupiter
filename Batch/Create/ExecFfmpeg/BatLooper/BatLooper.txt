@@ -39,7 +39,7 @@
 
 
 # # ImgCompo # #
-..\ImgCompo.bat Test\temp_1.mp4 ..\MyResorce\Sample_Img01.png "x=(W-w)/2:y=(H-h)/2+100" "-c:v h264 -c:a aac" 30 30 Test\ImgCompo.mp4
+..\ImgCompo.bat Test\temp_1.mp4 ..\MyResorce\Sample_Img01.png "x=(W-w)/2:y=(H-h)/2+100" white "-c:v h264 -c:a aac" 30 30 Test\ImgCompo.mp4
 
 
 # # ImgToVideo # #
