@@ -5,6 +5,10 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
 # ライブラリTagLib使用
 #   TagLib
 #   	http://taglib.org/
+# Using PowerShell to edit MP3 tags - Todd Klindt's Office 365 Admin Blog
+# 	https://www.toddklindt.com/blog/Lists/Posts/Post.aspx?ID=468
+# taglib-sharp.dll Download for missing file error _ dll-found.com
+# 	http://www.dll-found.com/taglib-sharp.dll_download.html
 
 
 <# ユーザ入力 #>
