@@ -10,10 +10,10 @@ echo ffmpegで動画分割
 : 参照バッチ
   rem ユーザ入力バッチ
   set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
-  rem 引数型判定バッチ
-  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
   rem 経過時間計算バッチ
   set call_ElapsedTime=%~dp0"..\..\OwnLib\ElapsedTime.bat"
+  rem 引数型判定バッチ
+  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
 
 : 引数チェック
@@ -162,7 +162,7 @@ rem 本処理
     set distMilli=%ret_DISMANTLE_TIME02%
 
     rem 経過時間計算バッチ使用
-    call %call_ElapsedTime% %start:"=% %dist:"=%
+    call %call_ElapsedTime% %start:"=%%startMilli% %dist:"=%%distMilli%
     set elapsed=%return_ElapsedTime%
 
     : 項目分割
@@ -170,6 +170,8 @@ rem 本処理
       set   strHour=%elapsed:~0,2%
       set strMinute=%elapsed:~3,2%
       set strSecond=%elapsed:~6,2%
+      rem ミリ秒は変換しないため、そのまま格納
+      set elapsedMilli=%elapsed:~8,4%
 
       rem 二桁目が「0」の場合
       if %strHour:~0,1%==0 (
@@ -212,7 +214,7 @@ rem 本処理
       : -c:a   :音声コーデック
       : -r     :フレームレート
       : -video~:tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
