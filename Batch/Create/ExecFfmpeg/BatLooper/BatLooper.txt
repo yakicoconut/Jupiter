@@ -7,7 +7,7 @@
 
 
 # # AddAudios # #
-..\AddAudio.bat Test\temp_2.mp4 Test\ExtraAudio_1.mp3 "-c:v h264 -c:a aac" 30 30 Test\AddAudios.mp4
+..\AddAudio.bat Test\temp_2.mp4 Test\ExtraAudio_1.mp3 00:00:01.000 "-c:v h264 -c:a aac" 30 30 Test\AddAudios.mp4
 
 
 # # AudioMix # #
