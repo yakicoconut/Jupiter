@@ -115,6 +115,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 秒
     call %call_ZeroPadding% %elapsedSecond% 2
     set elapsedSecond=%return_ZeroPadding%
+    rem ミリ秒
+    call %call_ZeroPadding% %elapsedMilli% 3
+    set elapsedMilli=%return_ZeroPadding%
 
   : 結果
     rem ミリ秒が0でない場合、コンマをつけて変数化
