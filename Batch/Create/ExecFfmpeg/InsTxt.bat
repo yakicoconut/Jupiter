@@ -5,6 +5,8 @@ echo ffmpegで文字列挿入
 : 	https://qiita.com/niusounds/items/797fe0743a9d59681446
 : FFmpeg Filters Documentation
 : 	https://www.ffmpeg.org/ffmpeg-filters.html#Syntax
+: ffmpeg drawtextフィルタで遊んでみる - 脳内メモ＋＋
+: 	http://fftest33.blog.fc2.com/blog-entry-45.html
 
 
 : 参照バッチ
@@ -24,11 +26,11 @@ echo ffmpegで文字列挿入
   rem 引数がない場合、ユーザ入力へ
   if %argc%==0 goto :USER_INPUT
   rem 引数が定義通りの場合、引数判定へ
-  if %argc%==11 goto :CHK_ARG
+  if %argc%==12 goto :CHK_ARG
 
   echo 引数の数が定義と異なるため、終了します
   echo 引数:%argc%
-  echo 定義:11
+  echo 定義:12
   pause
   exit /b
 
@@ -49,6 +51,13 @@ rem ユーザ入力処理
     call %call_UserInput% "" FALSE STR
     rem 入力値引継ぎ
     set txt=%return_UserInput1%
+
+  : フォントファイルパス
+    echo;
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% フォントファイルパス入力 TRUE PATH
+    rem 入力値引継ぎ
+    set font=%return_UserInput1%
 
   : カラー
     echo;
@@ -131,11 +140,11 @@ rem ユーザ入力処理
 rem 引数判定
 :CHK_ARG
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH STR STR NUM STR TIME TIME STR NUM" %1 %2 %3 %4 %5 %6 %7 %8 %9
+  call %call_ChkArgDataType% "PATH STR PATH STR NUM STR TIME TIME STR" %1 %2 %3 %4 %5 %6 %7 %8 %9
   rem 判定結果が失敗の場合、終了
   if %ret_ChkArgDataType1%==0 goto :EOF
   rem 型判定結果引継ぎ
-  for /f "tokens=6,7" %%a in (%ret_ChkArgDataType2%) do (
+  for /f "tokens=7,8" %%a in (%ret_ChkArgDataType2%) do (
     rem 時刻フォーマット取得
     set starFmt=%%a
     set distFmt=%%b
@@ -144,27 +153,35 @@ rem 引数判定
     set batName=%0
     set srcPath=%1
     set     txt=%2
-    set   color=%3
-    set    size=%4
-    set   point=%5
-    set   start="%6"
-    set    dist="%7"
-    set   codec=%8
-    set    rate=%9
+    set    font=%3
+    set   color=%4
+    set    size=%5
+    set   point=%6
+    set   start="%7"
+    set    dist="%8"
+    set   codec=%9
 
   : 10以降の引数処理
-    rem 「%8」、「%9」のみ引数シフト
-    shift /8
-    shift /8
+    rem %7~9のみ引数シフト
+    shift /7
+    shift /7
+    shift /7
 
-    call %call_ChkArgDataType% "NUM STR" %8 %9
+    call %call_ChkArgDataType% "NUM NUM STR" %7 %8 %9
     if %ret_ChkArgDataType1%==0 goto :EOF
+    set    rate=%7
     set     tbn=%8
     set outPath=%9
 
 
 rem 本処理
 :RUN
+  : フォントファイルパス変換
+    rem 「:」は「\\」でエスケープ
+    rem 「\」は「/」に変換
+    set font=%font:\=/%
+    set font=%font::=\\:%
+
   : 開始時間秒数変換
     rem 時刻解体サブルーチン使用
     call :DISMANTLE_TIME %start% %starFmt%
@@ -271,13 +288,14 @@ rem 本処理
       : -c:a    :音声コーデック
       : -r      :フレームレート
       : -video~ :tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -filter_complex drawtext="text=%txt:"=%: fontcolor=%color%: fontsize=%size%: %point:"=%: enable='between(t,%startSec%%startMilli%,%distSec%%distMilli%)'" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -filter_complex drawtext="fontfile=%font:"=%: text=%txt:"=%: fontcolor=%color%: fontsize=%size%: %point:"=%: enable='between(t,%startSec%%startMilli%,%distSec%%distMilli%)'" %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
   rem ログ出力
   echo %srcPath:"=%>>%logPath%
   echo %txt:"=%>>%logPath%
+  echo %font:"=%>>%logPath%
   echo %color:"=%>>%logPath%
   echo %size:"=%>>%logPath%
   echo %point:"=%>>%logPath%
