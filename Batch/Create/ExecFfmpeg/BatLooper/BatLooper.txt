@@ -47,7 +47,7 @@
 
 
 # # InsTxt # #
-..\InsTxt.bat Test\temp_1.mp4 "TEST" white 30 "x=(w-text_w)/2:y=(h-text_h-line_h)/2+100" 00:00:01.000 00:00:02.000 "-c:v h264 -c:a aac" 30 30 Test\InsTxt.mp4
+..\InsTxt.bat Test\temp_1.mp4 "TEST" "C:\Windows\Fonts\msgothic.ttc" white 30 "x=(w-text_w)/2:y=(h-text_h-line_h)/2+100" 00:00:01.000 00:00:02.000 "-c:v h264 -c:a aac" 30 30 Test\InsTxt.mp4
 
 
 # # SplitAudio # #
