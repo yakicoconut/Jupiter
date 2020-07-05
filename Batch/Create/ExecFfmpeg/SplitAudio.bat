@@ -141,7 +141,7 @@ rem 本処理
     set distMilli=%ret_DISMANTLE_TIME02%
 
     rem 経過時間計算バッチ使用
-    call %call_ElapsedTime% %start:"=% %dist:"=%
+    call %call_ElapsedTime% %start:"=%%startMilli% %dist:"=%%distMilli%
     set elapsed=%return_ElapsedTime%
 
     : 項目分割
@@ -149,6 +149,8 @@ rem 本処理
       set   strHour=%elapsed:~0,2%
       set strMinute=%elapsed:~3,2%
       set strSecond=%elapsed:~6,2%
+      rem ミリ秒は変換しないため、そのまま格納
+      set elapsedMilli=%elapsed:~8,4%
 
       rem 二桁目が「0」の場合
       if %strHour:~0,1%==0 (
@@ -194,7 +196,7 @@ rem 本処理
       :         k指定
       :         →低すぎる場合、以下警告出力
       :           (例:「192」指定→「Bitrate 192 is extremely low, maybe you mean 192k」
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%distMilli% -acodec libmp3lame -ab %bitRate%k %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% -acodec libmp3lame -ab %bitRate%k %outPath%
 
 
 :END
