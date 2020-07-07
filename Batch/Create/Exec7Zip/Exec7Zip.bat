@@ -1,163 +1,93 @@
 @echo off
 title %~nx0
 echo 7Zip実行バッチ
+: インストールしないでzipや7z圧縮ファイルを作る方法 | 7-Zip
+: 	https://sevenzip.osdn.jp/howto/non-install-compress.html
+: コマンドでZIPや7zにパスワードを付ける | 7-Zip
+: 	https://sevenzip.osdn.jp/howto/dos-command-password.html
 
 
 : 参照バッチ
   rem ディレクトリファイル情報バッチ
-  set call_DirFilePathInfo="..\..\OwnLib\DirFilePathInfo.bat"
+  set call_DirFilePathInfo=%~dp0"..\..\OwnLib\DirFilePathInfo.bat"
+  rem ユーザ入力バッチ
+  set call_UserInput=%~dp0"..\..\OwnLib\UserInput.bat"
+  rem 引数型判定バッチ
+  set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
 
 
-: 引数有無確認
-  rem 引数がない場合
-  if "%~1"=="" (
-    rem ユーザ入力処理へ
-    goto :NOARG
-  )
+: 引数チェック
+  rem 引数カウント
+  set argc=0
+  for %%a in ( %* ) do set /a argc+=1
 
-  rem 引数が間違っている(ファイル/フォルダが存在しない)場合
-  if not exist %1 (
-    echo;
-    echo 指定ファイル/フォルダが使用できません
-    rem ユーザ入力処理へ
-    goto :NOARG
-  )
+  rem 引数がない場合、ユーザ入力へ
+  if %argc%==0 goto :USER_INPUT
+  rem 引数が定義通りの場合、引数判定へ
+  if %argc%==1 goto :CHK_ARG
 
-  rem 引数を変数に設定
-  set targetPath=%1
-
-  rem 拡張子判断へ
-  goto :EXTENSIONDECISION
+  echo 引数の数が定義と異なるため、終了します
+  echo 引数:%argc%
+  echo 定義:1
+  pause
+  exit /b
 
 
 rem ユーザ入力処理
-:NOARG
-  echo;
-  echo 圧縮、解凍を行うファイル/フォルダパスを入力してください
-
-  rem 変数初期化
-  set USR=""
-  set /P USR="入力してください(文末\なし):"
-
-  rem 「""」入力対策
-  set targetPath=%USR:"=%
-  set targetPath="%targetPath%"
-  : ねずみ返し_空白の場合
-    if %targetPath%=="" (
-      echo;
-      echo 入力がありません
-      echo 終了します
-      pause
-      goto :EOF
-    )
-  : ねずみ返し_入力パスが無効の場合
-    if not exist %targetPath% (
-      echo;
-      echo 入力パスが正しくありません
-      goto :NOARG
-    )
-
-
-rem 拡張子判断
-:EXTENSIONDECISION
-  rem ディレクトリファイル情報バッチ使用_拡張子取得
-  call %call_DirFilePathInfo% %targetPath% x
-  set targetExtension=%return_DirFilePathInfo%
-
-  rem 圧縮ファイルの場合
-  if "%targetExtension%"==".7z" (
-    rem 解凍処理へ
-    goto :THAWING
-  )
-  if "%targetExtension%"==".zip" (
-    rem 解凍処理へ
-    goto :THAWING
-  )
-
-  rem 圧縮ファイルでない場合
-  rem 圧縮処理へ
-  goto :COMPRESS
-
-
-rem 解凍処理
-:THAWING
-  rem 引数がある場合
-  if not "%~1"=="" (
-    rem 引数を全て変数に設定
-    set targetPath=%*
-  )
-
-  rem 7za.exeを使用して解凍を実行
-  "%~dp07Zip\7za.exe" x -p%password% %targetPath%
-
-  rem ねずみ返し_パスワード入力がない場合
-  if not %ERRORLEVEL%==2 (
+:USER_INPUT
+  : 対象ファイルパス
     echo;
-    echo 解凍に成功しました
-    pause
-    goto :EOF
-  )
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% 対象ファイルパス入力 TRUE PATH
+    rem 入力値引継ぎ
+    set tgtPath=%return_UserInput1%
 
-  : 解凍パスワード入力処理
-    echo;
-    echo 解凍パスワードを入力してください
-    : パスワード付きのファイルを解凍しようとすると自動でユーザ入力となるが
-    : 入力内容がマスクされてしまうため入力処理を独自で用意
+    rem 本処理へ
+    goto :RUN
 
-    rem 入力変数初期化
-    set USR=
-    set /P USR="入力してください:"
 
-    set password=%USR%
-    rem パスワードがある場合
-    if not "%password%"=="" (
-      rem 解凍処理をループ
-      goto :THAWING
+rem 引数判定
+:CHK_ARG
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% "PATH" %1
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType1%==0 goto :EOF
+
+  : 引数引継ぎ
+    set tgtPath=%1
+
+
+rem 本処理
+:RUN
+  : コマンド実行
+    for /f "usebackq delims=" %%a in (%tgtPath%) do (
+      rem 圧縮処理アブルーチン使用
+      call :COMP %%a
     )
 
-  echo;
-  echo 入力がありません
-  echo 終了します
-  pause
-  goto :EOF
+pause
+exit /b
 
 
-rem 圧縮処理
-:COMPRESS
+rem 圧縮処理アブルーチン
+:COMP
+  : 引数引継ぎ
+    rem 圧縮対象パス
+    set zipTgt=%1
+    rem パスワード
+    set pass="%~2"
 
-  rem ディレクトリファイル情報バッチ使用_ファイル/フォルダ名取得
-  rem 変数に引数を全て格納する前に行う
-  call %call_DirFilePathInfo% %targetPath% n
-  set targetName=%return_DirFilePathInfo%
+    rem パスワード指定がある場合、オプション設定
+    rem 「-p」オプションとパスワードの間にスペースは入れない
+    set isPass=""
+    if "%pass:"=%"=="" ( set pass="") else ( set isPass="-p")
 
-  rem 引数がある場合
-  if not "%~1"=="" (
-    rem 引数を全て変数に設定
-    set targetPath=%*
-  )
+    rem 出力ファイル名称作成
+    rem ディレクトリファイル情報バッチ使用_ファイル名取得
+    call %call_DirFilePathInfo% %zipTgt% n
+    set outName=%return_DirFilePathInfo%
 
-  : 圧縮パスワード入力処理
-    echo;
-    echo 圧縮パスワードを入力してください
-    echo 設定しない場合は空白でエンター
-    : 7Zipの-pオプションはパスワードをユーザ入力させる機能があるが
-    : 空白で確定した場合、空白がパスワードになるため独自で用意
+  : 圧縮実行
+    "%~dp07Zip\7za.exe" a %isPass:"=%%pass:"=% %~dp0%outName%.7z %zipTgt%
 
-    rem パスワード使用オプション初期化
-    set isPassword=
-    rem 入力変数初期化
-    set USR=
-    set /P USR="入力してください:"
-
-    set password=%USR%
-    rem パスワードがある場合
-    if not "%password%"=="" (
-      rem パスワード使用オプションを設定
-      set isPassword=-p
-    )
-
-  rem 7za.exeを使用して圧縮を実行
-  "%~dp07Zip\7za.exe" a %isPassword%%password% "%~dp0%targetName%".7z %targetPath%
-
-  pause
-  exit
+exit /b
