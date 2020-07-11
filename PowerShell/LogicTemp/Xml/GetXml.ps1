@@ -1,6 +1,8 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 echo XML取得
 # 取得対象要素ベタ書き
+# Get-Contentで文字コードを指定してファイルを読み込む - えぢた 2.2 @k_zoar
+#   https://k-side.hatenablog.jp/entry/2014/04/23/204543
 
 
 <# 設定 #>
