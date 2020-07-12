@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- ルート要素 -->
+<books feature="magazine">
+  <!-- book要素1 -->
+  <book genre="novel">
+    <!-- タイトル -->
+    <title>Novel01</title>
+    <!-- 著者情報 -->
+    <author>
+      <first-name>Joe</first-name>
+      <last-name>Bob</last-name>
+      <age born="1978" birthday="07/12">42</age>
+      <birthplace>
+        Scotland
+        <city>Glasgow</city>
+      </birthplace>
+    </author>
+    <!-- その他情報 -->
+    <otherinfo>First edition</otherinfo>
+    <!-- 価格 -->
+    <price>12</price>
+  </book>
+  <namesp:book xmlns:namesp="uri:namespace_uri" style="leather" price="29.50">
+    <namesp:title>Who's Who in Trenton</namesp:title>
+    <namesp:author>Robert Bob</namesp:author>
+  </namesp:book>
+</books>
