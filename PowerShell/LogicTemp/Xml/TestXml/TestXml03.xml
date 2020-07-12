@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- ルート要素 -->
+<books feature="magazine">
+  <!-- book要素1 -->
+  <book genre="novel">
+    <!-- タイトル -->
+    <title>Novel01</title>
+    <!-- 著者情報 -->
+    <author>
+      <first-name>Joe</first-name>
+      <last-name>Bob</last-name>
+      <age born="1978" birthday="07/12">42</age>
+      <birthplace>
+        Scotland
+        <city>Glasgow</city>
+      </birthplace>
+    </author>
+    <!-- その他情報 -->
+    <otherinfo>First edition</otherinfo>
+    <!-- 価格 -->
+    <price>12</price>
+  </book>
+  <!-- book要素2 -->
+  <book genre="magazine">
+    <title>Magazine01</title>
+    <author>
+      <name>Publisher01</name>
+    </author>
+    <author>
+      <name>Jon</name>
+    </author>
+    <price>8</price>
+  </book>
+  <!-- book要素3 -->
+  <book genre="novel">
+    <title>Novel02</title>
+    <author>
+      <first-name>Yamada</first-name>
+      <last-name>Taro</last-name>
+      <age born="2020" birthday="04/01">20</age>
+      <otherinfo>Death day:2020/07/12</otherinfo>
+      <birthplace>
+        Japan
+        <city>Tokyo</city>
+      </birthplace>
+    </author>
+    <price>15</price>
+  </book>
+  <otherinfo>Total books:3</otherinfo>
+</books>
