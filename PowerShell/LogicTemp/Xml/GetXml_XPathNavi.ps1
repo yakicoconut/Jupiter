@@ -129,9 +129,3 @@ echo XMLŽæ“¾
   Xml-Select $outDir"np_books_Slash.txt" $nextPath "/book"
   # —v‘f‘S‚Ä(book‚Æotherinfo)
   Xml-Select $outDir"np_books_Asterisk.txt" $nextPath "*"
-
-
-  # $xNavi.Select("namesp:K")
-    # $xNavi.Select("namesp:*")
-    # $xNavi.Select("@namesp:*")
-
