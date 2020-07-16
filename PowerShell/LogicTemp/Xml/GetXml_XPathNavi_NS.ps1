@@ -1,5 +1,11 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 echo XML取得_名前空間あり
+# 独自のXML名前空間を持つXMLを、LINQやXPathを使い、いろいろな方法でデータ取得してみた - メモ的な思考的な
+#   https://thinkami.hatenablog.com/entry/20131206/1386278518
+# PowerShell で xpath 使って [cs|vb]proj ファイル読み書きしたい時 - Qiita
+# 	https://qiita.com/kondoumh/items/df969ffcb75a5d209b65
+# PowerShell で XML を扱う時に名前空間がついている事に気づかずはまった - Qiita
+#   https://qiita.com/miyamiya/items/1578cc728342ae113b89
 
 
 <# 設定 #>
