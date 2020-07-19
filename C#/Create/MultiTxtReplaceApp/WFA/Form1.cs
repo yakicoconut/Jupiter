@@ -473,7 +473,8 @@ namespace WFA
       setting.IgnoreWhitespace = true;
 
       // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      using (StreamReader sr = new StreamReader(targetPath))
+      using (XmlReader xmlReader = XmlReader.Create(sr, setting))
       {
         // ルートタグへ移動
         bool root = xmlReader.ReadToFollowing("Root");

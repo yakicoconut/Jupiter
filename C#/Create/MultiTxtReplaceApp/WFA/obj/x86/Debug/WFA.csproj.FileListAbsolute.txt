@@ -99,4 +99,22 @@ D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Frm
 D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.resources
 D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
 D:\Root486\Git\Cal_Master\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.Cache
+<<<<<<< HEAD
 >>>>>>> 24e6704... C#_MultiTxtReplaceApp_修正
+=======
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.exe.config
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.exe
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\WFA.pdb
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.dll
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\bin\Debug\FastTxtDiff.xml
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csprojResolveAssemblyReference.cache
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Form1.resources
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtComment.resources
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.FrmPtMng.resources
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.Properties.Resources.resources
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.GenerateResource.cache
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.CoreCompileInputs.cache
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.csproj.CopyComplete
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.exe
+E:\Root486\_Git\Cal_Main\C#\Create\MultiTxtReplaceApp\WFA\obj\x86\Debug\WFA.pdb
+>>>>>>> 16cc0cd2... C#_MultiTxtReplaceApp_修正_Xml読み込み時非ロック対応

@@ -146,7 +146,8 @@ namespace WFA
       string cmment = string.Empty;
 
       // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml"), setting))
+      using(StreamReader sr = new StreamReader(tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml"))
+      using (XmlReader xmlReader = XmlReader.Create(sr, setting))
       {
         // ルートタグへ移動
         bool root = xmlReader.ReadToFollowing("Root");
