@@ -214,4 +214,5 @@ rem 実行コマンド設定サブルーチン
 :SET_EXEC_CMD
   rem 実行コマンド設定
   set execCmd=%row:~9%
+  echo %execCmd%
   exit /b
