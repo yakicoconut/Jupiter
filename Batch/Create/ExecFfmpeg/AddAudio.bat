@@ -134,7 +134,7 @@ rem 本処理
       : -c:a      :音声コーデック
       : -r        :フレームレート
       : -video~   :tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -itsoffset %start:"=% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -i %srcPath% -itsoffset %start:"=% -i %audioPath% -map 0:v:0 -map 1:a:0 %codec:"=% -async 1 -r %rate% -video_track_timescale %tbn% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% %outPath%
     REM ffmpeg\win32\ffmpeg.exe -i %srcPath% -i %audioPath% -r %rate% -video_track_timescale %tbn% %outPath%
 
