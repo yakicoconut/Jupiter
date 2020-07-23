@@ -1,5 +1,5 @@
 対象ファイル名,タイトル,参加アーティスト,アルバム,トラック番号,ジャンル,アートワーク
-Sample001.mp4,サンプル001,A,Z,1,AA,.\Sample\Thumbnail\Sample001.png
-Sample002.mp4,さんぷる002,B,X,2,AB,.\Sample\Thumbnail\Sample002.png
-Sample003.mp4,Sample003,C,W,3,AC,.\Sample\Thumbnail\Sample003.png
-Sample004.mp4,試供004,D,V,4,AD,.\Sample\Thumbnail\Sample004.png
+Sample001.mp4,サンプル001,A,Z,1,AA,.\Thumbnail\Sample001.png
+Sample002.mp4,さんぷる002,B,X,2,AB,.\Thumbnail\Sample002.png
+Sample003.mp4,Sample003,C,W,3,AC,
+Sample004.mp4,試供004,D,V,4,AD,.\Thumbnail\Sample004_.png
