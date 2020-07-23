@@ -36,6 +36,10 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
   $items = @(Get-ChildItem $targetRootPath -Recurse)
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
+  # バッチ実行パス退避
+  $wkDir = Convert-Path .
+  # CSVのフォルダにカレントディレクトリ変更
+  cd (Split-Path $targetCsvPath -parent)
 
 
 <# 本処理 #>
@@ -53,14 +57,21 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
     Write-Host
     Write-Host $x.name
 
-
     # # 設定取得
+      # 引数変数初期化
+      $artwork = ""
+
+      # 引数取得
       $title    = $csv[$ind].タイトル
       $artist   = $csv[$ind].参加アーティスト
       $album    = $csv[$ind].アルバム
       $tracknum = $csv[$ind].トラック番号
       $genre    = $csv[$ind].ジャンル
-      $artwork  = $csv[$ind].アートワーク
+      # アートワークファイルが存在する場合
+      if(Test-Path $csv[$ind].アートワーク)
+      {
+        $artwork  = $csv[$ind].アートワーク
+      }
       # オプション引数用変数初期化
       $optionTitle    = ""
       $optionArtist   = ""
@@ -76,7 +87,6 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
       if($genre -ne "")   { $optionGenre    = "--genre"    }
       if($artwork -ne "") { $optionArtwork  = "--artwork"  }
 
-
     # # コマンド実行
-    .\AtomicParsley\win32-0.9.0\AtomicParsley.exe $x.FullName --overWrite $optionTitle $title $optionArtist $artist $optionAlbum $album $optionTracknum $tracknum $optionGenre $genre $optionArtwork $artwork
+      &($wkDir + "\AtomicParsley\win32-0.9.0\AtomicParsley.exe") $x.FullName --overWrite $optionTitle $title $optionArtist $artist $optionAlbum $album $optionTracknum $tracknum $optionGenre $genre $optionArtwork $artwork
   }
