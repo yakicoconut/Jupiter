@@ -1,15 +1,19 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
-Write-Host "グローバル関数ファイル02"
-Write-Host
+# "グローバル関数ファイル02"
+
+
+<# 文字コード用コメント #>
+  # この位置に「<##>」形式のコメントがないと
+  # VSCodeがSJISで自動判別してくれない?
 
 
 <# ローカル関数 #>
-  # # テスト関数03
-  #   引数01:
-  #   返り値:
-  function Test03 ($arg01)
+  # # ローカル関数
+  #   引数01:型指定なし
+  #   返り値:なし
+  function FnLocalDotRead ($arg01)
   {
-    Write-Host "テスト関数03_ローカル"
+    Write-Host
     Write-Host $arg01
     Write-Host
   }
@@ -17,12 +21,10 @@ Write-Host
 
 # テストグローバル関数04
 #   引数01:
-#   引数02:
 #   返り値:
-function global:Test04
+function global:FnGlbDotRead ($arg01)
 {
-  param ([string]$arg01)
-  Write-Host "テスト関数04_グローバル"
+  Write-Host
   Write-Host $arg01
   Write-Host
 }

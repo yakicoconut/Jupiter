@@ -1,40 +1,61 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 Write-Host "関数テスト02_メイン"
 Write-Host
-# 別ファイル関数呼び出し
+# 別ファイル呼び出し
 
 
-<# 起動演算子(&)から読み込み #>
-  # 関数ファイル読み込み
+<# 共通設定 #>
+  # カウンタ初期化
+  $counter = 0
+
+
+<# ファイルごと実行 #>
+  Write-Host "-----------------"
+    Write-Host "ファイル自体を実行"
+    $counter++
+    # ファイル実行
+    .\GlbFile01.ps1 $counter "str$counter"
+
+
+<# 起動演算子(&) #>
+  # 起動演算子(&)から読み込み
   & "$PSScriptRoot\GlbFunc01.ps1"
 
-  try
-  {
-    Write-Host "エラーパターン"
-    Write-Host "※読み込み済み関数ファイルローカル関数呼び出し"
-    # テストローカル関数01使用
-    Test01 "abc"
-  }
-  catch
-  {
-    # エラー内容
-    Write-Host "  $error[0]"
-    Write-Host
-  }
+  Write-Host "-----------------"
+    Write-Host "起動演算子(&)読み込みローカル関数"
+    Write-Host "  エラーパターン"
+    Write-Host "  ※起動演算子(&)で読み込んだファイルの"
+    Write-Host "    ローカル関数は呼び出せない"
+    $counter++
+    try
+    {
+      FnLocalAndRead $counter
+    }
+    catch
+    {
+      Write-Host
+      Write-Host "  $error[0]"
+      Write-Host
+    }
 
-  # テストグローバル関数02使用
-  Test02 "def"
+  Write-Host "-----------------"
+    Write-Host "起動演算子(&)読み込みグローバル関数"
+    $counter++
+    FnGlbAndRead $counter
 
 
-<# 演算子(.)から読み込み #>
-  Write-Host
-  # 関数ファイル読み込み
+<# 演算子(.) #>
+  # 演算子(.)から読み込み
   . "$PSScriptRoot\GlbFunc02.ps1"
 
-  # テストローカル関数03使用
-  # 「.」を使用してファイル呼び出しした場合、
-  # ローカルメンバの参照も可能
-  Test03 "abc"
+  Write-Host "-----------------"
+    Write-Host "演算子(.)ローカル関数"
+    Write-Host "  演算子(.)で読み込んだファイルは"
+    Write-Host "  ローカル関数も呼び出し可能"
+    $counter++
+    FnLocalDotRead $counter
 
-  # テストグローバル関数04使用
-  Test04 "def"
+  Write-Host "-----------------"
+    Write-Host "演算子(.)グローバル関数"
+    $counter++
+    FnLocalDotRead $counter
