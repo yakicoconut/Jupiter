@@ -149,6 +149,29 @@ Write-Host
     return $ret
   }
 
+  # # オーバーロード関数
+  #   引数01:型指定なし
+  #   返り値:なし
+  function FnOverload ($arg01)
+  {
+    Write-Host
+    Write-Host "オーバーロード1"
+    Write-Host $arg01
+    Write-Host
+  }
+  # # オーバーロード関数
+  #   引数01:型指定なし
+  #   引数02:型指定なし
+  #   返り値:なし
+  function FnOverload ($arg01, $arg02)
+  {
+    Write-Host
+    Write-Host "オーバーロード2"
+    Write-Host $arg01
+    Write-Host $arg02
+    Write-Host
+  }
+
 
 <# 関数使用 #>
   # カウンタ初期化
@@ -254,3 +277,12 @@ Write-Host
       Write-Host $x
     }
     Write-Host
+
+  Write-Host "-----------------"
+    Write-Host "オーバーロード関数"
+    Write-Host "  オーバーロード(同名関数の引数違い)は"
+    Write-Host "  定義不可(関数名が同じ場合、後勝ちする)"
+    $counter++
+    FnOverload $counter
+    $counter++
+    FnOverload $counter "str$counter"
