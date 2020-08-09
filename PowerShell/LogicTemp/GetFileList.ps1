@@ -36,7 +36,7 @@ echo 指定フォルダ内ファイル取得
     if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
     if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
     $tgtRootPath = $USR
-  
+
   # ファイル検索関数使用
   $items = GetChildItem $tgtRootPath
   foreach($x in $items)
