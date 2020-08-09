@@ -25,17 +25,17 @@ $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
     # エラー前表示
     $i++
     Write-Host $i
-  
+
     # 致命的でないエラー発生
     Get-ChildItem "ABC:\"
-  
+
     # エラー後表示
     $i++
     Write-Host $i
 
     return $i
   }
-  
+
 
 <# 設定 #>
   # カウンタ
