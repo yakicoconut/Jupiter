@@ -14,13 +14,13 @@ $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
     Write-Host "-----------------"
     Write-Host $tgtStr
     Write-Host $reg
-  
+
     # 致命的でないエラー発生
     "$tgtStr" -match "$reg"
-  
+
     $Matches
   }
-  
+
 
 <# Continue(規定値) #>
   $tgt = "abcdef"
