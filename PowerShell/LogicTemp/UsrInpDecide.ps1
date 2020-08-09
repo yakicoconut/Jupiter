@@ -11,16 +11,16 @@ $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
   #   引数01:表示文言
   #   返り値:入力文字列
   function UserInput($description)
-{
-  # 文言表示
-  Write-Host $description
-  $USR = (Read-Host 入力してください)
-  # 先頭文末ダブルクォーテーション削除
-  if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
-  if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
-
-  return $USR
-}
+  {
+    # 文言表示
+    Write-Host $description
+    $USR = (Read-Host 入力してください)
+    # 先頭文末ダブルクォーテーション削除
+    if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
+    if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
+  
+    return $USR
+  }
 
 
 <# 引数判断 #>
