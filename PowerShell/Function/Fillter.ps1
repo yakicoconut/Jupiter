@@ -16,7 +16,7 @@ filter StrFillter
 <# メイン #>
   # 配列作成
   $ary = @("abc", "def", "ghi")
-  
+
   # 文字列フィルタ使用
   $var = $ary | StrFillter
   Write-Host $var
