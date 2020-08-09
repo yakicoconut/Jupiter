@@ -11,18 +11,19 @@ $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
   #   返り値01:入力値
   #   返り値02:判断結果
   function UserInput($description, $isInvalidLoop, $mode)
-{
-  # 文言表示
-  Write-Host $description
-  $USR = (Read-Host 入力してください)
-  # 先頭文末ダブルクォーテーション削除
-  if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
-  if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
+  {
+    # 文言表示
+    Write-Host $description
+    $USR = (Read-Host 入力してください)
+    # 先頭文末ダブルクォーテーション削除
+    if($USR.Substring(0, 1) -eq "`""){ $USR = $USR.Substring(1, $USR.Length - 1) }
+    if($USR.Substring($USR.Length - 1, 1) -eq "`""){ $USR = $USR.Substring(0, $USR.Length - 1) }
+    Write-Host
 
-  # 返却配列追加
-  $ret = @()
-  $ret += $USR
-  $ret += $jdgResult
+    # 返却配列追加
+    $ret = @()
+    $ret += $USR
+    $ret += $jdgResult
 
-  return $ret
-}
+    return $ret
+  }
