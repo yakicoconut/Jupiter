@@ -61,7 +61,7 @@ rem 本処理
 :RUN
   : コマンド実行
     for /f "usebackq delims=" %%a in (%tgtPath%) do (
-      rem 圧縮処理アブルーチン使用
+      rem 圧縮処理サブルーチン使用
       call :COMP %%a
     )
 
@@ -69,7 +69,7 @@ pause
 exit /b
 
 
-rem 圧縮処理アブルーチン
+rem 圧縮処理サブルーチン
 :COMP
   : 引数引継ぎ
     rem 圧縮対象パス
