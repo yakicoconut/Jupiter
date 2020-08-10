@@ -30,7 +30,7 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
 
 <# 事前処理 #>
   # ファイル情報を配列で取得
-  $items = @(Get-ChildItem $targetRootPath -Recurse)
+  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse)
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
 
@@ -79,7 +79,7 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
       }
 
       # 対象ファイルの読み込み
-      $media = [TagLib.File]::Create((resolve-path $targetPath))
+      $media = [TagLib.File]::Create((resolve-path -LiteralPath $targetPath))
       # # とりあえず表示_全タグ
       # Write-Host $media.tag
 
