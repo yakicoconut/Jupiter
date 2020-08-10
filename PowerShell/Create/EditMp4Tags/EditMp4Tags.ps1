@@ -33,7 +33,7 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
 
 <# 事前処理 #>
   # ファイル情報を配列で取得
-  $items = @(Get-ChildItem $targetRootPath -Recurse)
+  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse)
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
   # バッチ実行パス退避
