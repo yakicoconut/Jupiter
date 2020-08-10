@@ -1,7 +1,16 @@
 $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 echo 指定フォルダ内ファイル取得
 # 概要
-#   指定フォルダ内のファイルを一括で取得する
+#   ・指定フォルダ内のファイルを一括で取得する
+#   ・powershellはWinでファイル名に指定可能な
+#     「[]」がワイルドカードなため「Get-ChildItem」の
+#     「-Path」オプションでは予期せぬ動きとなるため
+#     「-literalpath」を使用する
+# サイト
+#   PowerShellの、パス指定まわりのややこしい話 Get-ChildItem (dir/ls) 編 : みかみのてきとーログ
+#   	https://kanamiyuki.exblog.jp/9447561/
+#   PowerShellのメモ～PathとLiteralPathパラメータについて - Qiita
+#     https://qiita.com/mima_ita/items/486566b717743e9d2626
 
 
 <# ファイル検索関数 #>
@@ -11,7 +20,12 @@ echo 指定フォルダ内ファイル取得
   function GetChildItem ($tgtRootPath)
   {
     # ファイル情報を配列で取得
-    $items = @(Get-ChildItem $tgtRootPath -Recurse)
+    # Get-ChildItem
+    #       -Path:対象パス記述(省略可)
+    #             ワイルドカードを受け付ける
+    #   -literal~:ワイルドカードを受け付けない対象パス
+    #    -Recurse:回帰的
+    $items = @(Get-ChildItem -LiteralPath $tgtRootPath -Recurse)
     return $items
   }
 
@@ -23,7 +37,7 @@ echo 指定フォルダ内ファイル取得
   function GetChildMatchItem ($tgtRootPath, $regFileName)
   {
     # ファイル情報を配列で取得
-    $items = Get-ChildItem $tgtRootPath -Recurse | Where-Object{$_.Name -match "$regFileName"}
+    $items = Get-ChildItem -LiteralPath $tgtRootPath -Recurse | Where-Object{$_.Name -match "$regFileName"}
     return $items
   }
 
