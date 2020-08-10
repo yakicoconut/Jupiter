@@ -10,6 +10,8 @@ $Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
 # サイト
 #   PowerShellでのエラーハンドリングについて - Qiita
 #   	https://qiita.com/toshihirock/items/936b33f0c15723565dce
+#   PowerShell のエラーハンドリングを（今度こそ）理解する - Qiita
+#   	https://qiita.com/mkht/items/24da4850f9d000b35fc4
 
 
 <# エラー用関数 #>
