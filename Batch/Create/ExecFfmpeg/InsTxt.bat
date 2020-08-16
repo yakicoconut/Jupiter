@@ -19,20 +19,48 @@ echo ffmpegで文字列挿入
 
 
 : 引数チェック
-  rem 引数カウント
-  set argc=0
-  for %%a in ( %* ) do set /a argc+=1
+  rem 10以降の引数取得
+  set arg07=%7
+  set arg08=%8
+  set arg09=%9
+  shift /7
+  shift /7
+  shift /7
+  set arg10=%7
+  set arg11=%8
+  set arg12=%9
 
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% 12 "PATH STR PATH STR NUM STR TIME TIME STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %arg07% %arg08% %arg09% %arg10% %arg11% %arg12%
   rem 引数がない場合、ユーザ入力へ
+  set argc=%ret_ChkArgDataType1%
   if %argc%==0 goto :USER_INPUT
-  rem 引数が定義通りの場合、引数判定へ
-  if %argc%==12 goto :CHK_ARG
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType2%==0 goto :EOF
+  rem 型判定結果引継ぎ
+  for /f "tokens=7,8" %%a in (%ret_ChkArgDataType3%) do (
+    rem 時刻フォーマット取得
+    set starFmt=%%a
+    set distFmt=%%b
+  )
 
-  echo 引数の数が定義と異なるため、終了します
-  echo 引数:%argc%
-  echo 定義:12
-  pause
-  exit /b
+  rem 引数引継ぎ
+  set batName=%0
+  set srcPath=%1
+  set     txt=%2
+  set    font=%3
+  set   color=%4
+  set    size=%5
+  set   point=%6
+  set   start="%arg07%"
+  set    dist="%arg08%"
+  set   codec=%arg09%
+  set    rate=%arg10%
+  set     tbn=%arg11%
+  set outPath=%arg12%
+
+  rem 本処理へ
+  goto :RUN
 
 
 rem ユーザ入力処理
@@ -132,46 +160,6 @@ rem ユーザ入力処理
     call %call_UserInput% "" TRUE STR
     rem 入力値引継ぎ
     set outPath=%return_UserInput1%
-
-    rem 本処理へ
-    goto :RUN
-
-
-rem 引数判定
-:CHK_ARG
-  rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH STR PATH STR NUM STR TIME TIME STR" %1 %2 %3 %4 %5 %6 %7 %8 %9
-  rem 判定結果が失敗の場合、終了
-  if %ret_ChkArgDataType1%==0 goto :EOF
-  rem 型判定結果引継ぎ
-  for /f "tokens=7,8" %%a in (%ret_ChkArgDataType2%) do (
-    rem 時刻フォーマット取得
-    set starFmt=%%a
-    set distFmt=%%b
-  )
-  : 引数引継ぎ
-    set batName=%0
-    set srcPath=%1
-    set     txt=%2
-    set    font=%3
-    set   color=%4
-    set    size=%5
-    set   point=%6
-    set   start="%7"
-    set    dist="%8"
-    set   codec=%9
-
-  : 10以降の引数処理
-    rem %7~9のみ引数シフト
-    shift /7
-    shift /7
-    shift /7
-
-    call %call_ChkArgDataType% "NUM NUM STR" %7 %8 %9
-    if %ret_ChkArgDataType1%==0 goto :EOF
-    set    rate=%7
-    set     tbn=%8
-    set outPath=%9
 
 
 rem 本処理
