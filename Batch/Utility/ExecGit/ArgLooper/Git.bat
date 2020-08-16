@@ -19,6 +19,10 @@ SETLOCAL
       exit
     )
 
+  : 宣言
+    rem ログ用実行バッチフォルダ取得
+    set crDir=%~dp0
+
   : 引数
     set datetime=%~1
     set counter=%~2
@@ -34,11 +38,11 @@ SETLOCAL
     echo   オプション2:%option2%
 
     rem ファイル名見出し出力
-    echo %counter%:%arg%>>Git_%datetime%.txt
+    echo %counter%:%arg%>>%crDir%Git_%datetime%.txt
 
     rem Git実行
-    git %option1% %arg% %option2%>>Git_%datetime%.txt
-    echo;>>Git_%datetime%.txt
+    git %option1% %arg% %option2%>>%crDir%Git_%datetime%.txt
+    echo;>>%crDir%Git_%datetime%.txt
     echo;
     echo;
 
