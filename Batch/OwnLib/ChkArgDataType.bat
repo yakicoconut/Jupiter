@@ -2,7 +2,8 @@
 title %~nx0
 rem 引数型判定バッチ
 : 引数
-:   01 :判定型
+:   01 :指定引数数
+:   02 :判定型
 :         「""」内に以下、型を半角スペースで
 :       対象引数分設定
 :         PATH:ファイルパス
@@ -12,13 +13,14 @@ rem 引数型判定バッチ
 :         以外:文字列
 :         (例:パス、数値、日付、数値の引数指定
 :             "PATH NUM DATE NUM"
-:   02~:検証値
+:   03~:検証値
 :       複数に対応
 : 戻値
-:   01:判定結果
+:   01:引数カウント
+:   02:判定結果
 :        0:判断失敗
 :        1:判断成功
-:   02:各引数の判断結果返り値
+:   03:各引数の判断結果返り値
 :      文字列、数値、パスについては固定値設定
 :      戻値01(判定結果)が失敗の場合は「""」設定
 
@@ -26,15 +28,33 @@ rem 引数型判定バッチ
 rem 遅延環境変数オン
 SETLOCAL ENABLEDELAYEDEXPANSION
   : 引数疑似配列化
-    rem 引数取得コマンド変数化
+    rem 全引数変数化
     set argCmd=%*
-    rem カウンタ初期化(数合わせのため「-1」設定)
-    set /a argCt=-1
+    rem 指定引数数
+    set chkCount=%1
+
+    rem カウンタ初期化
+    rem ※カウント対象は3つ目の引数からのため
+    rem   数合わせとして「-2」スタート
+    set /a argCt=-2
     for %%a in (!argCmd!) do (
       rem カウンタインクリメント
       set /a argCt+=1
       rem 疑似配列に引数格納
       set arg!argCt!=%%a
+    )
+
+    rem ねずみ返し_引数の数が一致しない場合
+    if not %argCt%==%chkCount% (
+      rem 判定結果を「0:失敗」に設定
+      set retVal=0
+      rem 引数無入力でない場合
+      if not %argCt%==0 (
+        call :INVALID_DATA 引数の数が定義と異なります
+        echo 定義数:%chkCount%
+        echo 引数数:%argCt%
+      )
+      goto :RETURN
     )
 
     rem 型引数疑似配列化サブルーチン使用
@@ -67,7 +87,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
      rem 取り出しカウンタ
      rem ※一つ目の引数が判定型のため二つ目以降からスタート
      set /a getCt=1
-  
+
      :GET_ARRAY
       : 型判定
        rem 判断結果疑似配列設定(文字列固定値設定)
@@ -87,7 +107,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
          if !argType%getCt%!==NUM (
            rem 数値判定バッチ使用
            call %call_ChkNum% !arg%getCt%:"=!
-  
+
            rem 数値でない場合
            if !return_ChkNum!==0 (
              call :INVALID_DATA 数値ではありません
@@ -100,7 +120,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
          if !argType%getCt%!==DATE (
            rem 日付書式判定バッチ使用
            call %call_ChkDateFormat% !arg%getCt%:"=!
-   
+
            rem 日付でない場合
            if !return_ChkDateFormat1!==0 (
              call :INVALID_DATA 日付ではありません
@@ -113,7 +133,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
          if !argType%getCt%!==TIME (
            rem 時刻書式判定バッチ使用
            call %call_ChkTimeFormat% !arg%getCt%:"=!
-   
+
            rem 時刻でない場合
            if !return_ChkTimeFormat1!==0 (
              call :INVALID_DATA 時刻ではありません
@@ -136,7 +156,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     if %retVal%==1 call :JDG_ARY_TO_VAR
 
 rem 戻り値(2つ以上の場合、戻り値2以降の「&&」直前スペース注意)
-ENDLOCAL && set ret_ChkArgDataType1=%retVal%&& set ret_ChkArgDataType2="%jdgResult%"
+ENDLOCAL && set ret_ChkArgDataType1=%argCt%&& set ret_ChkArgDataType2=%retVal%&& set ret_ChkArgDataType3="%jdgResult%"
 exit /b
 
 rem 型引数疑似配列化サブルーチン
