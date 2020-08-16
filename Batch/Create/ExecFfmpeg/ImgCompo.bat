@@ -21,20 +21,26 @@ echo ffmpegで動画にメディア合成
 
 
 : 引数チェック
-  rem 引数カウント
-  set argc=0
-  for %%a in ( %* ) do set /a argc+=1
-
+  rem 引数型判定バッチ使用
+  call %call_ChkArgDataType% 8 "PATH PATH STR STR STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7 %8
   rem 引数がない場合、ユーザ入力へ
+  set argc=%ret_ChkArgDataType1%
   if %argc%==0 goto :USER_INPUT
-  rem 引数が定義通りの場合、引数判定へ
-  if %argc%==8 goto :CHK_ARG
+  rem 判定結果が失敗の場合、終了
+  if %ret_ChkArgDataType2%==0 goto :EOF
 
-  echo 引数の数が定義と異なるため、終了します
-  echo 引数:%argc%
-  echo 定義:8
-  pause
-  exit /b
+  rem 引数引継ぎ
+  set  srcPath=%1
+  set compPath=%2
+  set    point=%3
+  set    alpha=%4
+  set    codec=%5
+  set     rate=%6
+  set      tbn=%7
+  set  outPath=%8
+
+  rem 本処理へ
+  goto :RUN
 
 
 rem ユーザ入力処理
@@ -100,27 +106,6 @@ rem ユーザ入力処理
     call %call_UserInput% "" TRUE STR
     rem 入力値引継ぎ
     set outPath=%return_UserInput1%
-
-    rem 本処理へ
-    goto :RUN
-
-
-rem 引数判定
-:CHK_ARG
-  rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% "PATH PATH STR STR STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7 %8
-  rem 判定結果が失敗の場合、終了へ
-  if %ret_ChkArgDataType1%==0 goto :EOF
-
-  : 引数引継ぎ
-    set  srcPath=%1
-    set compPath=%2
-    set    point=%3
-    set    alpha=%4
-    set    codec=%5
-    set     rate=%6
-    set      tbn=%7
-    set  outPath=%8
 
 
 rem 本処理
