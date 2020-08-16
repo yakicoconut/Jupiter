@@ -1,4 +1,5 @@
 # # èÄîı # #
+# SplitVideo
 ..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:03.000 00:00:06.000 "-c:v h264 -c:a aac" 30 30 Test\temp_1.mp4
 ..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:00.000 00:00:03.000 "-c:v h264 -c:a aac" 30 30 Test\temp_2.mp4
 # ExtraAudio
@@ -60,3 +61,11 @@
 
 # # VolUp # #
 ..\VolUp.bat Test\temp_1.mp4 0.1 "-c:v h264 -c:a aac" 30 30 Test\VolUp.mp4
+
+
+# # ReScale # #
+..\ReScale.bat Test\temp_1.mp4 640:-1 "-c:v h264 -c:a aac" 30 30 Test\ReScale.mp4
+
+
+# # ContactSplScn # #
+..\ContactSplScn.bat Test\temp_2.mp4 Test\temp_1.mp4 640x480 320:-1 "x=0:y=0" 320:-1 "x=321:y=0" "-c:v h264 -c:a aac" 30 30 Test\ContactSplScn.mp4
