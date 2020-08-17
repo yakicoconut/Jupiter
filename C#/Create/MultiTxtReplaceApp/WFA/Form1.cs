@@ -301,16 +301,13 @@ namespace WFA
     #region パターンボタン押下イベント
     private void btPattern_Click(object sender, EventArgs e)
     {
-      // 入力パターンXMLファイルパス初期化
-      InpPtFilePath = string.Empty;
-
       // パターン管理フォームのプロパティに本クラスを設定
       fmPtMng.form1 = this;
       // パターン管理フォーム呼び出し
       fmPtMng.ShowDialog();
 
       // ねずみ返し_オプションフォームでファイル選択されなかった場合
-      if (InpPtFilePath == string.Empty)
+      if (InpPtFilePath == null)
       {
         return;
       }
@@ -510,10 +507,27 @@ namespace WFA
     #region パターンXML保存メソッド
     public void SavePatternXml(string outPtDirPath, string outPtFileName)
     {
-      // 現在時刻取得
-      DateTime now = DateTime.Now;
-      string outputDate = now.ToString("yyyyMMddHHmmssfff");
-      string outputFileName = outPtDirPath + @"\" + outPtFileName + "_" + outputDate + ".xml";
+      // ファイル名指定がない場合
+      if (outPtFileName == string.Empty)
+      {
+        // 現在時刻取得
+        DateTime now = DateTime.Now;
+        string outputDate = now.ToString("yyyyMMddHHmmssfff");
+        outPtFileName = "Pattern" + "_" + outputDate;
+      }
+
+      // 出力ファイル設定
+      string outputFileName = outPtDirPath + @"\" + outPtFileName + ".xml";
+      // 保存咲ファイル存在確認
+      if (File.Exists(outputFileName))
+      {
+        // 存在する場合、上書き選択肢表示
+        DialogResult result = MessageBox.Show(this, "上書きしますか?", "保存先のファイルが存在しています", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        if (result == DialogResult.No)
+        {
+          return;
+        }
+      }
 
       // 出力用変数
       string outStrComment = string.Empty;
@@ -571,7 +585,7 @@ namespace WFA
 
       // 出力ファイルの作成
       // 引数:対象ファイル、上書き可不可、文字コード
-      using (StreamWriter sw = new StreamWriter(outputFileName, true, Encoding.GetEncoding("UTF-8")))
+      using (StreamWriter sw = new StreamWriter(outputFileName, false, Encoding.GetEncoding("UTF-8")))
       {
         sw.WriteLine(
           xmlDec + Environment.NewLine +

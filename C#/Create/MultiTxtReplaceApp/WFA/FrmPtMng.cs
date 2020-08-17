@@ -52,6 +52,9 @@ namespace WFA
 
         // ファイルリストフォーム初期化メソッド使用
         InitFileListForm(tbCommitPath.Text);
+
+        // 選択アイテム表示を保存ファイル名に設定
+        tbSaveName.Text = Path.GetFileNameWithoutExtension(form1.InpPtFilePath);
       }
     }
     #endregion
@@ -182,6 +185,8 @@ namespace WFA
 
       // コメントボックスに設定
       tbPtCommentPreview.Text = cmment;
+      // 選択アイテム表示設定
+      tbSelectItem.Text = lvFileList.SelectedItems[0].Text;
     }
     #endregion
 
@@ -206,7 +211,7 @@ namespace WFA
     private void btSaveXml_Click(object sender, EventArgs e)
     {
       // メインフォーム_パターンXML保存メソッド使用
-      form1.SavePatternXml(tbCommitPath.Text, "Pattern");
+      form1.SavePatternXml(tbCommitPath.Text, tbSaveName.Text);
 
       // ファイルリストフォーム初期化メソッド使用
       InitFileListForm(tbCommitPath.Text);
@@ -257,6 +262,9 @@ namespace WFA
     {
       // リストボックス破棄
       lvFileList.Items.Clear();
+
+      // 選択アイテム表示初期化
+      tbSelectItem.Text = "";
 
       // パターンXMLフォルダ名称をコミットパスに更新
       form1.PtDirName = tbCommitPath.Text;

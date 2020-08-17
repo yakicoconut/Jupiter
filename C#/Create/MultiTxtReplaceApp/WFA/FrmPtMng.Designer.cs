@@ -34,6 +34,9 @@
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.tbSelectItem = new System.Windows.Forms.TextBox();
+      this.tbSaveName = new System.Windows.Forms.TextBox();
+      this.tbPtCommentPreview = new System.Windows.Forms.TextBox();
       this.btOpen = new System.Windows.Forms.Button();
       this.btSaveXml = new System.Windows.Forms.Button();
       this.btInputXml = new System.Windows.Forms.Button();
@@ -41,7 +44,6 @@
       this.btConfirm = new System.Windows.Forms.Button();
       this.lvFileList = new System.Windows.Forms.ListView();
       this.tbSearchPath = new System.Windows.Forms.TextBox();
-      this.tbPtCommentPreview = new System.Windows.Forms.TextBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
@@ -51,7 +53,7 @@
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpacity});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(125, 26);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -59,30 +61,32 @@
             this.toolStripMenuItemOpacityGain,
             this.toolStripMenuItemOpacityDec});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(124, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(122, 22);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(96, 22);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(100, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(96, 22);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.SystemColors.Window;
+      this.panel1.Controls.Add(this.tbSelectItem);
+      this.panel1.Controls.Add(this.tbSaveName);
       this.panel1.Controls.Add(this.tbPtCommentPreview);
       this.panel1.Controls.Add(this.btOpen);
       this.panel1.Controls.Add(this.btSaveXml);
@@ -93,8 +97,41 @@
       this.panel1.Controls.Add(this.tbSearchPath);
       this.panel1.Location = new System.Drawing.Point(10, 10);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(289, 484);
+      this.panel1.Size = new System.Drawing.Size(289, 500);
       this.panel1.TabIndex = 1;
+      // 
+      // tbSelectItem
+      // 
+      this.tbSelectItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbSelectItem.BackColor = System.Drawing.SystemColors.Window;
+      this.tbSelectItem.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.tbSelectItem.Location = new System.Drawing.Point(10, 479);
+      this.tbSelectItem.Name = "tbSelectItem";
+      this.tbSelectItem.ReadOnly = true;
+      this.tbSelectItem.Size = new System.Drawing.Size(189, 12);
+      this.tbSelectItem.TabIndex = 8;
+      // 
+      // tbSaveName
+      // 
+      this.tbSaveName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbSaveName.Location = new System.Drawing.Point(10, 447);
+      this.tbSaveName.Name = "tbSaveName";
+      this.tbSaveName.Size = new System.Drawing.Size(189, 19);
+      this.tbSaveName.TabIndex = 7;
+      // 
+      // tbPtCommentPreview
+      // 
+      this.tbPtCommentPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbPtCommentPreview.Location = new System.Drawing.Point(10, 383);
+      this.tbPtCommentPreview.Multiline = true;
+      this.tbPtCommentPreview.Name = "tbPtCommentPreview";
+      this.tbPtCommentPreview.ReadOnly = true;
+      this.tbPtCommentPreview.Size = new System.Drawing.Size(270, 56);
+      this.tbPtCommentPreview.TabIndex = 6;
       // 
       // btOpen
       // 
@@ -110,7 +147,7 @@
       // btSaveXml
       // 
       this.btSaveXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btSaveXml.Location = new System.Drawing.Point(205, 458);
+      this.btSaveXml.Location = new System.Drawing.Point(205, 445);
       this.btSaveXml.Name = "btSaveXml";
       this.btSaveXml.Size = new System.Drawing.Size(75, 23);
       this.btSaveXml.TabIndex = 4;
@@ -120,8 +157,8 @@
       // 
       // btInputXml
       // 
-      this.btInputXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btInputXml.Location = new System.Drawing.Point(10, 458);
+      this.btInputXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.btInputXml.Location = new System.Drawing.Point(205, 474);
       this.btInputXml.Name = "btInputXml";
       this.btInputXml.Size = new System.Drawing.Size(75, 23);
       this.btInputXml.TabIndex = 3;
@@ -131,8 +168,8 @@
       // 
       // tbCommitPath
       // 
-      this.tbCommitPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.tbCommitPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbCommitPath.BackColor = System.Drawing.SystemColors.Window;
       this.tbCommitPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -157,9 +194,10 @@
       // 
       // lvFileList
       // 
-      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.lvFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.lvFileList.ContextMenuStrip = this.contextMenuStrip1;
+      this.lvFileList.HideSelection = false;
       this.lvFileList.Location = new System.Drawing.Point(10, 62);
       this.lvFileList.MultiSelect = false;
       this.lvFileList.Name = "lvFileList";
@@ -172,32 +210,20 @@
       // 
       // tbSearchPath
       // 
-      this.tbSearchPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearchPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearchPath.Location = new System.Drawing.Point(10, 12);
       this.tbSearchPath.Name = "tbSearchPath";
       this.tbSearchPath.Size = new System.Drawing.Size(189, 19);
       this.tbSearchPath.TabIndex = 0;
       // 
-      // tbPtComment
-      // 
-      this.tbPtCommentPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbPtCommentPreview.Location = new System.Drawing.Point(10, 383);
-      this.tbPtCommentPreview.Multiline = true;
-      this.tbPtCommentPreview.Name = "tbPtComment";
-      this.tbPtCommentPreview.ReadOnly = true;
-      this.tbPtCommentPreview.Size = new System.Drawing.Size(270, 69);
-      this.tbPtCommentPreview.TabIndex = 6;
-      // 
       // FrmPtMng
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(309, 504);
+      this.ClientSize = new System.Drawing.Size(309, 520);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -230,5 +256,7 @@
     private System.Windows.Forms.Button btInputXml;
     private System.Windows.Forms.Button btOpen;
     private System.Windows.Forms.TextBox tbPtCommentPreview;
+    private System.Windows.Forms.TextBox tbSelectItem;
+    private System.Windows.Forms.TextBox tbSaveName;
   }
 }
