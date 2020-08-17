@@ -44,18 +44,19 @@ namespace WFA
 
       // 検索対象パス設定
       tbSearchPath.Text = form1.PtDirName;
-      // 検索対象が存在する場合
-      if (Directory.Exists(tbSearchPath.Text))
+
+      // ねずみ返し_検索対象が存在しない場合
+      if (!Directory.Exists(tbSearchPath.Text))
       {
-        // コミットパスに設定
-        tbCommitPath.Text = tbSearchPath.Text;
-
-        // ファイルリストフォーム初期化メソッド使用
-        InitFileListForm(tbCommitPath.Text);
-
-        // 選択アイテム表示を保存ファイル名に設定
-        tbSaveName.Text = Path.GetFileNameWithoutExtension(form1.InpPtFilePath);
+        return;
       }
+
+      // コミットパスに設定
+      tbCommitPath.Text = tbSearchPath.Text;
+      // ファイルリストフォーム初期化メソッド使用
+      InitFileListForm(tbCommitPath.Text);
+      // 選択アイテム表示を保存ファイル名に設定
+      tbSaveName.Text = Path.GetFileNameWithoutExtension(form1.InpPtFilePath);
     }
     #endregion
 

@@ -60,7 +60,7 @@ namespace WFA
     private void GetConfig()
     {
       // パターンXMLフォルダ名称初期値
-      PtDirName = _comLogic.GetConfigValue("DefPtFileDirName", "Pattern");
+      PtDirName = _comLogic.GetConfigValue("DefPtFileDirName", "PatternList");
 
       // 検索対象初期値
       dicInitValue.Add("Comment", _comLogic.GetConfigValue("Comment", ""));
@@ -202,6 +202,10 @@ namespace WFA
       fmComment.Owner = this;
       // コメントフォーム表示
       fmComment.Show();
+
+      // パターンXMLフォルダが存在しない場合、作成
+      if (!Directory.Exists(PtDirName))
+        Directory.CreateDirectory(PtDirName);
     }
     #endregion
 
