@@ -11,7 +11,21 @@ SETLOCAL ENABLEDELAYEDEXPANSION
   rem 先ディレクトリ
   set targetDir01=BackUp_Main
   set targetDir02=BackUp_DiffCheck
-
+  rem ねずみ返し_対象が存在しない場合
+  if not exist %targetDir01% (
+    echo;
+    echo %targetDir01%フォルダが存在しません
+    echo 終了します
+    pause
+    exit
+  )
+  if not exist %targetDir02% (
+    echo;
+    echo %targetDir02%フォルダが存在しません
+    echo 終了します
+    pause
+    exit
+  )
 
 : 事前処理
   rem 現在日時の取得
