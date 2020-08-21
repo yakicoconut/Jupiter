@@ -18,7 +18,7 @@ class GetHashClass
     #   引数02:出力ファイル名称
     #   引数03:ハッシュ計算アルゴリズム
     #   返り値:成否フラグ
-    [bool] GetFileHashList($tgtRoot, $outFileName, $alg)
+    [void] GetFileHashList($tgtRoot, $outFileName, $alg)
     {
       # # 設定
         # 出力用カスタムオブジェクト配列
@@ -28,6 +28,8 @@ class GetHashClass
         $items = Get-ChildItem $tgtRoot -Recurse
         foreach($x in $items)
         {
+          Write-Host $x.Fullname
+
           # ハッシュ変数初期化
           $tgtHash = $null
 
@@ -62,6 +64,6 @@ class GetHashClass
       # # CSV出力
         $outCsvs | Export-Csv $outFileName -Encoding Default -NoTypeInformation
 
-      return $true
+      return
     }
 }
