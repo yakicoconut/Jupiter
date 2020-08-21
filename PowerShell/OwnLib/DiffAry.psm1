@@ -24,4 +24,5 @@ class DiffAryClass
       if($null -eq $lack){$lack = $null}
 
       return $lack
-    }}
+    }
+}
