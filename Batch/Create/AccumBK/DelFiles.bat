@@ -10,6 +10,14 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 : 変数
   rem 削除対象ファイル一覧テキスト
   set targetFile=DELTARGET.txt
+  rem ねずみ返し_ファイルが存在しない場合
+  if not exist %targetFile% (
+    echo;
+    echo %targetFile%ファイルが存在しません
+    echo 終了します
+    pause
+    exit
+  )
 
 
 : 削除対象ファイル一覧テキストの内容を削除する
