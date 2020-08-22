@@ -59,9 +59,9 @@ $ErrorActionPreference = "Stop"
 
     # 返却用カスタムオブジェクト配列
     $ret = @()
+    $ret += $isExistPreFile
     $ret += $tgtRoot
     $ret += $outFileName
-    $ret += $isExistPreFile
     $ret += $preIdentifier
 
     return $ret
