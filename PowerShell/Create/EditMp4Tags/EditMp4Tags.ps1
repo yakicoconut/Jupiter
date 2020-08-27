@@ -67,10 +67,20 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
       $album    = $csv[$ind].アルバム
       $tracknum = $csv[$ind].トラック番号
       $genre    = $csv[$ind].ジャンル
-      # アートワークファイルが存在する場合
-      if(Test-Path $csv[$ind].アートワーク)
+      $artwork  = $csv[$ind].アートワーク
+      # アートワーク項目の値が存在する場合
+      if(![string]::IsNullOrEmpty($artwork))
       {
-        $artwork  = $csv[$ind].アートワーク
+        # ファイルが存在しない場合
+        if(!(Test-Path $artwork))
+        {
+          Write-Host "アートワークの対象ファイルが存在しません"
+          Write-Host $artwork
+          Write-Host "処理は継続となります"
+
+          # 空文字を設定
+          $artwork  = ""
+        }
       }
       # オプション引数用変数初期化
       $optionTitle    = ""
