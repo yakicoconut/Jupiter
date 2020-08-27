@@ -1,9 +1,8 @@
-$Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
-echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
+# # .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
 # メモ
-#  ・アートワーク
-#    対象ファイルが存在しない場合、AtomicParsley.exeが落ちる
-#    設定後に画像ファイルを削除しても動画に設定した画像は固定される
+#  アートワーク
+#    ・対象ファイルが存在しない場合、AtomicParsley.exeが落ちる
+#    ・設定後に画像ファイルを削除しても動画に設定した画像は固定される
 #
 # サイト
 #   AACのタグ解析 - 亀岡的プログラマ日記
@@ -12,6 +11,11 @@ echo .mp4ファイルのタグプロパティをCSVファイルから取得して編集する
 #     http://www.xucker.jpn.org/keyword/atomicparsley.html
 #   iPod touchでビデオの視聴制限: アイスティーを飲みながら...
 #     http://iced.tea-nifty.com/lemon/2008/09/ipod-touch-a3ec.html
+
+# タイトル設定
+$Host.ui.RawUI.WindowTitle = $MyInvocation.MyCommand.Name
+# 致命的でないエラーで処理終了設定
+$ErrorActionPreference = "Stop"
 
 
 <# ユーザ入力 #>
