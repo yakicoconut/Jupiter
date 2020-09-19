@@ -1,4 +1,0 @@
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\bin\Release\ICalcPlugin.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\bin\Release\ICalcPlugin.pdb
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\obj\Release\ICalcPlugin.dll
-E:\Cal_Git_Master\C#\LogicTemp\Pulgin\ICalcPlugin\ICalcPlugin\obj\Release\ICalcPlugin.pdb
