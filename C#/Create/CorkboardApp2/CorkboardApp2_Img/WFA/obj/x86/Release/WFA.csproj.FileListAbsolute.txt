@@ -1,8 +1,0 @@
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\bin\Release\WFA.exe.config
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\bin\Release\WFA.exe
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\bin\Release\WFA.pdb
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\obj\x86\Release\WFA.Form2.resources
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\obj\x86\Release\WFA.Properties.Resources.resources
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\obj\x86\Release\WFA.csproj.GenerateResource.Cache
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\obj\x86\Release\WFA.exe
-E:\Cal_Git_Master\C#\Create\CorkboardApp2\CorkboardApp2_Img\WFA\obj\x86\Release\WFA.pdb
