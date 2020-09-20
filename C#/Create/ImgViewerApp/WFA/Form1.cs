@@ -828,13 +828,15 @@ namespace WFA
         DicImgPath = new Dictionary<int, string>();
       }
 
-      // 対象パス分岐
+      /* 対象ディレクトリパス取得 */
+      // デフォルトとしてはディレクトリを想定
       string targetDirPath = targetPath;
-      if (File.Exists(targetPath))
+      // ファイルの移動・削除直後を想定してディレクトリでない判定
+      if (!Directory.Exists(targetPath))
       {
         try
         {
-          // ファイルからフォルダを取得
+          // ファイルからフォルダパスを取得
           targetDirPath = Path.GetDirectoryName(targetPath);
         }
         catch (Exception ex)
@@ -1018,16 +1020,11 @@ namespace WFA
     /// <param name="fileIndex"></param>
     public void MoveFiles(ArrayList fileIndex)
     {
-      // 表示中の画像を移動するときに一旦、参照をはずす必要がある
-      // 現在表示中の画像を退避する
-      Bitmap evacuationImg = (Bitmap)pictureBox1.Image;
       // 表示中の画像を破棄
       if (currentImage != null)
       {
         currentImage.Dispose();
       }
-      // 画像ファイルを直接参照するのではなく退避した画像を使用
-      currentImage = evacuationImg;
 
       // チェックされたファイルを処理
       foreach (int x in fileIndex)
@@ -1084,16 +1081,11 @@ namespace WFA
     /// <param name="fileIndex"></param>
     public void DeleteFiles(ArrayList fileIndex)
     {
-      // 表示中の画像を削除するときに一旦、参照をはずす必要がある
-      // 現在表示中の画像を退避する
-      Bitmap evacuationImg = (Bitmap)pictureBox1.Image;
       // 表示中の画像を破棄
       if (currentImage != null)
       {
         currentImage.Dispose();
       }
-      // 画像ファイルを直接参照するのではなく退避した画像を使用
-      currentImage = evacuationImg;
 
       // チェックされたファイルを処理
       foreach (int x in fileIndex)
