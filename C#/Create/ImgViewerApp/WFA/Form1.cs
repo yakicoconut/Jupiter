@@ -938,8 +938,12 @@ namespace WFA
 
       try
       {
-        // 表示対象画像取得
-        currentImage = new Bitmap(DicImgPath[CurrentImageKey]);
+        // 表示対象画像ストリーム取り込み
+        using (FileStream fs = new FileStream(DicImgPath[CurrentImageKey], FileMode.Open, FileAccess.Read))
+        {
+          // 画像変換
+          currentImage = (Bitmap)Image.FromStream(fs);
+        }
       }
       catch (Exception ex)
       {
