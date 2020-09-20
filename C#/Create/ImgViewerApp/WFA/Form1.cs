@@ -17,6 +17,7 @@ using System.Collections;
 using System.Threading;
 using System.Xml;
 using System.Text.RegularExpressions;
+using ImageMagick;
 
 namespace WFA
 {
@@ -940,11 +941,20 @@ namespace WFA
 
       try
       {
-        // 表示対象画像ストリーム取り込み
-        using (FileStream fs = new FileStream(DicImgPath[CurrentImageKey], FileMode.Open, FileAccess.Read))
+        // 表示対象画像イメージマジック取り込み
+        byte[] imgByte;
+        using (MagickImage image = new MagickImage(DicImgPath[CurrentImageKey]))
         {
-          // 画像変換
-          currentImage = (Bitmap)Image.FromStream(fs);
+          // ビットマップに設定
+          image.Format = MagickFormat.Bmp;
+          // バイト変換
+          imgByte = image.ToByteArray();
+        }
+        // 画像バイトストリーム取り込み
+        using (MemoryStream ms = new MemoryStream(imgByte))
+        {
+          // ビットマップ変換
+          currentImage = new Bitmap(ms);
         }
       }
       catch (Exception ex)
