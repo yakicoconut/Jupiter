@@ -20,7 +20,12 @@ using System.Threading;
  *   VLC
  * 事前準備
  *   NuGet
- *     [ツール]展開-[NuGetパッケージマネージャ]展開-[ソリューションのNuGetパッケージの管理]
+ *     パッケージ管理
+ *       [ツール]展開-[NuGetパッケージマネージャ]展開-[ソリューションのNuGetパッケージの管理]
+ *     Vlcパッケージ
+ *       ・Vlc.DotNet.Forms
+ *       ・Vlc.DotNet.Core
+ *       ・Vlc.DotNet.Core.Interops
  *   Vlcライブラリフォルダ
  *     下記サイトからzipダウンロード-以下ファイル任意位置へコピー-
  *       ・libvlc.dll
@@ -51,6 +56,11 @@ using System.Threading;
  *   	https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.media.mediaplayer?view=netcore-3.1
  *   【C#.net】PictureBox、AxWindowsMediaPlayerのメモリ解放について - 中堅プログラマーの備忘録
  *   	https://www.chuken-engineer.com/entry/2020/02/27/194835
+ * Git
+ *   MyResourceフォルダの参照が行えない場合
+ *     以下ファイルのリンク先から
+ *     Vlcライブラリフォルダをコピーする
+ *       \WFA\MyResource\Lib\LibOfExt-ShortCut.lnk
  */
 #endregion
 namespace WFA
