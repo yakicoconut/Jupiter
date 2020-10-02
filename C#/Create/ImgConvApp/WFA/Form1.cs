@@ -12,6 +12,7 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 using System.Drawing.Imaging;
+using ImageMagick;
 
 namespace WFA
 {
@@ -173,13 +174,26 @@ namespace WFA
     #region 画像変換メソッド
     public void ImgConversion(string targetPath, string outputPath, string extention)
     {
-      // ビットマップに変換
-      using (Bitmap img = (Bitmap)Bitmap.FromFile(targetPath))
+      // 表示対象画像イメージマジック取り込み
+      byte[] imgByte;
+      using (MagickImage image = new MagickImage(targetPath))
       {
-        // ファイル名取得(拡張子なし)
-        string fileName = Path.GetFileNameWithoutExtension(targetPath);
-        // フォーマットを指定して出力先に保存(出力パス設定がない場合、対象ファイル位置)
-        img.Save(outputPath + fileName + "." + extention, imageFormat);
+        // ビットマップに設定
+        image.Format = MagickFormat.Bmp;
+        // バイト変換
+        imgByte = image.ToByteArray();
+      }
+      // 画像バイトストリーム取り込み
+      using (MemoryStream ms = new MemoryStream(imgByte))
+      {
+        // ビットマップ変換
+        using (Bitmap img = new Bitmap(ms))
+        {
+          // ファイル名取得(拡張子なし)
+          string fileName = Path.GetFileNameWithoutExtension(targetPath);
+          // フォーマットを指定して出力先に保存(出力パス設定がない場合、対象ファイル位置)
+          img.Save(outputPath + fileName + "." + extention, imageFormat);
+        }
       }
     }
     #endregion
