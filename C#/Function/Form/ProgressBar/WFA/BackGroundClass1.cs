@@ -98,9 +98,6 @@ namespace WFA
       // プログレスバーフォーム表示
       fmPrgBar.ShowDialog(fm1);
 
-      // 処理終了後、プログレスバーを閉じる
-      fmPrgBar.Dispose();
-
       return threadA;
     }
     #endregion

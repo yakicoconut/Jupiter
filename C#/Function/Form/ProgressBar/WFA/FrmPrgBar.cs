@@ -28,16 +28,6 @@ namespace WFA
     }
     #endregion
 
-
-    #region 宣言
-
-    // プログレスバー更新用デリゲート
-    delegate void UpdPrgBarCallback(int val, int max);
-    UpdPrgBarCallback dlgUpdPrgBar;
-
-    #endregion
-
-
     #region 初期設定メソッド
     private void InitSet()
     {
@@ -46,7 +36,25 @@ namespace WFA
     }
     #endregion
 
+
+    #region 宣言
+
+    // プログレスバー更新用デリゲート
+    delegate void UpdPrgBarCallback(int val, int max);
+    UpdPrgBarCallback dlgUpdPrgBar;
+
+    #endregion
     
+
+    #region フォームロードイベント
+    private void FrmPrgBar_Load(object sender, EventArgs e)
+    {
+      // プログレスバー値初期化
+      progressBar1.Value = 0;
+    } 
+    #endregion
+
+
     #region プログレスバー更新メソッド
     private void UpdPrgBar(int val, int max)
     {
@@ -64,8 +72,7 @@ namespace WFA
       }
     }
     #endregion
-
-
+    
     #region プログレスバー更新操作メソッド
     /// <summary>
     /// プログレスバー更新メソッド

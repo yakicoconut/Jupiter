@@ -50,6 +50,7 @@
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Name = "FrmPrgBar";
       this.Text = "Form2";
+      this.Load += new System.EventHandler(this.FrmPrgBar_Load);
       this.ResumeLayout(false);
 
     }
