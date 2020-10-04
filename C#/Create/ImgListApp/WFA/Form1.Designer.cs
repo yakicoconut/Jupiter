@@ -66,6 +66,7 @@
       this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.Name = "Form1";
       this.Text = "Form1";
+      this.Load += new System.EventHandler(this.Form1_Load);
       this.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommDragDrop);
       this.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommDragEnter);
       this.ResumeLayout(false);
