@@ -74,6 +74,10 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
+      // コントロールクリア
+      imageList1.Images.Clear();
+      listView1.Items.Clear();
+
       // 画像読み込みメソッド使用
       InpImg(textBox1.Text);
     }
