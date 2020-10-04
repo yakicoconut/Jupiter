@@ -12,6 +12,12 @@ using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 
+#region ヘッダ
+/*
+* C#リストビューで画像ファイルのサムネイル表示 | 迷惑堂本舗
+* 	https://maywork.net/computer/csharp_task_with_thumbnail/
+*/ 
+#endregion
 namespace WFA
 {
   /// <summary>
@@ -68,30 +74,8 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
-      // 画像パスディクショナリ作成メソッド使用
-      DicImgPath = CreateDic(textBox1.Text);
-
-      int width = 100;
-      int height = 100;
-
-      // 
-      imageList1.ImageSize = new Size(width, height);
-      listView1.LargeImageList = imageList1;
-
-      foreach (KeyValuePair<int, string> x in DicImgPath)
-      {
-        // ビットマップ変換
-        using (Image bm= Bitmap.FromFile(x.Value))
-        {
-          // サムネイル作成メソッド
-          using (Image thumb = CreateThumb(bm, width, height))
-          {
-            // 
-            imageList1.Images.Add(thumb);
-            listView1.Items.Add(x.Value, x.Key);
-          }
-        }
-      }
+      // 画像読み込みメソッド使用
+      InpImg(textBox1.Text);
     }
     #endregion
 
@@ -144,15 +128,14 @@ namespace WFA
     #endregion
 
     #region サムネイル作成メソッド
-    private Image CreateThumb(Image image, int w, int h)
+    private Bitmap CreateThumb(Bitmap image, int w, int h)
     {
       // 表示用ビットマップ作成
       Bitmap canvas = new Bitmap(w, h);
-
       // 画像描写
       using (Graphics g = Graphics.FromImage(canvas))
       {
-        // 拝啓作成
+        // 背景作成
         g.FillRectangle(new SolidBrush(Color.White), 0, 0, w, h);
 
         float fw = (float)w / (float)image.Width;
@@ -179,6 +162,51 @@ namespace WFA
 
       // 外部アプリ起動
       Process.Start(@"C:\WINDOWS\system32\mspaint.exe", tgtPath);
+    }
+    #endregion
+
+    #region 画像読み込みメソッド
+    public void InpImg(string tgtPath)
+    {
+      // 画像リスト変数
+      List<Image> lstImgLst = new List<Image>();
+      // リストビュー変数
+      List<ListViewItem> lstLstVwItm = new List<ListViewItem>();
+
+      // 画像パスディクショナリ作成メソッド使用
+      DicImgPath = CreateDic(tgtPath);
+
+      // サムネサイズ設定
+      int width = 100;
+      int height = 100;
+
+      // サムネサイズ
+      imageList1.ImageSize = new Size(width, height);
+      // 画像リストソース設定
+      listView1.LargeImageList = imageList1;
+
+      // 画像リストループ
+      foreach (KeyValuePair<int, string> x in DicImgPath)
+      {
+        // 対象画像ストリーム取り込み
+        using (FileStream fs = new FileStream(x.Value, FileMode.Open, FileAccess.Read))
+        {
+          // ビットマップ変換
+          Bitmap bm = (Bitmap)Image.FromStream(fs);
+
+          // サムネイル作成メソッド使用
+          Bitmap thumb = CreateThumb(bm, width, height);
+
+          // 画像リスト追加
+          lstImgLst.Add(thumb);
+          // リストビュー追加
+          lstLstVwItm.Add(new ListViewItem(x.Value, x.Key));
+        }
+      }
+
+      // コントロールに設定
+      imageList1.Images.AddRange(lstImgLst.ToArray());
+      listView1.Items.AddRange(lstLstVwItm.ToArray());
     }
     #endregion
 
