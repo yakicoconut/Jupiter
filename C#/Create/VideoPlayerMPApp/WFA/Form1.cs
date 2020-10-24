@@ -55,13 +55,20 @@ namespace WFA
 
       // 取得時刻フォームインスタンス生成
       fmGetTime = new FrmGetTime(this);
+      // オプションフォームインスタンス生成
+      fmOption = new FrmOption();
     }
     #endregion
 
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
-      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
+      // 再生位置移動秒デフォルト値
+      defGoPosSec = int.Parse(_comLogic.GetConfigValue("DefGoPosSec", "-5"));
+      // 取得再生位置確定範囲秒デフォルト値
+      defCmtPosRange = int.Parse(_comLogic.GetConfigValue("DefCmtPosRange", "1"));
+      // 再生位置取得後巻き戻し秒デフォルト値
+      defGetAftBackPos = int.Parse(_comLogic.GetConfigValue("DefGetAftBackPos", "3"));
     }
     #endregion
 
@@ -73,12 +80,18 @@ namespace WFA
 
     // 取得時刻フォーム
     FrmGetTime fmGetTime;
+    // オプションフォーム
+    FrmOption fmOption;
 
     // 現在位置
-    double crntPos;
+    double playPos;
 
-    // 改行フラグ
-    bool nLFlg;
+    // 再生位置移動秒デフォルト値
+    int defGoPosSec;
+    // 取得再生位置確定範囲秒デフォルト値
+    int defCmtPosRange;
+    // 再生位置取得後巻き戻し秒デフォルト値
+    int defGetAftBackPos;
 
     #endregion
 
@@ -104,20 +117,43 @@ namespace WFA
       fmGetTime.Owner = this;
       // 取得時刻フォーム表示
       fmGetTime.Show();
+
+      // 常にメインフォームの手前に表示
+      fmOption.Owner = this;
+
+      /* プロパティ設定 */
+      // オプションフォームのプロパティに本クラスを設定
+      fmOption.ParentForm = this;
+      // 再生位置移動秒デフォルト値
+      fmOption.DefGoPosSec = defGoPosSec;
+      // 取得再生位置確定範囲秒デフォルト値
+      fmOption.DefCmtPosRange = defCmtPosRange;
+      // 再生位置取得後巻き戻し秒デフォルト値
+      fmOption.DefGetAftBackPos = defGetAftBackPos;
+
+      // オプションフォーム表示
+      fmOption.Show();
     }
     #endregion
 
 
-    #region Startボタン押下イベント
-    private void btStart_Click(object sender, EventArgs e)
+    #region ReadVideoメソッド
+    /// <summary>
+    /// ReadVideoメソッド
+    /// </summary>
+    /// <param name="filePath">再生対象ファイル</param>
+    public void ReadVideo(string filePath)
     {
       // 指定パスの動画再生
-      axWindowsMediaPlayer1.URL = textBox1.Text;
+      axWindowsMediaPlayer1.URL = filePath;
     }
     #endregion
 
-    #region Styleボタン押下イベント
-    private void btStyle_Click(object sender, EventArgs e)
+    #region プレイヤーモード変更メソッド
+    /// <summary>
+    /// プレイヤーモード変更メソッド
+    /// </summary>
+    public void CngMode()
     {
       // 操作パネルプロパティ
       switch (axWindowsMediaPlayer1.uiMode)
@@ -143,39 +179,73 @@ namespace WFA
     }
     #endregion
 
-    #region GetTimeボタン押下イベント
-    private void btGetTime_Click(object sender, EventArgs e)
+    #region 現在再生位置取得メソッド
+    /// <summary>
+    /// 現在再生位置取得メソッド
+    /// </summary>
+    /// <param name="posRange">位置確定範囲</param>
+    /// <param name="goBack">再生位置巻き戻し</param>
+    /// <param name="isNewLine">改行フラグ</param>
+    /// <returns>現在再生位置文字列</returns>
+    public string GetPlayPos(int posRange, int cmtBack, ref bool isNewLine)
     {
-      // 現在位置秒数取得
+      // 返却用変数
+      string strPos = string.Empty;
+
+      // 現在再生位置取得
       double pos = axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
 
-      // 時刻変換メソッド使用
-      string strPos = ConvSecToStringTime(pos);
-      // 時刻ラベル更新
-      lbTime.Text = strPos;
+      // 再生位置が前回位置と指定±秒以内かどうか
+      bool rangeFlg = pos - posRange <= playPos && playPos >= pos - posRange;
 
-      // 取得位置が前回位置と±1かどうか
-      bool flg = pos - 1 <= crntPos && crntPos >= pos - 1;
+      // 現在再生位置設定
+      playPos = pos;
 
-      // 現在位置設定
-      crntPos = pos;
-
-      // ±1の場合
-      if (flg)
+      // ±秒が範囲内の場合
+      if (rangeFlg)
       {
+        // 時刻変換メソッド使用
+        strPos = ConvSecToStringTime(pos);
+
         // 改行フラグがある場合、改行、ない場合、スペース
-        strPos = nLFlg ? strPos + Environment.NewLine : strPos + " ";
+        strPos = isNewLine ? strPos + Environment.NewLine : strPos + " ";
         // 取得位置確定入力
         fmGetTime.tbComment.AppendText(strPos);
 
         // 改行フラグ変更
-        nLFlg = !nLFlg;
+        isNewLine = !isNewLine;
 
-        return;
+        return strPos;
       }
 
       // 指定秒前に再生位置設定
-      axWindowsMediaPlayer1.Ctlcontrols.currentPosition = crntPos - 3;
+      axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playPos - cmtBack;
+
+      return strPos;
+    }
+    #endregion
+
+    #region Goメソッド
+    /// <summary>
+    /// Goメソッド
+    /// </summary>
+    /// <param name="pos">巻き戻し秒</param>
+    public void Go(int goPos)
+    {
+      // 再生位置変更
+      axWindowsMediaPlayer1.Ctlcontrols.currentPosition += goPos;
+    }
+    #endregion
+
+    #region 再生速度変更メソッド
+    /// <summary>
+    /// 再生速度変更メソッド
+    /// </summary>
+    /// <param name="playSpd">再生速度</param>
+    public void CngPlaySpd(double playSpd)
+    {
+      // 再生速度変更
+      axWindowsMediaPlayer1.settings.rate = playSpd;
     }
     #endregion
 

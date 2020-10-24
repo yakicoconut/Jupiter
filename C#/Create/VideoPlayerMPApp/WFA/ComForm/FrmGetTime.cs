@@ -33,7 +33,7 @@ namespace WFA
     #region フォームロードイベント
     private void FrmGetTime_Load(object sender, EventArgs e)
     {
-      this.Text = "コメント";
+      this.Text = "再生位置取得";
       // 親コントロールのサイズと位置からサイズ・出現位置設定
       int parentX = form1.Location.X;
       int parentY = form1.Location.Y;

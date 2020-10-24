@@ -79,7 +79,7 @@
       this.tbComment.Multiline = true;
       this.tbComment.Name = "tbComment";
       this.tbComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-      this.tbComment.Size = new System.Drawing.Size(174, 389);
+      this.tbComment.Size = new System.Drawing.Size(180, 389);
       this.tbComment.TabIndex = 1;
       // 
       // FrmGetTime
@@ -87,7 +87,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(187, 402);
+      this.ClientSize = new System.Drawing.Size(193, 402);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.tbComment);
       this.Font = new System.Drawing.Font("MS UI Gothic", 11F);
