@@ -46,27 +46,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComForm\FrmGetTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComForm\FrmGetTime.designer.cs">
+      <DependentUpon>FrmGetTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmGetTime.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmGetTime.designer.cs">
-      <DependentUpon>FrmGetTime.cs</DependentUpon>
-    </Compile>
     <Compile Include="MCSComLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WFAComLogic.cs" />
+    <EmbeddedResource Include="ComForm\FrmGetTime.resx">
+      <DependentUpon>FrmGetTime.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmGetTime.resx">
-      <DependentUpon>FrmGetTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
