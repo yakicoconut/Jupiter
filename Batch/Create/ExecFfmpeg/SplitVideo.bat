@@ -18,7 +18,7 @@ echo ffmpegで動画分割
 
 : 引数チェック
   rem 引数型判定バッチ使用
-  call %call_ChkArgDataType% 7 "PATH TIME TIME STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7
+  call %call_ChkArgDataType% 9 "PATH TIME TIME STR NUM STR NUM NUM STR" %1 %2 %3 %4 %5 %6 %7 %8 %9
   rem 引数がない場合、ユーザ入力へ
   set argc=%ret_ChkArgDataType1%
   if %argc%==0 goto :USER_INPUT
@@ -35,10 +35,12 @@ echo ffmpegで動画分割
   set srcPath=%1
   set   start="%2"
   set    dist="%3"
-  set   codec=%4
-  set    rate=%5
-  set     tbn=%6
-  set outPath=%7
+  set   color=%4
+  set    size=%5
+  set   codec=%6
+  set    rate=%7
+  set     tbn=%8
+  set outPath=%9
 
   rem 本処理へ
   goto :RUN
@@ -71,6 +73,22 @@ rem ユーザ入力処理
     rem 入力値引継ぎ
     set dist=%return_UserInput1%
     set distFmt=%return_UserInput2%
+
+  : カラー
+    echo;
+    echo カラー(white、#88e5ff等)入力
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" FALSE STR
+    rem 入力値引継ぎ
+    set color=%return_UserInput1%
+
+  : サイズ入力
+    echo;
+    echo サイズ入力(数値)
+    rem ユーザ入力バッチ使用
+    call %call_UserInput% "" TRUE NUM
+    rem 入力値引継ぎ
+    set size=%return_UserInput1%
 
   : コーデック
     echo;
@@ -181,6 +199,11 @@ rem 本処理
       set /a    length=%secHour%+%secMinute%+%second%
 
 
+  : 表示ファイル名変換
+    rem 「\」→「/」変換
+    set strOutPath=%outPath:\=/%
+
+
   : 実行
     rem ログフォルダ作成
     if not exist %~dp0Log ( mkdir %~dp0Log )
@@ -195,11 +218,32 @@ rem 本処理
       : -ss    :開始位置(秒)、「-i」オプションより先に記述しないと音ズレする
       : -i     :対象ファイル
       : -t     :対象期間(秒)
+      : -filter~:drawtext=
+      :            テキスト描写
+      :            fontfile=ttfファイルパス
+      :              フォント指定
+      :              ※要調査
+      :            text=対象テキスト
+      :              描画対象テキスト
+      :            fontcolor=フォント色
+      :              フォント色(white、#88e5ff等)
+      :            fontsize=数値
+      :              フォントサイズ
+      :            x=(y=)
+      :              テキスト配置位置
+      :              数値
+      :                配置位置X
+      :              main_w(w)、main_h(h)
+      :                対象動画幅、高さ予約語
+      :              text_w(tw)、text_h(th)
+      :                入力テキスト幅、高さ予約語
+      :              (例:画面中央に配置
+      :                  x=(w-text_w)/2:y=(h-text_h-line_h)/2
       : -c:v   :動画コーデック
       : -c:a   :音声コーデック
       : -r     :フレームレート
       : -video~:tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% %codec:"=% -r %rate% -video_track_timescale %tbn% %outPath%
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% %codec:"=% -filter_complex drawtext="text=%strOutPath:"=%: fontcolor=%color%: fontsize=%size%: x=w-text_w:y=h-text_h" -r %rate% -video_track_timescale %tbn% %outPath%
 
 
 :END
@@ -207,6 +251,8 @@ rem 本処理
   echo %srcPath:"=%>>%logPath%
   echo %start:"=%%startMilli%>>%logPath%
   echo %dist:"=%%distMilli%>>%logPath%
+  echo %color:"=%>>%logPath%
+  echo %size:"=%>>%logPath%
   echo %codec:"=%>>%logPath%
   echo %rate:"=%>>%logPath%
   echo %tbn:"=%>>%logPath%
