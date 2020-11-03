@@ -202,6 +202,8 @@ rem 本処理
   : 表示ファイル名変換
     rem 「\」→「/」変換
     set strOutPath=%outPath:\=/%
+    rem 「'」→「’」変換
+    set strOutPath=%outPath:'=’%
 
 
   : 実行
