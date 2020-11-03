@@ -1,8 +1,9 @@
 # # 準備 # #
 # SplitVideo
-..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:03.000 00:00:06.000 green  30 "-c:v h264 -c:a aac" 30 30 Test\temp_1.mp4
+..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:03.000 00:00:06.000 blue  30 "-c:v h264 -c:a aac" 30 30 Test\temp_1.mp4
 # サイズを0にするとファイル名出力非表示、「0」ではログ出力できないため「00」とする
 ..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:00.000 00:00:03.000 white 00 "-c:v h264 -c:a aac" 30 30 Test\temp_2.mp4
+..\SplitVideo.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:06.000 00:00:08.000 green 45 "-c:v h264 -c:a aac" 30 30 Test\temp_3'201103.mp4
 # ExtraAudio
 ..\ExtraAudio.bat Test\temp_1.mp4 192 Test\ExtraAudio_1.mp3
 ..\ExtraAudio.bat Test\temp_2.mp4 192 Test\ExtraAudio_2.mp3
