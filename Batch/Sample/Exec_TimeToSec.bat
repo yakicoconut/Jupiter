@@ -1,0 +1,15 @@
+@echo off
+title %~nx0
+echo 時間秒変換バッチの使用例
+
+
+: 参照バッチ
+  rem 時間秒変換バッチ
+  set call_TimeToSec="..\OwnLib\TimeToSec.bat"
+
+
+: 処理
+  rem 時間秒変換バッチ使用
+  call %call_TimeToSec% 01:23:45.678
+  echo %return_TimeToSec%
+pause
