@@ -28,5 +28,24 @@ echo 8進数数値変換バッチの使用例
   call %call_CngOctalNum% 09
   echo %return_CngOctalNum%
 
+: 008
+  rem 8進数数値変換バッチ使用
+  call %call_CngOctalNum% 008
+  echo %return_CngOctalNum%
+
+: 009
+  rem 8進数数値変換バッチ使用
+  call %call_CngOctalNum% 009
+  echo %return_CngOctalNum%
+
+: 0081
+  rem 8進数数値変換バッチ使用
+  call %call_CngOctalNum% 0081
+  echo %return_CngOctalNum%
+
+: 0007
+  rem 8進数数値変換バッチ使用
+  call %call_CngOctalNum% 0007
+  echo %return_CngOctalNum%
 
 pause
