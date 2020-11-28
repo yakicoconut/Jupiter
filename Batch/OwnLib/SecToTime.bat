@@ -1,8 +1,8 @@
 @echo off
 title %~nx0
-rem 時間秒変換バッチ
+rem 秒時間変換バッチ
 rem 引数01:秒数
-rem 戻値01:返還後時刻
+rem 戻値01:変換後時刻
 
 
 rem 変数ローカル化
