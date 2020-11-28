@@ -14,6 +14,8 @@ echo ffmpegで動画分割
   set call_ElapsedTime=%~dp0"..\..\OwnLib\ElapsedTime.bat"
   rem 引数型判定バッチ
   set call_ChkArgDataType=%~dp0"..\..\OwnLib\ChkArgDataType.bat"
+  rem 時間秒変換バッチ
+  set call_TimeToSec=%~dp0"..\..\OwnLib\TimeToSec.bat"
 
 
 : 引数チェック
@@ -124,79 +126,24 @@ rem ユーザ入力処理
 
 rem 本処理
 :RUN
-  : 開始時間秒数変換
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %start% %starFmt%
-    set start=%ret_DISMANTLE_TIME01:"=%
-    set startMilli=%ret_DISMANTLE_TIME02%
+  : 時間処理
+    : 分割時間処理
+      rem 経過時間計算バッチ使用
+      call %call_ElapsedTime% %start:"=% %dist:"=%
+      set elapsed=%return_ElapsedTime%
 
-    rem 文字列として分割
-    set   strHour=%start:~0,2%
-    set strMinute=%start:~3,2%
-    set strSecond=%start:~6,2%
+    : 秒数変換
+      rem 開始時間
+      rem 時間秒変換バッチ使用
+      call %call_TimeToSec% %start%
+      set startSec=%return_TimeToSec1%
+      rem ミリ秒がある場合、ドット付きで格納
+      if not "%return_TimeToSec2%"=="" ( set startMilli=.%return_TimeToSec2% )
 
-    rem 二桁目が「0」の場合
-    if %strHour:~0,1%==0 (
-      rem 数値型に格納するとエラーとなるため、一桁目のみ取得
-      set strHour=%strHour:~1,1%
-    )
-    if %strMinute:~0,1%==0 (
-      set strMinute=%strMinute:~1,1%
-    )
-    if %strSecond:~0,1%==0 (
-      set strSecond=%strSecond:~1,1%
-    )
-
-    rem 数値変換
-    set /a   hour=%strHour%
-    set /a minute=%strMinute%
-    set /a second=%strSecond%
-
-    rem 秒数変換
-    set /a   secHour=%hour%*3600
-    set /a secMinute=%minute%*60
-    set /a  startSec=%secHour%+%secMinute%+%second%
-
-
-  : 分割時間秒数変換
-    rem 時刻解体サブルーチン使用
-    call :DISMANTLE_TIME %dist% %distFmt%
-    set dist=%ret_DISMANTLE_TIME01%
-    set distMilli=%ret_DISMANTLE_TIME02%
-
-    rem 経過時間計算バッチ使用
-    call %call_ElapsedTime% %start:"=%%startMilli% %dist:"=%%distMilli%
-    set elapsed=%return_ElapsedTime%
-
-    : 項目分割
-      rem 文字列として分割
-      set   strHour=%elapsed:~0,2%
-      set strMinute=%elapsed:~3,2%
-      set strSecond=%elapsed:~6,2%
-      rem ミリ秒は変換しないため、そのまま格納
-      set elapsedMilli=%elapsed:~8,4%
-
-      rem 二桁目が「0」の場合
-      if %strHour:~0,1%==0 (
-        rem 数値型に格納するとエラーとなるため、一桁目のみ取得
-        set strHour=%strHour:~1,1%
-      )
-      if %strMinute:~0,1%==0 (
-        set strMinute=%strMinute:~1,1%
-      )
-      if %strSecond:~0,1%==0 (
-        set strSecond=%strSecond:~1,1%
-      )
-
-      rem 数値変換
-      set /a   hour=%strHour%
-      set /a minute=%strMinute%
-      set /a second=%strSecond%
-
-      rem 秒数変換
-      set /a   secHour=%hour%*3600
-      set /a secMinute=%minute%*60
-      set /a    length=%secHour%+%secMinute%+%second%
+      rem 分割時間
+      call %call_TimeToSec% %elapsed%
+      set length=%return_TimeToSec1%
+      if not "%return_TimeToSec2%"=="" ( set elapsedMilli=.%return_TimeToSec2% )
 
 
   : 表示ファイル名変換
@@ -251,8 +198,8 @@ rem 本処理
 :END
   rem ログ出力
   echo %srcPath:"=%>>%logPath%
-  echo %start:"=%%startMilli%>>%logPath%
-  echo %dist:"=%%distMilli%>>%logPath%
+  echo %start:"=%>>%logPath%
+  echo %dist:"=%>>%logPath%
   echo %color:"=%>>%logPath%
   echo %size:"=%>>%logPath%
   echo %codec:"=%>>%logPath%
@@ -267,42 +214,4 @@ rem 本処理
   rem 引数がない(ユーザ入力で実行した)場合、ポーズ
   if %argc%==0 pause
 
-exit /b
-
-
-rem 時刻解体サブルーチン
-:DISMANTLE_TIME
-SETLOCAL
-  : 引数
-    rem 入力時刻
-    set inpTime=%1
-    rem 時刻フォーマット
-    set format=%2
-
-  : ミリ秒が存在する場合
-    if %format:~-2,2%==.f (
-      set milli=%inpTime:~-3,2%
-    )
-    if %format:~-3,3%==.ff (
-      set milli=%inpTime:~-4,3%
-    )
-    if %format:~-4,4%==.fff (
-      set milli=%inpTime:~-5,4%
-    )
-
-  : 先頭「m」、「h」、「hh」判断
-    if %format:~0,2%==mm (
-      set tms="00:%inpTime:~1,5%"
-    )
-    if %format:~0,2%==h: (
-      set tms="0%inpTime:~1,7%"
-    )
-    if %format:~0,3%==hh: (
-      rem 「hh」の場合もミリ秒を抜く
-      set tms="%inpTime:~1,8%"
-    )
-
-rem 返り値1:時分秒
-rem 返り値2:ミリ秒
-ENDLOCAL && set ret_DISMANTLE_TIME01=%tms%&& set ret_DISMANTLE_TIME02=%milli%
 exit /b
