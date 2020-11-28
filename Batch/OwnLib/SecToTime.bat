@@ -9,8 +9,6 @@ rem 変数ローカル化
 SETLOCAL
   : 参照バッチ
     rem 呼び出しを想定して自身と同じフォルダを指定
-    rem 8進数数値変換バッチ
-    set call_CngOctalNum=%~dp0"CngOctalNum.bat"
     rem ゼロ埋めバッチ
     set call_ZeroPadding=%~dp0"ZeroPadding.bat"
 
