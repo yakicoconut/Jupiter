@@ -30,7 +30,7 @@ echo 経過時間計算バッチの使用例
   echo -  %afterTime%
   echo   ------------
   echo   %return_ElapsedTime%
-  echo   00:49:10 ←期待結果
+  echo   01:49:10 ←期待結果
 
 : 差分計算_「h:mm:ss.f」パターン
   echo;
