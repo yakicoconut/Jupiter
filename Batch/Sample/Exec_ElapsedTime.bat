@@ -104,5 +104,40 @@ echo 経過時間計算バッチの使用例
   echo   %return_ElapsedTime%
   echo   00:00:07.007 ←期待結果
 
+: 差分計算_8進数オーバーフロー1_引数パターン
+  echo;
+  set beforeTime=00:00:10.080
+  set  afterTime=00:00:11.090
+  rem 経過時間計算バッチ使用
+  call %call_ElapsedTime% %beforeTime% %afterTime%
+  echo   %beforeTime%
+  echo - %afterTime%
+  echo   ------------
+  echo   %return_ElapsedTime%
+  echo   00:00:01.010 ←期待結果
+
+: 差分計算_8進数オーバーフロー2_パターン
+  echo;
+  set beforeTime=00:00:10.009
+  set  afterTime=00:00:11.008
+  rem 経過時間計算バッチ使用
+  call %call_ElapsedTime% %beforeTime% %afterTime%
+  echo   %beforeTime%
+  echo - %afterTime%
+  echo   ------------
+  echo   %return_ElapsedTime%
+  echo   00:00:00.999 ←期待結果
+
+: 差分計算_8進数オーバーフロー_結果パターン
+  echo;
+  set beforeTime=00:00:10.020
+  set  afterTime=00:00:11.100
+  rem 経過時間計算バッチ使用
+  call %call_ElapsedTime% %beforeTime% %afterTime%
+  echo   %beforeTime%
+  echo - %afterTime%
+  echo   ------------
+  echo   %return_ElapsedTime%
+  echo   00:00:01.08 ←期待結果
 
 pause
