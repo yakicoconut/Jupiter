@@ -19,9 +19,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
     rem 時分秒ミリ解体バッチ
     set call_DismantleTime=%~dp0"DismantleTime.bat"
     rem 時間秒変換バッチ
-    set call_TimeToSec=%~dp0"..\OwnLib\TimeToSec.bat"
+    set call_TimeToSec=%~dp0"TimeToSec.bat"
     rem 秒時間変換バッチ
-    set call_SecToTime="..\OwnLib\SecToTime.bat"
+    set call_SecToTime=%~dp0"SecToTime.bat"
 
   : 引数
     rem 開始時刻
@@ -41,7 +41,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       set startMilli=%return_DismantleTime2%
       rem 時間秒変換バッチ使用
       call %call_TimeToSec% %startTime%
-      set startSec=%return_TimeToSec%
+      set startSec=%return_TimeToSec1%
       rem ミリ秒がない場合は0を設定
       if "%startMilli%"=="" set /a startMilli=0
       rem ミリ秒はゼロ下駄
@@ -56,7 +56,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
       set endTime=%return_DismantleTime1%
       set endMilli=%return_DismantleTime2%
       call %call_TimeToSec% %endTime%
-      set endSec=%return_TimeToSec%
+      set endSec=%return_TimeToSec1%
       if "%endMilli%"=="" set /a endMilli=0
       call %call_ZeroPadding% %endMilli% -3
       set endMilli=%return_ZeroPadding%
