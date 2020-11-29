@@ -7,6 +7,8 @@
 # ExtraAudio
 ..\ExtraAudio.bat Test\temp_1.mp4 192 Test\ExtraAudio_1.mp3
 ..\ExtraAudio.bat Test\temp_2.mp4 192 Test\ExtraAudio_2.mp3
+# SplitVideo_Prv
+..\SplitVideo_Prv.bat ..\MyResorce\Sample_Wildlife.mp4 00:00:02.000 00:00:05.000 1 2 "-c:v h264 -c:a aac" 30 30 Test\PRV_temp_4.mp4
 
 
 # # AddAudios # #
