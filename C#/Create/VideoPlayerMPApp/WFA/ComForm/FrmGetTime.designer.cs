@@ -81,6 +81,7 @@
       this.tbComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
       this.tbComment.Size = new System.Drawing.Size(180, 389);
       this.tbComment.TabIndex = 1;
+      this.tbComment.Text = "00:00:00.000 ";
       // 
       // FrmGetTime
       // 

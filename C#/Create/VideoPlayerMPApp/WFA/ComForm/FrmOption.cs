@@ -40,6 +40,11 @@ namespace WFA
     public Form1 ParentForm { private get; set; }
 
     /// <summary>
+    /// 再生位置巻き戻し秒デフォルト値
+    /// </summary>
+    public int DefBackPosSec { private get; set; }
+
+    /// <summary>
     /// 再生位置移動秒デフォルト値
     /// </summary>
     public int DefGoPosSec { private get; set; }
@@ -70,12 +75,13 @@ namespace WFA
       //int incTabIndex = 1;
       //btCngSize.TabIndex = incTabIndex++;
 
+      // 改行チェックオン
+      cbIsNewLine.Checked = true;
+
+      // 再生位置巻き戻し秒デフォルト値
+      nudBackPosSec.Value = DefBackPosSec;
       // 再生位置移動秒デフォルト値設定
       nudGoPosSec.Value = DefGoPosSec;
-      // 取得再生位置確定範囲秒デフォルト値設定
-      nudCmtPosRange.Value = DefCmtPosRange;
-      // 再生位置取得後巻き戻し秒デフォルト値設定
-      nudGetAftBackPos.Value = DefGetAftBackPos;
     }
     #endregion
 
@@ -94,9 +100,9 @@ namespace WFA
     private void btGetTime_Click(object sender, EventArgs e)
     {
       // 位置確定範囲秒取得
-      int posRange = (int)nudCmtPosRange.Value;
+      int posRange = DefCmtPosRange;
       // 再生位置巻き戻し秒取得
-      int cmtBack = (int)nudGetAftBackPos.Value;
+      int cmtBack = DefGetAftBackPos;
       // 改行チェック取得
       bool isNewLine = cbIsNewLine.Checked;
 
@@ -109,22 +115,25 @@ namespace WFA
     }
     #endregion
 
-    #region Goボタン押下イベント
-    private void btGo_Click(object sender, EventArgs e)
+    #region Backボタン押下メソッド
+    private void btBack_Click(object sender, EventArgs e)
     {
-      // 巻き戻し秒取得
-      int goPosSec = (int)nudGoPosSec.Value;
+      // 秒取得
+      int posSec = (int)nudBackPosSec.Value;
 
       // Goメソッド使用
-      ParentForm.Go(goPosSec);
+      ParentForm.Go(posSec);
     }
     #endregion
 
-    #region Modeボタン押下イベント
-    private void btMode_Click(object sender, EventArgs e)
+    #region Goボタン押下イベント
+    private void btGo_Click(object sender, EventArgs e)
     {
-      // プレイヤーモード変更メソッド使用
-      ParentForm.CngMode();
+      // 秒取得
+      int posSec = (int)nudGoPosSec.Value;
+
+      // Goメソッド使用
+      ParentForm.Go(posSec);
     }
     #endregion
 
@@ -135,6 +144,14 @@ namespace WFA
       // 再生速度変更メソッド使用
       ParentForm.CngPlaySpd((double)nudPlaySpd.Value);
     }
+    #endregion
+
+    #region 再生速度デフォルトボタン押下イベント
+    private void btDefPlaySpd_Click(object sender, EventArgs e)
+    {
+      // 再生速度NumUpDown値デフォルト値
+      nudPlaySpd.Value = 1;
+    } 
     #endregion
 
     #region ファイルパステキストキーアップイベント
@@ -234,6 +251,14 @@ namespace WFA
     {
       //// ファイルリストフォーム初期化メソッド使用
       //parentForm.InitFileListForm();
+    }
+    #endregion
+
+    #region コンテキスト_Mode押下イベント
+    private void modeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      // プレイヤーモード変更メソッド使用
+      ParentForm.CngMode();
     }
     #endregion
 

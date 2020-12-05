@@ -63,8 +63,10 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
+      // 再生位置巻き戻し秒デフォルト値
+      defBackPosSec = int.Parse(_comLogic.GetConfigValue("DefBackPosSec", "-5"));
       // 再生位置移動秒デフォルト値
-      defGoPosSec = int.Parse(_comLogic.GetConfigValue("DefGoPosSec", "-5"));
+      defGoPosSec = int.Parse(_comLogic.GetConfigValue("DefGoPosSec", "3"));
       // 取得再生位置確定範囲秒デフォルト値
       defCmtPosRange = int.Parse(_comLogic.GetConfigValue("DefCmtPosRange", "1"));
       // 再生位置取得後巻き戻し秒デフォルト値
@@ -86,6 +88,8 @@ namespace WFA
     // 現在位置
     double playPos;
 
+    // 再生位置巻き戻し秒デフォルト値
+    int defBackPosSec;
     // 再生位置移動秒デフォルト値
     int defGoPosSec;
     // 取得再生位置確定範囲秒デフォルト値
@@ -124,6 +128,8 @@ namespace WFA
       /* プロパティ設定 */
       // オプションフォームのプロパティに本クラスを設定
       fmOption.ParentForm = this;
+      // 再生位置巻き戻し秒デフォルト値
+      fmOption.DefBackPosSec = defBackPosSec;
       // 再生位置移動秒デフォルト値
       fmOption.DefGoPosSec = defGoPosSec;
       // 取得再生位置確定範囲秒デフォルト値
@@ -144,6 +150,16 @@ namespace WFA
     /// <param name="filePath">再生対象ファイル</param>
     public void ReadVideo(string filePath)
     {
+      // 再生中の場合
+      if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+      {
+        // メッセージボックス表示
+        DialogResult dlgRes = MessageBox.Show("再生中です\r\nファイル読み込みを行いますか", "再生中", MessageBoxButtons.YesNo);
+        // 「いいえ」押下の場合、終了
+        if(dlgRes == DialogResult.No)
+          return;
+      }
+
       // 指定パスの動画再生
       axWindowsMediaPlayer1.URL = filePath;
     }
