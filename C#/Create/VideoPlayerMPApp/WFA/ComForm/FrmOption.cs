@@ -214,6 +214,14 @@ namespace WFA
     #endregion
 
 
+    #region コンテキスト_最前面押下イベント
+    private void 最前面ToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      // 親フォーム最前面プロパティ変更
+      ParentForm.TopMost = !ParentForm.TopMost;
+    }
+    #endregion
+
     #region コンテキスト_不透明度押下イベント
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {

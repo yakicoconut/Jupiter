@@ -38,6 +38,9 @@
       this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpenDir = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.btDefPlaySpd = new System.Windows.Forms.Button();
+      this.nudBackPosSec = new System.Windows.Forms.NumericUpDown();
+      this.btBack = new System.Windows.Forms.Button();
       this.nudPlaySpd = new System.Windows.Forms.NumericUpDown();
       this.cbIsNewLine = new System.Windows.Forms.CheckBox();
       this.nudGoPosSec = new System.Windows.Forms.NumericUpDown();
@@ -46,25 +49,25 @@
       this.btGo = new System.Windows.Forms.Button();
       this.btReadVideo = new System.Windows.Forms.Button();
       this.tbTgtPath = new System.Windows.Forms.TextBox();
-      this.nudBackPosSec = new System.Windows.Forms.NumericUpDown();
-      this.btBack = new System.Windows.Forms.Button();
-      this.btDefPlaySpd = new System.Windows.Forms.Button();
+      this.最前面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.nudBackPosSec)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudPlaySpd)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudGoPosSec)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.nudBackPosSec)).BeginInit();
       this.SuspendLayout();
       // 
       // contextMenuStrip1
       // 
+      this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.最前面ToolStripMenuItem,
             this.toolStripMenuItemOpacity,
             this.ToolStripMenuItemFolderList,
             this.modeToolStripMenuItem,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(134, 92);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(301, 228);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -73,49 +76,49 @@
             this.toolStripMenuItemOpacityDec,
             this.toolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(133, 22);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(300, 36);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
       // toolStripMenuItemOpacityGain
       // 
       this.toolStripMenuItemOpacityGain.Name = "toolStripMenuItemOpacityGain";
-      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(98, 22);
+      this.toolStripMenuItemOpacityGain.Size = new System.Drawing.Size(162, 38);
       this.toolStripMenuItemOpacityGain.Text = "上げ";
       this.toolStripMenuItemOpacityGain.Click += new System.EventHandler(this.toolStripMenuItemOpacityGain_Click);
       // 
       // toolStripMenuItemOpacityDec
       // 
       this.toolStripMenuItemOpacityDec.Name = "toolStripMenuItemOpacityDec";
-      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(98, 22);
+      this.toolStripMenuItemOpacityDec.Size = new System.Drawing.Size(162, 38);
       this.toolStripMenuItemOpacityDec.Text = "下げ";
       this.toolStripMenuItemOpacityDec.Click += new System.EventHandler(this.toolStripMenuItemOpacityDec_Click);
       // 
       // toolStripMenuItemOpacityTransparent
       // 
       this.toolStripMenuItemOpacityTransparent.Name = "toolStripMenuItemOpacityTransparent";
-      this.toolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(98, 22);
+      this.toolStripMenuItemOpacityTransparent.Size = new System.Drawing.Size(162, 38);
       this.toolStripMenuItemOpacityTransparent.Text = "透明";
       this.toolStripMenuItemOpacityTransparent.Click += new System.EventHandler(this.toolStripMenuItemOpacityTransparent_Click);
       // 
       // ToolStripMenuItemFolderList
       // 
       this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
-      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(133, 22);
+      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(300, 36);
       this.ToolStripMenuItemFolderList.Text = "ファイルリスト";
       this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFileList_Click);
       // 
       // modeToolStripMenuItem
       // 
       this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-      this.modeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+      this.modeToolStripMenuItem.Size = new System.Drawing.Size(300, 36);
       this.modeToolStripMenuItem.Text = "Mode";
       this.modeToolStripMenuItem.Click += new System.EventHandler(this.modeToolStripMenuItem_Click);
       // 
       // toolStripMenuItemOpenDir
       // 
       this.toolStripMenuItemOpenDir.Name = "toolStripMenuItemOpenDir";
-      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(133, 22);
+      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(300, 36);
       this.toolStripMenuItemOpenDir.Text = "開く";
       this.toolStripMenuItemOpenDir.Click += new System.EventHandler(this.toolStripMenuItemOpenDir_Click);
       // 
@@ -136,117 +139,27 @@
       this.panel1.Controls.Add(this.btGo);
       this.panel1.Controls.Add(this.btReadVideo);
       this.panel1.Controls.Add(this.tbTgtPath);
-      this.panel1.Location = new System.Drawing.Point(10, 10);
+      this.panel1.Location = new System.Drawing.Point(22, 20);
+      this.panel1.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(379, 84);
+      this.panel1.Size = new System.Drawing.Size(821, 168);
       this.panel1.TabIndex = 0;
       // 
-      // nudPlaySpd
+      // btDefPlaySpd
       // 
-      this.nudPlaySpd.DecimalPlaces = 1;
-      this.nudPlaySpd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-      this.nudPlaySpd.Location = new System.Drawing.Point(213, 5);
-      this.nudPlaySpd.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-      this.nudPlaySpd.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-      this.nudPlaySpd.Name = "nudPlaySpd";
-      this.nudPlaySpd.Size = new System.Drawing.Size(46, 19);
-      this.nudPlaySpd.TabIndex = 37;
-      this.nudPlaySpd.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-      this.nudPlaySpd.ValueChanged += new System.EventHandler(this.nudPlaySpd_ValueChanged);
-      // 
-      // cbIsNewLine
-      // 
-      this.cbIsNewLine.AutoSize = true;
-      this.cbIsNewLine.Location = new System.Drawing.Point(267, 32);
-      this.cbIsNewLine.Name = "cbIsNewLine";
-      this.cbIsNewLine.Size = new System.Drawing.Size(48, 16);
-      this.cbIsNewLine.TabIndex = 36;
-      this.cbIsNewLine.Text = "改行";
-      this.cbIsNewLine.UseVisualStyleBackColor = true;
-      // 
-      // nudGoPosSec
-      // 
-      this.nudGoPosSec.Location = new System.Drawing.Point(109, 5);
-      this.nudGoPosSec.Maximum = new decimal(new int[] {
-            1800,
-            0,
-            0,
-            0});
-      this.nudGoPosSec.Minimum = new decimal(new int[] {
-            1800,
-            0,
-            0,
-            -2147483648});
-      this.nudGoPosSec.Name = "nudGoPosSec";
-      this.nudGoPosSec.Size = new System.Drawing.Size(46, 19);
-      this.nudGoPosSec.TabIndex = 33;
-      // 
-      // btGetTime
-      // 
-      this.btGetTime.Location = new System.Drawing.Point(161, 4);
-      this.btGetTime.Name = "btGetTime";
-      this.btGetTime.Size = new System.Drawing.Size(46, 47);
-      this.btGetTime.TabIndex = 30;
-      this.btGetTime.Text = "Get\r\nTime";
-      this.btGetTime.UseVisualStyleBackColor = true;
-      this.btGetTime.Click += new System.EventHandler(this.btGetTime_Click);
-      // 
-      // lbPlayPos
-      // 
-      this.lbPlayPos.AutoSize = true;
-      this.lbPlayPos.Location = new System.Drawing.Point(265, 12);
-      this.lbPlayPos.Name = "lbPlayPos";
-      this.lbPlayPos.Size = new System.Drawing.Size(65, 12);
-      this.lbPlayPos.TabIndex = 28;
-      this.lbPlayPos.Text = "00:00:00.000";
-      // 
-      // btGo
-      // 
-      this.btGo.Location = new System.Drawing.Point(109, 30);
-      this.btGo.Name = "btGo";
-      this.btGo.Size = new System.Drawing.Size(46, 21);
-      this.btGo.TabIndex = 27;
-      this.btGo.Text = "Go";
-      this.btGo.UseVisualStyleBackColor = true;
-      this.btGo.Click += new System.EventHandler(this.btGo_Click);
-      // 
-      // btReadVideo
-      // 
-      this.btReadVideo.Location = new System.Drawing.Point(5, 4);
-      this.btReadVideo.Name = "btReadVideo";
-      this.btReadVideo.Size = new System.Drawing.Size(46, 47);
-      this.btReadVideo.TabIndex = 26;
-      this.btReadVideo.Text = "Read";
-      this.btReadVideo.UseVisualStyleBackColor = true;
-      this.btReadVideo.Click += new System.EventHandler(this.btStart_Click);
-      // 
-      // tbTgtPath
-      // 
-      this.tbTgtPath.Location = new System.Drawing.Point(5, 57);
-      this.tbTgtPath.Name = "tbTgtPath";
-      this.tbTgtPath.Size = new System.Drawing.Size(367, 19);
-      this.tbTgtPath.TabIndex = 10;
-      this.tbTgtPath.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbTgtPath_KeyUp);
+      this.btDefPlaySpd.Location = new System.Drawing.Point(462, 60);
+      this.btDefPlaySpd.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btDefPlaySpd.Name = "btDefPlaySpd";
+      this.btDefPlaySpd.Size = new System.Drawing.Size(100, 42);
+      this.btDefPlaySpd.TabIndex = 40;
+      this.btDefPlaySpd.Text = "Def";
+      this.btDefPlaySpd.UseVisualStyleBackColor = true;
+      this.btDefPlaySpd.Click += new System.EventHandler(this.btDefPlaySpd_Click);
       // 
       // nudBackPosSec
       // 
-      this.nudBackPosSec.Location = new System.Drawing.Point(57, 5);
+      this.nudBackPosSec.Location = new System.Drawing.Point(124, 10);
+      this.nudBackPosSec.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.nudBackPosSec.Maximum = new decimal(new int[] {
             1800,
             0,
@@ -258,39 +171,149 @@
             0,
             -2147483648});
       this.nudBackPosSec.Name = "nudBackPosSec";
-      this.nudBackPosSec.Size = new System.Drawing.Size(46, 19);
+      this.nudBackPosSec.Size = new System.Drawing.Size(100, 31);
       this.nudBackPosSec.TabIndex = 39;
       // 
       // btBack
       // 
-      this.btBack.Location = new System.Drawing.Point(57, 30);
+      this.btBack.Location = new System.Drawing.Point(124, 60);
+      this.btBack.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.btBack.Name = "btBack";
-      this.btBack.Size = new System.Drawing.Size(46, 21);
+      this.btBack.Size = new System.Drawing.Size(100, 42);
       this.btBack.TabIndex = 38;
       this.btBack.Text = "Back";
       this.btBack.UseVisualStyleBackColor = true;
       this.btBack.Click += new System.EventHandler(this.btBack_Click);
       // 
-      // btDefPlaySpd
+      // nudPlaySpd
       // 
-      this.btDefPlaySpd.Location = new System.Drawing.Point(213, 30);
-      this.btDefPlaySpd.Name = "btDefPlaySpd";
-      this.btDefPlaySpd.Size = new System.Drawing.Size(46, 21);
-      this.btDefPlaySpd.TabIndex = 40;
-      this.btDefPlaySpd.Text = "Def";
-      this.btDefPlaySpd.UseVisualStyleBackColor = true;
-      this.btDefPlaySpd.Click += new System.EventHandler(this.btDefPlaySpd_Click);
+      this.nudPlaySpd.DecimalPlaces = 1;
+      this.nudPlaySpd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+      this.nudPlaySpd.Location = new System.Drawing.Point(462, 10);
+      this.nudPlaySpd.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.nudPlaySpd.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+      this.nudPlaySpd.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+      this.nudPlaySpd.Name = "nudPlaySpd";
+      this.nudPlaySpd.Size = new System.Drawing.Size(100, 31);
+      this.nudPlaySpd.TabIndex = 37;
+      this.nudPlaySpd.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+      this.nudPlaySpd.ValueChanged += new System.EventHandler(this.nudPlaySpd_ValueChanged);
+      // 
+      // cbIsNewLine
+      // 
+      this.cbIsNewLine.AutoSize = true;
+      this.cbIsNewLine.Location = new System.Drawing.Point(579, 64);
+      this.cbIsNewLine.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.cbIsNewLine.Name = "cbIsNewLine";
+      this.cbIsNewLine.Size = new System.Drawing.Size(90, 28);
+      this.cbIsNewLine.TabIndex = 36;
+      this.cbIsNewLine.Text = "改行";
+      this.cbIsNewLine.UseVisualStyleBackColor = true;
+      // 
+      // nudGoPosSec
+      // 
+      this.nudGoPosSec.Location = new System.Drawing.Point(236, 10);
+      this.nudGoPosSec.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.nudGoPosSec.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+      this.nudGoPosSec.Minimum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            -2147483648});
+      this.nudGoPosSec.Name = "nudGoPosSec";
+      this.nudGoPosSec.Size = new System.Drawing.Size(100, 31);
+      this.nudGoPosSec.TabIndex = 33;
+      // 
+      // btGetTime
+      // 
+      this.btGetTime.Location = new System.Drawing.Point(349, 8);
+      this.btGetTime.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btGetTime.Name = "btGetTime";
+      this.btGetTime.Size = new System.Drawing.Size(100, 94);
+      this.btGetTime.TabIndex = 30;
+      this.btGetTime.Text = "Get\r\nTime";
+      this.btGetTime.UseVisualStyleBackColor = true;
+      this.btGetTime.Click += new System.EventHandler(this.btGetTime_Click);
+      // 
+      // lbPlayPos
+      // 
+      this.lbPlayPos.AutoSize = true;
+      this.lbPlayPos.Location = new System.Drawing.Point(574, 24);
+      this.lbPlayPos.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+      this.lbPlayPos.Name = "lbPlayPos";
+      this.lbPlayPos.Size = new System.Drawing.Size(133, 24);
+      this.lbPlayPos.TabIndex = 28;
+      this.lbPlayPos.Text = "00:00:00.000";
+      // 
+      // btGo
+      // 
+      this.btGo.Location = new System.Drawing.Point(236, 60);
+      this.btGo.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btGo.Name = "btGo";
+      this.btGo.Size = new System.Drawing.Size(100, 42);
+      this.btGo.TabIndex = 27;
+      this.btGo.Text = "Go";
+      this.btGo.UseVisualStyleBackColor = true;
+      this.btGo.Click += new System.EventHandler(this.btGo_Click);
+      // 
+      // btReadVideo
+      // 
+      this.btReadVideo.Location = new System.Drawing.Point(11, 8);
+      this.btReadVideo.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btReadVideo.Name = "btReadVideo";
+      this.btReadVideo.Size = new System.Drawing.Size(100, 94);
+      this.btReadVideo.TabIndex = 26;
+      this.btReadVideo.Text = "Read";
+      this.btReadVideo.UseVisualStyleBackColor = true;
+      this.btReadVideo.Click += new System.EventHandler(this.btStart_Click);
+      // 
+      // tbTgtPath
+      // 
+      this.tbTgtPath.Location = new System.Drawing.Point(11, 114);
+      this.tbTgtPath.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.tbTgtPath.Name = "tbTgtPath";
+      this.tbTgtPath.Size = new System.Drawing.Size(791, 31);
+      this.tbTgtPath.TabIndex = 10;
+      this.tbTgtPath.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbTgtPath_KeyUp);
+      // 
+      // 最前面ToolStripMenuItem
+      // 
+      this.最前面ToolStripMenuItem.Name = "最前面ToolStripMenuItem";
+      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(300, 36);
+      this.最前面ToolStripMenuItem.Text = "最前面";
+      this.最前面ToolStripMenuItem.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
       // 
       // FrmOption
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-      this.ClientSize = new System.Drawing.Size(399, 104);
+      this.ClientSize = new System.Drawing.Size(865, 208);
       this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.panel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.KeyPreview = true;
+      this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "FrmOption";
@@ -301,9 +324,9 @@
       this.contextMenuStrip1.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.nudBackPosSec)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudPlaySpd)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudGoPosSec)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.nudBackPosSec)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -330,5 +353,6 @@
     private System.Windows.Forms.Button btDefPlaySpd;
     private System.Windows.Forms.NumericUpDown nudBackPosSec;
     private System.Windows.Forms.Button btBack;
+    private System.Windows.Forms.ToolStripMenuItem 最前面ToolStripMenuItem;
   }
 }
