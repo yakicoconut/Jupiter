@@ -1,0 +1,4 @@
+# # Batch # #
+Create/ExecFfmpeg/BatLooper/Temp/*
+Create/ExecFfmpeg/Log/*
+Utility/ExecGit/ArgLooper/Log/*
