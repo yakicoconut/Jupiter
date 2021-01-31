@@ -98,5 +98,29 @@ namespace WFA
       }
     }
     #endregion
+
+    #region 先頭末尾Wクォート除去メソッド
+    /// <summary>
+    /// 先頭末尾Wクォート除去メソッド
+    /// </summary>
+    /// <param name="tgtStr"></param>
+    /// <returns></returns>
+    public string ExclIniEndWQuot(string tgtStr)
+    {
+      // 返却用変数
+      string refStr = tgtStr;
+      // 末尾インデックス取得
+      int lastInd = tgtStr.Length - 1;
+
+      // 先頭と末尾が「"」の場合
+      if (tgtStr[0] == '"' && tgtStr[lastInd] == '"')
+      {
+        // Wクォートを取る
+        refStr = tgtStr.Substring(1, lastInd - 1);
+      }
+
+      return refStr;
+    }
+    #endregion
   }
 }

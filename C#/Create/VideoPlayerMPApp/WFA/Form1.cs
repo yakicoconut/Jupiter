@@ -64,13 +64,13 @@ namespace WFA
     public void GetConfig()
     {
       // 再生位置巻き戻し秒デフォルト値
-      defBackPosSec = int.Parse(_comLogic.GetConfigValue("DefBackPosSec", "-5"));
+      defBackPosSec = int.Parse(_comLgc.GetConfigValue("DefBackPosSec", "-5"));
       // 再生位置移動秒デフォルト値
-      defGoPosSec = int.Parse(_comLogic.GetConfigValue("DefGoPosSec", "3"));
+      defGoPosSec = int.Parse(_comLgc.GetConfigValue("DefGoPosSec", "3"));
       // 取得再生位置確定範囲秒デフォルト値
-      defCmtPosRange = int.Parse(_comLogic.GetConfigValue("DefCmtPosRange", "1"));
+      defCmtPosRange = int.Parse(_comLgc.GetConfigValue("DefCmtPosRange", "1"));
       // 再生位置取得後巻き戻し秒デフォルト値
-      defGetAftBackPos = int.Parse(_comLogic.GetConfigValue("DefGetAftBackPos", "3"));
+      defGetAftBackPos = int.Parse(_comLgc.GetConfigValue("DefGetAftBackPos", "3"));
     }
     #endregion
 
@@ -78,7 +78,7 @@ namespace WFA
     #region 宣言
 
     // 共通ロジッククラスインスタンス
-    MCSComLogic _comLogic = new MCSComLogic();
+    MCSComLogic _comLgc = new MCSComLogic();
 
     // 取得時刻フォーム
     FrmGetTime fmGetTime;

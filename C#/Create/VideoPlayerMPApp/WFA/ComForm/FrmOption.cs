@@ -30,6 +30,9 @@ namespace WFA
 
     #region 宣言
 
+    // 共通ロジッククラスインスタンス
+    MCSComLogic _comLgc = new MCSComLogic();
+
     #endregion
 
     #region プロパティ
@@ -89,8 +92,8 @@ namespace WFA
     #region ReadVideoボタン押下イベント
     private void btStart_Click(object sender, EventArgs e)
     {
-      // 対象ファイルパス取得
-      string tgtPath = ExclIniEndWQuot(tbTgtPath.Text);
+      // 先頭末尾Wクォート除去メソッド使用
+      string tgtPath = _comLgc.ExclIniEndWQuot(tbTgtPath.Text);
       // ファイル読込メソッド呼出しメソッド使用
       CallReadVideo(tgtPath);
     }
@@ -163,32 +166,13 @@ namespace WFA
         return;
       }
 
-      // 対象ファイルパス取得
-      string tgtPath = ExclIniEndWQuot(tbTgtPath.Text);
+      // 先頭末尾Wクォート除去メソッド使用
+      string tgtPath = _comLgc.ExclIniEndWQuot(tbTgtPath.Text);
       // ファイル読込メソッド呼出しメソッド使用
       CallReadVideo(tgtPath);
     }
     #endregion
 
-
-    #region 先頭末尾Wクォート除去イベント
-    private string ExclIniEndWQuot(string tgtStr)
-    {
-      // 返却用変数
-      string refStr = tgtStr;
-      // 末尾インデックス取得
-      int lastInd = tgtStr.Length - 1;
-
-      // 先頭と末尾が「"」の場合
-      if (tgtStr[0] == '"' && tgtStr[lastInd] == '"')
-      {
-        // Wクォートを取る
-        refStr = tgtStr.Substring(1, lastInd - 1);
-      }
-
-      return refStr;
-    }
-    #endregion
 
     #region 日時秒数変換メソッド
     private int CngDateTimeToSec(DateTime dt)
