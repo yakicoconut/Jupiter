@@ -154,7 +154,7 @@ namespace WFA
     {
       // 再生速度NumUpDown値デフォルト値
       nudPlaySpd.Value = 1;
-    } 
+    }
     #endregion
 
     #region ファイルパステキストキーアップイベント
@@ -259,6 +259,41 @@ namespace WFA
     {
       // アセンブリフォルダ開く
       Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+    }
+    #endregion
+
+
+    #region ファイルパステキストボックスドラッグエンターイベント
+    private void tbTgtPath_DragEnter(object sender, DragEventArgs e)
+    {
+      // ねずみ返し_マウスがファイルを持っていない場合、イベント・ハンドラを抜ける
+      if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+      {
+        return;
+      }
+
+      // ドラッグ中アイテムの取得
+      string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+      // ねずみ返し_最初の一つ目がファイルでない場合
+      if (!File.Exists(drags[0]))
+      {
+        return;
+      }
+
+      // マウスの表示を「+」に変更する
+      e.Effect = DragDropEffects.Copy;
+    }
+    #endregion
+
+    #region ファイルパステキストボックスドラッグドロップエンターイベント
+    private void tbTgtPath_DragDrop(object sender, DragEventArgs e)
+    {
+      // ドラッグ&ドロップされたアイテムの取得
+      string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+      // ファイルパス設定
+      tbTgtPath.Text = drags[0];
     }
     #endregion
 

@@ -30,6 +30,7 @@
     {
       this.components = new System.ComponentModel.Container();
       this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.最前面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacity = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,6 @@
       this.btGo = new System.Windows.Forms.Button();
       this.btReadVideo = new System.Windows.Forms.Button();
       this.tbTgtPath = new System.Windows.Forms.TextBox();
-      this.最前面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudBackPosSec)).BeginInit();
@@ -67,7 +67,14 @@
             this.modeToolStripMenuItem,
             this.toolStripMenuItemOpenDir});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(301, 228);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(211, 184);
+      // 
+      // 最前面ToolStripMenuItem
+      // 
+      this.最前面ToolStripMenuItem.Name = "最前面ToolStripMenuItem";
+      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(210, 36);
+      this.最前面ToolStripMenuItem.Text = "最前面";
+      this.最前面ToolStripMenuItem.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
       // 
       // toolStripMenuItemOpacity
       // 
@@ -76,7 +83,7 @@
             this.toolStripMenuItemOpacityDec,
             this.toolStripMenuItemOpacityTransparent});
       this.toolStripMenuItemOpacity.Name = "toolStripMenuItemOpacity";
-      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(300, 36);
+      this.toolStripMenuItemOpacity.Size = new System.Drawing.Size(210, 36);
       this.toolStripMenuItemOpacity.Text = "不透明度";
       this.toolStripMenuItemOpacity.Click += new System.EventHandler(this.toolStripMenuItemOpacity_Click);
       // 
@@ -104,21 +111,21 @@
       // ToolStripMenuItemFolderList
       // 
       this.ToolStripMenuItemFolderList.Name = "ToolStripMenuItemFolderList";
-      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(300, 36);
+      this.ToolStripMenuItemFolderList.Size = new System.Drawing.Size(210, 36);
       this.ToolStripMenuItemFolderList.Text = "ファイルリスト";
       this.ToolStripMenuItemFolderList.Click += new System.EventHandler(this.ToolStripMenuItemFileList_Click);
       // 
       // modeToolStripMenuItem
       // 
       this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-      this.modeToolStripMenuItem.Size = new System.Drawing.Size(300, 36);
+      this.modeToolStripMenuItem.Size = new System.Drawing.Size(210, 36);
       this.modeToolStripMenuItem.Text = "Mode";
       this.modeToolStripMenuItem.Click += new System.EventHandler(this.modeToolStripMenuItem_Click);
       // 
       // toolStripMenuItemOpenDir
       // 
       this.toolStripMenuItemOpenDir.Name = "toolStripMenuItemOpenDir";
-      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(300, 36);
+      this.toolStripMenuItemOpenDir.Size = new System.Drawing.Size(210, 36);
       this.toolStripMenuItemOpenDir.Text = "開く";
       this.toolStripMenuItemOpenDir.Click += new System.EventHandler(this.toolStripMenuItemOpenDir_Click);
       // 
@@ -289,19 +296,15 @@
       // 
       // tbTgtPath
       // 
+      this.tbTgtPath.AllowDrop = true;
       this.tbTgtPath.Location = new System.Drawing.Point(11, 114);
       this.tbTgtPath.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.tbTgtPath.Name = "tbTgtPath";
       this.tbTgtPath.Size = new System.Drawing.Size(791, 31);
       this.tbTgtPath.TabIndex = 10;
+      this.tbTgtPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbTgtPath_DragDrop);
+      this.tbTgtPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.tbTgtPath_DragEnter);
       this.tbTgtPath.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbTgtPath_KeyUp);
-      // 
-      // 最前面ToolStripMenuItem
-      // 
-      this.最前面ToolStripMenuItem.Name = "最前面ToolStripMenuItem";
-      this.最前面ToolStripMenuItem.Size = new System.Drawing.Size(300, 36);
-      this.最前面ToolStripMenuItem.Text = "最前面";
-      this.最前面ToolStripMenuItem.Click += new System.EventHandler(this.最前面ToolStripMenuItem_Click);
       // 
       // FrmOption
       // 
