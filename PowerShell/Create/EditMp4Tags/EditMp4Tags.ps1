@@ -37,7 +37,7 @@ $ErrorActionPreference = "Stop"
 
 <# 事前処理 #>
   # ファイル情報を配列で取得
-  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse)
+  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse -File)
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
   # バッチ実行パス退避
@@ -49,8 +49,11 @@ $ErrorActionPreference = "Stop"
 <# 本処理 #>
   foreach($x in $items)
   {
+    # 相対パス変換
+    $tgtName = $x.FullName.Replace($targetRootPath + "\","")
+
     # 要素順位検索(最初のもののみ、なければ「-1」)
-    $ind = [Array]::IndexOf($csv.対象ファイル名, $x.name)
+    $ind = [Array]::IndexOf($csv.対象ファイル名, $tgtName)
     # ねずみ返し_CSVに設定がない場合
     if ($ind -eq -1)
     {
@@ -59,7 +62,7 @@ $ErrorActionPreference = "Stop"
 
     # 対象表示
     Write-Host
-    Write-Host $x.name
+    Write-Host $tgtName
 
     # # 設定取得
       # 引数変数初期化
