@@ -30,7 +30,7 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
 
 <# 事前処理 #>
   # ファイル情報を配列で取得
-  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse)
+  $items = @(Get-ChildItem -LiteralPath $targetRootPath -Recurse -File)
   # CSVファイル読み込み
   $csv = Import-Csv $targetCsvPath -Delimiter "," -Encoding Default
 
@@ -41,8 +41,12 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
 <# 本処理 #>
   foreach($x in $items)
   {
+    # 相対パス変換
+    $tgtName = $x.FullName.Replace($targetRootPath + "\","")
+
     # 要素順位検索(最初のもののみ、なければ「-1」)
-    $ind = [Array]::IndexOf($csv.対象ファイル名, $x.name)
+    $ind = [Array]::IndexOf($csv.対象ファイル名, $tgtName)
+
     # ねずみ返し_CSVに設定がない場合
     if ($ind -eq -1)
     {
@@ -50,7 +54,7 @@ echo メディアファイルのプロパティをCSVファイルから取得して編集する
     }
 
     # 対象表示
-    Write-Host $x.name
+    Write-Host $tgtName
 
 
     # # 拡張子変更
