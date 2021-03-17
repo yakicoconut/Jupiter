@@ -16,16 +16,17 @@ class GetHashClass
     # # ファイルのハッシュ値一覧をCSVとして出力
     #   引数01:対象フォルダパス
     #   引数02:出力ファイル名称
-    #   引数03:ハッシュ計算アルゴリズム
+    #   引数03:除外正規表現
+    #   引数04:ハッシュ計算アルゴリズム
     #   返り値:成否フラグ
-    [void] GetFileHashList($tgtRoot, $outFileName, $alg)
+    [void] GetFileHashList($tgtRoot, $exclReg, $outFileName, $alg)
     {
       # # 設定
         # 出力用カスタムオブジェクト配列
         $outCsvs = @()
 
       # # 対象ファイル処理
-        $items = Get-ChildItem $tgtRoot -Recurse
+        $items = Get-ChildItem $tgtRoot -Recurse -File -Force | Where-Object { ($_.FullName -Match $exclReg) }
         foreach($x in $items)
         {
           Write-Host $x.Fullname
