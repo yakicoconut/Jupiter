@@ -12,10 +12,12 @@ $ErrorActionPreference = "Stop"
   # # 差分比較用ハッシュ一覧作成
   #   引数01:既存ファイルハッシュ一覧存在フラグ
   #   引数02:対象フォルダパス
-  #   引数03:出力ファイル名称
-  #   引数04:前回識別子(規定値:_PRE)
+  #   引数03:除外正規表現
+  #   引数04:対象フォルダパス
+  #   引数05:出力ファイル名称
+  #   引数06:前回識別子(規定値:_PRE)
   #   返り値:なし
-  function Cre8DiffHashList($isExistPreFile, $tgtRoot, $outFileName, $preIdentifier = "_PRE")
+  function Cre8DiffHashList($isExistPreFile, $tgtRoot, $exclReg, $outFileName, $preIdentifier = "_PRE")
   {
     # ハッシュ一覧CSV作成関連クラスインスタンス生成
     $getHashClass = [GetHashClass]::new()
@@ -33,7 +35,7 @@ $ErrorActionPreference = "Stop"
 
     Write-Host "GetFileHashList関数"
     # ファイルハッシュ一覧作成メソッド使用
-    $getHashClass.GetFileHashList($tgtRoot, $outFileName, "SHA1")
+    $getHashClass.GetFileHashList($tgtRoot, $exclReg, $outFileName, "SHA1")
   }
 
 
@@ -49,6 +51,9 @@ $ErrorActionPreference = "Stop"
     # 対象フォルダパス入力
     $retData = $usrInpClass.UserInput("対象フォルダパス", $true, "PATH")
     $tgtRoot = $retData[0]
+    # 除外正規表現入力
+    $retData = $usrInpClass.UserInput("除外正規表現", $true, "STR")
+    $exclReg = $retData[0]
     # 出力ファイル名称入力
     $retData = $usrInpClass.UserInput("ハッシュファイル名(要拡張子)", $false, "PATH")
     $outFileName = $retData[0]
@@ -61,6 +66,7 @@ $ErrorActionPreference = "Stop"
     $ret = @()
     $ret += $isExistPreFile
     $ret += $tgtRoot
+    $ret += $exclReg
     $ret += $outFileName
     $ret += $preIdentifier
 
@@ -79,5 +85,5 @@ $ErrorActionPreference = "Stop"
     # 単体呼び出し処理関数使用
     $arg = SingleExec
     # 差分比較用ハッシュ一覧作成関数使用
-    Cre8DiffHashList $arg[0] $arg[1] $arg[2] $arg[3]
+    Cre8DiffHashList $arg[0] $arg[1] $arg[2] $arg[3] $arg[4]
   }

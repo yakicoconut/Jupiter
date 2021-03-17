@@ -19,6 +19,9 @@ $ErrorActionPreference = "Stop"
   # # 設定
     # 対象フォルダ
     $tgtRoot = "D:\_Git\Cal_Bare"
+    # 対象正規表現
+    # $exclReg = "(?=^(?!.*\\bin\\).*$)(?=^(?!.*\\obj\\).*$)(?=^(?!.*\\\.vs\\).*$)" # VSプロジェクト除外パターン
+    $exclReg = ".*" # 全対象パターン
     # ファイルハッシュ一覧CSV名
     $outFileName = "HashList.csv"
     # 前回識別子
@@ -42,7 +45,7 @@ $ErrorActionPreference = "Stop"
 <# メイン #>
   # # ファイルハッシュ一覧作成
     # 差分比較用ハッシュ一覧作成関数使用
-    Cre8DiffHashList $isExistPreFile $tgtRoot $outFileName $preIdentifier
+    Cre8DiffHashList $isExistPreFile $tgtRoot $exclReg $outFileName $preIdentifier
 
     # 既存ハッシュ一覧ファイルが存在しない場合
     if (!$isExistPreFile)
