@@ -64,10 +64,10 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // クリップボード
+    // クリップボードウォッチャ
     ClipBoardWatcher cbw;
     // 監視対象外フラグ
-    bool notMonitorFlg;
+    bool isNotMtrFlg;
 
     // 前回取得値
     string lastStr;
@@ -82,7 +82,7 @@ namespace WFA
       btOnOff.Text = "オン";
 
       // 監視対象外フラグ初期化
-      notMonitorFlg = false;
+      isNotMtrFlg = false;
       // クリップボード監視クラスインスタンス
       cbw = new ClipBoardWatcher();
 
@@ -95,7 +95,7 @@ namespace WFA
           return;
         }
         // ねずみ返し_監視対象外の場合
-        if (notMonitorFlg)
+        if (isNotMtrFlg)
         {
           return;
         }
@@ -111,14 +111,14 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
-      string buttonTxt = string.Empty;
+      string btnTxt = string.Empty;
 
       // 監視対象外フラグ更新
-      notMonitorFlg = !notMonitorFlg;
+      isNotMtrFlg = !isNotMtrFlg;
 
       // フラグが監視対象外の場合「オフ」
-      buttonTxt = notMonitorFlg ? "オフ" : "オン";
-      btOnOff.Text = buttonTxt;
+      btnTxt = isNotMtrFlg ? "オフ" : "オン";
+      btOnOff.Text = btnTxt;
     }
     #endregion
 
@@ -126,8 +126,7 @@ namespace WFA
     private void tbReadOnly_TextChanged(object sender, EventArgs e)
     {
       // コピー文字列
-      string targetStr = tbReadOnly.Text;
-      int targetLength = targetStr.Length;
+      string tgtStr = tbReadOnly.Text;
       // 挿入位置文字列
       string insPosStr = tbInsPos.Text;
       // 挿入文字列
@@ -139,66 +138,66 @@ namespace WFA
       string cngTxt = string.Empty;
 
       // クリップボードに値を送る前にフラグを監視対象外に設定
-      notMonitorFlg = true;
+      isNotMtrFlg = true;
 
       // ねずみ返し_対象文字列が空の場合
-      if (targetStr == string.Empty)
+      if (tgtStr == string.Empty)
       {
         // 監視対象に戻す
-        notMonitorFlg = false;
+        isNotMtrFlg = false;
         return;
       }
 
       // ねずみ返し_前回取得値と同じ場合
-      if (lastStr == targetStr)
+      if (lastStr == tgtStr)
       {
         // エクセル対策、セル値をコピーすると
         // 二回以上、クリップボードにアクセスするため
-        notMonitorFlg = false;
+        isNotMtrFlg = false;
         return;
       }
 
       // 前回取得値に今回の値を設定
-      lastStr = targetStr;
+      lastStr = tgtStr;
 
       // 置き換えモード
       if (isRepMode)
       {
         // 文字列置き換えメソッド使用
-        cngTxt = ReplaceTxt(targetStr, insPosStr, insStr);
+        cngTxt = ReplaceTxt(tgtStr, insPosStr, insStr);
       }
       else if (isStrFｍtMode) // 書式指定挿入モード
       {
         // 文字列書式指定挿入メソッド使用
-        cngTxt = InsFormatTxt(targetStr, insStr);
+        cngTxt = InsFmtTxt(tgtStr, insStr);
       }
       else
       {
         // 文字数指定挿入メソッド使用
-        cngTxt = InsPositionTxt(targetStr, insPosStr, insStr);
+        cngTxt = InsPoTxt(tgtStr, insPosStr, insStr);
       }
 
       // ねずみ返し_挿入結果が空の場合
       if (cngTxt == string.Empty)
       {
-        notMonitorFlg = false;
+        isNotMtrFlg = false;
         return;
       }
 
       // クリップボードへ送る
       Clipboard.SetText(cngTxt);
       // 採取モードの場合
-      if (cbCollection.Checked)
+      if (cbColl.Checked)
       {
         // 採取テキストボックスに追加
-        tbCollection.AppendText(cngTxt);
+        tbColl.AppendText(cngTxt);
       }
-      notMonitorFlg = false;
+      isNotMtrFlg = false;
     }
     #endregion
 
 
-    #region 書式指定モードチェックボックスチェックイベント
+    #region 書式指定モードチェックイベント
     private void cbIsStrFｍtMode_CheckedChanged(object sender, EventArgs e)
     {
       bool isRepMode = cbIsRepMode.Checked;
@@ -218,7 +217,7 @@ namespace WFA
     }
     #endregion
 
-    #region 置き換えモードチェックボックスチェック押下イベント
+    #region 置き換えモードチェック押下イベント
     private void cbIsRepMode_CheckedChanged(object sender, EventArgs e)
     {
       bool isRepMode = cbIsRepMode.Checked;
@@ -239,66 +238,66 @@ namespace WFA
 
 
     #region 採取テキストボックスキーダウンイベント
-    private void tbCollection_KeyDown(object sender, KeyEventArgs e)
+    private void tbColl_KeyDown(object sender, KeyEventArgs e)
     {
       // Ctrl+A
       if (e.Control && e.KeyCode == Keys.A)
-        tbCollection.SelectAll();
+        tbColl.SelectAll();
     }
     #endregion
 
     #region 採取チェックボックスチェックイベント
-    private void cbCollection_CheckedChanged(object sender, EventArgs e)
+    private void cbColl_CheckedChanged(object sender, EventArgs e)
     {
       // チェックした場合
-      if (cbCollection.Checked)
+      if (cbColl.Checked)
       {
         // 採取テキストボックスクリア
-        tbCollection.ResetText();
+        tbColl.ResetText();
       }
-    } 
+    }
     #endregion
 
 
     #region 文字列置き換えメソッド
-    private string ReplaceTxt(string targetStr, string regStr, string newStr)
+    private string ReplaceTxt(string tgtStr, string regStr, string newStr)
     {
-      string returnStr = string.Empty;
-      int targetStrLen = targetStr.Length;
+      string retStr = string.Empty;
 
       // 正規表現置き換え
-      returnStr = Regex.Replace(targetStr, regStr, newStr, RegexOptions.Multiline);
+      retStr = Regex.Replace(tgtStr, regStr, newStr, RegexOptions.Multiline);
 
-      return returnStr;
+      return retStr;
     }
     #endregion
 
     #region 文字列書式指定挿入メソッド
-    private string InsFormatTxt(string targetStr, string insStr)
+    private string InsFmtTxt(string tgtStr, string insStr)
     {
-      string returnStr = string.Empty;
+      string retStr = string.Empty;
 
       // 文字列指定で挿入
-      returnStr = string.Format(insStr, targetStr);
-
-      return returnStr;
+      retStr = string.Format(insStr, tgtStr);
+      return retStr;
     }
     #endregion
 
     #region 文字数指定挿入メソッド
-    private string InsPositionTxt(string targetStr, string insPosStr, string insStr)
+    private string InsPoTxt(string tgtStr, string insPosStr, string insStr)
     {
-      string returnStr = string.Empty;
-      int targetStrLen = targetStr.Length;
-      int insPosNum;
+      // 返却用変数
+      string retStr = string.Empty;
+      // 対象文字列文字数
+      int tgtStrLen = tgtStr.Length;
 
       // ねずみ返し_数値でない場合
+      int insPosNum;
       if (!int.TryParse(insPosStr, out insPosNum))
       {
         return "";
       }
       // ねずみ返し_絶対値が文字数を超す場合
-      if (Math.Abs(insPosNum) > targetStrLen)
+      if (Math.Abs(insPosNum) > tgtStrLen)
       {
         return "";
       }
@@ -307,26 +306,25 @@ namespace WFA
       if (insPosNum < 0)
       {
         // 末尾から指定
-        insPosNum = targetStrLen + insPosNum;
+        insPosNum += tgtStrLen;
       }
 
       // マイナスかつ0の場合
       if (insPosStr.Substring(0, 1) == "-" && insPosNum == 0)
       {
         // 末尾指定
-        insPosNum = targetStrLen;
+        insPosNum = tgtStrLen;
       }
 
       // 文字数指定で挿入
-      returnStr = targetStr.Insert(insPosNum, insStr);
-
-      return returnStr;
+      retStr = tgtStr.Insert(insPosNum, insStr);
+      return retStr;
     }
     #endregion
 
 
     #region 雛形メソッド
-    public void template()
+    private void template()
     {
 
     }

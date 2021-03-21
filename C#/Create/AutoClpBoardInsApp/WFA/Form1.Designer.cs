@@ -36,8 +36,8 @@
       this.tbInsPos = new System.Windows.Forms.TextBox();
       this.cbIsStrFｍtMode = new System.Windows.Forms.CheckBox();
       this.cbIsRepMode = new System.Windows.Forms.CheckBox();
-      this.tbCollection = new System.Windows.Forms.TextBox();
-      this.cbCollection = new System.Windows.Forms.CheckBox();
+      this.tbColl = new System.Windows.Forms.TextBox();
+      this.cbColl = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // btOnOff
@@ -58,7 +58,7 @@
       this.tbReadOnly.Multiline = true;
       this.tbReadOnly.Name = "tbReadOnly";
       this.tbReadOnly.ReadOnly = true;
-      this.tbReadOnly.Size = new System.Drawing.Size(171, 18);
+      this.tbReadOnly.Size = new System.Drawing.Size(131, 18);
       this.tbReadOnly.TabIndex = 2;
       this.tbReadOnly.TextChanged += new System.EventHandler(this.tbReadOnly_TextChanged);
       // 
@@ -66,10 +66,10 @@
       // 
       this.tbInsStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbInsStr.Location = new System.Drawing.Point(64, 100);
+      this.tbInsStr.Location = new System.Drawing.Point(71, 99);
       this.tbInsStr.Margin = new System.Windows.Forms.Padding(2);
       this.tbInsStr.Name = "tbInsStr";
-      this.tbInsStr.Size = new System.Drawing.Size(114, 19);
+      this.tbInsStr.Size = new System.Drawing.Size(67, 19);
       this.tbInsStr.TabIndex = 4;
       // 
       // lbInsPos
@@ -98,10 +98,10 @@
       // 
       this.tbInsPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbInsPos.Location = new System.Drawing.Point(64, 77);
+      this.tbInsPos.Location = new System.Drawing.Point(71, 74);
       this.tbInsPos.Margin = new System.Windows.Forms.Padding(2);
       this.tbInsPos.Name = "tbInsPos";
-      this.tbInsPos.Size = new System.Drawing.Size(114, 19);
+      this.tbInsPos.Size = new System.Drawing.Size(67, 19);
       this.tbInsPos.TabIndex = 7;
       // 
       // cbIsStrFｍtMode
@@ -128,38 +128,38 @@
       this.cbIsRepMode.UseVisualStyleBackColor = true;
       this.cbIsRepMode.CheckedChanged += new System.EventHandler(this.cbIsRepMode_CheckedChanged);
       // 
-      // tbCollection
+      // tbColl
       // 
-      this.tbCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.tbColl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbCollection.Location = new System.Drawing.Point(7, 151);
-      this.tbCollection.Margin = new System.Windows.Forms.Padding(2);
-      this.tbCollection.Multiline = true;
-      this.tbCollection.Name = "tbCollection";
-      this.tbCollection.Size = new System.Drawing.Size(171, 119);
-      this.tbCollection.TabIndex = 10;
-      this.tbCollection.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbCollection_KeyDown);
+      this.tbColl.Location = new System.Drawing.Point(7, 151);
+      this.tbColl.Margin = new System.Windows.Forms.Padding(2);
+      this.tbColl.Multiline = true;
+      this.tbColl.Name = "tbColl";
+      this.tbColl.Size = new System.Drawing.Size(131, 119);
+      this.tbColl.TabIndex = 10;
+      this.tbColl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbColl_KeyDown);
       // 
-      // cbCollection
+      // cbColl
       // 
-      this.cbCollection.AutoSize = true;
-      this.cbCollection.Location = new System.Drawing.Point(7, 49);
-      this.cbCollection.Margin = new System.Windows.Forms.Padding(2);
-      this.cbCollection.Name = "cbCollection";
-      this.cbCollection.Size = new System.Drawing.Size(48, 16);
-      this.cbCollection.TabIndex = 11;
-      this.cbCollection.Text = "採取";
-      this.cbCollection.UseVisualStyleBackColor = true;
-      this.cbCollection.CheckedChanged += new System.EventHandler(this.cbCollection_CheckedChanged);
+      this.cbColl.AutoSize = true;
+      this.cbColl.Location = new System.Drawing.Point(7, 49);
+      this.cbColl.Margin = new System.Windows.Forms.Padding(2);
+      this.cbColl.Name = "cbColl";
+      this.cbColl.Size = new System.Drawing.Size(48, 16);
+      this.cbColl.TabIndex = 11;
+      this.cbColl.Text = "採取";
+      this.cbColl.UseVisualStyleBackColor = true;
+      this.cbColl.CheckedChanged += new System.EventHandler(this.cbColl_CheckedChanged);
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(184, 281);
-      this.Controls.Add(this.cbCollection);
-      this.Controls.Add(this.tbCollection);
+      this.ClientSize = new System.Drawing.Size(144, 281);
+      this.Controls.Add(this.cbColl);
+      this.Controls.Add(this.tbColl);
       this.Controls.Add(this.cbIsRepMode);
       this.Controls.Add(this.cbIsStrFｍtMode);
       this.Controls.Add(this.tbInsPos);
@@ -187,8 +187,8 @@
     private System.Windows.Forms.TextBox tbInsPos;
     private System.Windows.Forms.CheckBox cbIsStrFｍtMode;
     private System.Windows.Forms.CheckBox cbIsRepMode;
-    private System.Windows.Forms.TextBox tbCollection;
-    private System.Windows.Forms.CheckBox cbCollection;
+    private System.Windows.Forms.TextBox tbColl;
+    private System.Windows.Forms.CheckBox cbColl;
   }
 }
 
