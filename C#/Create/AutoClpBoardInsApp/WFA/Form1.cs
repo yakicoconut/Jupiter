@@ -66,8 +66,8 @@ namespace WFA
 
     // クリップボードウォッチャ
     ClipBoardWatcher cbw;
-    // 監視対象外フラグ
-    bool isNotMtrFlg;
+    // 監視対象フラグ
+    bool isMntrFlg;
 
     // 前回取得値
     string lastStr;
@@ -78,11 +78,8 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-      // オンオフボタン表示初期化
-      btOnOff.Text = "オン";
-
-      // 監視対象外フラグ初期化
-      isNotMtrFlg = false;
+      // 監視対象フラグ初期化
+      isMntrFlg = true;
       // クリップボード監視クラスインスタンス
       cbw = new ClipBoardWatcher();
 
@@ -95,7 +92,7 @@ namespace WFA
           return;
         }
         // ねずみ返し_監視対象外の場合
-        if (isNotMtrFlg)
+        if (!isMntrFlg)
         {
           return;
         }
@@ -108,17 +105,14 @@ namespace WFA
     }
     #endregion
 
-    #region ボタン1押下イベント
-    private void button1_Click(object sender, EventArgs e)
+    #region OnOffボタン押下イベント
+    private void btOnOff_Click(object sender, EventArgs e)
     {
-      string btnTxt = string.Empty;
+      // 監視対象フラグ更新
+      isMntrFlg = !isMntrFlg;
 
-      // 監視対象外フラグ更新
-      isNotMtrFlg = !isNotMtrFlg;
-
-      // フラグが監視対象外の場合「オフ」
-      btnTxt = isNotMtrFlg ? "オフ" : "オン";
-      btOnOff.Text = btnTxt;
+      // フラグが監視対象外の場合「OFF」
+      lbOnOff.Text = isMntrFlg ? "ON" : "OFF";
     }
     #endregion
 
@@ -138,13 +132,13 @@ namespace WFA
       string cngTxt = string.Empty;
 
       // クリップボードに値を送る前にフラグを監視対象外に設定
-      isNotMtrFlg = true;
+      isMntrFlg = false;
 
       // ねずみ返し_対象文字列が空の場合
       if (tgtStr == string.Empty)
       {
         // 監視対象に戻す
-        isNotMtrFlg = false;
+        isMntrFlg = true;
         return;
       }
 
@@ -153,7 +147,7 @@ namespace WFA
       {
         // エクセル対策、セル値をコピーすると
         // 二回以上、クリップボードにアクセスするため
-        isNotMtrFlg = false;
+        isMntrFlg = true;
         return;
       }
 
@@ -180,7 +174,7 @@ namespace WFA
       // ねずみ返し_挿入結果が空の場合
       if (cngTxt == string.Empty)
       {
-        isNotMtrFlg = false;
+        isMntrFlg = true;
         return;
       }
 
@@ -192,7 +186,7 @@ namespace WFA
         // 採取テキストボックスに追加
         tbColl.AppendText(cngTxt);
       }
-      isNotMtrFlg = false;
+      isMntrFlg = true;
     }
     #endregion
 

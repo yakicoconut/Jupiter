@@ -38,16 +38,20 @@
       this.cbIsRepMode = new System.Windows.Forms.CheckBox();
       this.tbColl = new System.Windows.Forms.TextBox();
       this.cbColl = new System.Windows.Forms.CheckBox();
+      this.lbOnOff = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
       // btOnOff
       // 
-      this.btOnOff.Location = new System.Drawing.Point(7, 123);
+      this.btOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.btOnOff.Location = new System.Drawing.Point(71, 123);
       this.btOnOff.Name = "btOnOff";
-      this.btOnOff.Size = new System.Drawing.Size(75, 23);
+      this.btOnOff.Size = new System.Drawing.Size(67, 23);
       this.btOnOff.TabIndex = 1;
+      this.btOnOff.Text = "ON/OFF";
       this.btOnOff.UseVisualStyleBackColor = true;
-      this.btOnOff.Click += new System.EventHandler(this.button1_Click);
+      this.btOnOff.Click += new System.EventHandler(this.btOnOff_Click);
       // 
       // tbReadOnly
       // 
@@ -153,11 +157,23 @@
       this.cbColl.UseVisualStyleBackColor = true;
       this.cbColl.CheckedChanged += new System.EventHandler(this.cbColl_CheckedChanged);
       // 
+      // lbOnOff
+      // 
+      this.lbOnOff.AutoSize = true;
+      this.lbOnOff.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.lbOnOff.Location = new System.Drawing.Point(23, 128);
+      this.lbOnOff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.lbOnOff.Name = "lbOnOff";
+      this.lbOnOff.Size = new System.Drawing.Size(23, 12);
+      this.lbOnOff.TabIndex = 12;
+      this.lbOnOff.Text = "ON";
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(144, 281);
+      this.Controls.Add(this.lbOnOff);
       this.Controls.Add(this.cbColl);
       this.Controls.Add(this.tbColl);
       this.Controls.Add(this.cbIsRepMode);
@@ -189,6 +205,7 @@
     private System.Windows.Forms.CheckBox cbIsRepMode;
     private System.Windows.Forms.TextBox tbColl;
     private System.Windows.Forms.CheckBox cbColl;
+    private System.Windows.Forms.Label lbOnOff;
   }
 }
 
