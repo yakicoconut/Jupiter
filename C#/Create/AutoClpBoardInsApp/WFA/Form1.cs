@@ -97,10 +97,10 @@ namespace WFA
           return;
         }
 
-        // 対象テキストボックスへ書き込み
-        tbReadOnly.Text = Clipboard.GetText();
-        // 対象テキストボックス初期化
-        tbReadOnly.Text = string.Empty;
+        //// 対象テキストボックスへ書き込み
+        //tbReadOnly.Text = Clipboard.GetText();
+        //// 対象テキストボックス初期化
+        //tbReadOnly.Text = string.Empty;
       };
     }
     #endregion
@@ -119,74 +119,74 @@ namespace WFA
     #region テキストボックス値変更イベント
     private void tbReadOnly_TextChanged(object sender, EventArgs e)
     {
-      // コピー文字列
-      string tgtStr = tbReadOnly.Text;
-      // 挿入位置文字列
-      string insPosStr = tbInsPos.Text;
-      // 挿入文字列
-      string insStr = tbInsStr.Text;
-      // モードチェックボックス
-      bool isRepMode = cbIsRepMode.Checked;
-      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
+      //// コピー文字列
+      //string tgtStr = tbReadOnly.Text;
+      //// 挿入位置文字列
+      //string insPosStr = tbInsPos.Text;
+      //// 挿入文字列
+      //string insStr = tbInsStr.Text;
+      //// モードチェックボックス
+      //bool isRepMode = cbIsRepMode.Checked;
+      //bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
 
-      string cngTxt = string.Empty;
+      //string cngTxt = string.Empty;
 
-      // クリップボードに値を送る前にフラグを監視対象外に設定
-      isMntrFlg = false;
+      //// クリップボードに値を送る前にフラグを監視対象外に設定
+      //isMntrFlg = false;
 
-      // ねずみ返し_対象文字列が空の場合
-      if (tgtStr == string.Empty)
-      {
-        // 監視対象に戻す
-        isMntrFlg = true;
-        return;
-      }
+      //// ねずみ返し_対象文字列が空の場合
+      //if (tgtStr == string.Empty)
+      //{
+      //  // 監視対象に戻す
+      //  isMntrFlg = true;
+      //  return;
+      //}
 
-      // ねずみ返し_前回取得値と同じ場合
-      if (lastStr == tgtStr)
-      {
-        // エクセル対策、セル値をコピーすると
-        // 二回以上、クリップボードにアクセスするため
-        isMntrFlg = true;
-        return;
-      }
+      //// ねずみ返し_前回取得値と同じ場合
+      //if (lastStr == tgtStr)
+      //{
+      //  // エクセル対策、セル値をコピーすると
+      //  // 二回以上、クリップボードにアクセスするため
+      //  isMntrFlg = true;
+      //  return;
+      //}
 
-      // 前回取得値に今回の値を設定
-      lastStr = tgtStr;
+      //// 前回取得値に今回の値を設定
+      //lastStr = tgtStr;
 
-      // 置き換えモード
-      if (isRepMode)
-      {
-        // 文字列置き換えメソッド使用
-        cngTxt = ReplaceTxt(tgtStr, insPosStr, insStr);
-      }
-      else if (isStrFｍtMode) // 書式指定挿入モード
-      {
-        // 文字列書式指定挿入メソッド使用
-        cngTxt = InsFmtTxt(tgtStr, insStr);
-      }
-      else
-      {
-        // 文字数指定挿入メソッド使用
-        cngTxt = InsPoTxt(tgtStr, insPosStr, insStr);
-      }
+      //// 置き換えモード
+      //if (isRepMode)
+      //{
+      //  // 文字列置き換えメソッド使用
+      //  cngTxt = ReplaceTxt(tgtStr, insPosStr, insStr);
+      //}
+      //else if (isStrFｍtMode) // 書式指定挿入モード
+      //{
+      //  // 文字列書式指定挿入メソッド使用
+      //  cngTxt = InsFmtTxt(tgtStr, insStr);
+      //}
+      //else
+      //{
+      //  // 文字数指定挿入メソッド使用
+      //  cngTxt = InsPoTxt(tgtStr, insPosStr, insStr);
+      //}
 
-      // ねずみ返し_挿入結果が空の場合
-      if (cngTxt == string.Empty)
-      {
-        isMntrFlg = true;
-        return;
-      }
+      //// ねずみ返し_挿入結果が空の場合
+      //if (cngTxt == string.Empty)
+      //{
+      //  isMntrFlg = true;
+      //  return;
+      //}
 
-      // クリップボードへ送る
-      Clipboard.SetText(cngTxt);
-      // 採取モードの場合
-      if (cbColl.Checked)
-      {
-        // 採取テキストボックスに追加
-        tbColl.AppendText(cngTxt);
-      }
-      isMntrFlg = true;
+      //// クリップボードへ送る
+      //Clipboard.SetText(cngTxt);
+      //// 採取モードの場合
+      //if (cbColl.Checked)
+      //{
+      //  // 採取テキストボックスに追加
+      //  tbColl.AppendText(cngTxt);
+      //}
+      //isMntrFlg = true;
     }
     #endregion
 
@@ -194,39 +194,39 @@ namespace WFA
     #region 書式指定モードチェックイベント
     private void cbIsStrFｍtMode_CheckedChanged(object sender, EventArgs e)
     {
-      bool isRepMode = cbIsRepMode.Checked;
-      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
+      //bool isRepMode = cbIsRepMode.Checked;
+      //bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
 
-      // 両モードがオンになった場合
-      if (isRepMode & isStrFｍtMode)
-      {
-        // 別モードは排他
-        cbIsRepMode.Checked = false;
-      }
+      //// 両モードがオンになった場合
+      //if (isRepMode & isStrFｍtMode)
+      //{
+      //  // 別モードは排他
+      //  cbIsRepMode.Checked = false;
+      //}
 
-      // 置き換えモードの場合ラベル更新
-      lbInsPos.Text = isStrFｍtMode ? "不使用;" : "挿入位置:";
-      tbInsPos.Enabled = isStrFｍtMode ? false : true;
-      lbInsStr.Text = isStrFｍtMode ? "書式  ;" : "挿入文字:";
+      //// 置き換えモードの場合ラベル更新
+      //lbInsPos.Text = isStrFｍtMode ? "不使用;" : "挿入位置:";
+      //tbInsPos.Enabled = isStrFｍtMode ? false : true;
+      //lbInsStr.Text = isStrFｍtMode ? "書式  ;" : "挿入文字:";
     }
     #endregion
 
     #region 置き換えモードチェック押下イベント
     private void cbIsRepMode_CheckedChanged(object sender, EventArgs e)
     {
-      bool isRepMode = cbIsRepMode.Checked;
-      bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
+      //bool isRepMode = cbIsRepMode.Checked;
+      //bool isStrFｍtMode = cbIsStrFｍtMode.Checked;
 
-      // 両モードがオンになった場合
-      if (isRepMode & isStrFｍtMode)
-      {
-        // 別モードは排他
-        cbIsStrFｍtMode.Checked = false;
-      }
+      //// 両モードがオンになった場合
+      //if (isRepMode & isStrFｍtMode)
+      //{
+      //  // 別モードは排他
+      //  cbIsStrFｍtMode.Checked = false;
+      //}
 
-      // 置き換えモードの場合ラベル更新
-      lbInsPos.Text = isRepMode ? "置換前;" : "挿入位置:";
-      lbInsStr.Text = isRepMode ? "置換後;" : "挿入文字:";
+      //// 置き換えモードの場合ラベル更新
+      //lbInsPos.Text = isRepMode ? "置換前;" : "挿入位置:";
+      //lbInsStr.Text = isRepMode ? "置換後;" : "挿入文字:";
     }
     #endregion
 
@@ -243,12 +243,12 @@ namespace WFA
     #region 採取チェックボックスチェックイベント
     private void cbColl_CheckedChanged(object sender, EventArgs e)
     {
-      // チェックした場合
-      if (cbColl.Checked)
-      {
-        // 採取テキストボックスクリア
-        tbColl.ResetText();
-      }
+      //// チェックした場合
+      //if (cbColl.Checked)
+      //{
+      //  // 採取テキストボックスクリア
+      //  tbColl.ResetText();
+      //}
     }
     #endregion
 
