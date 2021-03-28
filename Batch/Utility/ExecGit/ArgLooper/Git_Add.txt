@@ -18,18 +18,46 @@
 #   #option1:
 #   #option2:
 
+
+# # 設定 # #
 # カレントディレクトリ変更
 #command:cd /d  対象ディレクトリ
 
 
+# # 追加 # #
 # addオプション設定
 #option1:add
-# ファイル追加
-にほへ.txt
-ちりぬ.txt
+# フォルダ・ファイル相対パス
+"にほへ.txt"
+"ちりぬ.txt"
 
 
+# # 追加取消 # #
+#option1:reset HEAD
+# 
+
+
+# # 削除 # #
+#option1:rm -r
+# 
+
+
+# # 変更取消 # #
+#option1:checkout
+# 
+
+
+# # 名前変更・移動 # #
+#option1:mv
+# 対象パス 変更後パス
+
+
+# # コミット # #
 # コミットオプション設定
 #option1:commit -m
 # コメント、ファイル指定コミット
 "コメント1" "いろは.txt" "にほへ.txt"
+
+
+# # プッシュ # #
+#command:git push
