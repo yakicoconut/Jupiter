@@ -125,18 +125,56 @@ namespace WFA
     // 前回処理後文字列
     string preResTxt = string.Empty;
 
+    // デフォルト不透明度
+    double defaultOpacity;
+    // 不透明度増加値
+    double opacityUp;
+    // 不透明度減少値
+    double opacityDown;
+
     #endregion
 
 
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // フォーム不透明度調整
+      this.Opacity = 0.8;
+      // フォーム最前面化
+      this.TopMost = true;
+      // タスクバーにアイコンを表示しない
+      this.ShowInTaskbar = false;
+
       // オンオフフラグを立てる
       isOnOff = true;
       // クリップボードリスナー登録実行
       AddClipboardFormatListener(Handle);
     }
     #endregion
+
+    #region フォームサイズ変更イベント
+    private void Form1_SizeChanged(object sender, EventArgs e)
+    {
+      // 最小化の場合
+      if (this.WindowState == FormWindowState.Minimized)
+      {
+        // 完全に隠す
+        this.Hide();
+      }
+    }
+    #endregion
+
+    #region 常駐アイコンダブルクリックイベント
+    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      // フォーム表示
+      this.Show();
+
+      // 最小化から復帰
+      this.WindowState = FormWindowState.Normal;
+    }
+    #endregion
+
 
     #region On/Offボタン押下イベント
     private void btOnOff_Click(object sender, EventArgs e)
@@ -335,6 +373,40 @@ namespace WFA
       retStr = Regex.Replace(tgtStr, regStr, newStr, RegexOptions.Multiline);
 
       return retStr;
+    }
+    #endregion
+
+
+    #region コンテキスト不透明度押下イベント
+    private void ToolStripMenuItem不透明度_Click(object sender, EventArgs e)
+    {
+      // デフォルトに戻す
+      this.Opacity = defaultOpacity;
+    }
+    #endregion
+
+    #region コンテキスト不透明度_上げ押下イベント
+    private void ToolStripMenuItem不透明度_上げ_Click(object sender, EventArgs e)
+    {
+      // 不透明度を上げる
+      this.Opacity += opacityUp;
+    }
+    #endregion
+
+    #region コンテキスト不透明度_下げ押下イベント
+    private void ToolStripMenuItem不透明度_下げ_Click(object sender, EventArgs e)
+    {
+      
+      // 不透明度を下げる
+      this.Opacity -= opacityDown;
+    }
+    #endregion
+
+    #region コンテキスト最前面押下イベント
+    private void ToolStripMenuItem最前面_Click(object sender, EventArgs e)
+    {
+      // フォームの最前面フラグを変更
+      this.TopMost = !this.TopMost;
     }
     #endregion
 

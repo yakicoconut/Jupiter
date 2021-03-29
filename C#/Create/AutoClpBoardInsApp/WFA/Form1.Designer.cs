@@ -28,6 +28,8 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.btOnOff = new System.Windows.Forms.Button();
       this.tbColl = new System.Windows.Forms.TextBox();
       this.panel1 = new System.Windows.Forms.Panel();
@@ -46,10 +48,17 @@
       this.label5 = new System.Windows.Forms.Label();
       this.label4 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
+      this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.ToolStripMenuItem不透明度 = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem不透明度上げ = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem不透明度下げ = new System.Windows.Forms.ToolStripMenuItem();
+      this.ToolStripMenuItem最前面 = new System.Windows.Forms.ToolStripMenuItem();
+      this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
       this.panel1.SuspendLayout();
       this.panel3.SuspendLayout();
       this.panel2.SuspendLayout();
       this.panel4.SuspendLayout();
+      this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // btOnOff
@@ -65,8 +74,8 @@
       // 
       // tbColl
       // 
-      this.tbColl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.tbColl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbColl.Location = new System.Drawing.Point(12, 201);
       this.tbColl.Multiline = true;
@@ -77,7 +86,7 @@
       // 
       // panel1
       // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel1.Controls.Add(this.cbIsReSendMode);
@@ -98,7 +107,6 @@
       this.cbIsReSendMode.TabIndex = 6;
       this.cbIsReSendMode.Text = "再登録";
       this.cbIsReSendMode.UseVisualStyleBackColor = true;
-      //this.cbIsReSendMode.CheckedChanged += new System.EventHandler(this.cbIsReSendMode_CheckedChanged);
       // 
       // cbIsCollMode
       // 
@@ -111,7 +119,6 @@
       this.cbIsCollMode.TabIndex = 5;
       this.cbIsCollMode.Text = "採取";
       this.cbIsCollMode.UseVisualStyleBackColor = true;
-      //this.cbIsCollMode.CheckedChanged += new System.EventHandler(this.cbIsCollMode_CheckedChanged);
       // 
       // label3
       // 
@@ -153,7 +160,7 @@
       // 
       // panel2
       // 
-      this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel2.Controls.Add(this.cbIsNewLine);
@@ -187,7 +194,7 @@
       // 
       // panel4
       // 
-      this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel4.Controls.Add(this.tbRegStr);
@@ -201,7 +208,7 @@
       // 
       // tbRegStr
       // 
-      this.tbRegStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbRegStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbRegStr.Location = new System.Drawing.Point(61, 10);
       this.tbRegStr.Name = "tbRegStr";
@@ -210,7 +217,7 @@
       // 
       // tbRepStr
       // 
-      this.tbRepStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbRepStr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbRepStr.Location = new System.Drawing.Point(61, 32);
       this.tbRepStr.Name = "tbRepStr";
@@ -246,19 +253,68 @@
       this.label2.TabIndex = 8;
       this.label2.Text = "Set";
       // 
+      // contextMenuStrip1
+      // 
+      this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem不透明度,
+            this.ToolStripMenuItem最前面});
+      this.contextMenuStrip1.Name = "ToolStripMenuItem最前面";
+      this.contextMenuStrip1.Size = new System.Drawing.Size(123, 48);
+      // 
+      // ToolStripMenuItem不透明度
+      // 
+      this.ToolStripMenuItem不透明度.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem不透明度上げ,
+            this.ToolStripMenuItem不透明度下げ});
+      this.ToolStripMenuItem不透明度.Name = "ToolStripMenuItem不透明度";
+      this.ToolStripMenuItem不透明度.Size = new System.Drawing.Size(122, 22);
+      this.ToolStripMenuItem不透明度.Text = "不透明度";
+      this.ToolStripMenuItem不透明度.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_Click);
+      // 
+      // ToolStripMenuItem不透明度上げ
+      // 
+      this.ToolStripMenuItem不透明度上げ.Name = "ToolStripMenuItem不透明度上げ";
+      this.ToolStripMenuItem不透明度上げ.Size = new System.Drawing.Size(96, 22);
+      this.ToolStripMenuItem不透明度上げ.Text = "上げ";
+      this.ToolStripMenuItem不透明度上げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_上げ_Click);
+      // 
+      // ToolStripMenuItem不透明度下げ
+      // 
+      this.ToolStripMenuItem不透明度下げ.Name = "ToolStripMenuItem不透明度下げ";
+      this.ToolStripMenuItem不透明度下げ.Size = new System.Drawing.Size(96, 22);
+      this.ToolStripMenuItem不透明度下げ.Text = "下げ";
+      this.ToolStripMenuItem不透明度下げ.Click += new System.EventHandler(this.ToolStripMenuItem不透明度_下げ_Click);
+      // 
+      // ToolStripMenuItem最前面
+      // 
+      this.ToolStripMenuItem最前面.Name = "ToolStripMenuItem最前面";
+      this.ToolStripMenuItem最前面.Size = new System.Drawing.Size(122, 22);
+      this.ToolStripMenuItem最前面.Text = "最前面";
+      this.ToolStripMenuItem最前面.Click += new System.EventHandler(this.ToolStripMenuItem最前面_Click);
+      // 
+      // notifyIcon1
+      // 
+      this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+      this.notifyIcon1.Text = "notifyIcon1";
+      this.notifyIcon1.Visible = true;
+      this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(186, 306);
+      this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.label2);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.tbColl);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
+      this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.panel3.ResumeLayout(false);
@@ -267,6 +323,7 @@
       this.panel2.PerformLayout();
       this.panel4.ResumeLayout(false);
       this.panel4.PerformLayout();
+      this.contextMenuStrip1.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -292,6 +349,12 @@
     private System.Windows.Forms.CheckBox cbIsNewLine;
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.Panel panel4;
+    private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度上げ;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem不透明度下げ;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem最前面;
+    private System.Windows.Forms.NotifyIcon notifyIcon1;
   }
 }
 
