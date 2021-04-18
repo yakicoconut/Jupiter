@@ -33,9 +33,13 @@ SETLOCAL
     set option2=%~4
     set arg=%5
 
+    rem ログフォルダ作成
+    set logDir=%crDir%\Log
+    if not exist %logDir% md %logDir%
+
     rem ログファイルパス生成
     set batName=%~nx0
-    set logFile=%crDir%%batName:.bat=%_%datetime%.txt
+    set logFile=%logDir%%batName:.bat=%_%datetime%.txt
 
   rem 複数引数項目ラベル
   :MULTI_ARG
