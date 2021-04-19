@@ -5,6 +5,8 @@ echo ffmpegで動画分割
 : 	https://takuya-1st.hatenablog.jp/entry/2016/04/13/023014
 : ffmpegで無劣化カット - 脳みそスワップアウト
 : 	http://iamapen.hatenablog.com/entry/2018/12/30/100811
+: ffmpeg で360度動画を編集したときのメモ
+: 	https://gist.github.com/soonraah/7c7a8369829975aeb65ed048af789f4f
 
 
 : 参照バッチ
@@ -192,7 +194,9 @@ rem 本処理
       : -c:a   :音声コーデック
       : -r     :フレームレート
       : -video~:tbn設定
-    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% %codec:"=% -filter_complex drawtext="text=%strOutPath:"=%: fontcolor=%color%: fontsize=%size%: x=w-text_w:y=h-text_h" -r %rate% -video_track_timescale %tbn% %outPath%
+      : -strict:unofficial
+      :           天体情報
+    %~dp0ffmpeg\win32\ffmpeg.exe -y -ss %startSec%%startMilli% -i %srcPath% -t %length%%elapsedMilli% %codec:"=% -filter_complex drawtext="text=%strOutPath:"=%: fontcolor=%color%: fontsize=%size%: x=w-text_w:y=h-text_h" -r %rate% -video_track_timescale %tbn% -strict unofficial %outPath%
 
 
 :END
