@@ -50,15 +50,6 @@ namespace WFA
       opacityDown = double.Parse(_comLogic.GetConfigValue("OpacityDown", "0.2"));
 
       copyTarget001 = _comLogic.GetConfigValue("CopyTarget001", string.Empty);
-      copyTarget002 = _comLogic.GetConfigValue("CopyTarget002", string.Empty);
-      copyTarget003 = _comLogic.GetConfigValue("CopyTarget003", string.Empty);
-      copyTarget004 = _comLogic.GetConfigValue("CopyTarget004", string.Empty);
-      copyTarget005 = _comLogic.GetConfigValue("CopyTarget005", string.Empty);
-      copyTarget006 = _comLogic.GetConfigValue("CopyTarget006", string.Empty);
-      copyTarget007 = _comLogic.GetConfigValue("CopyTarget007", string.Empty);
-      copyTarget008 = _comLogic.GetConfigValue("CopyTarget008", string.Empty);
-      copyTarget009 = _comLogic.GetConfigValue("CopyTarget009", string.Empty);
-      copyTarget010 = _comLogic.GetConfigValue("CopyTarget010", string.Empty);
 
       // パス取得書式
       GET_PATH_STR_FORMAT = _comLogic.GetConfigValue("GetPathStrFormat", "{0}");
@@ -87,15 +78,6 @@ namespace WFA
 
     // コピー対象変数
     string copyTarget001;
-    string copyTarget002;
-    string copyTarget003;
-    string copyTarget004;
-    string copyTarget005;
-    string copyTarget006;
-    string copyTarget007;
-    string copyTarget008;
-    string copyTarget009;
-    string copyTarget010;
 
     // パス取得書式
     string GET_PATH_STR_FORMAT;
@@ -108,7 +90,6 @@ namespace WFA
 
     #endregion
 
-
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
@@ -118,18 +99,7 @@ namespace WFA
       this.TopMost = true;
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
-
-      tbCopy001.Text = copyTarget001;
-      tbCopy002.Text = copyTarget002;
-      tbCopy003.Text = copyTarget003;
-      tbCopy004.Text = copyTarget004;
-      tbCopy005.Text = copyTarget005;
-      tbCopy006.Text = copyTarget006;
-      tbCopy007.Text = copyTarget007;
-      tbCopy008.Text = copyTarget008;
-      tbCopy009.Text = copyTarget009;
-      tbCopy010.Text = copyTarget010;
-
+      
       // アプリモード配列初期化
       listMode = new List<string>();
       listMode.Add("GetPath");
@@ -265,17 +235,10 @@ namespace WFA
       // コピー完了ラベル初期化
       lbCopyComp.Text = string.Empty;
 
-      // イベント発生コントロール取得
-      Control ctrl = (Control)sender;
-      // コントロールの番号を取得
-      string ctrlNum = ctrl.Name.Substring(ctrl.Name.Length - 3, 3);
-      // 対象のテキストボックス取得
-      TextBox targetCtrl = (TextBox)this.Controls["tbCopy" + ctrlNum];
-
       try
       {
-        // コピーボタンの内容をクリップボードにセット
-        Clipboard.SetText(targetCtrl.Text);
+        // コピーコンボボックスの選択内容をクリップボードにセット
+        Clipboard.SetText(cbCopyTgt.Text);
       }
       catch (Exception)
       {
@@ -292,20 +255,14 @@ namespace WFA
     #region 値保存ボタン押下イベント
     private void btSaveVal_Click(object sender, EventArgs e)
     {
-      // テキストボックスを全て取得する
-      for (int i = 1; i <= 10; i++)
+      // ねずみ返し_テキストに値がない場合
+      if (cbCopyTgt.Text == string.Empty)
       {
-        // 対象のテキストボックス取得
-        TextBox targetCtrl = (TextBox)this.Controls["tbCopy" + i.ToString("000")];
-        // ねずみ返し_テキストに値がない場合
-        if (targetCtrl.Text == string.Empty)
-        {
-          continue;
-        }
-
-        // コピー対象値出力メソッド使用
-        OutputCopyValue(targetCtrl.Text);
+        return;
       }
+
+      // コピー対象値出力メソッド使用
+      OutputCopyValue(cbCopyTgt.Text);
     }
     #endregion
 
