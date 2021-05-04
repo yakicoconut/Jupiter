@@ -44,6 +44,7 @@
       this.lbCopyComp = new System.Windows.Forms.Label();
       this.cbIsDirPathMode = new System.Windows.Forms.CheckBox();
       this.cbCopyTgt = new System.Windows.Forms.ComboBox();
+      this.btCopyTgtEdit = new System.Windows.Forms.Button();
       this.contextMenuStrip1.SuspendLayout();
       this.gbGetPath.SuspendLayout();
       this.SuspendLayout();
@@ -178,11 +179,25 @@
       // 
       this.cbCopyTgt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbCopyTgt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbCopyTgt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.cbCopyTgt.FormattingEnabled = true;
       this.cbCopyTgt.Location = new System.Drawing.Point(12, 114);
       this.cbCopyTgt.Name = "cbCopyTgt";
       this.cbCopyTgt.Size = new System.Drawing.Size(128, 20);
       this.cbCopyTgt.TabIndex = 25;
+      // 
+      // btCopyTgtEdit
+      // 
+      this.btCopyTgtEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.btCopyTgtEdit.Location = new System.Drawing.Point(12, 141);
+      this.btCopyTgtEdit.Name = "btCopyTgtEdit";
+      this.btCopyTgtEdit.Size = new System.Drawing.Size(39, 23);
+      this.btCopyTgtEdit.TabIndex = 26;
+      this.btCopyTgtEdit.TabStop = false;
+      this.btCopyTgtEdit.Text = "編集";
+      this.btCopyTgtEdit.UseVisualStyleBackColor = true;
+      this.btCopyTgtEdit.Click += new System.EventHandler(this.btCopyTgtEdit_Click);
       // 
       // Form1
       // 
@@ -190,6 +205,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(234, 175);
       this.ContextMenuStrip = this.contextMenuStrip1;
+      this.Controls.Add(this.btCopyTgtEdit);
       this.Controls.Add(this.cbCopyTgt);
       this.Controls.Add(this.cbIsDirPathMode);
       this.Controls.Add(this.gbGetPath);
@@ -225,6 +241,7 @@
     private System.Windows.Forms.Label lbCopyComp;
     private System.Windows.Forms.ComboBox cbSelectMode;
     private System.Windows.Forms.ComboBox cbCopyTgt;
+    private System.Windows.Forms.Button btCopyTgtEdit;
   }
 }
 

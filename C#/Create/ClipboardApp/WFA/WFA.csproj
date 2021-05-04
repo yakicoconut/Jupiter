@@ -53,12 +53,21 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPtComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPtComment.Designer.cs">
+      <DependentUpon>FrmPtComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="MCSComLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WFAComLogic.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPtComment.resx">
+      <DependentUpon>FrmPtComment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

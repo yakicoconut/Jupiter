@@ -65,6 +65,9 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
+    // コピー対象編集フォーム
+    FrmPtComment fmCopyTgtEdit;
+
     // コンパクトモードではないサイズ
     int nmlHi;
     int nmlWd;
@@ -112,6 +115,14 @@ namespace WFA
 
       // モードコンボボックスに設定
       cbSelectMode.DataSource = listMode;
+
+      // コピー対象文字列を改行で配列化
+      string[] spltStr = copyTgt.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+      // データソース設定
+      cbCopyTgt.DataSource = spltStr;
+
+      // サブフォームインスタンス生成
+      fmCopyTgtEdit = new FrmPtComment(this);
     }
     #endregion
 
@@ -254,6 +265,19 @@ namespace WFA
 
       // コピー完了ラベル更新
       lbCopyComp.Text = "コピー完了";
+    }
+    #endregion
+
+    #region 編集ボタン押下イベント
+    private void btCopyTgtEdit_Click(object sender, EventArgs e)
+    {
+      // コピー対象編集フォーム呼び出し
+      fmCopyTgtEdit.ShowDialog();
+
+      // コピー対象文字列を改行で配列化
+      string[] spltStr = copyTgt.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+      // データソース設定
+      cbCopyTgt.DataSource = spltStr;
     }
     #endregion
 
