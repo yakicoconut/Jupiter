@@ -50,7 +50,7 @@
       // 
       // btCopy
       // 
-      this.btCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.btCopy.Location = new System.Drawing.Point(149, 112);
       this.btCopy.Name = "btCopy";
       this.btCopy.Size = new System.Drawing.Size(75, 23);
@@ -132,7 +132,8 @@
       // 
       // gbGetPath
       // 
-      this.gbGetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.gbGetPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.gbGetPath.Controls.Add(this.cbSelectMode);
       this.gbGetPath.Controls.Add(this.lbCopyComp);
@@ -175,10 +176,10 @@
       // 
       // cbCopyTgt
       // 
-      this.cbCopyTgt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.cbCopyTgt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.cbCopyTgt.FormattingEnabled = true;
-      this.cbCopyTgt.Location = new System.Drawing.Point(15, 114);
+      this.cbCopyTgt.Location = new System.Drawing.Point(12, 114);
       this.cbCopyTgt.Name = "cbCopyTgt";
       this.cbCopyTgt.Size = new System.Drawing.Size(128, 20);
       this.cbCopyTgt.TabIndex = 25;

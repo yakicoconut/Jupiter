@@ -39,17 +39,17 @@ namespace WFA
     public void GetConfig()
     {
       // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
-      normalHeight = int.Parse(_comLogic.GetConfigValue("DefaultNormalHeight", "250"));
-      normalWidth = int.Parse(_comLogic.GetConfigValue("DefaultNormalWidth", "480"));
-      
+      nmlHi = int.Parse(_comLogic.GetConfigValue("DefNmlHi", "250"));
+      nmlWd = int.Parse(_comLogic.GetConfigValue("DefNmlWd", "480"));
+
       // デフォルト不透明度
-      defaultOpacity = double.Parse(_comLogic.GetConfigValue("DefaultOpacity", "0.8"));
+      defOpacity = double.Parse(_comLogic.GetConfigValue("DefOpacity", "0.8"));
       // 不透明度増加値
       opacityUp = double.Parse(_comLogic.GetConfigValue("OpacityUp", "0.2"));
       // 不透明度減少値
       opacityDown = double.Parse(_comLogic.GetConfigValue("OpacityDown", "0.2"));
 
-      copyTarget001 = _comLogic.GetConfigValue("CopyTarget001", string.Empty);
+      copyTgt = _comLogic.GetConfigValue("CopyTgt", string.Empty);
 
       // パス取得書式
       GET_PATH_STR_FORMAT = _comLogic.GetConfigValue("GetPathStrFormat", "{0}");
@@ -66,18 +66,15 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
 
     // コンパクトモードではないサイズ
-    int normalHeight;
-    int normalWidth;
+    int nmlHi;
+    int nmlWd;
 
     // デフォルト不透明度
-    double defaultOpacity;
+    double defOpacity;
     // 不透明度増加値
     double opacityUp;
     // 不透明度減少値
     double opacityDown;
-
-    // コピー対象変数
-    string copyTarget001;
 
     // パス取得書式
     string GET_PATH_STR_FORMAT;
@@ -89,6 +86,14 @@ namespace WFA
     string multiRenameAppPath;
 
     #endregion
+
+    #region プロパティ
+
+    // コピー対象プロパティ
+    public string copyTgt { get; set; }
+
+    #endregion
+
 
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
@@ -117,13 +122,13 @@ namespace WFA
       if (this.Size.Width == 250 && this.Size.Height == 150)
       {
         // サイズをもとに戻す
-        this.Size = new Size(normalWidth, normalHeight);
+        this.Size = new Size(nmlWd, nmlHi);
       }
       else
       {
         // 現在のサイズを退避
-        normalHeight = this.Size.Height;
-        normalWidth = this.Size.Width;
+        nmlHi = this.Size.Height;
+        nmlWd = this.Size.Width;
 
         // サイズをコンパクトモードにする
         this.Size = new Size(250, 150);
@@ -278,7 +283,7 @@ namespace WFA
     private void ToolStripMenuItem不透明度_Click(object sender, EventArgs e)
     {
       // デフォルトに戻す
-      this.Opacity = defaultOpacity;
+      this.Opacity = defOpacity;
     }
     #endregion
 
@@ -337,27 +342,27 @@ namespace WFA
 
 
     #region フォルダパス取得メソッド
-    private string GetDirPath(string targetPath)
+    private string GetDirPath(string tgtPath)
     {
-      string returnPath = targetPath;
+      string retPath = tgtPath;
 
       // ファイルの場合
-      if (File.Exists(returnPath))
+      if (File.Exists(retPath))
       {
         // フォルダまでを抜き出す
-        returnPath = Path.GetDirectoryName(returnPath);
+        retPath = Path.GetDirectoryName(retPath);
       }
 
-      return string.Format(GET_PATH_STR_FORMAT, returnPath);
+      return string.Format(GET_PATH_STR_FORMAT, retPath);
     }
     #endregion
 
     #region ファイルパス取得メソッド
-    private string GetFilePath(string targetPath)
+    private string GetFilePath(string tgtPath)
     {
-      string returnPath = targetPath;
+      string retPath = tgtPath;
 
-      return string.Format(GET_PATH_STR_FORMAT, returnPath);
+      return string.Format(GET_PATH_STR_FORMAT, retPath);
     }
     #endregion
 
