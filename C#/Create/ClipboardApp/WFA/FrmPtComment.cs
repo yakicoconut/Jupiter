@@ -38,14 +38,6 @@ namespace WFA
     private void Form2_Load(object sender, EventArgs e)
     {
       this.Text = "編集";
-      // 親コントロールのサイズと位置からサイズ・出現位置設定
-      int parentX = form1.Location.X;
-      int parentY = form1.Location.Y;
-      int parentH = form1.Height;
-      int parentW = form1.Width;
-      // 横幅は85(二行分)固定
-      this.Size = new Size(parentW, 340);
-      this.Location = new Point(parentX, parentY + parentH);
       
       // 親フォームのコピー対象プロパティ取得
       tbComment.Text = form1.copyTgt;
