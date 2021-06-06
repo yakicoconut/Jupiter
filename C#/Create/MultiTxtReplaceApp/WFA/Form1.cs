@@ -549,29 +549,26 @@ namespace WFA
       }
 
       // 出力用変数
-      string outStrComment = string.Empty;
+      string outStrCmt = string.Empty;
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
-      string commentFormat = "  <add key=\"Comment\" value=\"{0}\"/>";
-      string chkFormat = "  <add key=\"Check{0}\" value=\"{1}\"/>";
-      string searchFormat = "  <add key=\"Search{0}\" value=\"{1}\"/>";
-      string replaceFormat = "  <add key=\"Replace{0}\" value=\"{1}\"/>";
+      string XML_FMT = "  <add key=\"{0}\" value=\"{1}\"/>" + Environment.NewLine;
       // XML用
-      string xmlDec = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-      string xmlRootStart = "<Root>";
-      string xmlRootEnd = "</Root>";
+      string XML_DEC = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine;
+      string XML_ROOT_START = "<Root>" + Environment.NewLine;
+      string XML_ROOT_END = "</Root>";
 
       // コメントフォームのコメントテキストボックスから文字列取得
-      outStrComment = fmComment.tbComment.Text;
+      outStrCmt = fmComment.tbComment.Text;
       // XML用文字に変換
-      outStrComment = Regex.Replace(outStrComment, "&", "&amp;");
-      outStrComment = Regex.Replace(outStrComment, "\"", "&quot;");
-      outStrComment = Regex.Replace(outStrComment, "'", "&apos;");
-      outStrComment = Regex.Replace(outStrComment, "<", "&lt;");
-      outStrComment = Regex.Replace(outStrComment, ">", "&gt;");
-      outStrComment = Regex.Replace(outStrComment, "\r\n", "&#xD;&#xA;");
-      outStrComment = string.Format(commentFormat, outStrComment);
+      outStrCmt = Regex.Replace(outStrCmt, "&", "&amp;");
+      outStrCmt = Regex.Replace(outStrCmt, "\"", "&quot;");
+      outStrCmt = Regex.Replace(outStrCmt, "'", "&apos;");
+      outStrCmt = Regex.Replace(outStrCmt, "<", "&lt;");
+      outStrCmt = Regex.Replace(outStrCmt, ">", "&gt;");
+      outStrCmt = Regex.Replace(outStrCmt, "\r\n", "&#xD;&#xA;");
+      outStrCmt = string.Format(XML_FMT, "Comment", outStrCmt);
 
       // 全チェックボックスループ
       int i = 0;
@@ -597,9 +594,9 @@ namespace WFA
         i += 1;
 
         // 変数格納
-        outStrChk += string.Format(chkFormat, i.ToString().PadLeft(2, '0'), chkStr) + Environment.NewLine;
-        outStrSearch += string.Format(searchFormat, i.ToString().PadLeft(2, '0'), searchStr) + Environment.NewLine;
-        outStrReplace += string.Format(replaceFormat, i.ToString().PadLeft(2, '0'), replaceStr) + Environment.NewLine;
+        outStrChk += string.Format(XML_FMT, "Check" + i.ToString().PadLeft(2, '0'), chkStr);
+        outStrSearch += string.Format(XML_FMT, "Search" + i.ToString().PadLeft(2, '0'), searchStr);
+        outStrReplace += string.Format(XML_FMT, "Replace" + i.ToString().PadLeft(2, '0'), replaceStr);
       }
 
       // 出力ファイルの作成
@@ -607,13 +604,13 @@ namespace WFA
       using (StreamWriter sw = new StreamWriter(outputFileName, false, Encoding.GetEncoding("UTF-8")))
       {
         sw.WriteLine(
-          xmlDec + Environment.NewLine +
-          xmlRootStart + Environment.NewLine +
-          outStrComment + Environment.NewLine +
+          XML_DEC +
+          XML_ROOT_START +
+          outStrCmt +
           outStrChk +
           outStrSearch +
           outStrReplace +
-          xmlRootEnd
+          XML_ROOT_END
           );
       }
     }
