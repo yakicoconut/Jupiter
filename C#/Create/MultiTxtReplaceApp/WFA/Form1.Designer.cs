@@ -96,11 +96,7 @@
       this.splcTargetResult = new System.Windows.Forms.SplitContainer();
       this.rtbTarget = new System.Windows.Forms.RichTextBox();
       this.rtbResult = new System.Windows.Forms.RichTextBox();
-      this.btPattern = new System.Windows.Forms.Button();
-      this.btReplace = new System.Windows.Forms.Button();
       this.tbPatternFileName = new System.Windows.Forms.TextBox();
-      this.cbNewLine = new System.Windows.Forms.CheckBox();
-      this.cbIgnoreCase = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splcPatternResult)).BeginInit();
       this.splcPatternResult.Panel1.SuspendLayout();
       this.splcPatternResult.Panel2.SuspendLayout();
@@ -117,8 +113,8 @@
       // 
       // splcPatternResult
       // 
-      this.splcPatternResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.splcPatternResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.splcPatternResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.splcPatternResult.Location = new System.Drawing.Point(0, 35);
@@ -484,7 +480,7 @@
       // 
       // tbSearch20
       // 
-      this.tbSearch20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch20.Location = new System.Drawing.Point(48, 442);
@@ -494,7 +490,7 @@
       // 
       // tbSearch19
       // 
-      this.tbSearch19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch19.Location = new System.Drawing.Point(48, 420);
       this.tbSearch19.Name = "tbSearch19";
@@ -503,7 +499,7 @@
       // 
       // tbSearch18
       // 
-      this.tbSearch18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch18.Location = new System.Drawing.Point(48, 398);
@@ -513,7 +509,7 @@
       // 
       // tbSearch17
       // 
-      this.tbSearch17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch17.Location = new System.Drawing.Point(48, 376);
       this.tbSearch17.Name = "tbSearch17";
@@ -522,7 +518,7 @@
       // 
       // tbSearch16
       // 
-      this.tbSearch16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch16.Location = new System.Drawing.Point(48, 354);
@@ -532,7 +528,7 @@
       // 
       // tbSearch15
       // 
-      this.tbSearch15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch15.Location = new System.Drawing.Point(48, 332);
       this.tbSearch15.Name = "tbSearch15";
@@ -541,7 +537,7 @@
       // 
       // tbSearch14
       // 
-      this.tbSearch14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch14.Location = new System.Drawing.Point(48, 310);
@@ -551,7 +547,7 @@
       // 
       // tbSearch13
       // 
-      this.tbSearch13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch13.Location = new System.Drawing.Point(48, 288);
       this.tbSearch13.Name = "tbSearch13";
@@ -560,7 +556,7 @@
       // 
       // tbSearch12
       // 
-      this.tbSearch12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch12.Location = new System.Drawing.Point(48, 266);
@@ -570,7 +566,7 @@
       // 
       // tbSearch11
       // 
-      this.tbSearch11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch11.Location = new System.Drawing.Point(48, 244);
       this.tbSearch11.Name = "tbSearch11";
@@ -579,7 +575,7 @@
       // 
       // tbSearch10
       // 
-      this.tbSearch10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch10.Location = new System.Drawing.Point(48, 222);
@@ -589,7 +585,7 @@
       // 
       // tbSearch09
       // 
-      this.tbSearch09.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch09.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch09.Location = new System.Drawing.Point(48, 200);
       this.tbSearch09.Name = "tbSearch09";
@@ -598,7 +594,7 @@
       // 
       // tbSearch08
       // 
-      this.tbSearch08.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch08.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch08.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch08.Location = new System.Drawing.Point(48, 178);
@@ -608,7 +604,7 @@
       // 
       // tbSearch07
       // 
-      this.tbSearch07.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch07.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch07.Location = new System.Drawing.Point(48, 156);
       this.tbSearch07.Name = "tbSearch07";
@@ -617,7 +613,7 @@
       // 
       // tbSearch06
       // 
-      this.tbSearch06.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch06.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch06.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch06.Location = new System.Drawing.Point(48, 134);
@@ -627,7 +623,7 @@
       // 
       // tbSearch05
       // 
-      this.tbSearch05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch05.Location = new System.Drawing.Point(48, 112);
       this.tbSearch05.Name = "tbSearch05";
@@ -636,7 +632,7 @@
       // 
       // tbSearch04
       // 
-      this.tbSearch04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch04.Location = new System.Drawing.Point(48, 90);
@@ -646,7 +642,7 @@
       // 
       // tbSearch03
       // 
-      this.tbSearch03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch03.Location = new System.Drawing.Point(48, 68);
       this.tbSearch03.Name = "tbSearch03";
@@ -655,7 +651,7 @@
       // 
       // tbSearch02
       // 
-      this.tbSearch02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbSearch02.Location = new System.Drawing.Point(48, 46);
@@ -665,7 +661,7 @@
       // 
       // tbSearch01
       // 
-      this.tbSearch01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbSearch01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbSearch01.Location = new System.Drawing.Point(48, 24);
       this.tbSearch01.Name = "tbSearch01";
@@ -674,12 +670,12 @@
       // 
       // tbReplace20
       // 
-      this.tbReplace20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace20.Location = new System.Drawing.Point(3, 442);
       this.tbReplace20.Name = "tbReplace20";
-      this.tbReplace20.Size = new System.Drawing.Size(50, 19);
+      this.tbReplace20.Size = new System.Drawing.Size(27, 19);
       this.tbReplace20.TabIndex = 0;
       // 
       // btAllCrearReplace
@@ -694,189 +690,189 @@
       // 
       // tbReplace19
       // 
-      this.tbReplace19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace19.Location = new System.Drawing.Point(3, 420);
       this.tbReplace19.Name = "tbReplace19";
-      this.tbReplace19.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace19.Size = new System.Drawing.Size(44, 19);
       this.tbReplace19.TabIndex = 2;
       // 
       // tbReplace18
       // 
-      this.tbReplace18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace18.Location = new System.Drawing.Point(3, 398);
       this.tbReplace18.Name = "tbReplace18";
-      this.tbReplace18.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace18.Size = new System.Drawing.Size(44, 19);
       this.tbReplace18.TabIndex = 3;
       // 
       // tbReplace17
       // 
-      this.tbReplace17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace17.Location = new System.Drawing.Point(3, 376);
       this.tbReplace17.Name = "tbReplace17";
-      this.tbReplace17.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace17.Size = new System.Drawing.Size(44, 19);
       this.tbReplace17.TabIndex = 4;
       // 
       // tbReplace16
       // 
-      this.tbReplace16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace16.Location = new System.Drawing.Point(3, 354);
       this.tbReplace16.Name = "tbReplace16";
-      this.tbReplace16.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace16.Size = new System.Drawing.Size(44, 19);
       this.tbReplace16.TabIndex = 5;
       // 
       // tbReplace15
       // 
-      this.tbReplace15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace15.Location = new System.Drawing.Point(3, 332);
       this.tbReplace15.Name = "tbReplace15";
-      this.tbReplace15.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace15.Size = new System.Drawing.Size(44, 19);
       this.tbReplace15.TabIndex = 6;
       // 
       // tbReplace14
       // 
-      this.tbReplace14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace14.Location = new System.Drawing.Point(3, 310);
       this.tbReplace14.Name = "tbReplace14";
-      this.tbReplace14.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace14.Size = new System.Drawing.Size(44, 19);
       this.tbReplace14.TabIndex = 7;
       // 
       // tbReplace13
       // 
-      this.tbReplace13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace13.Location = new System.Drawing.Point(3, 288);
       this.tbReplace13.Name = "tbReplace13";
-      this.tbReplace13.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace13.Size = new System.Drawing.Size(44, 19);
       this.tbReplace13.TabIndex = 8;
       // 
       // tbReplace12
       // 
-      this.tbReplace12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace12.Location = new System.Drawing.Point(3, 266);
       this.tbReplace12.Name = "tbReplace12";
-      this.tbReplace12.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace12.Size = new System.Drawing.Size(44, 19);
       this.tbReplace12.TabIndex = 9;
       // 
       // tbReplace11
       // 
-      this.tbReplace11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace11.Location = new System.Drawing.Point(3, 244);
       this.tbReplace11.Name = "tbReplace11";
-      this.tbReplace11.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace11.Size = new System.Drawing.Size(44, 19);
       this.tbReplace11.TabIndex = 10;
       // 
       // tbReplace10
       // 
-      this.tbReplace10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace10.Location = new System.Drawing.Point(3, 222);
       this.tbReplace10.Name = "tbReplace10";
-      this.tbReplace10.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace10.Size = new System.Drawing.Size(44, 19);
       this.tbReplace10.TabIndex = 11;
       // 
       // tbReplace09
       // 
-      this.tbReplace09.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace09.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace09.Location = new System.Drawing.Point(3, 200);
       this.tbReplace09.Name = "tbReplace09";
-      this.tbReplace09.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace09.Size = new System.Drawing.Size(44, 19);
       this.tbReplace09.TabIndex = 12;
       // 
       // tbReplace08
       // 
-      this.tbReplace08.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace08.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace08.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace08.Location = new System.Drawing.Point(3, 178);
       this.tbReplace08.Name = "tbReplace08";
-      this.tbReplace08.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace08.Size = new System.Drawing.Size(44, 19);
       this.tbReplace08.TabIndex = 13;
       // 
       // tbReplace07
       // 
-      this.tbReplace07.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace07.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace07.Location = new System.Drawing.Point(3, 156);
       this.tbReplace07.Name = "tbReplace07";
-      this.tbReplace07.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace07.Size = new System.Drawing.Size(44, 19);
       this.tbReplace07.TabIndex = 14;
       // 
       // tbReplace06
       // 
-      this.tbReplace06.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace06.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace06.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace06.Location = new System.Drawing.Point(3, 134);
       this.tbReplace06.Name = "tbReplace06";
-      this.tbReplace06.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace06.Size = new System.Drawing.Size(44, 19);
       this.tbReplace06.TabIndex = 15;
       // 
       // tbReplace05
       // 
-      this.tbReplace05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace05.Location = new System.Drawing.Point(3, 112);
       this.tbReplace05.Name = "tbReplace05";
-      this.tbReplace05.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace05.Size = new System.Drawing.Size(44, 19);
       this.tbReplace05.TabIndex = 16;
       // 
       // tbReplace04
       // 
-      this.tbReplace04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace04.Location = new System.Drawing.Point(3, 90);
       this.tbReplace04.Name = "tbReplace04";
-      this.tbReplace04.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace04.Size = new System.Drawing.Size(44, 19);
       this.tbReplace04.TabIndex = 17;
       // 
       // tbReplace03
       // 
-      this.tbReplace03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace03.Location = new System.Drawing.Point(3, 68);
       this.tbReplace03.Name = "tbReplace03";
-      this.tbReplace03.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace03.Size = new System.Drawing.Size(44, 19);
       this.tbReplace03.TabIndex = 18;
       // 
       // tbReplace02
       // 
-      this.tbReplace02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
       this.tbReplace02.Location = new System.Drawing.Point(3, 45);
       this.tbReplace02.Name = "tbReplace02";
-      this.tbReplace02.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace02.Size = new System.Drawing.Size(44, 19);
       this.tbReplace02.TabIndex = 19;
       // 
       // tbReplace01
       // 
-      this.tbReplace01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbReplace01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbReplace01.Location = new System.Drawing.Point(3, 23);
       this.tbReplace01.Name = "tbReplace01";
-      this.tbReplace01.Size = new System.Drawing.Size(67, 19);
+      this.tbReplace01.Size = new System.Drawing.Size(44, 19);
       this.tbReplace01.TabIndex = 20;
       // 
       // splcTargetResult
       // 
-      this.splcTargetResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.splcTargetResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.splcTargetResult.Location = new System.Drawing.Point(3, 0);
       this.splcTargetResult.Name = "splcTargetResult";
@@ -888,107 +884,55 @@
       // splcTargetResult.Panel2
       // 
       this.splcTargetResult.Panel2.Controls.Add(this.rtbResult);
-      this.splcTargetResult.Size = new System.Drawing.Size(705, 288);
+      this.splcTargetResult.Size = new System.Drawing.Size(705, 277);
       this.splcTargetResult.SplitterDistance = 322;
       this.splcTargetResult.SplitterWidth = 20;
       this.splcTargetResult.TabIndex = 0;
       // 
       // rtbTarget
       // 
-      this.rtbTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.rtbTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.rtbTarget.Location = new System.Drawing.Point(0, 0);
       this.rtbTarget.Name = "rtbTarget";
-      this.rtbTarget.Size = new System.Drawing.Size(319, 282);
+      this.rtbTarget.Size = new System.Drawing.Size(319, 271);
       this.rtbTarget.TabIndex = 0;
       this.rtbTarget.Text = "";
       this.rtbTarget.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbTarget_KeyDown);
       // 
       // rtbResult
       // 
-      this.rtbResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.rtbResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.rtbResult.Location = new System.Drawing.Point(3, 0);
       this.rtbResult.Name = "rtbResult";
-      this.rtbResult.Size = new System.Drawing.Size(352, 282);
+      this.rtbResult.Size = new System.Drawing.Size(336, 271);
       this.rtbResult.TabIndex = 0;
       this.rtbResult.Text = "";
       // 
-      // btPattern
-      // 
-      this.btPattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btPattern.Location = new System.Drawing.Point(536, 11);
-      this.btPattern.Name = "btPattern";
-      this.btPattern.Size = new System.Drawing.Size(75, 23);
-      this.btPattern.TabIndex = 3;
-      this.btPattern.Text = "パターン";
-      this.btPattern.UseVisualStyleBackColor = true;
-      this.btPattern.Click += new System.EventHandler(this.btPattern_Click);
-      // 
-      // btReplace
-      // 
-      this.btReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btReplace.Location = new System.Drawing.Point(617, 11);
-      this.btReplace.Name = "btReplace";
-      this.btReplace.Size = new System.Drawing.Size(75, 23);
-      this.btReplace.TabIndex = 5;
-      this.btReplace.Text = "置換";
-      this.btReplace.UseVisualStyleBackColor = true;
-      this.btReplace.Click += new System.EventHandler(this.btReplace_Click);
-      // 
       // tbPatternFileName
       // 
-      this.tbPatternFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbPatternFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbPatternFileName.BackColor = System.Drawing.SystemColors.Control;
       this.tbPatternFileName.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.tbPatternFileName.Font = new System.Drawing.Font("ＭＳ ゴシック", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
       this.tbPatternFileName.Location = new System.Drawing.Point(12, 9);
       this.tbPatternFileName.Name = "tbPatternFileName";
-      this.tbPatternFileName.Size = new System.Drawing.Size(383, 16);
+      this.tbPatternFileName.Size = new System.Drawing.Size(673, 16);
       this.tbPatternFileName.TabIndex = 1;
       this.tbPatternFileName.TabStop = false;
       this.tbPatternFileName.Text = "-";
-      // 
-      // cbNewLine
-      // 
-      this.cbNewLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbNewLine.AutoSize = true;
-      this.cbNewLine.Checked = true;
-      this.cbNewLine.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbNewLine.Location = new System.Drawing.Point(482, 15);
-      this.cbNewLine.Name = "cbNewLine";
-      this.cbNewLine.Size = new System.Drawing.Size(48, 16);
-      this.cbNewLine.TabIndex = 0;
-      this.cbNewLine.Text = "改行";
-      this.cbNewLine.UseVisualStyleBackColor = true;
-      // 
-      // cbIgnoreCase
-      // 
-      this.cbIgnoreCase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbIgnoreCase.AutoSize = true;
-      this.cbIgnoreCase.Checked = true;
-      this.cbIgnoreCase.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbIgnoreCase.Location = new System.Drawing.Point(428, 15);
-      this.cbIgnoreCase.Name = "cbIgnoreCase";
-      this.cbIgnoreCase.Size = new System.Drawing.Size(48, 16);
-      this.cbIgnoreCase.TabIndex = 6;
-      this.cbIgnoreCase.Text = "大小";
-      this.cbIgnoreCase.UseVisualStyleBackColor = true;
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(713, 664);
-      this.Controls.Add(this.cbIgnoreCase);
-      this.Controls.Add(this.cbNewLine);
       this.Controls.Add(this.tbPatternFileName);
-      this.Controls.Add(this.btPattern);
       this.Controls.Add(this.splcPatternResult);
-      this.Controls.Add(this.btReplace);
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
@@ -1076,16 +1020,12 @@
     private System.Windows.Forms.CheckBox cbAllCheck;
     private System.Windows.Forms.Button btAllCrearSearch;
     private System.Windows.Forms.Button btAllCrearReplace;
-    private System.Windows.Forms.CheckBox cbNewLine;
-    private System.Windows.Forms.Button btPattern;
-    private System.Windows.Forms.Button btReplace;
     private System.Windows.Forms.TextBox tbPatternFileName;
     private System.Windows.Forms.SplitContainer splcPatternResult;
     private System.Windows.Forms.SplitContainer splcSearchReplace;
     private System.Windows.Forms.SplitContainer splcTargetResult;
     private System.Windows.Forms.RichTextBox rtbTarget;
     private System.Windows.Forms.RichTextBox rtbResult;
-    private System.Windows.Forms.CheckBox cbIgnoreCase;
   }
 }
 

@@ -53,6 +53,7 @@ namespace WFA
       // サブフォームインスタンス生成
       fmPtMng = new FrmPtMng(this);
       fmComment = new FrmPtComment(this);
+      fmCtrl = new FrmPtCtrl(this);
     }
     #endregion
 
@@ -84,6 +85,8 @@ namespace WFA
     FrmPtMng fmPtMng;
     // コメントフォーム
     FrmPtComment fmComment;
+    // コントロールフォーム
+    FrmPtCtrl fmCtrl;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
@@ -203,6 +206,13 @@ namespace WFA
       // コメントフォーム表示
       fmComment.Show();
 
+      // コメントフォームのプロパティに本クラスを設定
+      fmCtrl.form1 = this;
+      // 常にメインフォームの手前に表示
+      fmCtrl.Owner = this;
+      // コメントフォーム表示
+      fmCtrl.Show();
+
       // パターンXMLフォルダが存在しない場合、作成
       if (!Directory.Exists(PtDirName))
         Directory.CreateDirectory(PtDirName);
@@ -210,8 +220,13 @@ namespace WFA
     #endregion
 
 
-    #region 置換ボタン押下イベント
-    private void btReplace_Click(object sender, EventArgs e)
+    #region 置換実行メソッド
+    /// <summary>
+    /// 置換実行メソッド
+    /// </summary>
+    /// <param name="isIgnoreCase">大小文字判別</param>
+    /// <param name="isNewLine">改行モード判断</param>
+    public void ExecRep(bool isIgnoreCase, bool isNewLine)
     {
       // コントロール変数化
       RichTextBox target = rtbTarget;
@@ -243,8 +258,8 @@ namespace WFA
         // Regexオプション
         RegexOptions regOption;
         regOption = RegexOptions.None;
-        // 大小文字判別チェック
-        if (cbIgnoreCase.Checked)
+        // 大小文字判別
+        if (isIgnoreCase)
         {
           // 大小文字判別しない
           regOption = RegexOptions.IgnoreCase;
@@ -269,8 +284,8 @@ namespace WFA
         /* 置換え */
         // 複数行モード(「^」と「$」の有効化)
         resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text, RegexOptions.Multiline);
-        // 改行チェック
-        if (cbNewLine.Checked)
+        // 改行モード判断
+        if (isNewLine)
         {
           // 「\n」を改行とする
           resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
@@ -302,8 +317,8 @@ namespace WFA
     }
     #endregion
 
-    #region パターンボタン押下イベント
-    private void btPattern_Click(object sender, EventArgs e)
+    #region パターン管理フォーム起動メソッド
+    public void ShowPtMngFrm()
     {
       // パターン管理フォームのプロパティに本クラスを設定
       fmPtMng.form1 = this;

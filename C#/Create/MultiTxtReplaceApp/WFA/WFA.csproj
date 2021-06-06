@@ -60,6 +60,12 @@
     <Compile Include="FrmPtComment.Designer.cs">
       <DependentUpon>FrmPtComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPtCtrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPtCtrl.Designer.cs">
+      <DependentUpon>FrmPtCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPtMng.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPtComment.resx">
       <DependentUpon>FrmPtComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPtCtrl.resx">
+      <DependentUpon>FrmPtCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPtMng.resx">
       <DependentUpon>FrmPtMng.cs</DependentUpon>
