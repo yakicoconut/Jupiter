@@ -34,21 +34,21 @@
       this.toolStripMenuItemOpacityGain = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItemOpacityDec = new System.Windows.Forms.ToolStripMenuItem();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.btReplace = new System.Windows.Forms.Button();
+      this.btPattern = new System.Windows.Forms.Button();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.textBox2 = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
+      this.label1 = new System.Windows.Forms.Label();
+      this.textBox1 = new System.Windows.Forms.TextBox();
       this.cbIgnoreCase = new System.Windows.Forms.CheckBox();
       this.cbNewLine = new System.Windows.Forms.CheckBox();
-      this.btPattern = new System.Windows.Forms.Button();
-      this.btReplace = new System.Windows.Forms.Button();
-      this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.textBox1 = new System.Windows.Forms.TextBox();
-      this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.label1 = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
-      this.textBox2 = new System.Windows.Forms.TextBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
-      this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
+      this.groupBox1.SuspendLayout();
       this.groupBox3.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -96,42 +96,16 @@
       this.panel1.Size = new System.Drawing.Size(460, 224);
       this.panel1.TabIndex = 1;
       // 
-      // cbIgnoreCase
+      // groupBox2
       // 
-      this.cbIgnoreCase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbIgnoreCase.AutoSize = true;
-      this.cbIgnoreCase.Checked = true;
-      this.cbIgnoreCase.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbIgnoreCase.Location = new System.Drawing.Point(6, 21);
-      this.cbIgnoreCase.Name = "cbIgnoreCase";
-      this.cbIgnoreCase.Size = new System.Drawing.Size(56, 19);
-      this.cbIgnoreCase.TabIndex = 14;
-      this.cbIgnoreCase.Text = "大小";
-      this.cbIgnoreCase.UseVisualStyleBackColor = true;
-      // 
-      // cbNewLine
-      // 
-      this.cbNewLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbNewLine.AutoSize = true;
-      this.cbNewLine.Checked = true;
-      this.cbNewLine.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbNewLine.Location = new System.Drawing.Point(68, 21);
-      this.cbNewLine.Name = "cbNewLine";
-      this.cbNewLine.Size = new System.Drawing.Size(56, 19);
-      this.cbNewLine.TabIndex = 11;
-      this.cbNewLine.Text = "改行";
-      this.cbNewLine.UseVisualStyleBackColor = true;
-      // 
-      // btPattern
-      // 
-      this.btPattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btPattern.Location = new System.Drawing.Point(286, 21);
-      this.btPattern.Name = "btPattern";
-      this.btPattern.Size = new System.Drawing.Size(75, 23);
-      this.btPattern.TabIndex = 12;
-      this.btPattern.Text = "パターン";
-      this.btPattern.UseVisualStyleBackColor = true;
-      this.btPattern.Click += new System.EventHandler(this.btPattern_Click);
+      this.groupBox2.Controls.Add(this.btReplace);
+      this.groupBox2.Controls.Add(this.btPattern);
+      this.groupBox2.Location = new System.Drawing.Point(9, 159);
+      this.groupBox2.Name = "groupBox2";
+      this.groupBox2.Size = new System.Drawing.Size(448, 59);
+      this.groupBox2.TabIndex = 16;
+      this.groupBox2.TabStop = false;
+      this.groupBox2.Text = "実行";
       // 
       // btReplace
       // 
@@ -144,6 +118,17 @@
       this.btReplace.UseVisualStyleBackColor = true;
       this.btReplace.Click += new System.EventHandler(this.btReplace_Click);
       // 
+      // btPattern
+      // 
+      this.btPattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btPattern.Location = new System.Drawing.Point(286, 21);
+      this.btPattern.Name = "btPattern";
+      this.btPattern.Size = new System.Drawing.Size(75, 23);
+      this.btPattern.TabIndex = 12;
+      this.btPattern.Text = "パターン";
+      this.btPattern.UseVisualStyleBackColor = true;
+      this.btPattern.Click += new System.EventHandler(this.btPattern_Click);
+      // 
       // groupBox1
       // 
       this.groupBox1.Controls.Add(this.groupBox3);
@@ -155,27 +140,6 @@
       this.groupBox1.TabIndex = 15;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "オプション";
-      // 
-      // groupBox2
-      // 
-      this.groupBox2.Controls.Add(this.btReplace);
-      this.groupBox2.Controls.Add(this.btPattern);
-      this.groupBox2.Location = new System.Drawing.Point(9, 159);
-      this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(448, 59);
-      this.groupBox2.TabIndex = 16;
-      this.groupBox2.TabStop = false;
-      this.groupBox2.Text = "実行";
-      // 
-      // textBox1
-      // 
-      this.textBox1.Location = new System.Drawing.Point(62, 21);
-      this.textBox1.Multiline = true;
-      this.textBox1.Name = "textBox1";
-      this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-      this.textBox1.Size = new System.Drawing.Size(374, 39);
-      this.textBox1.TabIndex = 15;
-      this.textBox1.WordWrap = false;
       // 
       // groupBox3
       // 
@@ -190,14 +154,12 @@
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "ファイル一括置換";
       // 
-      // label1
+      // textBox2
       // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(6, 33);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(53, 15);
-      this.label1.TabIndex = 16;
-      this.label1.Text = "フォルダ:";
+      this.textBox2.Location = new System.Drawing.Point(62, 66);
+      this.textBox2.Name = "textBox2";
+      this.textBox2.Size = new System.Drawing.Size(374, 22);
+      this.textBox2.TabIndex = 18;
       // 
       // label2
       // 
@@ -208,12 +170,48 @@
       this.label2.TabIndex = 17;
       this.label2.Text = "フィルタ:";
       // 
-      // textBox2
+      // label1
       // 
-      this.textBox2.Location = new System.Drawing.Point(62, 66);
-      this.textBox2.Name = "textBox2";
-      this.textBox2.Size = new System.Drawing.Size(374, 22);
-      this.textBox2.TabIndex = 18;
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(6, 33);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(53, 15);
+      this.label1.TabIndex = 16;
+      this.label1.Text = "フォルダ:";
+      // 
+      // textBox1
+      // 
+      this.textBox1.Location = new System.Drawing.Point(62, 21);
+      this.textBox1.Multiline = true;
+      this.textBox1.Name = "textBox1";
+      this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+      this.textBox1.Size = new System.Drawing.Size(374, 39);
+      this.textBox1.TabIndex = 15;
+      this.textBox1.WordWrap = false;
+      // 
+      // cbIgnoreCase
+      // 
+      this.cbIgnoreCase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIgnoreCase.AutoSize = true;
+      this.cbIgnoreCase.Location = new System.Drawing.Point(6, 21);
+      this.cbIgnoreCase.Name = "cbIgnoreCase";
+      this.cbIgnoreCase.Size = new System.Drawing.Size(56, 19);
+      this.cbIgnoreCase.TabIndex = 14;
+      this.cbIgnoreCase.Text = "大小";
+      this.cbIgnoreCase.UseVisualStyleBackColor = true;
+      this.cbIgnoreCase.CheckedChanged += new System.EventHandler(this.cbIgnoreCase_CheckedChanged);
+      // 
+      // cbNewLine
+      // 
+      this.cbNewLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbNewLine.AutoSize = true;
+      this.cbNewLine.Location = new System.Drawing.Point(68, 21);
+      this.cbNewLine.Name = "cbNewLine";
+      this.cbNewLine.Size = new System.Drawing.Size(56, 19);
+      this.cbNewLine.TabIndex = 11;
+      this.cbNewLine.Text = "改行";
+      this.cbNewLine.UseVisualStyleBackColor = true;
+      this.cbNewLine.CheckedChanged += new System.EventHandler(this.cbNewLine_CheckedChanged);
       // 
       // FrmPtCtrl
       // 
@@ -233,9 +231,9 @@
       this.Load += new System.EventHandler(this.Form2_Load);
       this.contextMenuStrip1.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
+      this.groupBox2.ResumeLayout(false);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
-      this.groupBox2.ResumeLayout(false);
       this.groupBox3.ResumeLayout(false);
       this.groupBox3.PerformLayout();
       this.ResumeLayout(false);

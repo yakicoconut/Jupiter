@@ -65,6 +65,8 @@ namespace WFA
 
       // 検索対象初期値
       dicInitValue.Add("Comment", _comLogic.GetConfigValue("Comment", ""));
+      dicInitValue.Add("IsIgnoreCase", _comLogic.GetConfigValue("IsIgnoreCase", "True"));
+      dicInitValue.Add("IsNewLine", _comLogic.GetConfigValue("IsNewLine", "True"));
       for (int i = 1; i <= 20; i++)
       {
         // 1~20を二桁で作成
@@ -102,6 +104,11 @@ namespace WFA
 
 
     #region プロパティ
+
+    // 大小文字判別
+    public bool IsIgnoreCase { get; set; }
+    // 改行モード判断
+    public bool IsNewLine { get; set; }
 
     // パターンXMLフォルダ名称
     public string PtDirName { get; set; }
@@ -226,7 +233,7 @@ namespace WFA
     /// </summary>
     /// <param name="isIgnoreCase">大小文字判別</param>
     /// <param name="isNewLine">改行モード判断</param>
-    public void ExecRep(bool isIgnoreCase, bool isNewLine)
+    public void ExecRep()
     {
       // コントロール変数化
       RichTextBox target = rtbTarget;
@@ -259,7 +266,7 @@ namespace WFA
         RegexOptions regOption;
         regOption = RegexOptions.None;
         // 大小文字判別
-        if (isIgnoreCase)
+        if (IsIgnoreCase)
         {
           // 大小文字判別しない
           regOption = RegexOptions.IgnoreCase;
@@ -285,7 +292,7 @@ namespace WFA
         // 複数行モード(「^」と「$」の有効化)
         resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text, RegexOptions.Multiline);
         // 改行モード判断
-        if (isNewLine)
+        if (IsNewLine)
         {
           // 「\n」を改行とする
           resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
@@ -447,6 +454,16 @@ namespace WFA
         // 設定値から取得
         fmComment.tbComment.Text = dicInitValue["Comment"];
       }
+      // コントロールフォーム
+      if (dicInitValue.ContainsKey("IsIgnoreCase"))
+      {
+        IsIgnoreCase = bool.Parse(dicInitValue["IsIgnoreCase"]);
+      }
+      if (dicInitValue.ContainsKey("IsNewLine"))
+      {
+        IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
+      }
+      fmCtrl.InitCtrlValue();
 
       // 各コントロール値初期化
       for (int i = 0; i < 20; i++)
@@ -507,7 +524,7 @@ namespace WFA
           xmlReader.MoveToFirstAttribute();
           string keyName = xmlReader.Value;
           // ねずみ返し_キーの値が違う場合
-          if (!Regex.Match(keyName, @"Comment|Check\d\d|Search\d\d|Replace\d\d").Success)
+          if (!Regex.Match(keyName, @"Comment|IsIgnoreCase|IsNewLine|Check\d\d|Search\d\d|Replace\d\d").Success)
           {
             continue;
           }
@@ -550,6 +567,8 @@ namespace WFA
 
       // 出力用変数
       string outStrCmt = string.Empty;
+      string outStrIsIgnoreCase = string.Empty;
+      string outStrIsNewLine = string.Empty;
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
@@ -569,6 +588,11 @@ namespace WFA
       outStrCmt = Regex.Replace(outStrCmt, ">", "&gt;");
       outStrCmt = Regex.Replace(outStrCmt, "\r\n", "&#xD;&#xA;");
       outStrCmt = string.Format(XML_FMT, "Comment", outStrCmt);
+
+      // 大小文字判別、改行モード判断
+      outStrIsIgnoreCase = string.Format(XML_FMT, "IsIgnoreCase", IsIgnoreCase.ToString());
+      outStrIsNewLine = string.Format(XML_FMT, "IsNewLine", IsNewLine.ToString());
+
 
       // 全チェックボックスループ
       int i = 0;
@@ -607,6 +631,8 @@ namespace WFA
           XML_DEC +
           XML_ROOT_START +
           outStrCmt +
+          outStrIsIgnoreCase +
+          outStrIsNewLine +
           outStrChk +
           outStrSearch +
           outStrReplace +

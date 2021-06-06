@@ -45,6 +45,35 @@ namespace WFA
 
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
+
+      // コントロール値初期化メソッド使用
+      this.InitCtrlValue();
+    }
+    #endregion
+
+    #region コントロール値初期化メソッド
+    public void InitCtrlValue()
+    {
+      // チェックボックス
+      cbIgnoreCase.Checked = form1.IsIgnoreCase;
+      cbNewLine.Checked = form1.IsNewLine;
+    } 
+    #endregion
+
+
+    #region 大小文字判別チェックボックス値変更イベント
+    private void cbIgnoreCase_CheckedChanged(object sender, EventArgs e)
+    {
+      // 親フォームプロパティ更新
+      form1.IsIgnoreCase = cbIgnoreCase.Checked;
+    }
+    #endregion
+
+    #region 改行モード判断チェックボックス値変更イベント
+    private void cbNewLine_CheckedChanged(object sender, EventArgs e)
+    {
+      // 親フォームプロパティ更新
+      form1.IsNewLine = cbNewLine.Checked;
     }
     #endregion
 
@@ -53,7 +82,7 @@ namespace WFA
     private void btReplace_Click(object sender, EventArgs e)
     {
       // 置換実行メソッド
-      form1.ExecRep(cbIgnoreCase.Checked, cbNewLine.Checked);
+      form1.ExecRep();
     }
     #endregion
 
