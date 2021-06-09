@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Text.RegularExpressions;
 using FastTxtDiff;
 using System.Xml;
+using System.Threading;
 
 #region メモ
 /*
@@ -50,10 +51,16 @@ namespace WFA
       // コンフィグ取得メソッド使用
       GetConfig();
 
+      // データ連携クラスインスタンス生成
+      dataStore = new DataStore();
+
       // サブフォームインスタンス生成
       fmPtMng = new FrmPtMng(this);
       fmComment = new FrmPtComment(this);
-      fmCtrl = new FrmPtCtrl(this);
+      fmCtrl = new FrmPtCtrl(this, dataStore);
+
+      // 置換実行処理クラスインスタンス生成
+      execRepThread = new ExecRepThread(this, dataStore);
     }
     #endregion
 
@@ -83,32 +90,25 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
+
     // パターン管理フォーム
     FrmPtMng fmPtMng;
     // コメントフォーム
     FrmPtComment fmComment;
     // コントロールフォーム
     FrmPtCtrl fmCtrl;
+    // データ連携クラス
+    DataStore dataStore;
+    // 置換実行処理クラス
+    ExecRepThread execRepThread;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
-
-    // チェックボックスリスト
-    List<CheckBox> listChkBox = new List<CheckBox>();
-    // 検索対象テキストボックスリスト
-    List<TextBox> listTbSearch = new List<TextBox>();
-    // 置換文字列テキストボックスリスト
-    List<TextBox> listTbReplace = new List<TextBox>();
 
     #endregion
 
 
     #region プロパティ
-
-    // 大小文字判別
-    public bool IsIgnoreCase { get; set; }
-    // 改行モード判断
-    public bool IsNewLine { get; set; }
 
     // パターンXMLフォルダ名称
     public string PtDirName { get; set; }
@@ -123,72 +123,72 @@ namespace WFA
     {
       #region リストにコントロール格納
 
-      listChkBox.Add(cb01);
-      listChkBox.Add(cb02);
-      listChkBox.Add(cb03);
-      listChkBox.Add(cb04);
-      listChkBox.Add(cb05);
-      listChkBox.Add(cb06);
-      listChkBox.Add(cb07);
-      listChkBox.Add(cb08);
-      listChkBox.Add(cb09);
-      listChkBox.Add(cb10);
-      listChkBox.Add(cb11);
-      listChkBox.Add(cb12);
-      listChkBox.Add(cb13);
-      listChkBox.Add(cb14);
-      listChkBox.Add(cb15);
-      listChkBox.Add(cb16);
-      listChkBox.Add(cb17);
-      listChkBox.Add(cb18);
-      listChkBox.Add(cb19);
-      listChkBox.Add(cb20);
-      listTbSearch.Add(tbSearch01);
-      listTbSearch.Add(tbSearch02);
-      listTbSearch.Add(tbSearch03);
-      listTbSearch.Add(tbSearch04);
-      listTbSearch.Add(tbSearch05);
-      listTbSearch.Add(tbSearch06);
-      listTbSearch.Add(tbSearch07);
-      listTbSearch.Add(tbSearch08);
-      listTbSearch.Add(tbSearch09);
-      listTbSearch.Add(tbSearch10);
-      listTbSearch.Add(tbSearch11);
-      listTbSearch.Add(tbSearch12);
-      listTbSearch.Add(tbSearch13);
-      listTbSearch.Add(tbSearch14);
-      listTbSearch.Add(tbSearch15);
-      listTbSearch.Add(tbSearch16);
-      listTbSearch.Add(tbSearch17);
-      listTbSearch.Add(tbSearch18);
-      listTbSearch.Add(tbSearch19);
-      listTbSearch.Add(tbSearch20);
-      listTbReplace.Add(tbReplace01);
-      listTbReplace.Add(tbReplace02);
-      listTbReplace.Add(tbReplace03);
-      listTbReplace.Add(tbReplace04);
-      listTbReplace.Add(tbReplace05);
-      listTbReplace.Add(tbReplace06);
-      listTbReplace.Add(tbReplace07);
-      listTbReplace.Add(tbReplace08);
-      listTbReplace.Add(tbReplace09);
-      listTbReplace.Add(tbReplace10);
-      listTbReplace.Add(tbReplace11);
-      listTbReplace.Add(tbReplace12);
-      listTbReplace.Add(tbReplace13);
-      listTbReplace.Add(tbReplace14);
-      listTbReplace.Add(tbReplace15);
-      listTbReplace.Add(tbReplace16);
-      listTbReplace.Add(tbReplace17);
-      listTbReplace.Add(tbReplace18);
-      listTbReplace.Add(tbReplace19);
-      listTbReplace.Add(tbReplace20);
+      dataStore.ListChkBox.Add(cb01);
+      dataStore.ListChkBox.Add(cb02);
+      dataStore.ListChkBox.Add(cb03);
+      dataStore.ListChkBox.Add(cb04);
+      dataStore.ListChkBox.Add(cb05);
+      dataStore.ListChkBox.Add(cb06);
+      dataStore.ListChkBox.Add(cb07);
+      dataStore.ListChkBox.Add(cb08);
+      dataStore.ListChkBox.Add(cb09);
+      dataStore.ListChkBox.Add(cb10);
+      dataStore.ListChkBox.Add(cb11);
+      dataStore.ListChkBox.Add(cb12);
+      dataStore.ListChkBox.Add(cb13);
+      dataStore.ListChkBox.Add(cb14);
+      dataStore.ListChkBox.Add(cb15);
+      dataStore.ListChkBox.Add(cb16);
+      dataStore.ListChkBox.Add(cb17);
+      dataStore.ListChkBox.Add(cb18);
+      dataStore.ListChkBox.Add(cb19);
+      dataStore.ListChkBox.Add(cb20);
+      dataStore.ListTbSearch.Add(tbSearch01);
+      dataStore.ListTbSearch.Add(tbSearch02);
+      dataStore.ListTbSearch.Add(tbSearch03);
+      dataStore.ListTbSearch.Add(tbSearch04);
+      dataStore.ListTbSearch.Add(tbSearch05);
+      dataStore.ListTbSearch.Add(tbSearch06);
+      dataStore.ListTbSearch.Add(tbSearch07);
+      dataStore.ListTbSearch.Add(tbSearch08);
+      dataStore.ListTbSearch.Add(tbSearch09);
+      dataStore.ListTbSearch.Add(tbSearch10);
+      dataStore.ListTbSearch.Add(tbSearch11);
+      dataStore.ListTbSearch.Add(tbSearch12);
+      dataStore.ListTbSearch.Add(tbSearch13);
+      dataStore.ListTbSearch.Add(tbSearch14);
+      dataStore.ListTbSearch.Add(tbSearch15);
+      dataStore.ListTbSearch.Add(tbSearch16);
+      dataStore.ListTbSearch.Add(tbSearch17);
+      dataStore.ListTbSearch.Add(tbSearch18);
+      dataStore.ListTbSearch.Add(tbSearch19);
+      dataStore.ListTbSearch.Add(tbSearch20);
+      dataStore.ListTbReplace.Add(tbReplace01);
+      dataStore.ListTbReplace.Add(tbReplace02);
+      dataStore.ListTbReplace.Add(tbReplace03);
+      dataStore.ListTbReplace.Add(tbReplace04);
+      dataStore.ListTbReplace.Add(tbReplace05);
+      dataStore.ListTbReplace.Add(tbReplace06);
+      dataStore.ListTbReplace.Add(tbReplace07);
+      dataStore.ListTbReplace.Add(tbReplace08);
+      dataStore.ListTbReplace.Add(tbReplace09);
+      dataStore.ListTbReplace.Add(tbReplace10);
+      dataStore.ListTbReplace.Add(tbReplace11);
+      dataStore.ListTbReplace.Add(tbReplace12);
+      dataStore.ListTbReplace.Add(tbReplace13);
+      dataStore.ListTbReplace.Add(tbReplace14);
+      dataStore.ListTbReplace.Add(tbReplace15);
+      dataStore.ListTbReplace.Add(tbReplace16);
+      dataStore.ListTbReplace.Add(tbReplace17);
+      dataStore.ListTbReplace.Add(tbReplace18);
+      dataStore.ListTbReplace.Add(tbReplace19);
+      dataStore.ListTbReplace.Add(tbReplace20);
 
       #endregion
 
 
       // 置換文字列テキストボックス設定
-      foreach (TextBox x in listTbReplace)
+      foreach (TextBox x in dataStore.ListTbReplace)
       {
         // SplitContainer内のコントロールのサイズ位置を無理やり変更
         x.Size = new Size(402, 19);
@@ -231,96 +231,37 @@ namespace WFA
     /// <summary>
     /// 置換実行メソッド
     /// </summary>
-    /// <param name="isIgnoreCase">大小文字判別</param>
-    /// <param name="isNewLine">改行モード判断</param>
     public void ExecRep()
     {
-      // コントロール変数化
-      RichTextBox target = rtbTarget;
-      RichTextBox result = rtbResult;
-      string resultStr = target.Text;
-
-      // 対象・結果の色を黒で初期化
+      // 対象リッチテキスト色初期化
       rtbTarget.SelectAll();
       rtbTarget.SelectionColor = Color.Black;
-      rtbResult.SelectAll();
-      rtbResult.SelectionColor = Color.Black;
 
-      int i = 0;
-      foreach (CheckBox x in listChkBox)
-      {
-        // ねずみ返し_チェックが付いていない場合
-        if (!x.Checked)
-        {
-          i += 1;
-          continue;
-        }
-        // ねずみ返し_検索対象が空の場合
-        if (listTbSearch[i].Text == string.Empty)
-        {
-          i += 1;
-          continue;
-        }
+      // 対象文字列設定
+      dataStore.TgtStr = rtbTarget.Text;
 
-        // Regexオプション
-        RegexOptions regOption;
-        regOption = RegexOptions.None;
-        // 大小文字判別
-        if (IsIgnoreCase)
-        {
-          // 大小文字判別しない
-          regOption = RegexOptions.IgnoreCase;
-        }
+      // 画像取り込み処理クラススタートメソッド使用
+      Thread threadA = execRepThread.Start();
 
-        /* 色変更 */
-        // Regexオブジェクト作成
-        Regex regex = new Regex(listTbSearch[i].Text, regOption);
+      // スレッド終了待ち
+      threadA.Join();
 
-        // 正規表現と一致する対象をすべて検索
-        MatchCollection matchCollect = regex.Matches(target.Text);
-        foreach (Match y in matchCollect)
-        {
-          // 対象選択
-          target.Select(y.Index, y.Length);
-          // カラーリング
-          target.SelectionColor = Color.Red;
-          // 反映
-          rtbTarget = target;
-        }
-
-        /* 置換え */
-        // 複数行モード(「^」と「$」の有効化)
-        resultStr = Regex.Replace(resultStr, listTbSearch[i].Text, listTbReplace[i].Text, RegexOptions.Multiline);
-        // 改行モード判断
-        if (IsNewLine)
-        {
-          // 「\n」を改行とする
-          resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
-        }
-
-        i += 1;
-      }
-
-      // 置換えた文字列をリッチテキストに設定
-      result.Text = resultStr;
+      // 置換後文字列表示
+      rtbResult.Text = dataStore.ReplacedStr;
 
       // 対象と結果の比較から差分を取得
-      DiffResult[] diffResult = FastDiff.DiffChar(target.Text, result.Text);
+      DiffResult[] diffResult = FastDiff.DiffChar(rtbResult.Text, rtbTarget.Text);
       foreach (DiffResult x in diffResult)
       {
         // 差異が存在する場合
         if (x.Modified)
         {
           // 対象選択
-          result.Select(x.ModifiedStart, x.ModifiedLength);
+          rtbTarget.Select(x.ModifiedStart, x.ModifiedLength);
           // カラーリング
-          result.SelectionColor = Color.Red;
+          rtbTarget.SelectionColor = Color.Red;
         }
       }
-
-      // コミット
-      rtbTarget = target;
-      rtbResult = result;
     }
     #endregion
 
@@ -361,7 +302,7 @@ namespace WFA
       }
 
       // 全チェックボックスループ
-      foreach (CheckBox x in listChkBox)
+      foreach (CheckBox x in dataStore.ListChkBox)
       {
         x.Checked = chk;
       }
@@ -372,7 +313,7 @@ namespace WFA
     private void btAllCrearSearch_Click(object sender, EventArgs e)
     {
       // 検索対象ボックス全削除
-      foreach (TextBox x in listTbSearch)
+      foreach (TextBox x in dataStore.ListTbSearch)
       {
         x.ResetText();
       }
@@ -383,7 +324,7 @@ namespace WFA
     private void btAllCrearReplace_Click(object sender, EventArgs e)
     {
       // 置換文字列ボックス全削除
-      foreach (TextBox x in listTbReplace)
+      foreach (TextBox x in dataStore.ListTbReplace)
       {
         x.ResetText();
       }
@@ -457,11 +398,11 @@ namespace WFA
       // コントロールフォーム
       if (dicInitValue.ContainsKey("IsIgnoreCase"))
       {
-        IsIgnoreCase = bool.Parse(dicInitValue["IsIgnoreCase"]);
+        dataStore.IsIgnoreCase = bool.Parse(dicInitValue["IsIgnoreCase"]);
       }
       if (dicInitValue.ContainsKey("IsNewLine"))
       {
-        IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
+        dataStore.IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
       }
       fmCtrl.InitCtrlValue();
 
@@ -472,17 +413,17 @@ namespace WFA
         string padTwo = (i + 1).ToString().PadLeft(2, '0');
 
         // デフォルト値
-        listChkBox[i].Checked = true;
-        listTbSearch[i].Text = string.Empty;
-        listTbReplace[i].Text = string.Empty;
+        dataStore.ListChkBox[i].Checked = true;
+        dataStore.ListTbSearch[i].Text = string.Empty;
+        dataStore.ListTbReplace[i].Text = string.Empty;
 
         // ディクショナリ存在確認
         if (dicInitValue.ContainsKey("Check" + padTwo))
-          listChkBox[i].Checked = dicInitValue["Check" + padTwo].ToLower() == "true";
+          dataStore.ListChkBox[i].Checked = dicInitValue["Check" + padTwo].ToLower() == "true";
         if (dicInitValue.ContainsKey("Search" + padTwo))
-          listTbSearch[i].Text = dicInitValue["Search" + padTwo];
+          dataStore.ListTbSearch[i].Text = dicInitValue["Search" + padTwo];
         if (dicInitValue.ContainsKey("Replace" + padTwo))
-          listTbReplace[i].Text = dicInitValue["Replace" + padTwo];
+          dataStore.ListTbReplace[i].Text = dicInitValue["Replace" + padTwo];
       }
     }
     #endregion
@@ -590,17 +531,17 @@ namespace WFA
       outStrCmt = string.Format(XML_FMT, "Comment", outStrCmt);
 
       // 大小文字判別、改行モード判断
-      outStrIsIgnoreCase = string.Format(XML_FMT, "IsIgnoreCase", IsIgnoreCase.ToString());
-      outStrIsNewLine = string.Format(XML_FMT, "IsNewLine", IsNewLine.ToString());
+      outStrIsIgnoreCase = string.Format(XML_FMT, "IsIgnoreCase", dataStore.IsIgnoreCase.ToString());
+      outStrIsNewLine = string.Format(XML_FMT, "IsNewLine", dataStore.IsNewLine.ToString());
 
 
       // 全チェックボックスループ
       int i = 0;
-      foreach (CheckBox x in listChkBox)
+      foreach (CheckBox x in dataStore.ListChkBox)
       {
-        string chkStr = listChkBox[i].Checked.ToString();
-        string searchStr = listTbSearch[i].Text;
-        string replaceStr = listTbReplace[i].Text;
+        string chkStr = dataStore.ListChkBox[i].Checked.ToString();
+        string searchStr = dataStore.ListTbSearch[i].Text;
+        string replaceStr = dataStore.ListTbReplace[i].Text;
 
         // XML用文字に変換
         searchStr = Regex.Replace(searchStr, "&", "&amp;");

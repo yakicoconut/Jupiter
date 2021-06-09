@@ -12,12 +12,15 @@ namespace WFA
   public partial class FrmPtCtrl : Form
   {
     #region コンストラクタ
-    public FrmPtCtrl(Form1 fm1)
+    public FrmPtCtrl(Form1 fm1, DataStore _repData)
     {
       InitializeComponent();
 
       // 親フォーム設定
       form1 = fm1;
+
+      // データ連携クラス引継ぎ
+      repData = _repData;
     }
     #endregion
 
@@ -26,6 +29,9 @@ namespace WFA
 
     // 親フォーム
     public Form1 form1 { get; set; }
+
+    // データ連携クラス
+    DataStore repData;
 
     #endregion
 
@@ -55,8 +61,8 @@ namespace WFA
     public void InitCtrlValue()
     {
       // チェックボックス
-      cbIgnoreCase.Checked = form1.IsIgnoreCase;
-      cbNewLine.Checked = form1.IsNewLine;
+      cbIgnoreCase.Checked = repData.IsIgnoreCase;
+      cbNewLine.Checked = repData.IsNewLine;
     } 
     #endregion
 
@@ -65,7 +71,7 @@ namespace WFA
     private void cbIgnoreCase_CheckedChanged(object sender, EventArgs e)
     {
       // 親フォームプロパティ更新
-      form1.IsIgnoreCase = cbIgnoreCase.Checked;
+      repData.IsIgnoreCase = cbIgnoreCase.Checked;
     }
     #endregion
 
@@ -73,7 +79,7 @@ namespace WFA
     private void cbNewLine_CheckedChanged(object sender, EventArgs e)
     {
       // 親フォームプロパティ更新
-      form1.IsNewLine = cbNewLine.Checked;
+      repData.IsNewLine = cbNewLine.Checked;
     }
     #endregion
 
