@@ -49,22 +49,6 @@ namespace WFA
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // エンコードフォーマット
-    Encoding encFmt;
-
-    #endregion
-
-
-    #region メインフォーム初期設定メソッド
-    private void MainFormInitSeting()
-    {
-      // 変更後拡張子コンボボックス設定
-      cbChcp.DataSource = new string[] { "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF8", "UTF32" };
-      // 変更後拡張子コンボボックス選択
-      cbChcp.SelectedItem = 0;
-      // エンコードフォーマット
-      encFmt = Encoding.UTF8;
-    }
     #endregion
 
 
@@ -76,42 +60,15 @@ namespace WFA
     }
     #endregion
 
-    #region コンボボックス値変更イベント
-    private void cbChcp_Validated(object sender, EventArgs e)
+    #region メインフォーム初期設定メソッド
+    private void MainFormInitSeting()
     {
-      // 拡張子コンボボックスからフォーマットを選判定する
-      switch (cbChcp.Text)
-      {
-        case "UTF7":
-          encFmt = Encoding.UTF7;
-          break;
-
-        case "BigEndianUnicode":
-          encFmt = Encoding.BigEndianUnicode;
-          break;
-
-        case "Unicode":
-          encFmt = Encoding.Unicode;
-          break;
-
-        case "Default":
-          encFmt = Encoding.Default;
-          break;
-
-        case "ASCII":
-          encFmt = Encoding.ASCII;
-          break;
-
-        case "UTF8":
-          encFmt = Encoding.UTF8;
-          break;
-
-        case "UTF32":
-          encFmt = Encoding.UTF32;
-          break;
-      }
+      // 変更後拡張子コンボボックス設定
+      cbSrcChcp.DataSource = new string[] { "UTF8", "SJIS", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
+      cbDestChcp.DataSource = new string[] { "UTF8", "SJIS", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
     }
     #endregion
+
 
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
@@ -120,8 +77,10 @@ namespace WFA
       string tgtPath = _comLogic.ExclIniEndWQuot(tbTgtPath.Text);
       // 出力パス取得
       string outPath = tbOutPath.Text;
-      // 変換後文字コード取得
-      string chcp = cbChcp.Text;
+      // 変換前文字コード
+      Encoding srcEnc = Str2Enc(cbSrcChcp.Text);
+      // 変換後文字コード
+      Encoding destEnc = Str2Enc(cbDestChcp.Text);
 
       // ねずみ返し
       if (tgtPath == string.Empty)
@@ -142,7 +101,7 @@ namespace WFA
       if (File.Exists(tgtPath))
       {
         // 文字コード変換メソッド使用
-        ChcpConversion(tgtPath, outPath, chcp);
+        ChcpConversion(tgtPath, outPath, srcEnc, destEnc);
       }
       else if (Directory.Exists(tgtPath))
       {
@@ -153,7 +112,7 @@ namespace WFA
         foreach (string x in targetFolder)
         {
           // 文字コード変換メソッド使用
-          ChcpConversion(x, outPath, chcp);
+          ChcpConversion(x, outPath, srcEnc, destEnc);
         }
       }
       else
@@ -166,28 +125,65 @@ namespace WFA
     }
     #endregion
 
-    #region ボタン2押下イベント
-    private void button2_Click(object sender, EventArgs e)
-    {
 
+    #region 文字列文字コード変換メソッド
+    private Encoding Str2Enc(string encStr)
+    {
+      // 拡張子コンボボックスからフォーマットを選判定する
+      Encoding enc;
+      switch (encStr)
+      {
+        default:
+        case "UTF8":
+          enc = Encoding.UTF8;
+          break;
+
+        case "SJIS":
+          enc = Encoding.GetEncoding("Shift_JIS");
+          break;
+
+        case "UTF7":
+          enc = Encoding.UTF7;
+          break;
+
+        case "BigEndianUnicode":
+          enc = Encoding.BigEndianUnicode;
+          break;
+
+        case "Unicode":
+          enc = Encoding.Unicode;
+          break;
+
+        case "Default":
+          enc = Encoding.Default;
+          break;
+
+        case "ASCII":
+          enc = Encoding.ASCII;
+          break;
+
+        case "UTF32":
+          enc = Encoding.UTF32;
+          break;
+      }
+
+      return enc;
     }
     #endregion
 
-
     #region 文字コード変換メソッド
-    private void ChcpConversion(string tgtPath, string outPath, string chcp)
+    private void ChcpConversion(string tgtPath, string outPath, Encoding srcEnc, Encoding destEnc)
     {
+      string str = string.Empty;
+
       // ファイル名取得
       string tgtName = Path.GetFileName(tgtPath);
 
       // ファイル読み込み
-      StreamReader sr = new StreamReader(tgtPath);
-      string str = sr.ReadToEnd();
-      sr.Close();
-
-      // エンコードセット
-      Encoding srcEnc = Encoding.Unicode;
-      Encoding destEnc = Encoding.UTF8;
+      using (StreamReader sr = new StreamReader(tgtPath))
+      {
+        str = sr.ReadToEnd();
+      }
 
       // バイナリ変換
       byte[] binaryStr = srcEnc.GetBytes(str);
@@ -197,11 +193,11 @@ namespace WFA
       string retStr = destEnc.GetString(convBinary);
 
       // ファイルを開く
-      StreamWriter writer = new StreamWriter(tgtName, false);
-      // テキストを書き込む
-      writer.WriteLine(retStr);
-      // ファイルを閉じる
-      writer.Close();
+      using (StreamWriter writer = new StreamWriter(tgtName, false, destEnc))
+      {
+        // テキストを書き込む
+        writer.WriteLine(retStr);
+      }
     }
     #endregion
 

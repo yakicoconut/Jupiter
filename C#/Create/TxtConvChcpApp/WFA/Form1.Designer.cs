@@ -30,19 +30,20 @@
     {
       this.btConvert = new System.Windows.Forms.Button();
       this.tbTgtPath = new System.Windows.Forms.TextBox();
-      this.cbChcp = new System.Windows.Forms.ComboBox();
+      this.cbSrcChcp = new System.Windows.Forms.ComboBox();
       this.tbOutPath = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
+      this.label3 = new System.Windows.Forms.Label();
+      this.cbDestChcp = new System.Windows.Forms.ComboBox();
       this.SuspendLayout();
       // 
       // btConvert
       // 
       this.btConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.btConvert.Location = new System.Drawing.Point(529, 114);
-      this.btConvert.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btConvert.Location = new System.Drawing.Point(239, 57);
       this.btConvert.Name = "btConvert";
-      this.btConvert.Size = new System.Drawing.Size(163, 46);
+      this.btConvert.Size = new System.Drawing.Size(75, 23);
       this.btConvert.TabIndex = 1;
       this.btConvert.Text = "変換";
       this.btConvert.UseVisualStyleBackColor = true;
@@ -50,69 +51,85 @@
       // 
       // tbTgtPath
       // 
-      this.tbTgtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbTgtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTgtPath.Location = new System.Drawing.Point(95, 18);
-      this.tbTgtPath.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.tbTgtPath.Location = new System.Drawing.Point(44, 9);
       this.tbTgtPath.Name = "tbTgtPath";
-      this.tbTgtPath.Size = new System.Drawing.Size(591, 31);
+      this.tbTgtPath.Size = new System.Drawing.Size(270, 19);
       this.tbTgtPath.TabIndex = 2;
       // 
-      // cbChcp
+      // cbSrcChcp
       // 
-      this.cbChcp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.cbChcp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cbChcp.FormattingEnabled = true;
-      this.cbChcp.Location = new System.Drawing.Point(20, 118);
-      this.cbChcp.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-      this.cbChcp.Name = "cbChcp";
-      this.cbChcp.Size = new System.Drawing.Size(167, 32);
-      this.cbChcp.TabIndex = 3;
-      this.cbChcp.Validated += new System.EventHandler(this.cbChcp_Validated);
+      this.cbSrcChcp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.cbSrcChcp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbSrcChcp.FormattingEnabled = true;
+      this.cbSrcChcp.Location = new System.Drawing.Point(9, 59);
+      this.cbSrcChcp.Name = "cbSrcChcp";
+      this.cbSrcChcp.Size = new System.Drawing.Size(79, 20);
+      this.cbSrcChcp.TabIndex = 3;
       // 
       // tbOutPath
       // 
-      this.tbOutPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tbOutPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbOutPath.Location = new System.Drawing.Point(95, 68);
-      this.tbOutPath.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.tbOutPath.Location = new System.Drawing.Point(44, 34);
       this.tbOutPath.Name = "tbOutPath";
-      this.tbOutPath.Size = new System.Drawing.Size(591, 31);
+      this.tbOutPath.Size = new System.Drawing.Size(270, 19);
       this.tbOutPath.TabIndex = 4;
       // 
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(15, 24);
-      this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+      this.label1.Location = new System.Drawing.Point(7, 12);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(63, 24);
+      this.label1.Size = new System.Drawing.Size(31, 12);
       this.label1.TabIndex = 5;
       this.label1.Text = "対象:";
       // 
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(15, 74);
-      this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+      this.label2.Location = new System.Drawing.Point(7, 37);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(63, 24);
+      this.label2.Size = new System.Drawing.Size(31, 12);
       this.label2.TabIndex = 6;
       this.label2.Text = "出力:";
       // 
+      // label3
+      // 
+      this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(94, 62);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(17, 12);
+      this.label3.TabIndex = 7;
+      this.label3.Text = "→";
+      this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+      // 
+      // cbDestChcp
+      // 
+      this.cbDestChcp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.cbDestChcp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbDestChcp.FormattingEnabled = true;
+      this.cbDestChcp.Location = new System.Drawing.Point(117, 59);
+      this.cbDestChcp.Name = "cbDestChcp";
+      this.cbDestChcp.Size = new System.Drawing.Size(79, 20);
+      this.cbDestChcp.TabIndex = 8;
+      // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(724, 174);
+      this.ClientSize = new System.Drawing.Size(329, 87);
+      this.Controls.Add(this.cbDestChcp);
+      this.Controls.Add(this.label3);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.tbOutPath);
-      this.Controls.Add(this.cbChcp);
+      this.Controls.Add(this.cbSrcChcp);
       this.Controls.Add(this.tbTgtPath);
       this.Controls.Add(this.btConvert);
-      this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-      this.MinimumSize = new System.Drawing.Size(728, 179);
+      this.MinimumSize = new System.Drawing.Size(345, 109);
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
@@ -125,10 +142,12 @@
 
     private System.Windows.Forms.Button btConvert;
     private System.Windows.Forms.TextBox tbTgtPath;
-    private System.Windows.Forms.ComboBox cbChcp;
+    private System.Windows.Forms.ComboBox cbSrcChcp;
     private System.Windows.Forms.TextBox tbOutPath;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.ComboBox cbDestChcp;
   }
 }
 
