@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -50,6 +51,31 @@ namespace WFA
     /// 置換後文字列
     /// </summary>
     public string ReplacedStr { get; set; }
+
+    /// <summary>
+    /// 対象フォルダパス
+    /// </summary>
+    public string TgtDirPath { get; set; }
+
+    /// <summary>
+    /// ファイルフィルタ文字列
+    /// </summary>
+    public string FileFltr { get; set; }
+
+    /// <summary>
+    /// 文字コード
+    /// </summary>
+    public Encoding Enc { get; set; }
+
+    /// <summary>
+    /// メインフォームサイズ
+    /// </summary>
+    public Size MainFormSize { get; set; }
+
+    /// <summary>
+    /// メインフォーム位置
+    /// </summary>
+    public Point MainFormLoca { get; set; }
 
     #endregion
 

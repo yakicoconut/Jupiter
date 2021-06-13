@@ -54,7 +54,7 @@ namespace WFA
 
     #endregion
 
-    
+
     #region フォームロードイベント
     private void FrmPrgBar_Load(object sender, EventArgs e)
     {
@@ -68,7 +68,7 @@ namespace WFA
     {
       // プログレスバー最大値設定
       progressBar1.Maximum = PrgBarMax;
-    } 
+    }
     #endregion
 
 

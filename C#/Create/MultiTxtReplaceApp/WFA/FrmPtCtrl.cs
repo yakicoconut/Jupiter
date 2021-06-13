@@ -63,6 +63,9 @@ namespace WFA
       cbIgnoreCase.Checked = dataStore.IsIgnoreCase;
       cbNewLine.Checked = dataStore.IsNewLine;
       cbTab.Checked = dataStore.IsTab;
+
+      // 文字コードコンボボックス設定
+      cbChcp.DataSource = new string[] { "UTF8", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
     }
     #endregion
 

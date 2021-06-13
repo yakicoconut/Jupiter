@@ -40,10 +40,11 @@
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.cbTab = new System.Windows.Forms.CheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.textBox2 = new System.Windows.Forms.TextBox();
+      this.cbChcp = new System.Windows.Forms.ComboBox();
+      this.tbFileFltr = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.tbTgtDirPath = new System.Windows.Forms.TextBox();
       this.cbIgnoreCase = new System.Windows.Forms.CheckBox();
       this.cbNewLine = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
@@ -157,10 +158,11 @@
       // 
       // groupBox3
       // 
-      this.groupBox3.Controls.Add(this.textBox2);
+      this.groupBox3.Controls.Add(this.cbChcp);
+      this.groupBox3.Controls.Add(this.tbFileFltr);
       this.groupBox3.Controls.Add(this.label2);
       this.groupBox3.Controls.Add(this.label1);
-      this.groupBox3.Controls.Add(this.textBox1);
+      this.groupBox3.Controls.Add(this.tbTgtDirPath);
       this.groupBox3.Location = new System.Drawing.Point(6, 46);
       this.groupBox3.Name = "groupBox3";
       this.groupBox3.Size = new System.Drawing.Size(442, 98);
@@ -168,12 +170,21 @@
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "ファイル一括置換";
       // 
-      // textBox2
+      // cbChcp
       // 
-      this.textBox2.Location = new System.Drawing.Point(62, 66);
-      this.textBox2.Name = "textBox2";
-      this.textBox2.Size = new System.Drawing.Size(374, 22);
-      this.textBox2.TabIndex = 18;
+      this.cbChcp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbChcp.FormattingEnabled = true;
+      this.cbChcp.Location = new System.Drawing.Point(327, 66);
+      this.cbChcp.Name = "cbChcp";
+      this.cbChcp.Size = new System.Drawing.Size(109, 23);
+      this.cbChcp.TabIndex = 20;
+      // 
+      // tbFileFltr
+      // 
+      this.tbFileFltr.Location = new System.Drawing.Point(62, 66);
+      this.tbFileFltr.Name = "tbFileFltr";
+      this.tbFileFltr.Size = new System.Drawing.Size(259, 22);
+      this.tbFileFltr.TabIndex = 18;
       // 
       // label2
       // 
@@ -193,15 +204,15 @@
       this.label1.TabIndex = 16;
       this.label1.Text = "フォルダ:";
       // 
-      // textBox1
+      // tbTgtDirPath
       // 
-      this.textBox1.Location = new System.Drawing.Point(62, 21);
-      this.textBox1.Multiline = true;
-      this.textBox1.Name = "textBox1";
-      this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-      this.textBox1.Size = new System.Drawing.Size(374, 39);
-      this.textBox1.TabIndex = 15;
-      this.textBox1.WordWrap = false;
+      this.tbTgtDirPath.Location = new System.Drawing.Point(62, 21);
+      this.tbTgtDirPath.Multiline = true;
+      this.tbTgtDirPath.Name = "tbTgtDirPath";
+      this.tbTgtDirPath.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+      this.tbTgtDirPath.Size = new System.Drawing.Size(374, 39);
+      this.tbTgtDirPath.TabIndex = 15;
+      this.tbTgtDirPath.WordWrap = false;
       // 
       // cbIgnoreCase
       // 
@@ -268,10 +279,11 @@
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.GroupBox groupBox2;
     private System.Windows.Forms.GroupBox groupBox3;
-    private System.Windows.Forms.TextBox textBox1;
-    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.TextBox tbTgtDirPath;
+    private System.Windows.Forms.TextBox tbFileFltr;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.CheckBox cbTab;
+    private System.Windows.Forms.ComboBox cbChcp;
   }
 }
