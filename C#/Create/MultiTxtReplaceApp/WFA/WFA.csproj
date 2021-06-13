@@ -58,7 +58,9 @@
     <Compile Include="FrmPrgBar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPrgBar.Designer.cs" />
+    <Compile Include="FrmPrgBar.designer.cs">
+      <DependentUpon>FrmPrgBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPtComment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +87,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPrgBar.resx" />
+    <EmbeddedResource Include="FrmPrgBar.resx">
+      <DependentUpon>FrmPrgBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPtComment.resx">
       <DependentUpon>FrmPtComment.cs</DependentUpon>
     </EmbeddedResource>

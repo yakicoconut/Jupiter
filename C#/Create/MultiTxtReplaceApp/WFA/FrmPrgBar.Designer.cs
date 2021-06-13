@@ -36,21 +36,24 @@
       this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.progressBar1.Location = new System.Drawing.Point(12, 12);
+      this.progressBar1.Location = new System.Drawing.Point(6, 6);
+      this.progressBar1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
       this.progressBar1.Name = "progressBar1";
-      this.progressBar1.Size = new System.Drawing.Size(357, 73);
+      this.progressBar1.Size = new System.Drawing.Size(165, 36);
       this.progressBar1.TabIndex = 0;
       // 
-      // FrmPrgBar
+      // FrmPrgBar_
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(381, 97);
+      this.ClientSize = new System.Drawing.Size(176, 48);
       this.Controls.Add(this.progressBar1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-      this.Name = "FrmPrgBar";
+      this.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+      this.Name = "FrmPrgBar_";
       this.Text = "Form2";
       this.Load += new System.EventHandler(this.FrmPrgBar_Load);
+      this.Shown += new System.EventHandler(this.FrmPrgBar_Shown);
       this.ResumeLayout(false);
 
     }

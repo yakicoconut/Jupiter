@@ -16,12 +16,12 @@ namespace WFA
   public partial class FrmPtMng : Form
   {
     #region コンストラクタ
-    public FrmPtMng(Form1 fm1)
+    public FrmPtMng(Form1 _fm1)
     {
       InitializeComponent();
 
       // 親フォーム設定
-      form1 = fm1;
+      fm1 = _fm1;
 
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
@@ -32,7 +32,7 @@ namespace WFA
     #region 宣言
 
     // 親フォーム
-    public Form1 form1 { get; set; }
+    private Form1 fm1;
 
     #endregion
 
@@ -43,7 +43,7 @@ namespace WFA
       this.Text = "パターン管理";
 
       // 検索対象パス設定
-      tbSearchPath.Text = form1.PtDirName;
+      tbSearchPath.Text = fm1.PtDirName;
 
       // ねずみ返し_検索対象が存在しない場合
       if (!Directory.Exists(tbSearchPath.Text))
@@ -56,7 +56,7 @@ namespace WFA
       // ファイルリストフォーム初期化メソッド使用
       InitFileListForm(tbCommitPath.Text);
       // 選択アイテム表示を保存ファイル名に設定
-      tbSaveName.Text = Path.GetFileNameWithoutExtension(form1.InpPtFilePath);
+      tbSaveName.Text = Path.GetFileNameWithoutExtension(fm1.InpPtFilePath);
     }
     #endregion
 
@@ -201,7 +201,7 @@ namespace WFA
       }
 
       // 選択項目からパス作成
-      form1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      fm1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
       // フォーム閉じる
       this.Close();
     }
@@ -212,7 +212,7 @@ namespace WFA
     private void btSaveXml_Click(object sender, EventArgs e)
     {
       // メインフォーム_パターンXML保存メソッド使用
-      form1.SavePatternXml(tbCommitPath.Text, tbSaveName.Text);
+      fm1.SavePatternXml(tbCommitPath.Text, tbSaveName.Text);
 
       // ファイルリストフォーム初期化メソッド使用
       InitFileListForm(tbCommitPath.Text);
@@ -229,7 +229,7 @@ namespace WFA
       }
 
       // 選択項目からパス作成
-      form1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
+      fm1.InpPtFilePath = tbCommitPath.Text + @"\" + lvFileList.SelectedItems[0].Text + ".xml";
       // フォーム閉じる
       this.Close();
     }
@@ -268,7 +268,7 @@ namespace WFA
       tbSelectItem.Text = "";
 
       // パターンXMLフォルダ名称をコミットパスに更新
-      form1.PtDirName = tbCommitPath.Text;
+      fm1.PtDirName = tbCommitPath.Text;
 
       //// クローズキャンセル
       //if (e.CloseReason == CloseReason.UserClosing)

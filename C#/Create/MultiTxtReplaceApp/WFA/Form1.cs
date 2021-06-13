@@ -89,21 +89,22 @@ namespace WFA
     #region 宣言
 
     // 共通ロジッククラスインスタンス
-    MCSComLogic _comLogic = new MCSComLogic();
+    private MCSComLogic _comLogic = new MCSComLogic();
 
     // パターン管理フォーム
-    FrmPtMng fmPtMng;
+    private FrmPtMng fmPtMng;
     // コメントフォーム
-    FrmPtComment fmComment;
+    private FrmPtComment fmComment;
     // コントロールフォーム
-    FrmPtCtrl fmCtrl;
+    private FrmPtCtrl fmCtrl;
+
     // データ連携クラス
-    DataStore dataStore;
+    private DataStore dataStore;
     // 置換実行処理クラス
-    ExecRepPrc execRepPrc;
+    private ExecRepPrc execRepPrc;
 
     // 各コントロール初期値ディクショナリ
-    Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
+    private Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
 
     #endregion
 
@@ -206,15 +207,11 @@ namespace WFA
       // コントロール値初期化メソッド使用
       InitCtrlValue();
 
-      // コメントフォームのプロパティに本クラスを設定
-      fmComment.form1 = this;
       // 常にメインフォームの手前に表示
       fmComment.Owner = this;
       // コメントフォーム表示
       fmComment.Show();
 
-      // コメントフォームのプロパティに本クラスを設定
-      fmCtrl.form1 = this;
       // 常にメインフォームの手前に表示
       fmCtrl.Owner = this;
       // コメントフォーム表示
@@ -268,8 +265,6 @@ namespace WFA
     #region パターン管理フォーム起動メソッド
     public void ShowPtMngFrm()
     {
-      // パターン管理フォームのプロパティに本クラスを設定
-      fmPtMng.form1 = this;
       // パターン管理フォーム呼び出し
       fmPtMng.ShowDialog();
 

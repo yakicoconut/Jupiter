@@ -12,15 +12,15 @@ namespace WFA
   public partial class FrmPtCtrl : Form
   {
     #region コンストラクタ
-    public FrmPtCtrl(Form1 fm1, DataStore _dataStore)
+    public FrmPtCtrl(Form1 _fm1, DataStore _repData)
     {
       InitializeComponent();
 
       // 親フォーム設定
-      form1 = fm1;
+      fm1 = _fm1;
 
       // データ連携クラス引継ぎ
-      dataStore = _dataStore;
+      dataStore = _repData;
     }
     #endregion
 
@@ -28,7 +28,7 @@ namespace WFA
     #region 宣言
 
     // 親フォーム
-    public Form1 form1 { get; set; }
+    public Form1 fm1 { get; set; }
 
     // データ連携クラス
     DataStore dataStore;
@@ -41,10 +41,10 @@ namespace WFA
     {
       this.Text = "コントロール";
       // 親コントロールのサイズと位置からサイズ・出現位置設定
-      int parentX = form1.Location.X;
-      int parentY = form1.Location.Y;
-      int parentH = form1.Height;
-      int parentW = form1.Width;
+      int parentX = fm1.Location.X;
+      int parentY = fm1.Location.Y;
+      int parentH = fm1.Height;
+      int parentW = fm1.Width;
       // // 横幅は85(二行分)固定
       //this.Size = new Size(parentW, 85);
       this.Location = new Point(parentX * 2, parentY * 3);
@@ -88,7 +88,7 @@ namespace WFA
     private void btReplace_Click(object sender, EventArgs e)
     {
       // 置換実行メソッド
-      form1.ExecRep();
+      fm1.ExecRep();
     }
     #endregion
 
@@ -96,7 +96,7 @@ namespace WFA
     private void btPattern_Click(object sender, EventArgs e)
     {
       // パターン管理フォーム起動メソッド実行
-      form1.ShowPtMngFrm();
+      fm1.ShowPtMngFrm();
     }
     #endregion
 

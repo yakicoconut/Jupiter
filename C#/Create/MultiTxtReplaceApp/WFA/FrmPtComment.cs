@@ -12,12 +12,12 @@ namespace WFA
   public partial class FrmPtComment : Form
   {
     #region コンストラクタ
-    public FrmPtComment(Form1 fm1)
+    public FrmPtComment(Form1 _fm1)
     {
       InitializeComponent();
 
       // 親フォーム設定
-      form1 = fm1;
+      fm1 = _fm1;
     }
     #endregion
 
@@ -25,7 +25,7 @@ namespace WFA
     #region 宣言
 
     // 親フォーム
-    public Form1 form1 { get; set; }
+    private Form1 fm1;
 
     #endregion
 
@@ -35,10 +35,10 @@ namespace WFA
     {
       this.Text = "コメント";
       // 親コントロールのサイズと位置からサイズ・出現位置設定
-      int parentX = form1.Location.X;
-      int parentY = form1.Location.Y;
-      int parentH = form1.Height;
-      int parentW = form1.Width;
+      int parentX = fm1.Location.X;
+      int parentY = fm1.Location.Y;
+      int parentH = fm1.Height;
+      int parentW = fm1.Width;
       // 横幅は85(二行分)固定
       this.Size = new Size(parentW, 85);
       this.Location = new Point(parentX, parentY + parentH);

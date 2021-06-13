@@ -20,10 +20,10 @@ namespace WFA
   public class ExecRepPrc
   {
     #region コンストラクタ
-    public ExecRepPrc(Form1 fm, DataStore _dataStore)
+    public ExecRepPrc(Form1 _fm1, DataStore _dataStore)
     {
       // 呼び出し元フォームの設定
-      fm1 = fm;
+      fm1 = _fm1;
 
       // プログレスバーフォーム
       fmPrgBar = new FrmPrgBar();
@@ -50,87 +50,16 @@ namespace WFA
     #endregion
 
 
-    #region プロパティ
-
-    /// <summary>
-    /// 一時停止フラグ
-    /// true:停止、false:実行
-    /// </summary>
-    public bool PauseFlag { get; set; }
-
-    /// <summary>
-    /// 処理終了フラグ
-    /// true:終了、false:継続
-    /// </summary>
-    public bool EndFlag { get; set; }
-
-    #endregion
-
-
-    #region 主要スレッド処理メソッド
-
-    //// 排他ロック用変数
-    //private readonly object _lockObj = new object();
-
-    //// ラベル更新メソッド用のデリゲート宣言
-    //delegate void LabelUpdateCallback(string str);
-
-    ///// <summary>
-    ///// 主要スレッドメソッド
-    ///// </summary>
-    ///// <param name="obj"></param>
-    //public void PrimeThread(Object obj)
-    //{
-    //  /*
-    //   * Unity C# スレッドの休止と再開 - Qiita
-    //   *	https://qiita.com/satotin/items/4281afe26ae86d1eeec8
-    //   */
-    //  // 処理サンプル
-    //  for (int i = 0; i < 10; i++)
-    //  {
-    //    // フラグが一時停止の場合
-    //    if (PauseFlag == true)
-    //    {
-    //      MessageBox.Show("一時停止");
-    //      // スレッドを無期限で待機
-    //      autoResetEvent.WaitOne();
-    //    }
-
-    //    // 処理終了フラグが終了の場合
-    //    if (EndFlag == true)
-    //    {
-    //      MessageBox.Show("途中終了");
-
-    //      // 処理終了フラグ初期化
-    //      EndFlag = false;
-    //      // 処理終了
-    //      return;
-    //    }
-
-    //    // スレッド処理振り分けメソッド使用
-    //    fm.AssignThreadProcess(i.ToString());
-
-    //    // 待機
-    //    Thread.Sleep(1000);
-    //  }
-
-    //  //終了していて一時停止でないようにフラグを設定
-    //  EndFlag = true;
-
-    //  MessageBox.Show("完了");
-    //}
-
-    #endregion
-
-    #region 主要スレッド処理メソッド
+    #region 置換スレッド処理メソッド
     /// <summary>
     /// 主要スレッドメソッド
     /// </summary>
-    /// <param name="obj"></param>
-    public void MainProcessThread()
+    public void ExecRepThread()
     {
       string resultStr = dataStore.TgtStr;
 
+      // プログレスバー最大値設定
+      fmPrgBar.PrgBarMax = 20;
       int i = 0;
       foreach (CheckBox x in dataStore.ListChkBox)
       {
@@ -139,14 +68,14 @@ namespace WFA
         {
           i++;
           // プログレスバー更新メソッドメソッド使用
-          fmPrgBar.UpdPrgBarOprt(i, 20);
+          fmPrgBar.UpdPrgBarOprt(i);
           continue;
         }
         // ねずみ返し_検索対象が空の場合
         if (dataStore.ListTbSearch[i].Text == string.Empty)
         {
           i++;
-          fmPrgBar.UpdPrgBarOprt(i, 20);
+          fmPrgBar.UpdPrgBarOprt(i);
           continue;
         }
 
@@ -171,7 +100,7 @@ namespace WFA
         }
 
         i++;
-        fmPrgBar.UpdPrgBarOprt(i, 20);
+        fmPrgBar.UpdPrgBarOprt(i);
       }
 
       // 置換後文字列設定
@@ -186,8 +115,8 @@ namespace WFA
     /// </summary>
     public Thread Start()
     {
-      // メイン処理メソッドスレッドインスタンス生成
-      Thread threadA = new Thread(new ThreadStart(MainProcessThread));
+      // 置換スレッド処理メソッドインスタンス生成
+      Thread threadA = new Thread(new ThreadStart(ExecRepThread));
       // バックグラウンドフラグ
       threadA.IsBackground = true;
 
