@@ -52,8 +52,7 @@ namespace WFA
       this.ShowInTaskbar = false;
 
       // 文字コードコンボボックス設定
-      cbChcp.DataSource = new string[] { "UTF8", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
-
+      cbChcp.DataSource = new string[] { "UTF8", "SJIS", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
       // コントロール値初期化メソッド使用
       this.InitCtrlValue();
     }
@@ -69,6 +68,11 @@ namespace WFA
       cbIsIgnoreCase.Checked = dataStore.IsIgnoreCase;
       cbIsNewLine.Checked = dataStore.IsNewLine;
       cbIsTab.Checked = dataStore.IsTab;
+      cbIsMltRep.Checked = dataStore.IsMltRep;
+      // 一括置換
+      tbTgtDirPath.Text = dataStore.TgtDirPath;
+      tbFileFltr.Text = dataStore.FileFltr;
+      cbChcp.Text = dataStore.EncStr;
     }
     #endregion
 
@@ -92,6 +96,17 @@ namespace WFA
           dataStore.IsTab = cbIsTab.Checked;
           break;
 
+        case CheckBox ctrl when sender.Equals(cbIsMltRep):
+
+          bool chk = cbIsMltRep.Checked;
+          dataStore.IsMltRep = chk;
+
+          // 一括置換用コントロール有無効
+          tbTgtDirPath.Enabled = chk;
+          tbFileFltr.Enabled = chk;
+          cbChcp.Enabled = chk;
+          break;
+
         default:
           break;
       }
@@ -102,29 +117,44 @@ namespace WFA
     #region 置換ボタン押下イベント
     private void btReplace_Click(object sender, EventArgs e)
     {
-      // 対象フォルダパス取得
-      string tgtDirPath = tbTgtDirPath.Text;
-
-      // 値がない場合、
-      if(string.IsNullOrEmpty(tgtDirPath))
+      // 一括置換がチェックされていない場合
+      if (!dataStore.IsMltRep)
       {
         // メインフォーム置換実行メソッド使用
         fm1.ExecRep();
         return;
       }
 
-      // 対象フォルダが存在場合
-      if (Directory.Exists(tgtDirPath))
+      // 対象フォルダパス取得
+      string tgtDirPath = tbTgtDirPath.Text;
+
+      // フォルダ指定されていない場合
+      if (string.IsNullOrEmpty(tgtDirPath))
       {
-        // 
-        fm1.ExecRep(tgtDirPath, tbFileFltr.Text, cbChcp.Text);
+        MessageBox.Show("一括置換フォルダが指定されていません");
+        return;
       }
+      // 対象フォルダが存在しない場合
+      if (!Directory.Exists(tgtDirPath))
+      {
+        MessageBox.Show("対象フォルダが存在しません");
+        return;
+      }
+
+      // 複数用置換実行メソッド使用
+      fm1.ExecRep(tgtDirPath, tbFileFltr.Text, cbChcp.Text);
     }
     #endregion
 
     #region パターンボタン押下イベント
     private void btPattern_Click(object sender, EventArgs e)
     {
+      // 現状の一括置換値設定
+      dataStore.TgtDirPath = tbTgtDirPath.Text;
+      dataStore.FileFltr = tbFileFltr.Text;
+      // 文字コード文字列も設定
+      dataStore.EncStr = cbChcp.Text;
+
       // パターン管理フォーム起動メソッド実行
       fm1.ShowPtMngFrm();
     }

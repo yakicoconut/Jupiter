@@ -39,8 +39,8 @@ namespace WFA
       int parentY = fm1.Location.Y;
       int parentH = fm1.Height;
       int parentW = fm1.Width;
-      // 横幅は85(二行分)固定
-      this.Size = new Size(parentW, 85);
+      // 縦幅は85(三行分)固定
+      this.Size = new Size(parentW, 95);
       this.Location = new Point(parentX, parentY + parentH);
 
       // タスクバーにアイコンを表示しない

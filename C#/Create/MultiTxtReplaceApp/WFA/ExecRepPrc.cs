@@ -57,6 +57,44 @@ namespace WFA
     }
     #endregion
 
+    #region 単体置換スレッドスタートメソッド
+    /// <summary>
+    /// 単体置換スレッドスタートメソッド
+    /// </summary>
+    private Thread ExecRepStart()
+    {
+      // メインフォーム横幅
+      int mainFormSizeW = dataStore.MainFormSize.Width;
+
+      // プログレスバーフォーム
+      fmPrgBar = new FrmPrgBar();
+      // 事前にロードし、非表示としておく
+      fmPrgBar.Show();
+      fmPrgBar.Visible = false;
+      // サイズ設定
+      fmPrgBar.Size = new Size(mainFormSizeW * 3 / 4, 50);
+      // プログレスバーフォーム開始位置
+      fmPrgBar.StartPosition = FormStartPosition.Manual;
+      /* 独自設定_複数置換からの呼び出し対策 */
+      // 複数置換とかぶらないように下目に表示
+      fmPrgBar.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 25);
+
+      // 置換スレッド処理メソッドインスタンス生成
+      Thread threadA = new Thread(new ThreadStart(ExecRepThread));
+      // バックグラウンドフラグ
+      threadA.IsBackground = true;
+      // スレッドスタート
+      threadA.Start();
+
+      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
+      Thread.Sleep(500);
+      // プログレスバーフォーム表示
+      fmPrgBar.ShowDialog();
+
+      return threadA;
+    }
+    #endregion
+
     #region 単体置換スレッド処理メソッド
     /// <summary>
     /// 単体置換スレッド処理メソッド
@@ -124,44 +162,6 @@ namespace WFA
     }
     #endregion
 
-    #region 単体置換スレッドスタートメソッド
-    /// <summary>
-    /// 単体置換スレッドスタートメソッド
-    /// </summary>
-    private Thread ExecRepStart()
-    {
-      // メインフォーム横幅
-      int mainFormSizeW = dataStore.MainFormSize.Width;
-
-      // プログレスバーフォーム
-      fmPrgBar = new FrmPrgBar();
-      // 事前にロードし、非表示としておく
-      fmPrgBar.Show();
-      fmPrgBar.Visible = false;
-      // サイズ設定
-      fmPrgBar.Size = new Size(mainFormSizeW * 3 / 4, 50);
-      // プログレスバーフォーム開始位置
-      fmPrgBar.StartPosition = FormStartPosition.Manual;
-      /* 独自設定_複数置換からの呼び出し対策 */
-      // 複数置換とかぶらないように下目に表示
-      fmPrgBar.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 25);
-
-      // 置換スレッド処理メソッドインスタンス生成
-      Thread threadA = new Thread(new ThreadStart(ExecRepThread));
-      // バックグラウンドフラグ
-      threadA.IsBackground = true;
-      // スレッドスタート
-      threadA.Start();
-
-      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
-      Thread.Sleep(500);
-      // プログレスバーフォーム表示
-      fmPrgBar.ShowDialog();
-
-      return threadA;
-    }
-    #endregion
-
 
     #region 複数用置換処理メインメソッド
     /// <summary>
@@ -170,18 +170,60 @@ namespace WFA
     /// <param name="tgtDirPath"></param>
     /// <param name="fileFltr"></param>
     /// <param name="enc"></param>
-    public void ExecRepMain(string tgtDirPath, string fileFltr, Encoding enc)
+    public void ExecRepMain(string tgtDirPath, string fileFltr, string encStr)
     {
       // データ連携クラス設定
       dataStore.TgtDirPath = tgtDirPath;
       dataStore.FileFltr = fileFltr;
-      dataStore.Enc = enc;
+      // 文字列文字コード変換メソッド使用
+      dataStore.Enc = Str2Enc(encStr);
+      // スレッドでは使用しないが文字コード文字列も設定
+      dataStore.EncStr = encStr;
 
       // 複数置換スレッドスタートメソッド使用
       Thread threadB = ExecMltRepThStart();
 
       // スレッド終了待ち
       threadB.Join();
+    }
+    #endregion
+
+    #region 複数置換スレッドスタートメソッド
+    /// <summary>
+    /// 複数置換スレッドスタートメソッド
+    /// </summary>
+    private Thread ExecMltRepThStart()
+    {
+      // メインフォーム横幅
+      int mainFormSizeW = dataStore.MainFormSize.Width;
+
+      // 複数置換用プログレスバーフォーム
+      fmPrgBarMltRep = new FrmPrgBar();
+      fmPrgBarMltRep.Show();
+      fmPrgBarMltRep.Visible = false;
+      // サイズ設定
+      fmPrgBarMltRep.Size = new Size(mainFormSizeW * 3 / 4, 50);
+      // プログレスバーフォーム開始位置モード
+      fmPrgBarMltRep.StartPosition = FormStartPosition.Manual;
+      /* 独自設定 */
+      // 中心に表示
+      fmPrgBarMltRep.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 75);
+      // 親フォームのスレッドから作成のため、表示は裏にいかないのでタスクバー非表示
+      fmPrgBarMltRep.ShowInTaskbar = false;
+
+      // 置換スレッド処理メソッドインスタンス生成
+      Thread threadB = new Thread(new ThreadStart(ExecMltRepThread));
+      // バックグラウンドフラグ
+      threadB.IsBackground = true;
+      // スレッドスタート
+      threadB.Start();
+
+      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
+      Thread.Sleep(500);
+      // プログレスバーフォーム表示
+      fmPrgBarMltRep.ShowDialog();
+
+      return threadB;
     }
     #endregion
 
@@ -232,42 +274,49 @@ namespace WFA
     }
     #endregion
 
-    #region 複数置換スレッドスタートメソッド
-    /// <summary>
-    /// 複数置換スレッドスタートメソッド
-    /// </summary>
-    private Thread ExecMltRepThStart()
+
+    #region 文字列文字コード変換メソッド
+    private Encoding Str2Enc(string encStr)
     {
-      // メインフォーム横幅
-      int mainFormSizeW = dataStore.MainFormSize.Width;
+      // 拡張子コンボボックスからフォーマットを選判定する
+      Encoding enc;
+      switch (encStr)
+      {
+        default:
+        case "UTF8":
+          enc = Encoding.UTF8;
+          break;
 
-      // 複数置換用プログレスバーフォーム
-      fmPrgBarMltRep = new FrmPrgBar();
-      fmPrgBarMltRep.Show();
-      fmPrgBarMltRep.Visible = false;
-      // サイズ設定
-      fmPrgBarMltRep.Size = new Size(mainFormSizeW * 3 / 4, 50);
-      // プログレスバーフォーム開始位置モード
-      fmPrgBarMltRep.StartPosition = FormStartPosition.Manual;
-      /* 独自設定 */
-      // 中心に表示
-      fmPrgBarMltRep.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 75);
-      // 親フォームのスレッドから作成のため、表示は裏にいかないのでタスクバー非表示
-      fmPrgBarMltRep.ShowInTaskbar = false;
+        case "SJIS":
+          enc = Encoding.GetEncoding("Shift_JIS");
+          break;
 
-      // 置換スレッド処理メソッドインスタンス生成
-      Thread threadB = new Thread(new ThreadStart(ExecMltRepThread));
-      // バックグラウンドフラグ
-      threadB.IsBackground = true;
-      // スレッドスタート
-      threadB.Start();
+        case "UTF7":
+          enc = Encoding.UTF7;
+          break;
 
-      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
-      Thread.Sleep(500);
-      // プログレスバーフォーム表示
-      fmPrgBarMltRep.ShowDialog();
+        case "BigEndianUnicode":
+          enc = Encoding.BigEndianUnicode;
+          break;
 
-      return threadB;
+        case "Unicode":
+          enc = Encoding.Unicode;
+          break;
+
+        case "Default":
+          enc = Encoding.Default;
+          break;
+
+        case "ASCII":
+          enc = Encoding.ASCII;
+          break;
+
+        case "UTF32":
+          enc = Encoding.UTF32;
+          break;
+      }
+
+      return enc;
     }
     #endregion
   }

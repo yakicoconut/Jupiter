@@ -75,6 +75,10 @@ namespace WFA
       dicInitValue.Add("IsIgnoreCase", _comLogic.GetConfigValue("IsIgnoreCase", "True"));
       dicInitValue.Add("IsNewLine", _comLogic.GetConfigValue("IsNewLine", "True"));
       dicInitValue.Add("IsTab", _comLogic.GetConfigValue("IsTab", "True"));
+      dicInitValue.Add("IsMltRep", _comLogic.GetConfigValue("IsMltRep", "True"));
+      dicInitValue.Add("TgtDirPath", _comLogic.GetConfigValue("TgtDirPath", ""));
+      dicInitValue.Add("FileFltr", _comLogic.GetConfigValue("FileFltr", ""));
+      dicInitValue.Add("EncStr", _comLogic.GetConfigValue("EncStr", "UTF8"));
       for (int i = 1; i <= 20; i++)
       {
         // 1~20を二桁で作成
@@ -267,15 +271,12 @@ namespace WFA
     /// <param name="encStr">文字コード文字列</param>
     public void ExecRep(string tgtDirPath, string fileFltr, string encStr)
     {
-      // エンコードインスタンス生成
-      Encoding enc = Encoding.UTF8;
-
       // メインフォーム情報設定
       dataStore.MainFormSize = this.Size;
       dataStore.MainFormLoca = this.Location;
 
       // 複数用置換処理メインメソッド使用
-      execRepPrc.ExecRepMain(tgtDirPath, fileFltr, enc);
+      execRepPrc.ExecRepMain(tgtDirPath, fileFltr, encStr);
     }
     #endregion
 
@@ -419,6 +420,14 @@ namespace WFA
         dataStore.IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
       if (dicInitValue.ContainsKey("IsTab"))
         dataStore.IsTab = bool.Parse(dicInitValue["IsTab"]);
+      if (dicInitValue.ContainsKey("IsMltRep"))
+        dataStore.IsMltRep = bool.Parse(dicInitValue["IsMltRep"]);
+      if (dicInitValue.ContainsKey("TgtDirPath"))
+        dataStore.TgtDirPath = dicInitValue["TgtDirPath"];
+      if (dicInitValue.ContainsKey("FileFltr"))
+        dataStore.FileFltr = dicInitValue["FileFltr"];
+      if (dicInitValue.ContainsKey("EncStr"))
+        dataStore.EncStr = dicInitValue["EncStr"];
 
       // コントロールフォーム更新
       fmCtrl.InitCtrlValue();
@@ -482,7 +491,7 @@ namespace WFA
           xmlReader.MoveToFirstAttribute();
           string keyName = xmlReader.Value;
           // ねずみ返し_キーの値が違う場合
-          if (!Regex.Match(keyName, @"Comment|IsIgnoreCase|IsNewLine|IsTab|Check\d\d|Search\d\d|Replace\d\d").Success)
+          if (!Regex.Match(keyName, @"Comment|IsIgnoreCase|IsNewLine|IsTab|IsMltRep|TgtDirPath|FileFltr|EncStr|Check\d\d|Search\d\d|Replace\d\d").Success)
           {
             continue;
           }
@@ -531,6 +540,10 @@ namespace WFA
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
+      string outIsMltRep = string.Empty;
+      string outTgtDirPath = string.Empty;
+      string outFileFltr = string.Empty;
+      string outChcp = string.Empty;
       string XML_FMT = "  <add key=\"{0}\" value=\"{1}\"/>" + Environment.NewLine;
       // XML用
       string XML_DEC = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine;
@@ -548,11 +561,15 @@ namespace WFA
       outStrCmt = Regex.Replace(outStrCmt, "\r\n", "&#xD;&#xA;");
       outStrCmt = string.Format(XML_FMT, "Comment", outStrCmt);
 
-      // 大小文字判別、改行モード判断
+      // 大小文字判別、改行、タブモード判断
       outStrIsIgnoreCase = string.Format(XML_FMT, "IsIgnoreCase", dataStore.IsIgnoreCase.ToString());
       outStrIsNewLine = string.Format(XML_FMT, "IsNewLine", dataStore.IsNewLine.ToString());
       outStrIsTab = string.Format(XML_FMT, "IsTab", dataStore.IsTab.ToString());
-
+      // 一括置換
+      outIsMltRep = string.Format(XML_FMT, "IsMltRep", dataStore.IsMltRep.ToString());
+      outTgtDirPath = string.Format(XML_FMT, "TgtDirPath", dataStore.TgtDirPath);
+      outFileFltr = string.Format(XML_FMT, "FileFltr", dataStore.FileFltr);
+      outChcp = string.Format(XML_FMT, "EncStr", dataStore.EncStr);
 
       // 全チェックボックスループ
       int i = 0;
@@ -594,6 +611,10 @@ namespace WFA
           outStrIsIgnoreCase +
           outStrIsNewLine +
           outStrIsTab +
+          outIsMltRep +
+          outTgtDirPath +
+          outFileFltr +
+          outChcp +
           outStrChk +
           outStrSearch +
           outStrReplace +

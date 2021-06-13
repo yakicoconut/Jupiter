@@ -40,6 +40,7 @@
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.cbIsTab = new System.Windows.Forms.CheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.cbIsMltRep = new System.Windows.Forms.CheckBox();
       this.cbChcp = new System.Windows.Forms.ComboBox();
       this.tbFileFltr = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
@@ -158,6 +159,7 @@
       // 
       // groupBox3
       // 
+      this.groupBox3.Controls.Add(this.cbIsMltRep);
       this.groupBox3.Controls.Add(this.cbChcp);
       this.groupBox3.Controls.Add(this.tbFileFltr);
       this.groupBox3.Controls.Add(this.label2);
@@ -168,7 +170,19 @@
       this.groupBox3.Size = new System.Drawing.Size(442, 98);
       this.groupBox3.TabIndex = 15;
       this.groupBox3.TabStop = false;
-      this.groupBox3.Text = "ファイル一括置換";
+      // 
+      // cbIsMltRep
+      // 
+      this.cbIsMltRep.AutoSize = true;
+      this.cbIsMltRep.Checked = true;
+      this.cbIsMltRep.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsMltRep.Location = new System.Drawing.Point(9, 0);
+      this.cbIsMltRep.Name = "cbIsMltRep";
+      this.cbIsMltRep.Size = new System.Drawing.Size(128, 19);
+      this.cbIsMltRep.TabIndex = 21;
+      this.cbIsMltRep.Text = "ファイル一括置換";
+      this.cbIsMltRep.UseVisualStyleBackColor = true;
+      this.cbIsMltRep.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
       // 
       // cbChcp
       // 
@@ -285,5 +299,6 @@
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.CheckBox cbIsTab;
     private System.Windows.Forms.ComboBox cbChcp;
+    private System.Windows.Forms.CheckBox cbIsMltRep;
   }
 }

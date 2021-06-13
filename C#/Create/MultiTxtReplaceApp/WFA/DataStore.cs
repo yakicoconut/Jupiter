@@ -53,6 +53,11 @@ namespace WFA
     public string ReplacedStr { get; set; }
 
     /// <summary>
+    /// 一括置換モード判断
+    /// </summary>
+    public bool IsMltRep { get; set; }
+
+    /// <summary>
     /// 対象フォルダパス
     /// </summary>
     public string TgtDirPath { get; set; }
@@ -66,6 +71,11 @@ namespace WFA
     /// 文字コード
     /// </summary>
     public Encoding Enc { get; set; }
+
+    /// <summary>
+    /// 文字コード文字列
+    /// </summary>
+    public string EncStr { get; set; }
 
     /// <summary>
     /// メインフォームサイズ
