@@ -60,7 +60,7 @@ namespace WFA
       fmCtrl = new FrmPtCtrl(this, dataStore);
 
       // 置換実行処理クラスインスタンス生成
-      execRepThread = new ExecRepThread(this, dataStore);
+      execRepPrc = new ExecRepPrc(this, dataStore);
     }
     #endregion
 
@@ -100,7 +100,7 @@ namespace WFA
     // データ連携クラス
     DataStore dataStore;
     // 置換実行処理クラス
-    ExecRepThread execRepThread;
+    ExecRepPrc execRepPrc;
 
     // 各コントロール初期値ディクショナリ
     Dictionary<string, string> dicInitValue = new Dictionary<string, string>();
@@ -241,7 +241,7 @@ namespace WFA
       dataStore.TgtStr = rtbTarget.Text;
 
       // 画像取り込み処理クラススタートメソッド使用
-      Thread threadA = execRepThread.Start();
+      Thread threadA = execRepPrc.Start();
 
       // スレッド終了待ち
       threadA.Join();

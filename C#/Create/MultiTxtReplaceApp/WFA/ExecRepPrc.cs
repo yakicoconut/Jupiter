@@ -17,10 +17,10 @@ namespace WFA
   /// <summary>
   /// 置換実行処理クラス
   /// </summary>
-  public class ExecRepThread
+  public class ExecRepPrc
   {
     #region コンストラクタ
-    public ExecRepThread(Form1 fm, DataStore _dataStore)
+    public ExecRepPrc(Form1 fm, DataStore _dataStore)
     {
       // 呼び出し元フォームの設定
       fm1 = fm;
