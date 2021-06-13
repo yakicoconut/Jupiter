@@ -20,17 +20,8 @@ namespace WFA
   public class ExecRepPrc
   {
     #region コンストラクタ
-    public ExecRepPrc(Form1 _fm1, DataStore _dataStore)
+    public ExecRepPrc(DataStore _dataStore)
     {
-      // 呼び出し元フォームの設定
-      fm1 = _fm1;
-
-      // プログレスバーフォーム
-      fmPrgBar = new FrmPrgBar();
-      // 事前にロードし、非表示としておく
-      fmPrgBar.Show();
-      fmPrgBar.Visible = false;
-
       // データ連携クラス引継ぎ
       dataStore = _dataStore;
     }
@@ -39,10 +30,10 @@ namespace WFA
 
     #region 宣言
 
-    // メインフォーム
-    Form1 fm1;
     // プログレスバーフォーム
     FrmPrgBar fmPrgBar;
+    // 複数置換用プログレスバーフォーム
+    FrmPrgBar fmPrgBarMltRep;
 
     // データ連携クラス
     DataStore dataStore;
@@ -50,16 +41,41 @@ namespace WFA
     #endregion
 
 
+    #region 置換処理メインメソッド
+    /// <summary>
+    /// 置換処理メインメソッド
+    /// </summary>
+    /// <param name="tgtStr"></param>
+    /// <returns>置換後文字列</returns>
+    public string ExecRepMain(string tgtStr)
+    {
+      // データ連携クラス置換文字列設定
+      dataStore.TgtStr = tgtStr;
+
+      // 画像取り込み処理クラススタートメソッド使用
+      Thread threadA = Start();
+
+      // スレッド終了待ち
+      threadA.Join();
+
+      // 置換後文字列返却
+      return dataStore.ReplacedStr;
+    }
+    #endregion
+
     #region 置換スレッド処理メソッド
     /// <summary>
     /// 置換スレッド処理メソッド
     /// </summary>
     private void ExecRepThread()
     {
-      string resultStr = dataStore.TgtStr;
-
       // プログレスバー最大値設定
       fmPrgBar.PrgBarMax = 20;
+
+      // 対象文字列取得
+      string resultStr = dataStore.TgtStr;
+
+      // 置換文字列ループ
       int i = 0;
       foreach (CheckBox x in dataStore.ListChkBox)
       {
@@ -118,24 +134,146 @@ namespace WFA
     /// <summary>
     /// スタートメソッド
     /// </summary>
-    public Thread Start()
+    private Thread Start()
     {
+      // メインフォーム横幅
+      int mainFormSizeW = dataStore.MainFormSize.Width;
+
+      // プログレスバーフォーム
+      fmPrgBar = new FrmPrgBar();
+      // 事前にロードし、非表示としておく
+      fmPrgBar.Show();
+      fmPrgBar.Visible = false;
+
       // 置換スレッド処理メソッドインスタンス生成
       Thread threadA = new Thread(new ThreadStart(ExecRepThread));
       // バックグラウンドフラグ
       threadA.IsBackground = true;
 
       // プログレスバーフォーム開始位置
-      fmPrgBar.StartPosition = FormStartPosition.CenterParent;
+      fmPrgBar.StartPosition = FormStartPosition.Manual;
+      fmPrgBar.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 25);
+
       // サイズ設定
-      fmPrgBar.Size = new Size(fm1.Size.Width * 3 / 4, 50);
+      fmPrgBar.Size = new Size(mainFormSizeW * 3 / 4, 50);
 
       // スレッドスタート
       threadA.Start();
+
+      // 
+      Thread.Sleep(500);
       // プログレスバーフォーム表示
-      fmPrgBar.ShowDialog(fm1);
+      fmPrgBar.ShowDialog();
 
       return threadA;
+    }
+    #endregion
+
+
+    #region 複数置換処理メインメソッド
+    /// <summary>
+    /// 複数置換処理メインメソッド
+    /// </summary>
+    /// <param name="tgtDirPath"></param>
+    /// <param name="fileFltr"></param>
+    /// <param name="enc"></param>
+    public void ExecRepMain(string tgtDirPath, string fileFltr, Encoding enc)
+    {
+      // データ連携クラス設定
+      dataStore.TgtDirPath = tgtDirPath;
+      dataStore.FileFltr = fileFltr;
+      dataStore.Enc = enc;
+
+      // 複数置換スレッドスタートメソッド使用
+      Thread threadB = ExecMltRepThStart();
+
+      // スレッド終了待ち
+      threadB.Join();
+    }
+    #endregion
+
+    #region 複数置換スレッド処理メソッド
+    /// <summary>
+    /// 複数置換スレッド処理メソッド
+    /// </summary>
+    private void ExecMltRepThread()
+    {
+      // フォルダからXMLファイルのパスだけ取得
+      string[] tgtFiles = Directory.GetFiles(dataStore.TgtDirPath, "*", SearchOption.TopDirectoryOnly);
+
+      // プログレスバー最大値設定
+      fmPrgBarMltRep.PrgBarMax = tgtFiles.Length;
+
+      // 文字コード取得
+      Encoding enc = dataStore.Enc;
+
+      // 対象ファイルループ
+      int i = 0;
+      foreach (string x in tgtFiles)
+      {
+        string str = string.Empty;
+
+        // ファイル名取得
+        string tgtName = Path.GetFileName(x);
+
+        // ファイル読み込み
+        using (StreamReader sr = new StreamReader(x, enc))
+        {
+          // ファイル内容取得
+          str = sr.ReadToEnd();
+        }
+
+        // 置換処理メインメソッド使用
+        string repedStr = ExecRepMain(str);
+
+        // ファイルを開く
+        using (StreamWriter writer = new StreamWriter(tgtName, false, enc))
+        {
+          // テキストを書き込む
+          writer.WriteLine(repedStr);
+        }
+
+        i++;
+        fmPrgBarMltRep.UpdPrgBarOprt(i);
+      }
+    }
+    #endregion
+
+    #region 複数置換スレッドスタートメソッド
+    /// <summary>
+    /// 複数置換スレッドスタートメソッド
+    /// </summary>
+    private Thread ExecMltRepThStart()
+    {
+      // メインフォーム横幅
+      int mainFormSizeW = dataStore.MainFormSize.Width;
+
+      // 複数置換用プログレスバーフォーム
+      fmPrgBarMltRep = new FrmPrgBar();
+      fmPrgBarMltRep.Show();
+      fmPrgBarMltRep.Visible = false;
+
+      // 置換スレッド処理メソッドインスタンス生成
+      Thread threadB = new Thread(new ThreadStart(ExecMltRepThread));
+      // バックグラウンドフラグ
+      threadB.IsBackground = true;
+
+      // プログレスバーフォーム開始位置
+      fmPrgBarMltRep.StartPosition = FormStartPosition.Manual;
+      fmPrgBarMltRep.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 75);
+
+      // サイズ設定
+      fmPrgBarMltRep.Size = new Size(mainFormSizeW * 3 / 4, 50);
+
+      // スレッドスタート
+      threadB.Start();
+
+      // 
+      Thread.Sleep(500);
+      // プログレスバーフォーム表示
+      fmPrgBarMltRep.ShowDialog();
+
+      return threadB;
     }
     #endregion
   }

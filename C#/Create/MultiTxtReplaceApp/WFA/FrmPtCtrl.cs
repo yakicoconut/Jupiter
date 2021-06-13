@@ -98,8 +98,23 @@ namespace WFA
     #region 置換ボタン押下イベント
     private void btReplace_Click(object sender, EventArgs e)
     {
-      // 置換実行メソッド
-      fm1.ExecRep();
+      // 対象フォルダパス取得
+      string tgtDirPath = tbTgtDirPath.Text;
+
+      // 値がない場合、
+      if(string.IsNullOrEmpty(tgtDirPath))
+      {
+        // メインフォーム置換実行メソッド使用
+        fm1.ExecRep();
+        return;
+      }
+
+      // 対象フォルダが存在場合
+      if (Directory.Exists(tgtDirPath))
+      {
+        // 
+        fm1.ExecRep(tgtDirPath, tbFileFltr.Text, cbChcp.Text);
+      }
     }
     #endregion
 

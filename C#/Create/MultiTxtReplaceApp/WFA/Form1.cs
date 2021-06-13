@@ -60,7 +60,7 @@ namespace WFA
       fmCtrl = new FrmPtCtrl(this, dataStore);
 
       // 置換実行処理クラスインスタンス生成
-      execRepPrc = new ExecRepPrc(this, dataStore);
+      execRepPrc = new ExecRepPrc(dataStore);
     }
     #endregion
 
@@ -235,17 +235,12 @@ namespace WFA
       rtbTarget.SelectAll();
       rtbTarget.SelectionColor = Color.Black;
 
-      // 対象文字列設定
-      dataStore.TgtStr = rtbTarget.Text;
+      // メインフォーム情報設定
+      dataStore.MainFormSize = this.Size;
+      dataStore.MainFormLoca = this.Location;
 
-      // 画像取り込み処理クラススタートメソッド使用
-      Thread threadA = execRepPrc.Start();
-
-      // スレッド終了待ち
-      threadA.Join();
-
-      // 置換後文字列表示
-      rtbResult.Text = dataStore.ReplacedStr;
+      // 画像取り込み処理クラス置換処理メインメソッド使用
+      rtbResult.Text = execRepPrc.ExecRepMain(rtbTarget.Text);
 
       // 対象と結果の比較から差分を取得
       DiffResult[] diffResult = FastDiff.DiffChar(rtbResult.Text, rtbTarget.Text);
@@ -262,6 +257,25 @@ namespace WFA
       }
     }
     #endregion
+
+    #region 置換実行メソッド
+    /// <summary>
+    /// 置換実行メソッド
+    /// </summary>
+    public void ExecRep(string tgtDirPath, string fileFltr, string encStr)
+    {
+      // エンコードインスタンス生成
+      Encoding enc = Encoding.UTF8;
+
+      // メインフォーム情報設定
+      dataStore.MainFormSize = this.Size;
+      dataStore.MainFormLoca = this.Location;
+
+      //
+      execRepPrc.ExecRepMain(tgtDirPath, fileFltr, enc);
+    }
+    #endregion
+
 
     #region パターン管理フォーム起動メソッド
     public void ShowPtMngFrm()
