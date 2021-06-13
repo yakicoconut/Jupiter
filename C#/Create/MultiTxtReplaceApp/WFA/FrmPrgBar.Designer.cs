@@ -42,7 +42,7 @@
       this.progressBar1.Size = new System.Drawing.Size(165, 36);
       this.progressBar1.TabIndex = 0;
       // 
-      // FrmPrgBar_
+      // FrmPrgBar
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -50,7 +50,7 @@
       this.Controls.Add(this.progressBar1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
-      this.Name = "FrmPrgBar_";
+      this.Name = "FrmPrgBar";
       this.Text = "Form2";
       this.Load += new System.EventHandler(this.FrmPrgBar_Load);
       this.Shown += new System.EventHandler(this.FrmPrgBar_Shown);

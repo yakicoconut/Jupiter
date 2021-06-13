@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace WFA
 {
   /// <summary>
-  /// プログレスバー用フォームクラス
+  /// プログレスバー用フォーム
   /// </summary>
   public partial class FrmPrgBar : Form
   {

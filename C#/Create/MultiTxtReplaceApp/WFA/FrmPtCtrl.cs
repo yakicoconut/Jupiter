@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WFA
 {
+  /// <summary>
+  /// コントロールフォーム
+  /// </summary>
   public partial class FrmPtCtrl : Form
   {
     #region コンストラクタ
@@ -64,7 +63,7 @@ namespace WFA
       cbIgnoreCase.Checked = dataStore.IsIgnoreCase;
       cbNewLine.Checked = dataStore.IsNewLine;
       cbTab.Checked = dataStore.IsTab;
-    } 
+    }
     #endregion
 
 

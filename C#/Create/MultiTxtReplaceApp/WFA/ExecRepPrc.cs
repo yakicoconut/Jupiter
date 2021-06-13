@@ -52,9 +52,9 @@ namespace WFA
 
     #region 置換スレッド処理メソッド
     /// <summary>
-    /// 主要スレッドメソッド
+    /// 置換スレッド処理メソッド
     /// </summary>
-    public void ExecRepThread()
+    private void ExecRepThread()
     {
       string resultStr = dataStore.TgtStr;
 
@@ -113,7 +113,6 @@ namespace WFA
       dataStore.ReplacedStr = resultStr;
     }
     #endregion
-
 
     #region スタートメソッド
     /// <summary>
