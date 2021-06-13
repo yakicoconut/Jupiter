@@ -215,7 +215,41 @@ namespace WFA
     {
       // 最前面設定
       this.TopMost = cbIsTopMost.Checked;
-    } 
+    }
+    #endregion
+
+    #region 上下ボタン押下イベント
+    private void UpDownButton_Click(object sender, EventArgs e)
+    {
+      // 現在行数取得
+      int currentIndex = lvProcessList.SelectedItems[0].Index;
+      // 最終行取得 
+      int lastIndex = lvProcessList.Items.Count - 1;
+
+      // 操作後、次の項目へ行くかどうかフラグ
+      bool isNext = false;
+
+      // 押下キー分岐
+      switch (((Button)sender).Name)
+      {
+        // 上
+        case "btUp":
+          // リスト上下押下メソッド使用
+          ListViewKeyDownUpDown(isNext, currentIndex, lastIndex, null);
+          break;
+
+        // 下
+        case "btDown":
+          // 次の項目へフラグを立てる
+          isNext = true;
+          // リスト上下押下メソッド使用
+          ListViewKeyDownUpDown(isNext, currentIndex, lastIndex, null);
+          break;
+
+        default:
+          break;
+      }
+    }
     #endregion
 
 
@@ -369,10 +403,14 @@ namespace WFA
       lvProcessList.Items[destIndex].Selected = true;
       lvProcessList.Items[destIndex].Focused = true;
 
-      // 選択処理が二重で実行されるため
-      // デフォルト(一つ上を選択する)キー押下イベント無効化
-      // 参照型のため値変更後返す必要はない
-      e.Handled = true;
+      // キー入力イベントの場合
+      if(e != null)
+      {
+        // 選択処理が二重で実行されるため
+        // デフォルト(一つ上を選択する)キー押下イベント無効化
+        // 参照型のため値変更後返す必要はない
+        e.Handled = true;
+      }
     }
     #endregion
 
