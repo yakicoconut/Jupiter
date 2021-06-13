@@ -42,6 +42,11 @@ namespace WFA
     public bool IsNewLine { get; set; }
 
     /// <summary>
+    /// タブモード判断
+    /// </summary>
+    public bool IsTab { get; set; }
+
+    /// <summary>
     /// 置換後文字列
     /// </summary>
     public string ReplacedStr { get; set; }

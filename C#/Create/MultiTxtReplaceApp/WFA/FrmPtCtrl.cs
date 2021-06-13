@@ -63,6 +63,7 @@ namespace WFA
       // チェックボックス
       cbIgnoreCase.Checked = dataStore.IsIgnoreCase;
       cbNewLine.Checked = dataStore.IsNewLine;
+      cbTab.Checked = dataStore.IsTab;
     } 
     #endregion
 
@@ -80,6 +81,14 @@ namespace WFA
     {
       // 親フォームプロパティ更新
       dataStore.IsNewLine = cbNewLine.Checked;
+    }
+    #endregion
+
+    #region タブモード判断チェックボックス値変更イベント
+    private void cbTab_CheckedChanged(object sender, EventArgs e)
+    {
+      // 親フォームプロパティ更新
+      dataStore.IsTab = cbTab.Checked;
     }
     #endregion
 

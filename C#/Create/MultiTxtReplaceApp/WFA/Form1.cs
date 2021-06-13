@@ -74,6 +74,7 @@ namespace WFA
       dicInitValue.Add("Comment", _comLogic.GetConfigValue("Comment", ""));
       dicInitValue.Add("IsIgnoreCase", _comLogic.GetConfigValue("IsIgnoreCase", "True"));
       dicInitValue.Add("IsNewLine", _comLogic.GetConfigValue("IsNewLine", "True"));
+      dicInitValue.Add("IsTab", _comLogic.GetConfigValue("IsTab", "True"));
       for (int i = 1; i <= 20; i++)
       {
         // 1~20を二桁で作成
@@ -399,6 +400,10 @@ namespace WFA
       {
         dataStore.IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
       }
+      if (dicInitValue.ContainsKey("IsTab"))
+      {
+        dataStore.IsTab = bool.Parse(dicInitValue["IsTab"]);
+      }
       fmCtrl.InitCtrlValue();
 
       // 各コントロール値初期化
@@ -460,7 +465,7 @@ namespace WFA
           xmlReader.MoveToFirstAttribute();
           string keyName = xmlReader.Value;
           // ねずみ返し_キーの値が違う場合
-          if (!Regex.Match(keyName, @"Comment|IsIgnoreCase|IsNewLine|Check\d\d|Search\d\d|Replace\d\d").Success)
+          if (!Regex.Match(keyName, @"Comment|IsIgnoreCase|IsNewLine|IsTab|Check\d\d|Search\d\d|Replace\d\d").Success)
           {
             continue;
           }
@@ -505,6 +510,7 @@ namespace WFA
       string outStrCmt = string.Empty;
       string outStrIsIgnoreCase = string.Empty;
       string outStrIsNewLine = string.Empty;
+      string outStrIsTab = string.Empty;
       string outStrChk = string.Empty;
       string outStrSearch = string.Empty;
       string outStrReplace = string.Empty;
@@ -528,6 +534,7 @@ namespace WFA
       // 大小文字判別、改行モード判断
       outStrIsIgnoreCase = string.Format(XML_FMT, "IsIgnoreCase", dataStore.IsIgnoreCase.ToString());
       outStrIsNewLine = string.Format(XML_FMT, "IsNewLine", dataStore.IsNewLine.ToString());
+      outStrIsTab = string.Format(XML_FMT, "IsTab", dataStore.IsTab.ToString());
 
 
       // 全チェックボックスループ
@@ -569,6 +576,7 @@ namespace WFA
           outStrCmt +
           outStrIsIgnoreCase +
           outStrIsNewLine +
+          outStrIsTab +
           outStrChk +
           outStrSearch +
           outStrReplace +

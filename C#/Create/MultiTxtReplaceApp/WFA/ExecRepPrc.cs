@@ -98,6 +98,12 @@ namespace WFA
           // 「\n」を改行とする
           resultStr = Regex.Replace(resultStr, @"\\n", Environment.NewLine);
         }
+        // タブモード判断
+        if (dataStore.IsTab)
+        {
+          // 「\t」をタブ文字とする
+          resultStr = Regex.Replace(resultStr, @"\\t", "\t");
+        }
 
         i++;
         fmPrgBar.UpdPrgBarOprt(i);

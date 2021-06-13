@@ -38,6 +38,7 @@
       this.btReplace = new System.Windows.Forms.Button();
       this.btPattern = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.cbTab = new System.Windows.Forms.CheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
       this.textBox2 = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
@@ -131,6 +132,7 @@
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.cbTab);
       this.groupBox1.Controls.Add(this.groupBox3);
       this.groupBox1.Controls.Add(this.cbIgnoreCase);
       this.groupBox1.Controls.Add(this.cbNewLine);
@@ -140,6 +142,18 @@
       this.groupBox1.TabIndex = 15;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "オプション";
+      // 
+      // cbTab
+      // 
+      this.cbTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbTab.AutoSize = true;
+      this.cbTab.Location = new System.Drawing.Point(139, 21);
+      this.cbTab.Name = "cbTab";
+      this.cbTab.Size = new System.Drawing.Size(47, 19);
+      this.cbTab.TabIndex = 16;
+      this.cbTab.Text = "タブ";
+      this.cbTab.UseVisualStyleBackColor = true;
+      this.cbTab.CheckedChanged += new System.EventHandler(this.cbTab_CheckedChanged);
       // 
       // groupBox3
       // 
@@ -258,5 +272,6 @@
     private System.Windows.Forms.TextBox textBox2;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.CheckBox cbTab;
   }
 }
