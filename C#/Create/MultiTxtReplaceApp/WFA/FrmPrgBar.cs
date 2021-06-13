@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Drawing;
 
 namespace WFA
 {
@@ -40,8 +35,8 @@ namespace WFA
     #region 宣言
 
     // プログレスバー更新用デリゲート
-    delegate void UpdPrgBarCallback(int val);
-    UpdPrgBarCallback dlgUpdPrgBar;
+    private delegate void UpdPrgBarCallback(int val);
+    private UpdPrgBarCallback dlgUpdPrgBar;
 
     #endregion
 
@@ -50,24 +45,18 @@ namespace WFA
     /// <summary>
     /// プログレスバー最大値
     /// </summary>
-    public int PrgBarMax { get; set; }
+    public int PrgBarMax { private get; set; }
 
     #endregion
 
-
-    #region フォームロードイベント
-    private void FrmPrgBar_Load(object sender, EventArgs e)
-    {
-      // プログレスバー値初期化
-      progressBar1.Value = 0;
-    }
-    #endregion
 
     #region フォーム表示イベント
     private void FrmPrgBar_Shown(object sender, EventArgs e)
     {
       // プログレスバー最大値設定
-      progressBar1.Maximum = PrgBarMax;
+      prgBar.Maximum = PrgBarMax;
+      // プログレスバー値初期化
+      prgBar.Value = 0;
     }
     #endregion
 
@@ -75,11 +64,15 @@ namespace WFA
     #region プログレスバー更新メソッド
     private void UpdPrgBar(int val)
     {
+      // 経過ラベル更新
+      lbPrg.Text = string.Format("{0}/{1}", val, PrgBarMax);
+      lbPrg.Update();
+
       // 更新
-      progressBar1.Value = val;
+      prgBar.Value = val;
 
       // ねずみ返し_最大値以上の場合
-      if (val >= progressBar1.Maximum)
+      if (val >= prgBar.Maximum)
       {
         // フォームクローズ
         Close();
@@ -95,7 +88,7 @@ namespace WFA
     public void UpdPrgBarOprt(int val)
     {
       // プログレスバー更新メソッド起動
-      progressBar1.Invoke(dlgUpdPrgBar, val);
+      prgBar.Invoke(dlgUpdPrgBar, val);
     }
     #endregion
   }

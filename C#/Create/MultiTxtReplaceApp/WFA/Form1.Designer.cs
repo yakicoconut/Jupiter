@@ -272,7 +272,7 @@
       this.btAllCrearSearch.TabIndex = 4;
       this.btAllCrearSearch.Text = "全削除";
       this.btAllCrearSearch.UseVisualStyleBackColor = true;
-      this.btAllCrearSearch.Click += new System.EventHandler(this.btAllCrearSearch_Click);
+      this.btAllCrearSearch.Click += new System.EventHandler(this.Com_AllCrearButton_Click);
       // 
       // cb17
       // 
@@ -686,7 +686,7 @@
       this.btAllCrearReplace.TabIndex = 1;
       this.btAllCrearReplace.Text = "全削除";
       this.btAllCrearReplace.UseVisualStyleBackColor = true;
-      this.btAllCrearReplace.Click += new System.EventHandler(this.btAllCrearReplace_Click);
+      this.btAllCrearReplace.Click += new System.EventHandler(this.Com_AllCrearButton_Click);
       // 
       // tbReplace19
       // 

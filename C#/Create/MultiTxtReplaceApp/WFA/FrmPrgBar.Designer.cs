@@ -28,38 +28,54 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.progressBar1 = new System.Windows.Forms.ProgressBar();
+      this.prgBar = new System.Windows.Forms.ProgressBar();
+      this.lbPrg = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
-      // progressBar1
+      // prgBar
       // 
-      this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.prgBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.progressBar1.Location = new System.Drawing.Point(6, 6);
-      this.progressBar1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
-      this.progressBar1.Name = "progressBar1";
-      this.progressBar1.Size = new System.Drawing.Size(165, 36);
-      this.progressBar1.TabIndex = 0;
+      this.prgBar.Location = new System.Drawing.Point(6, 6);
+      this.prgBar.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+      this.prgBar.Name = "prgBar";
+      this.prgBar.Size = new System.Drawing.Size(165, 36);
+      this.prgBar.TabIndex = 0;
+      // 
+      // lbPrg
+      // 
+      this.lbPrg.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.lbPrg.AutoSize = true;
+      this.lbPrg.BackColor = System.Drawing.Color.Transparent;
+      this.lbPrg.Font = new System.Drawing.Font("ＭＳ ゴシック", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+      this.lbPrg.ForeColor = System.Drawing.Color.Black;
+      this.lbPrg.Location = new System.Drawing.Point(82, 18);
+      this.lbPrg.Name = "lbPrg";
+      this.lbPrg.Size = new System.Drawing.Size(17, 16);
+      this.lbPrg.TabIndex = 1;
+      this.lbPrg.Text = "-";
       // 
       // FrmPrgBar
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(176, 48);
-      this.Controls.Add(this.progressBar1);
+      this.Controls.Add(this.lbPrg);
+      this.Controls.Add(this.prgBar);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
       this.Name = "FrmPrgBar";
       this.Text = "Form2";
-      this.Load += new System.EventHandler(this.FrmPrgBar_Load);
       this.Shown += new System.EventHandler(this.FrmPrgBar_Shown);
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
     #endregion
 
-    protected System.Windows.Forms.ProgressBar progressBar1;
+    protected System.Windows.Forms.ProgressBar prgBar;
+    private System.Windows.Forms.Label lbPrg;
   }
 }

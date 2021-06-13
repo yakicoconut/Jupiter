@@ -38,15 +38,15 @@
       this.btReplace = new System.Windows.Forms.Button();
       this.btPattern = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.cbTab = new System.Windows.Forms.CheckBox();
+      this.cbIsTab = new System.Windows.Forms.CheckBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
       this.cbChcp = new System.Windows.Forms.ComboBox();
       this.tbFileFltr = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
       this.tbTgtDirPath = new System.Windows.Forms.TextBox();
-      this.cbIgnoreCase = new System.Windows.Forms.CheckBox();
-      this.cbNewLine = new System.Windows.Forms.CheckBox();
+      this.cbIsIgnoreCase = new System.Windows.Forms.CheckBox();
+      this.cbIsNewLine = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.groupBox2.SuspendLayout();
@@ -133,10 +133,10 @@
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.cbTab);
+      this.groupBox1.Controls.Add(this.cbIsTab);
       this.groupBox1.Controls.Add(this.groupBox3);
-      this.groupBox1.Controls.Add(this.cbIgnoreCase);
-      this.groupBox1.Controls.Add(this.cbNewLine);
+      this.groupBox1.Controls.Add(this.cbIsIgnoreCase);
+      this.groupBox1.Controls.Add(this.cbIsNewLine);
       this.groupBox1.Location = new System.Drawing.Point(3, 3);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Size = new System.Drawing.Size(454, 150);
@@ -144,17 +144,17 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "オプション";
       // 
-      // cbTab
+      // cbIsTab
       // 
-      this.cbTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbTab.AutoSize = true;
-      this.cbTab.Location = new System.Drawing.Point(139, 21);
-      this.cbTab.Name = "cbTab";
-      this.cbTab.Size = new System.Drawing.Size(47, 19);
-      this.cbTab.TabIndex = 16;
-      this.cbTab.Text = "タブ";
-      this.cbTab.UseVisualStyleBackColor = true;
-      this.cbTab.CheckedChanged += new System.EventHandler(this.cbTab_CheckedChanged);
+      this.cbIsTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsTab.AutoSize = true;
+      this.cbIsTab.Location = new System.Drawing.Point(139, 21);
+      this.cbIsTab.Name = "cbIsTab";
+      this.cbIsTab.Size = new System.Drawing.Size(47, 19);
+      this.cbIsTab.TabIndex = 16;
+      this.cbIsTab.Text = "タブ";
+      this.cbIsTab.UseVisualStyleBackColor = true;
+      this.cbIsTab.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
       // 
       // groupBox3
       // 
@@ -214,29 +214,29 @@
       this.tbTgtDirPath.TabIndex = 15;
       this.tbTgtDirPath.WordWrap = false;
       // 
-      // cbIgnoreCase
+      // cbIsIgnoreCase
       // 
-      this.cbIgnoreCase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbIgnoreCase.AutoSize = true;
-      this.cbIgnoreCase.Location = new System.Drawing.Point(6, 21);
-      this.cbIgnoreCase.Name = "cbIgnoreCase";
-      this.cbIgnoreCase.Size = new System.Drawing.Size(56, 19);
-      this.cbIgnoreCase.TabIndex = 14;
-      this.cbIgnoreCase.Text = "大小";
-      this.cbIgnoreCase.UseVisualStyleBackColor = true;
-      this.cbIgnoreCase.CheckedChanged += new System.EventHandler(this.cbIgnoreCase_CheckedChanged);
+      this.cbIsIgnoreCase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsIgnoreCase.AutoSize = true;
+      this.cbIsIgnoreCase.Location = new System.Drawing.Point(6, 21);
+      this.cbIsIgnoreCase.Name = "cbIsIgnoreCase";
+      this.cbIsIgnoreCase.Size = new System.Drawing.Size(56, 19);
+      this.cbIsIgnoreCase.TabIndex = 14;
+      this.cbIsIgnoreCase.Text = "大小";
+      this.cbIsIgnoreCase.UseVisualStyleBackColor = true;
+      this.cbIsIgnoreCase.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
       // 
-      // cbNewLine
+      // cbIsNewLine
       // 
-      this.cbNewLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbNewLine.AutoSize = true;
-      this.cbNewLine.Location = new System.Drawing.Point(68, 21);
-      this.cbNewLine.Name = "cbNewLine";
-      this.cbNewLine.Size = new System.Drawing.Size(56, 19);
-      this.cbNewLine.TabIndex = 11;
-      this.cbNewLine.Text = "改行";
-      this.cbNewLine.UseVisualStyleBackColor = true;
-      this.cbNewLine.CheckedChanged += new System.EventHandler(this.cbNewLine_CheckedChanged);
+      this.cbIsNewLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsNewLine.AutoSize = true;
+      this.cbIsNewLine.Location = new System.Drawing.Point(68, 21);
+      this.cbIsNewLine.Name = "cbIsNewLine";
+      this.cbIsNewLine.Size = new System.Drawing.Size(56, 19);
+      this.cbIsNewLine.TabIndex = 11;
+      this.cbIsNewLine.Text = "改行";
+      this.cbIsNewLine.UseVisualStyleBackColor = true;
+      this.cbIsNewLine.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
       // 
       // FrmPtCtrl
       // 
@@ -272,8 +272,8 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityGain;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpacityDec;
     private System.Windows.Forms.Panel panel1;
-    private System.Windows.Forms.CheckBox cbIgnoreCase;
-    private System.Windows.Forms.CheckBox cbNewLine;
+    private System.Windows.Forms.CheckBox cbIsIgnoreCase;
+    private System.Windows.Forms.CheckBox cbIsNewLine;
     private System.Windows.Forms.Button btPattern;
     private System.Windows.Forms.Button btReplace;
     private System.Windows.Forms.GroupBox groupBox1;
@@ -283,7 +283,7 @@
     private System.Windows.Forms.TextBox tbFileFltr;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.CheckBox cbTab;
+    private System.Windows.Forms.CheckBox cbIsTab;
     private System.Windows.Forms.ComboBox cbChcp;
   }
 }

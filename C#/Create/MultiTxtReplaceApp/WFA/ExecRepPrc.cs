@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Configuration;
 using System.Threading;
-using System.Collections;
 using System.IO;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
 using System.Drawing;
 
@@ -41,9 +35,9 @@ namespace WFA
     #endregion
 
 
-    #region 置換処理メインメソッド
+    #region 単体用置換処理メインメソッド
     /// <summary>
-    /// 置換処理メインメソッド
+    /// 単体用置換処理メインメソッド
     /// </summary>
     /// <param name="tgtStr"></param>
     /// <returns>置換後文字列</returns>
@@ -52,8 +46,8 @@ namespace WFA
       // データ連携クラス置換文字列設定
       dataStore.TgtStr = tgtStr;
 
-      // 画像取り込み処理クラススタートメソッド使用
-      Thread threadA = Start();
+      // 単体置換スレッドスタートメソッド使用
+      Thread threadA = ExecRepStart();
 
       // スレッド終了待ち
       threadA.Join();
@@ -63,9 +57,9 @@ namespace WFA
     }
     #endregion
 
-    #region 置換スレッド処理メソッド
+    #region 単体置換スレッド処理メソッド
     /// <summary>
-    /// 置換スレッド処理メソッド
+    /// 単体置換スレッド処理メソッド
     /// </summary>
     private void ExecRepThread()
     {
@@ -130,11 +124,11 @@ namespace WFA
     }
     #endregion
 
-    #region スタートメソッド
+    #region 単体置換スレッドスタートメソッド
     /// <summary>
-    /// スタートメソッド
+    /// 単体置換スレッドスタートメソッド
     /// </summary>
-    private Thread Start()
+    private Thread ExecRepStart()
     {
       // メインフォーム横幅
       int mainFormSizeW = dataStore.MainFormSize.Width;
@@ -144,23 +138,22 @@ namespace WFA
       // 事前にロードし、非表示としておく
       fmPrgBar.Show();
       fmPrgBar.Visible = false;
+      // サイズ設定
+      fmPrgBar.Size = new Size(mainFormSizeW * 3 / 4, 50);
+      // プログレスバーフォーム開始位置
+      fmPrgBar.StartPosition = FormStartPosition.Manual;
+      /* 独自設定_複数置換からの呼び出し対策 */
+      // 複数置換とかぶらないように下目に表示
+      fmPrgBar.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 25);
 
       // 置換スレッド処理メソッドインスタンス生成
       Thread threadA = new Thread(new ThreadStart(ExecRepThread));
       // バックグラウンドフラグ
       threadA.IsBackground = true;
-
-      // プログレスバーフォーム開始位置
-      fmPrgBar.StartPosition = FormStartPosition.Manual;
-      fmPrgBar.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 25);
-
-      // サイズ設定
-      fmPrgBar.Size = new Size(mainFormSizeW * 3 / 4, 50);
-
       // スレッドスタート
       threadA.Start();
 
-      // 
+      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
       Thread.Sleep(500);
       // プログレスバーフォーム表示
       fmPrgBar.ShowDialog();
@@ -170,9 +163,9 @@ namespace WFA
     #endregion
 
 
-    #region 複数置換処理メインメソッド
+    #region 複数用置換処理メインメソッド
     /// <summary>
-    /// 複数置換処理メインメソッド
+    /// 複数用置換処理メインメソッド
     /// </summary>
     /// <param name="tgtDirPath"></param>
     /// <param name="fileFltr"></param>
@@ -252,23 +245,24 @@ namespace WFA
       fmPrgBarMltRep = new FrmPrgBar();
       fmPrgBarMltRep.Show();
       fmPrgBarMltRep.Visible = false;
+      // サイズ設定
+      fmPrgBarMltRep.Size = new Size(mainFormSizeW * 3 / 4, 50);
+      // プログレスバーフォーム開始位置モード
+      fmPrgBarMltRep.StartPosition = FormStartPosition.Manual;
+      /* 独自設定 */
+      // 中心に表示
+      fmPrgBarMltRep.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 75);
+      // 親フォームのスレッドから作成のため、表示は裏にいかないのでタスクバー非表示
+      fmPrgBarMltRep.ShowInTaskbar = false;
 
       // 置換スレッド処理メソッドインスタンス生成
       Thread threadB = new Thread(new ThreadStart(ExecMltRepThread));
       // バックグラウンドフラグ
       threadB.IsBackground = true;
-
-      // プログレスバーフォーム開始位置
-      fmPrgBarMltRep.StartPosition = FormStartPosition.Manual;
-      fmPrgBarMltRep.Location = new Point(dataStore.MainFormLoca.X + (mainFormSizeW * 1 / 4) / 2, dataStore.MainFormLoca.Y + (dataStore.MainFormSize.Height / 2) - 75);
-
-      // サイズ設定
-      fmPrgBarMltRep.Size = new Size(mainFormSizeW * 3 / 4, 50);
-
       // スレッドスタート
       threadB.Start();
 
-      // 
+      // スレッド内で最大値設定するためフォーム表示を一瞬遅らせる
       Thread.Sleep(500);
       // プログレスバーフォーム表示
       fmPrgBarMltRep.ShowDialog();

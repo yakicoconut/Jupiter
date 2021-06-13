@@ -27,7 +27,7 @@ namespace WFA
     #region 宣言
 
     // 親フォーム
-    public Form1 fm1 { get; set; }
+    private Form1 fm1;
 
     // データ連携クラス
     DataStore dataStore;
@@ -51,46 +51,50 @@ namespace WFA
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
 
+      // 文字コードコンボボックス設定
+      cbChcp.DataSource = new string[] { "UTF8", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
+
       // コントロール値初期化メソッド使用
       this.InitCtrlValue();
     }
     #endregion
 
     #region コントロール値初期化メソッド
+    /// <summary>
+    /// コントロール値初期化メソッド
+    /// </summary>
     public void InitCtrlValue()
     {
       // チェックボックス
-      cbIgnoreCase.Checked = dataStore.IsIgnoreCase;
-      cbNewLine.Checked = dataStore.IsNewLine;
-      cbTab.Checked = dataStore.IsTab;
-
-      // 文字コードコンボボックス設定
-      cbChcp.DataSource = new string[] { "UTF8", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
+      cbIsIgnoreCase.Checked = dataStore.IsIgnoreCase;
+      cbIsNewLine.Checked = dataStore.IsNewLine;
+      cbIsTab.Checked = dataStore.IsTab;
     }
     #endregion
 
 
-    #region 大小文字判別チェックボックス値変更イベント
-    private void cbIgnoreCase_CheckedChanged(object sender, EventArgs e)
+    #region 共通_チェックボックス値変更イベント
+    private void Com_ChekBox_CheckedChanged(object sender, EventArgs e)
     {
-      // 親フォームプロパティ更新
-      dataStore.IsIgnoreCase = cbIgnoreCase.Checked;
-    }
-    #endregion
+      switch (sender)
+      {
+        // 型がチェックボックスかつ対象コントロールと一致する場合
+        case CheckBox ctrl when sender.Equals(cbIsIgnoreCase):
+          // 親フォームプロパティ更新
+          dataStore.IsIgnoreCase = cbIsIgnoreCase.Checked;
+          break;
 
-    #region 改行モード判断チェックボックス値変更イベント
-    private void cbNewLine_CheckedChanged(object sender, EventArgs e)
-    {
-      // 親フォームプロパティ更新
-      dataStore.IsNewLine = cbNewLine.Checked;
-    }
-    #endregion
+        case CheckBox ctrl when sender.Equals(cbIsNewLine):
+          dataStore.IsNewLine = cbIsNewLine.Checked;
+          break;
 
-    #region タブモード判断チェックボックス値変更イベント
-    private void cbTab_CheckedChanged(object sender, EventArgs e)
-    {
-      // 親フォームプロパティ更新
-      dataStore.IsTab = cbTab.Checked;
+        case CheckBox ctrl when sender.Equals(cbIsTab):
+          dataStore.IsTab = cbIsTab.Checked;
+          break;
+
+        default:
+          break;
+      }
     }
     #endregion
 

@@ -225,9 +225,9 @@ namespace WFA
     #endregion
 
 
-    #region 置換実行メソッド
+    #region 単体用置換実行メソッド
     /// <summary>
-    /// 置換実行メソッド
+    /// 単体用置換実行メソッド
     /// </summary>
     public void ExecRep()
     {
@@ -258,10 +258,13 @@ namespace WFA
     }
     #endregion
 
-    #region 置換実行メソッド
+    #region 複数用置換実行メソッド
     /// <summary>
-    /// 置換実行メソッド
+    /// 複数用置換実行メソッド
     /// </summary>
+    /// <param name="tgtDirPath">対象フォルダパス</param>
+    /// <param name="fileFltr">ファイルフィルタ</param>
+    /// <param name="encStr">文字コード文字列</param>
     public void ExecRep(string tgtDirPath, string fileFltr, string encStr)
     {
       // エンコードインスタンス生成
@@ -271,7 +274,7 @@ namespace WFA
       dataStore.MainFormSize = this.Size;
       dataStore.MainFormLoca = this.Location;
 
-      //
+      // 複数用置換処理メインメソッド使用
       execRepPrc.ExecRepMain(tgtDirPath, fileFltr, enc);
     }
     #endregion
@@ -319,24 +322,31 @@ namespace WFA
     }
     #endregion
 
-    #region 検索対象全削除ボタン押下イベント
-    private void btAllCrearSearch_Click(object sender, EventArgs e)
-    {
-      // 検索対象ボックス全削除
-      foreach (TextBox x in dataStore.ListTbSearch)
-      {
-        x.ResetText();
-      }
-    }
-    #endregion
 
-    #region 置換文字列全削除ボタン押下イベント
-    private void btAllCrearReplace_Click(object sender, EventArgs e)
+    #region 共通_全削除ボタン押下イベント
+    private void Com_AllCrearButton_Click(object sender, EventArgs e)
     {
-      // 置換文字列ボックス全削除
-      foreach (TextBox x in dataStore.ListTbReplace)
+      switch (sender)
       {
-        x.ResetText();
+        // 型がボタンかつ対象コントロールと一致する場合
+        case Button ctrl when sender.Equals(btAllCrearSearch):
+          // 検索対象ボックス全削除
+          foreach (TextBox x in dataStore.ListTbSearch)
+          {
+            x.ResetText();
+          }
+          break;
+
+        case Button ctrl when sender.Equals(btAllCrearReplace):
+          // 置換文字列ボックス全削除
+          foreach (TextBox x in dataStore.ListTbReplace)
+          {
+            x.ResetText();
+          }
+          break;
+
+        default:
+          break;
       }
     }
     #endregion
@@ -398,26 +408,19 @@ namespace WFA
     private void InitCtrlValue()
     {
       // コメント
-      // デフォルト値
       fmComment.tbComment.Text = string.Empty;
       if (dicInitValue.ContainsKey("Comment"))
-      {
-        // 設定値から取得
         fmComment.tbComment.Text = dicInitValue["Comment"];
-      }
+
       // コントロールフォーム
       if (dicInitValue.ContainsKey("IsIgnoreCase"))
-      {
         dataStore.IsIgnoreCase = bool.Parse(dicInitValue["IsIgnoreCase"]);
-      }
       if (dicInitValue.ContainsKey("IsNewLine"))
-      {
         dataStore.IsNewLine = bool.Parse(dicInitValue["IsNewLine"]);
-      }
       if (dicInitValue.ContainsKey("IsTab"))
-      {
         dataStore.IsTab = bool.Parse(dicInitValue["IsTab"]);
-      }
+
+      // コントロールフォーム更新
       fmCtrl.InitCtrlValue();
 
       // 各コントロール値初期化
