@@ -13,6 +13,12 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Threading;
 
+#region ヘッダ
+/*
+ * プログレスバー
+ * 
+ */
+#endregion
 namespace WFA
 {
   /// <summary>
@@ -50,7 +56,7 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
 
     #endregion
-    
+
     #region プロパティ
 
     // ラベル更新文字列
@@ -74,14 +80,6 @@ namespace WFA
 
       // バックグラウンド処理で更新されたプロパティ使用
       label1.Text = str;
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    private void template()
-    {
-
     }
     #endregion
   }
