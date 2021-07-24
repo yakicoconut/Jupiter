@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Collections;
 
+#region ヘッダ
 /*
  * コレクション
  *   ・ハッシュテーブル
  *   ・キュー
  *   ・スタック
  *   ・ディクショナリ
- */
+ */ 
+#endregion
 namespace WCA
 {
   class Program
   {
+    #region メインメソッド
     static void Main(string[] args)
     {
       TestHashTable();
@@ -21,7 +24,9 @@ namespace WCA
       TestDictionary();
 
       Console.ReadKey();
-    }
+    } 
+    #endregion
+
 
     #region ハッシュテーブル
     static void TestHashTable()
