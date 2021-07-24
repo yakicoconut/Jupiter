@@ -12,6 +12,7 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 
+#region ヘッド
 /*
  * イベント
  *   概要
@@ -23,6 +24,7 @@ using System.Configuration;
  *     [C#]イベントハンドラとはなんぞや – gomokulog
  *     	http://gomocool.net/gomokulog/?p=255
  */
+#endregion
 namespace WFA
 {
   /// <summary>
@@ -75,14 +77,6 @@ namespace WFA
 
     #region ボタン2押下イベント
     private void button2_Click(object sender, EventArgs e)
-    {
-
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    public void template()
     {
 
     }
