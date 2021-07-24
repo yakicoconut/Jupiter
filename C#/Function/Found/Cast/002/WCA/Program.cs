@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#region ヘッダ
 /*
  * as・is
  *   ・アップキャストした変数では派生クラスのメンバに
@@ -19,6 +20,7 @@ using System.Text;
  *     ・キャスト可能な場合はキャストを実行しキャストできない場合はnullを返す
  *       通常のキャストとの違いはエラーを返すかどうか
  */
+#endregion
 namespace WCA
 {
   /// <summary>
@@ -50,9 +52,9 @@ namespace WCA
       public string var03 = "ghi";
     }
 
-
+    #region メインメソッド
     static void Main(string[] args)
-    {      
+    {
       Derived1 dynamicD1;
       Derived2 dynamicD2;
       Base dynamicB1;
@@ -120,5 +122,6 @@ namespace WCA
 
       Console.ReadKey();
     }
+    #endregion
   }
 }

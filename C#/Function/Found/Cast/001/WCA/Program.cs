@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#region ヘッダ
 /*
  * キャスト
  *   アップキャスト
@@ -32,6 +33,7 @@ using System.Text;
  *                                                                    代入しようとするため明示的なキャストをすれば
  *                                                                    コンパイルは通る(文法的にはエラーにならない)
  */
+#endregion
 namespace WCA
 {
   /// <summary>
@@ -53,13 +55,14 @@ namespace WCA
     class Derived2 : Base { }
 
 
+    #region メインメソッド
     static void Main(string[] args)
-    {      
+    {
       // 通常のインスタンス生成
       Derived1 dynamicD1 = new Derived1();
       Derived2 dynamicD2 = new Derived2();
       Base dynamicB = new Base();
-      
+
 
       // 単純なアップキャスト
       // 「Base」クラス型の変数に
@@ -93,6 +96,7 @@ namespace WCA
 
 
       Console.ReadKey();
-    }
+    } 
+    #endregion
   }
 }
