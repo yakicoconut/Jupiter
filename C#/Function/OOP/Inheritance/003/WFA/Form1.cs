@@ -13,6 +13,7 @@ using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Configuration;
 
+#region ヘッダ
 /*
  * 継承_部分上書き
  *   ・オーバーライドしたメソッド内で上書き元メソッドを
@@ -23,6 +24,7 @@ using System.Configuration;
  *           プラスで必要な機種別の処理と元メソッド呼び出しを上書きメソッドで実装する
  * 
  */
+#endregion
 namespace WFA
 {
   /// <summary>
@@ -80,17 +82,10 @@ namespace WFA
 
     }
     #endregion
-
-
-    #region 雛形メソッド
-    public void template()
-    {
-
-    }
-    #endregion
   }
 
 
+  #region 基底クラス
   /// <summary>
   /// 基底クラス
   /// </summary>
@@ -106,8 +101,10 @@ namespace WFA
       return a - b;
     }
   }
+  #endregion
 
 
+  #region 派生クラス
   /// <summary>
   /// 派生クラス
   /// </summary>
@@ -128,4 +125,5 @@ namespace WFA
       return a * b;
     }
   }
+  #endregion
 }
