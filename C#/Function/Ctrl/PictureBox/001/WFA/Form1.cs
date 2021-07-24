@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 #region ヘッダ
 /*
- * 概要
+ * ピクチャボックス
  *   ・PictureBox関連
  *   ・ビットマップ取り込み
  *     Dispose(解放)を行わないとファイルロックされる
@@ -97,14 +97,6 @@ namespace WFA
        * ピクチャボックスで使用しているため、解放できない
        */
       //img.Dispose();
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    public void template()
-    {
-
     }
     #endregion
   }
