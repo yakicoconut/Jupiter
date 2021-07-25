@@ -15,7 +15,8 @@ using System.Diagnostics;
 #region ヘッダ
 /*
  * リストビュー
- * 
+ *   ・先頭行から最終行、最終行から先頭行へ上下キー押下で移動する処理は
+ *     用意されていないため実装する必要がある
  * サイト
  *   C#リストビューで画像ファイルのサムネイル表示 | 迷惑堂本舗
  *   	https://maywork.net/computer/csharp_task_with_thumbnail/
@@ -69,6 +70,9 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
+      // 複数選択禁止
+      listView1.MultiSelect = false;
+
       // 対象拡張子
       tgtExt = ".jpg,.jepg,.png,.tiff,.gif,.bmp, .heic".Split(',');
     }
@@ -157,6 +161,46 @@ namespace WFA
       }
 
       return canvas;
+    }
+    #endregion
+
+
+    #region キー押下イベント
+    private void listView1_KeyDown(object sender, KeyEventArgs e)
+    {
+      // 現在行数取得
+      int currentIndex = listView1.SelectedItems[0].Index;
+      int lastIndex = listView1.Items.Count - 1;
+
+      // 上押下かつ先頭行の場合
+      if (e.KeyCode == Keys.Up && currentIndex == 0)
+      {
+        // 先頭最終行選択メソッド使用
+        SelectTopOrBottom(currentIndex, lastIndex, e);
+      }
+      // 下押下かつ最終行の場合
+      else if (e.KeyCode == Keys.Down && currentIndex == lastIndex)
+      {
+        // 先頭最終行選択メソッド使用
+        SelectTopOrBottom(currentIndex, 0, e);
+      }
+    }
+    #endregion
+
+    #region 先頭最終行選択メソッド
+    private void SelectTopOrBottom(int currentIndex, int destIndex, KeyEventArgs e)
+    {
+      // 現在選択行の選択をはずす
+      listView1.Items[currentIndex].Selected = false;
+      listView1.Items[currentIndex].Focused = false;
+      // 対象行を選択
+      listView1.Items[destIndex].Selected = true;
+      listView1.Items[destIndex].Focused = true;
+
+      // 選択処理が二重で実行されるため
+      // デフォルト(一つ上を選択する)キー押下イベント無効化
+      // 参照型のため値変更後返す必要はない
+      e.Handled = true;
     }
     #endregion
 
