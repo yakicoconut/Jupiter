@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Reflection;
 using System.IO;
-using Microsoft.VisualBasic;
-using System.Diagnostics;
 using System.Xml;
-using System.Collections;
-using System.Configuration;
 
 namespace WFA
 {
@@ -50,9 +39,6 @@ namespace WFA
 
     // 共通ロジッククラスインスタンス
     MCSComLogic _comLogic = new MCSComLogic();
-
-    // XML探索デリゲート宣言
-    delegate string DlgtDigXml(string tgtStr, XmlReaderSettings setting, string searchKey);
 
     // 区切り文字
     string searchKeySpr;
@@ -101,18 +87,6 @@ namespace WFA
     {
       // 対象パス取得
       string tgtPath = tbTgtPath.Text;
-
-      // 検索対象キーを配列として取得
-      string[] searchKeys = { tbSearchKeySpr.Text };
-      // 区切り文字チェックがされている場合
-      if (cbIsUseSearchKeySpr.Checked)
-      {
-        // 区切り文字配列変換
-        string[] del = { searchKeySpr };
-        // 区切り文字で検索対象キーを分割
-        searchKeys = searchKeys[0].Split(del, StringSplitOptions.None);
-      }
-
       // ねずみ返し
       if (tgtPath == "")
       {
@@ -120,8 +94,17 @@ namespace WFA
         return;
       }
 
-      // XML探索デリゲート切り替えメソッド使用
-      DlgtDigXml dlgtDigXml = GetDlgtDigXml();
+      /* 検索対象キー */
+      // 変数スコープの都合上、配列として取得
+      string[] searchKeys = { tbSearchKey.Text };
+      // 値が存在するかつ区切り文字チェックがされている場合
+      if (searchKeys[0] != string.Empty&& cbIsUseSearchKeySpr.Checked)
+      {
+        // 区切り文字配列変換
+        string[] del = { searchKeySpr };
+        // 区切り文字で検索対象キーを分割
+        searchKeys = searchKeys[0].Split(del, StringSplitOptions.None);
+      }
 
       /* StringReader設定 */
       XmlReaderSettings xmlSet = new XmlReaderSettings();
@@ -147,8 +130,18 @@ namespace WFA
         // 検索対象キーをループ
         foreach (string x in searchKeys)
         {
-          // XML探索デリゲート使用
-          rsltDspStr += dlgtDigXml(tgtPath, xmlSet, x);
+          // コンボボックスの値分岐
+          switch (cbDigMode.Text)
+          {
+            case "Raw":
+              // 生Xml取得メソッド使用
+              rsltDspStr += GetRawXml(tgtPath);
+              break;
+            case "Key":
+              // キー検索メソッド使用
+              rsltDspStr += DigKey(tgtPath, xmlSet, x);
+              break;
+          }
         }
       }
       else if (Directory.Exists(tgtPath))
@@ -164,8 +157,18 @@ namespace WFA
           // 検索対象キーをループ
           foreach (string y in searchKeys)
           {
-            // XML探索デリゲート使用
-            rsltDspStr += dlgtDigXml(x, xmlSet, y);
+            // コンボボックスの値分岐
+            switch (cbDigMode.Text)
+            {
+              case "Raw":
+                // 生Xml取得メソッド使用
+                rsltDspStr += GetRawXml(tgtPath);
+                break;
+              case "Key":
+                // キー検索メソッド使用
+                rsltDspStr += DigKey(tgtPath, xmlSet, x);
+                break;
+            }
 
             // ファイル名出力カウンタ更新
             ++fileCnt;
@@ -294,83 +297,63 @@ namespace WFA
     #endregion
 
 
-    #region XML探索デリゲート切り替えメソッド
-    private DlgtDigXml GetDlgtDigXml()
-    {
-      // コンボボックスの値からスイッチ
-      DlgtDigXml dlgtDigXml = null;
-      switch (cbDigMode.Text)
-      {
-        case "Raw":
-          dlgtDigXml = GetRawXml;
-          break;
-
-        case "Key":
-          dlgtDigXml = DigKey;
-          break;
-      }
-      return dlgtDigXml;
-    }
-    #endregion
-
-
     #region 山括弧抜き検索メソッド
-    private string DigWithoutThanSign(string targetPath, XmlReaderSettings setting)
+    private string DigWithoutThanSign(string tgtPath, XmlReaderSettings xmlSet)
     {
       // 返り値変数
       string retStr = string.Empty;
 
       // ファイル名
-      retStr += Path.GetFileName(targetPath) + "\r\n";
+      retStr += Path.GetFileName(tgtPath) + "\r\n";
 
       // ファイルからXMLを取得
       // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
-      using (StreamReader streamReader = new StreamReader(targetPath))
-      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, setting))
-      using (XmlReader xmlReader = xmlStreamReader)
+      using (StreamReader strmRdr = new StreamReader(tgtPath))
+      using (XmlReader xmlStrmRdr = XmlReader.Create(strmRdr, xmlSet))
+      using (XmlReader xmlRdr = xmlStrmRdr)
       {
         // XmlReader.Readメソッド使用パターン
-        while (xmlReader.Read())
+        while (xmlRdr.Read())
         {
           // 階層の深さ基底より下の場合
           string depth = "";
-          if (xmlReader.Depth >= 1)
+          if (xmlRdr.Depth >= 1)
           {
             // インデントを作成
-            depth = " ".PadRight(xmlReader.Depth * 2);
+            depth = " ".PadRight(xmlRdr.Depth * 2);
           }
 
           // ノードタイプで分岐
-          switch (xmlReader.NodeType)
+          switch (xmlRdr.NodeType)
           {
             case XmlNodeType.Attribute:
               break;
             case XmlNodeType.XmlDeclaration: // XML宣言
-              retStr += "?" + xmlReader.Name;
-              retStr += " " + xmlReader.Value + "?";
+              retStr += "?" + xmlRdr.Name;
+              retStr += " " + xmlRdr.Value + "?";
               retStr += "\r\n";
               break;
             case XmlNodeType.Element: // 開始タグ
-              retStr += depth + xmlReader.Name;
+              retStr += depth + xmlRdr.Name;
 
               // 属性がある場合
-              for (int i = 0; i < xmlReader.AttributeCount; i++)
+              for (int i = 0; i < xmlRdr.AttributeCount; i++)
               {
                 // 属性へリーダを移動
-                xmlReader.MoveToAttribute(i);
-                retStr += " " + xmlReader.Name;
-                retStr += @"=""" + xmlReader.Value + @"""";
+                xmlRdr.MoveToAttribute(i);
+                retStr += " " + xmlRdr.Name;
+                retStr += @"=""" + xmlRdr.Value + @"""";
               }
               retStr += "\r\n";
               break;
             case XmlNodeType.Text: // 値
-              retStr += depth + xmlReader.Value + "\r\n";
+              retStr += depth + xmlRdr.Value + "\r\n";
               break;
             case XmlNodeType.EndElement: // 終了タグ
-              retStr += depth + "/" + xmlReader.Name + "\r\n";
+              retStr += depth + "/" + xmlRdr.Name + "\r\n";
               break;
             case XmlNodeType.Comment: // コメントタグ
-              retStr += depth + "!--" + xmlReader.Value + "--" + "\r\n";
+              retStr += depth + "!--" + xmlRdr.Value + "--" + "\r\n";
               break;
             case XmlNodeType.None:
               break;
@@ -388,15 +371,15 @@ namespace WFA
     #endregion
 
     #region 生Xml取得メソッド
-    private string GetRawXml(string tgtStr, XmlReaderSettings xmlSet, string searchKey)
+    private string GetRawXml(string tgtStr)
     {
       // 返り値変数
       string retStr = string.Empty;
 
       // ファイルからXmlReaderでXMLを取得
-      using (StreamReader reader = new StreamReader(tgtStr))
+      using (StreamReader strmRdr = new StreamReader(tgtStr))
       {
-        retStr += reader.ReadToEnd();
+        retStr += strmRdr.ReadToEnd();
       }
 
       // 改行
@@ -405,7 +388,6 @@ namespace WFA
       return retStr;
     }
     #endregion
-
 
     #region キー検索メソッド
     private string DigKey(string tgtStr, XmlReaderSettings xmlSet, string searchKey)
@@ -424,18 +406,18 @@ namespace WFA
 
       // ファイルからXMLを取得
       // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
-      using (StreamReader streamReader = new StreamReader(tgtStr))
-      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, xmlSet))
-      using (XmlReader xmlReader = xmlStreamReader)
+      using (StreamReader strmRdr = new StreamReader(tgtStr))
+      using (XmlReader xmlStrmRdr = XmlReader.Create(strmRdr, xmlSet))
+      using (XmlReader xmlRdr = xmlStrmRdr)
       {
         // 要素ループ
-        while (xmlReader.ReadToFollowing(searchKey))
+        while (xmlRdr.ReadToFollowing(searchKey))
         {
           // 属性チェックボックス
           if (cbIsOutAttr.Checked)
           {
             // 属性取得メソッド使用
-            retStr += GetAttr(xmlReader);
+            retStr += GetAttr(xmlRdr);
           }
           // 値出力チェックボックス
           if (cbIsOutVal.Checked)
@@ -454,7 +436,7 @@ namespace WFA
             }
 
             // 値追加
-            string value = xmlReader.ReadString();
+            string value = xmlRdr.ReadString();
             retStr += string.Format(RETURN_FORMAT, value);
           }
         }
@@ -489,7 +471,7 @@ namespace WFA
 
 
     #region 属性取得メソッド
-    private string GetAttr(XmlReader xmlReader)
+    private string GetAttr(XmlReader xmlRdr)
     {
       string preRetStr = string.Empty;
       string retStr = string.Empty;
@@ -508,20 +490,20 @@ namespace WFA
 
       // 属性ループ
       int ii = 0;
-      while (xmlReader.MoveToNextAttribute())
+      while (xmlRdr.MoveToNextAttribute())
       {
         // 返り値フォーマット
         string RETURN_FORMAT = "{0}\r\n";
         // 属性名取得
-        string AttrName = xmlReader.Name;
+        string AttrName = xmlRdr.Name;
         // 属性取得
-        string Attr = xmlReader.GetAttribute(ii);
+        string Attr = xmlRdr.GetAttribute(ii);
 
         // タブチェック
         if (cbIsTab.Checked)
         {
           // 属性が一つしかない
-          if (xmlReader.AttributeCount == 1)
+          if (xmlRdr.AttributeCount == 1)
           {
             // タブ、改行複合
             RETURN_FORMAT = "\t\t{0}\r\n";
@@ -531,7 +513,7 @@ namespace WFA
             // タブ二個追加
             RETURN_FORMAT = "\t\t{0}";
           }
-          else if (ii == xmlReader.AttributeCount - 1) // 最後の属性
+          else if (ii == xmlRdr.AttributeCount - 1) // 最後の属性
           {
             // 更に改行追加
             RETURN_FORMAT = "\t{0}\r\n";

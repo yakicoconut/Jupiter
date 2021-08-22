@@ -33,7 +33,7 @@
       this.tbTgtPath = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
-      this.tbSearchKeySpr = new System.Windows.Forms.TextBox();
+      this.tbSearchKey = new System.Windows.Forms.TextBox();
       this.cbDigMode = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.btCreate = new System.Windows.Forms.Button();
@@ -105,14 +105,14 @@
       this.label2.TabIndex = 7;
       this.label2.Text = "Key:";
       // 
-      // tbSearchKeySpr
+      // tbSearchKey
       // 
-      this.tbSearchKeySpr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbSearchKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbSearchKeySpr.Location = new System.Drawing.Point(46, 37);
-      this.tbSearchKeySpr.Name = "tbSearchKeySpr";
-      this.tbSearchKeySpr.Size = new System.Drawing.Size(501, 19);
-      this.tbSearchKeySpr.TabIndex = 6;
+      this.tbSearchKey.Location = new System.Drawing.Point(46, 37);
+      this.tbSearchKey.Name = "tbSearchKey";
+      this.tbSearchKey.Size = new System.Drawing.Size(501, 19);
+      this.tbSearchKey.TabIndex = 6;
       // 
       // cbDigMode
       // 
@@ -175,7 +175,7 @@
       this.tbRsltDsp.Multiline = true;
       this.tbRsltDsp.Name = "tbRsltDsp";
       this.tbRsltDsp.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbRsltDsp.Size = new System.Drawing.Size(258, 322);
+      this.tbRsltDsp.Size = new System.Drawing.Size(252, 322);
       this.tbRsltDsp.TabIndex = 3;
       this.tbRsltDsp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Com_DspTextbox_KeyDown);
       // 
@@ -298,7 +298,7 @@
       this.Controls.Add(this.cbDigMode);
       this.Controls.Add(this.btCreate);
       this.Controls.Add(this.label2);
-      this.Controls.Add(this.tbSearchKeySpr);
+      this.Controls.Add(this.tbSearchKey);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.tbTgtPath);
       this.Controls.Add(this.btDig);
@@ -323,7 +323,7 @@
     private System.Windows.Forms.TextBox tbTgtPath;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox tbSearchKeySpr;
+    private System.Windows.Forms.TextBox tbSearchKey;
     private System.Windows.Forms.Button btCreate;
     private System.Windows.Forms.ComboBox cbDigMode;
     private System.Windows.Forms.Label label3;
