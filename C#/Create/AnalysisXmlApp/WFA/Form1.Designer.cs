@@ -29,24 +29,24 @@
     private void InitializeComponent()
     {
       this.btDig = new System.Windows.Forms.Button();
-      this.tbTabDisplay = new System.Windows.Forms.TextBox();
-      this.tbTargetPath = new System.Windows.Forms.TextBox();
+      this.tbTabDsp = new System.Windows.Forms.TextBox();
+      this.tbTgtPath = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
-      this.tbTargetKey = new System.Windows.Forms.TextBox();
+      this.tbSearchKeySpr = new System.Windows.Forms.TextBox();
       this.cbDigMode = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.btCreate = new System.Windows.Forms.Button();
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-      this.tbResultDisplay = new System.Windows.Forms.TextBox();
-      this.cbOutFileName = new System.Windows.Forms.CheckBox();
-      this.cbOutValue = new System.Windows.Forms.CheckBox();
-      this.cbOutAttr = new System.Windows.Forms.CheckBox();
-      this.cbHeader = new System.Windows.Forms.CheckBox();
-      this.cbTab = new System.Windows.Forms.CheckBox();
-      this.cbNoting = new System.Windows.Forms.CheckBox();
-      this.cbIsDelimiterMode = new System.Windows.Forms.CheckBox();
-      this.cbOutKeyName = new System.Windows.Forms.CheckBox();
+      this.tbRsltDsp = new System.Windows.Forms.TextBox();
+      this.cbIsOutFileName = new System.Windows.Forms.CheckBox();
+      this.cbIsOutVal = new System.Windows.Forms.CheckBox();
+      this.cbIsOutAttr = new System.Windows.Forms.CheckBox();
+      this.cbIsHeader = new System.Windows.Forms.CheckBox();
+      this.cbIsTab = new System.Windows.Forms.CheckBox();
+      this.cbIsNoting = new System.Windows.Forms.CheckBox();
+      this.cbIsUseSearchKeySpr = new System.Windows.Forms.CheckBox();
+      this.cbIsOutKeyName = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -64,28 +64,28 @@
       this.btDig.UseVisualStyleBackColor = true;
       this.btDig.Click += new System.EventHandler(this.btDig_Click);
       // 
-      // tbTabDisplay
+      // tbTabDsp
       // 
-      this.tbTabDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.tbTabDsp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTabDisplay.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
-      this.tbTabDisplay.Location = new System.Drawing.Point(3, 3);
-      this.tbTabDisplay.Multiline = true;
-      this.tbTabDisplay.Name = "tbTabDisplay";
-      this.tbTabDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbTabDisplay.Size = new System.Drawing.Size(241, 322);
-      this.tbTabDisplay.TabIndex = 2;
-      this.tbTabDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTabDisplay_KeyDown);
+      this.tbTabDsp.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
+      this.tbTabDsp.Location = new System.Drawing.Point(3, 3);
+      this.tbTabDsp.Multiline = true;
+      this.tbTabDsp.Name = "tbTabDsp";
+      this.tbTabDsp.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.tbTabDsp.Size = new System.Drawing.Size(241, 322);
+      this.tbTabDsp.TabIndex = 2;
+      this.tbTabDsp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Com_DspTextbox_KeyDown);
       // 
-      // tbTargetPath
+      // tbTgtPath
       // 
-      this.tbTargetPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbTgtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTargetPath.Location = new System.Drawing.Point(46, 12);
-      this.tbTargetPath.Name = "tbTargetPath";
-      this.tbTargetPath.Size = new System.Drawing.Size(501, 19);
-      this.tbTargetPath.TabIndex = 4;
+      this.tbTgtPath.Location = new System.Drawing.Point(46, 12);
+      this.tbTgtPath.Name = "tbTgtPath";
+      this.tbTgtPath.Size = new System.Drawing.Size(501, 19);
+      this.tbTgtPath.TabIndex = 4;
       // 
       // label1
       // 
@@ -105,14 +105,14 @@
       this.label2.TabIndex = 7;
       this.label2.Text = "Key:";
       // 
-      // tbTargetKey
+      // tbSearchKeySpr
       // 
-      this.tbTargetKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.tbSearchKeySpr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTargetKey.Location = new System.Drawing.Point(46, 37);
-      this.tbTargetKey.Name = "tbTargetKey";
-      this.tbTargetKey.Size = new System.Drawing.Size(501, 19);
-      this.tbTargetKey.TabIndex = 6;
+      this.tbSearchKeySpr.Location = new System.Drawing.Point(46, 37);
+      this.tbSearchKeySpr.Name = "tbSearchKeySpr";
+      this.tbSearchKeySpr.Size = new System.Drawing.Size(501, 19);
+      this.tbSearchKeySpr.TabIndex = 6;
       // 
       // cbDigMode
       // 
@@ -155,152 +155,152 @@
       // 
       // splitContainer1.Panel1
       // 
-      this.splitContainer1.Panel1.Controls.Add(this.tbTabDisplay);
+      this.splitContainer1.Panel1.Controls.Add(this.tbTabDsp);
       // 
       // splitContainer1.Panel2
       // 
-      this.splitContainer1.Panel2.Controls.Add(this.tbResultDisplay);
+      this.splitContainer1.Panel2.Controls.Add(this.tbRsltDsp);
       this.splitContainer1.Size = new System.Drawing.Size(535, 328);
       this.splitContainer1.SplitterDistance = 247;
       this.splitContainer1.SplitterWidth = 10;
       this.splitContainer1.TabIndex = 10;
       // 
-      // tbResultDisplay
+      // tbRsltDsp
       // 
-      this.tbResultDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.tbRsltDsp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbResultDisplay.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
-      this.tbResultDisplay.Location = new System.Drawing.Point(5, 3);
-      this.tbResultDisplay.Multiline = true;
-      this.tbResultDisplay.Name = "tbResultDisplay";
-      this.tbResultDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbResultDisplay.Size = new System.Drawing.Size(264, 322);
-      this.tbResultDisplay.TabIndex = 3;
-      this.tbResultDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbResultDisplay_KeyDown);
+      this.tbRsltDsp.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F);
+      this.tbRsltDsp.Location = new System.Drawing.Point(5, 3);
+      this.tbRsltDsp.Multiline = true;
+      this.tbRsltDsp.Name = "tbRsltDsp";
+      this.tbRsltDsp.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.tbRsltDsp.Size = new System.Drawing.Size(258, 322);
+      this.tbRsltDsp.TabIndex = 3;
+      this.tbRsltDsp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Com_DspTextbox_KeyDown);
       // 
-      // cbOutFileName
+      // cbIsOutFileName
       // 
-      this.cbOutFileName.AutoSize = true;
-      this.cbOutFileName.Checked = true;
-      this.cbOutFileName.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbOutFileName.Location = new System.Drawing.Point(46, 63);
-      this.cbOutFileName.Margin = new System.Windows.Forms.Padding(2);
-      this.cbOutFileName.Name = "cbOutFileName";
-      this.cbOutFileName.Size = new System.Drawing.Size(70, 16);
-      this.cbOutFileName.TabIndex = 11;
-      this.cbOutFileName.Text = "ファイル名";
-      this.cbOutFileName.UseVisualStyleBackColor = true;
+      this.cbIsOutFileName.AutoSize = true;
+      this.cbIsOutFileName.Checked = true;
+      this.cbIsOutFileName.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsOutFileName.Location = new System.Drawing.Point(46, 63);
+      this.cbIsOutFileName.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsOutFileName.Name = "cbIsOutFileName";
+      this.cbIsOutFileName.Size = new System.Drawing.Size(70, 16);
+      this.cbIsOutFileName.TabIndex = 11;
+      this.cbIsOutFileName.Text = "ファイル名";
+      this.cbIsOutFileName.UseVisualStyleBackColor = true;
       // 
-      // cbOutValue
+      // cbIsOutVal
       // 
-      this.cbOutValue.AutoSize = true;
-      this.cbOutValue.Checked = true;
-      this.cbOutValue.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbOutValue.Location = new System.Drawing.Point(117, 83);
-      this.cbOutValue.Margin = new System.Windows.Forms.Padding(2);
-      this.cbOutValue.Name = "cbOutValue";
-      this.cbOutValue.Size = new System.Drawing.Size(36, 16);
-      this.cbOutValue.TabIndex = 12;
-      this.cbOutValue.Text = "値";
-      this.cbOutValue.UseVisualStyleBackColor = true;
+      this.cbIsOutVal.AutoSize = true;
+      this.cbIsOutVal.Checked = true;
+      this.cbIsOutVal.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsOutVal.Location = new System.Drawing.Point(117, 83);
+      this.cbIsOutVal.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsOutVal.Name = "cbIsOutVal";
+      this.cbIsOutVal.Size = new System.Drawing.Size(36, 16);
+      this.cbIsOutVal.TabIndex = 12;
+      this.cbIsOutVal.Text = "値";
+      this.cbIsOutVal.UseVisualStyleBackColor = true;
       // 
-      // cbOutAttr
+      // cbIsOutAttr
       // 
-      this.cbOutAttr.AutoSize = true;
-      this.cbOutAttr.Checked = true;
-      this.cbOutAttr.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbOutAttr.Location = new System.Drawing.Point(181, 83);
-      this.cbOutAttr.Margin = new System.Windows.Forms.Padding(2);
-      this.cbOutAttr.Name = "cbOutAttr";
-      this.cbOutAttr.Size = new System.Drawing.Size(48, 16);
-      this.cbOutAttr.TabIndex = 13;
-      this.cbOutAttr.Text = "属性";
-      this.cbOutAttr.UseVisualStyleBackColor = true;
+      this.cbIsOutAttr.AutoSize = true;
+      this.cbIsOutAttr.Checked = true;
+      this.cbIsOutAttr.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsOutAttr.Location = new System.Drawing.Point(181, 83);
+      this.cbIsOutAttr.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsOutAttr.Name = "cbIsOutAttr";
+      this.cbIsOutAttr.Size = new System.Drawing.Size(48, 16);
+      this.cbIsOutAttr.TabIndex = 13;
+      this.cbIsOutAttr.Text = "属性";
+      this.cbIsOutAttr.UseVisualStyleBackColor = true;
       // 
-      // cbHeader
+      // cbIsHeader
       // 
-      this.cbHeader.AutoSize = true;
-      this.cbHeader.Location = new System.Drawing.Point(117, 63);
-      this.cbHeader.Margin = new System.Windows.Forms.Padding(2);
-      this.cbHeader.Name = "cbHeader";
-      this.cbHeader.Size = new System.Drawing.Size(60, 16);
-      this.cbHeader.TabIndex = 14;
-      this.cbHeader.Text = "ヘッダー";
-      this.cbHeader.UseVisualStyleBackColor = true;
+      this.cbIsHeader.AutoSize = true;
+      this.cbIsHeader.Location = new System.Drawing.Point(117, 63);
+      this.cbIsHeader.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsHeader.Name = "cbIsHeader";
+      this.cbIsHeader.Size = new System.Drawing.Size(60, 16);
+      this.cbIsHeader.TabIndex = 14;
+      this.cbIsHeader.Text = "ヘッダー";
+      this.cbIsHeader.UseVisualStyleBackColor = true;
       // 
-      // cbTab
+      // cbIsTab
       // 
-      this.cbTab.AutoSize = true;
-      this.cbTab.Checked = true;
-      this.cbTab.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbTab.Location = new System.Drawing.Point(46, 83);
-      this.cbTab.Margin = new System.Windows.Forms.Padding(2);
-      this.cbTab.Name = "cbTab";
-      this.cbTab.Size = new System.Drawing.Size(41, 16);
-      this.cbTab.TabIndex = 15;
-      this.cbTab.Text = "タブ";
-      this.cbTab.UseVisualStyleBackColor = true;
+      this.cbIsTab.AutoSize = true;
+      this.cbIsTab.Checked = true;
+      this.cbIsTab.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsTab.Location = new System.Drawing.Point(46, 83);
+      this.cbIsTab.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsTab.Name = "cbIsTab";
+      this.cbIsTab.Size = new System.Drawing.Size(41, 16);
+      this.cbIsTab.TabIndex = 15;
+      this.cbIsTab.Text = "タブ";
+      this.cbIsTab.UseVisualStyleBackColor = true;
       // 
-      // cbNoting
+      // cbIsNoting
       // 
-      this.cbNoting.AutoSize = true;
-      this.cbNoting.Checked = true;
-      this.cbNoting.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbNoting.Location = new System.Drawing.Point(181, 63);
-      this.cbNoting.Margin = new System.Windows.Forms.Padding(2);
-      this.cbNoting.Name = "cbNoting";
-      this.cbNoting.Size = new System.Drawing.Size(67, 16);
-      this.cbNoting.TabIndex = 16;
-      this.cbNoting.Text = "対象なし";
-      this.cbNoting.UseVisualStyleBackColor = true;
+      this.cbIsNoting.AutoSize = true;
+      this.cbIsNoting.Checked = true;
+      this.cbIsNoting.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsNoting.Location = new System.Drawing.Point(181, 63);
+      this.cbIsNoting.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsNoting.Name = "cbIsNoting";
+      this.cbIsNoting.Size = new System.Drawing.Size(67, 16);
+      this.cbIsNoting.TabIndex = 16;
+      this.cbIsNoting.Text = "対象なし";
+      this.cbIsNoting.UseVisualStyleBackColor = true;
       // 
-      // cbIsDelimiterMode
+      // cbIsUseSearchKeySpr
       // 
-      this.cbIsDelimiterMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.cbIsDelimiterMode.AutoSize = true;
-      this.cbIsDelimiterMode.Checked = true;
-      this.cbIsDelimiterMode.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbIsDelimiterMode.Location = new System.Drawing.Point(426, 86);
-      this.cbIsDelimiterMode.Margin = new System.Windows.Forms.Padding(2);
-      this.cbIsDelimiterMode.Name = "cbIsDelimiterMode";
-      this.cbIsDelimiterMode.Size = new System.Drawing.Size(91, 16);
-      this.cbIsDelimiterMode.TabIndex = 17;
-      this.cbIsDelimiterMode.Text = "複数Key「{0}」";
-      this.cbIsDelimiterMode.UseVisualStyleBackColor = true;
+      this.cbIsUseSearchKeySpr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsUseSearchKeySpr.AutoSize = true;
+      this.cbIsUseSearchKeySpr.Checked = true;
+      this.cbIsUseSearchKeySpr.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.cbIsUseSearchKeySpr.Location = new System.Drawing.Point(426, 86);
+      this.cbIsUseSearchKeySpr.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsUseSearchKeySpr.Name = "cbIsUseSearchKeySpr";
+      this.cbIsUseSearchKeySpr.Size = new System.Drawing.Size(91, 16);
+      this.cbIsUseSearchKeySpr.TabIndex = 17;
+      this.cbIsUseSearchKeySpr.Text = "複数Key「{0}」";
+      this.cbIsUseSearchKeySpr.UseVisualStyleBackColor = true;
       // 
-      // cbOutKeyName
+      // cbIsOutKeyName
       // 
-      this.cbOutKeyName.AutoSize = true;
-      this.cbOutKeyName.Location = new System.Drawing.Point(252, 63);
-      this.cbOutKeyName.Margin = new System.Windows.Forms.Padding(2);
-      this.cbOutKeyName.Name = "cbOutKeyName";
-      this.cbOutKeyName.Size = new System.Drawing.Size(68, 16);
-      this.cbOutKeyName.TabIndex = 18;
-      this.cbOutKeyName.Text = "キー名称";
-      this.cbOutKeyName.UseVisualStyleBackColor = true;
+      this.cbIsOutKeyName.AutoSize = true;
+      this.cbIsOutKeyName.Location = new System.Drawing.Point(252, 63);
+      this.cbIsOutKeyName.Margin = new System.Windows.Forms.Padding(2);
+      this.cbIsOutKeyName.Name = "cbIsOutKeyName";
+      this.cbIsOutKeyName.Size = new System.Drawing.Size(68, 16);
+      this.cbIsOutKeyName.TabIndex = 18;
+      this.cbIsOutKeyName.Text = "キー名称";
+      this.cbIsOutKeyName.UseVisualStyleBackColor = true;
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(559, 473);
-      this.Controls.Add(this.cbOutKeyName);
-      this.Controls.Add(this.cbIsDelimiterMode);
-      this.Controls.Add(this.cbNoting);
-      this.Controls.Add(this.cbTab);
-      this.Controls.Add(this.cbHeader);
-      this.Controls.Add(this.cbOutAttr);
-      this.Controls.Add(this.cbOutValue);
-      this.Controls.Add(this.cbOutFileName);
+      this.Controls.Add(this.cbIsOutKeyName);
+      this.Controls.Add(this.cbIsUseSearchKeySpr);
+      this.Controls.Add(this.cbIsNoting);
+      this.Controls.Add(this.cbIsTab);
+      this.Controls.Add(this.cbIsHeader);
+      this.Controls.Add(this.cbIsOutAttr);
+      this.Controls.Add(this.cbIsOutVal);
+      this.Controls.Add(this.cbIsOutFileName);
       this.Controls.Add(this.splitContainer1);
       this.Controls.Add(this.label3);
       this.Controls.Add(this.cbDigMode);
       this.Controls.Add(this.btCreate);
       this.Controls.Add(this.label2);
-      this.Controls.Add(this.tbTargetKey);
+      this.Controls.Add(this.tbSearchKeySpr);
       this.Controls.Add(this.label1);
-      this.Controls.Add(this.tbTargetPath);
+      this.Controls.Add(this.tbTgtPath);
       this.Controls.Add(this.btDig);
       this.Name = "Form1";
       this.Text = "Form1";
@@ -319,24 +319,24 @@
     #endregion
 
     private System.Windows.Forms.Button btDig;
-    private System.Windows.Forms.TextBox tbTabDisplay;
-    private System.Windows.Forms.TextBox tbTargetPath;
+    private System.Windows.Forms.TextBox tbTabDsp;
+    private System.Windows.Forms.TextBox tbTgtPath;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox tbTargetKey;
+    private System.Windows.Forms.TextBox tbSearchKeySpr;
     private System.Windows.Forms.Button btCreate;
     private System.Windows.Forms.ComboBox cbDigMode;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.SplitContainer splitContainer1;
-    private System.Windows.Forms.TextBox tbResultDisplay;
-    private System.Windows.Forms.CheckBox cbOutFileName;
-    private System.Windows.Forms.CheckBox cbOutValue;
-    private System.Windows.Forms.CheckBox cbOutAttr;
-    private System.Windows.Forms.CheckBox cbHeader;
-    private System.Windows.Forms.CheckBox cbTab;
-    private System.Windows.Forms.CheckBox cbNoting;
-    private System.Windows.Forms.CheckBox cbIsDelimiterMode;
-    private System.Windows.Forms.CheckBox cbOutKeyName;
+    private System.Windows.Forms.TextBox tbRsltDsp;
+    private System.Windows.Forms.CheckBox cbIsOutFileName;
+    private System.Windows.Forms.CheckBox cbIsOutVal;
+    private System.Windows.Forms.CheckBox cbIsOutAttr;
+    private System.Windows.Forms.CheckBox cbIsHeader;
+    private System.Windows.Forms.CheckBox cbIsTab;
+    private System.Windows.Forms.CheckBox cbIsNoting;
+    private System.Windows.Forms.CheckBox cbIsUseSearchKeySpr;
+    private System.Windows.Forms.CheckBox cbIsOutKeyName;
   }
 }
 

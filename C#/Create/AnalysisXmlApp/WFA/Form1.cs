@@ -38,10 +38,10 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
-    public void GetConfig()
+    private void GetConfig()
     {
       // 区切り文字
-      delimiter = _comLogic.GetConfigValue("Delimiter", "; ");
+      searchKeySpr = _comLogic.GetConfigValue("SearchKeySpr", "; ");
     }
     #endregion
 
@@ -52,26 +52,26 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
 
     // XML探索デリゲート宣言
-    delegate string DlgtDigXml(string targetStr, XmlReaderSettings setting, string targetKey);
+    delegate string DlgtDigXml(string tgtStr, XmlReaderSettings setting, string searchKey);
 
     // 区切り文字
-    string delimiter;
+    string searchKeySpr;
 
     // ファイル名出力カウンタ(「1」の場合、出力)
-    int i = 1;
+    int fileCnt = 1;
 
     #endregion
 
 
-    #region メインフォーム初期設定メソッド
-    private void MainFormInitSeting()
+    #region 初期設定メソッド
+    private void SetInit()
     {
       // 変更後拡張子コンボボックス設定
       cbDigMode.DataSource = new string[] { "Raw", "Key" };
       // 変更後拡張子コンボボックス選択
       cbDigMode.SelectedItem = 0;
       // 区切り文字を表示
-      cbIsDelimiterMode.Text = string.Format(cbIsDelimiterMode.Text, delimiter);
+      cbIsUseSearchKeySpr.Text = string.Format(cbIsUseSearchKeySpr.Text, searchKeySpr);
     }
     #endregion
 
@@ -79,48 +79,42 @@ namespace WFA
     #region フォームロードイベント
     private void Form1_Load(object sender, EventArgs e)
     {
-      // メインフォーム初期設定メソッド使用
-      MainFormInitSeting();
+      // 初期設定メソッド使用
+      SetInit();
     }
     #endregion
 
 
-    #region 内容表示テキストボックスキーダウンイベント
-    private void tbTabDisplay_KeyDown(object sender, KeyEventArgs e)
+    #region 共通_表示系テキストボックスキーダウンイベント
+    private void Com_DspTextbox_KeyDown(object sender, KeyEventArgs e)
     {
+      // Ctrl+Aの場合
       if (e.Control && e.KeyCode == Keys.A)
-        tbTabDisplay.SelectAll();
-    }
-    #endregion
-
-    #region 結果表示テキストボックスキーダウンイベント
-    private void tbResultDisplay_KeyDown(object sender, KeyEventArgs e)
-    {
-      if (e.Control && e.KeyCode == Keys.A)
-        tbResultDisplay.SelectAll();
+        // 発生元テキストボックスの内容を全選択
+        ((TextBox)sender).SelectAll();
     }
     #endregion
 
 
-    #region ボタン1押下イベント
+    #region 検索ボタン押下イベント
     private void btDig_Click(object sender, EventArgs e)
     {
       // 対象パス取得
-      string targetPath = tbTargetPath.Text;
+      string tgtPath = tbTgtPath.Text;
 
       // 検索対象キーを配列として取得
-      string[] targetKey = { tbTargetKey.Text };
+      string[] searchKeys = { tbSearchKeySpr.Text };
       // 区切り文字チェックがされている場合
-      if (cbIsDelimiterMode.Checked)
+      if (cbIsUseSearchKeySpr.Checked)
       {
         // 区切り文字配列変換
-        string[] del = { delimiter };
+        string[] del = { searchKeySpr };
         // 区切り文字で検索対象キーを分割
-        targetKey = targetKey[0].Split(del, StringSplitOptions.None);
+        searchKeys = searchKeys[0].Split(del, StringSplitOptions.None);
       }
 
       // ねずみ返し
-      if (targetPath == "")
+      if (tgtPath == "")
       {
         MessageBox.Show("対象パスがありません");
         return;
@@ -130,172 +124,172 @@ namespace WFA
       DlgtDigXml dlgtDigXml = GetDlgtDigXml();
 
       /* StringReader設定 */
-      XmlReaderSettings setting = new XmlReaderSettings();
+      XmlReaderSettings xmlSet = new XmlReaderSettings();
       // コメントを無視するかどうか
-      // ※デフォルトもfalseだがサンプルのため明示的に設定
-      setting.IgnoreComments = false;
+      // ※デフォルトもfalseだが明示的に設定
+      xmlSet.IgnoreComments = false;
       // 処理命令(スタイルシートの宣言等)を無視するかどうか
-      // ※デフォルトもfalseだがサンプルのため明示的に設定
-      setting.IgnoreProcessingInstructions = false;
+      // ※デフォルトもfalseだが明示的に設定
+      xmlSet.IgnoreProcessingInstructions = false;
       // 意味のない空白を無視するかどうか
-      setting.IgnoreWhitespace = true;
+      xmlSet.IgnoreWhitespace = true;
 
       // 表示用変数
-      string tabDisplayStr = string.Empty;
-      string resultDisplayStr = string.Empty;
+      string tabDspStr = string.Empty;
+      string rsltDspStr = string.Empty;
 
       // ファイルかフォルダか
-      if (File.Exists(targetPath))
+      if (File.Exists(tgtPath))
       {
         // 山括弧抜き検索メソッド使用
-        tabDisplayStr = DigWithoutThanSign(targetPath, setting);
+        tabDspStr = DigWithoutThanSign(tgtPath, xmlSet);
 
         // 検索対象キーをループ
-        foreach (string x in targetKey)
+        foreach (string x in searchKeys)
         {
           // XML探索デリゲート使用
-          resultDisplayStr += dlgtDigXml(targetPath, setting, x);
+          rsltDspStr += dlgtDigXml(tgtPath, xmlSet, x);
         }
       }
-      else if (Directory.Exists(targetPath))
+      else if (Directory.Exists(tgtPath))
       {
         // フォルダからXMLファイルのパスだけ取得
-        string[] targetFolder = Directory.GetFiles(targetPath, "*.xml", SearchOption.TopDirectoryOnly);
+        string[] tgtFldr = Directory.GetFiles(tgtPath, "*.xml", SearchOption.TopDirectoryOnly);
 
         // ループ
-        foreach (string x in targetFolder)
+        foreach (string x in tgtFldr)
         {
           // 山括弧抜き検索メソッド使用
-          tabDisplayStr += DigWithoutThanSign(x, setting);
+          tabDspStr += DigWithoutThanSign(x, xmlSet);
           // 検索対象キーをループ
-          foreach (string y in targetKey)
+          foreach (string y in searchKeys)
           {
             // XML探索デリゲート使用
-            resultDisplayStr += dlgtDigXml(x, setting, y);
+            rsltDspStr += dlgtDigXml(x, xmlSet, y);
 
             // ファイル名出力カウンタ更新
-            ++i;
+            ++fileCnt;
           }
 
           // ファイル名出力カウンタ初期化
-          i = 1;
+          fileCnt = 1;
         }
       }
 
       // 結果表示
-      tbTabDisplay.Text = tabDisplayStr;
-      tbResultDisplay.Text = resultDisplayStr;
+      tbTabDsp.Text = tabDspStr;
+      tbRsltDsp.Text = rsltDspStr;
 
       // 結果がない場合
-      if (resultDisplayStr == string.Empty)
+      if (rsltDspStr == string.Empty)
       {
-        tbResultDisplay.Text = "結果なし";
+        tbRsltDsp.Text = "結果なし";
       }
     }
     #endregion
 
-    #region ボタン2押下イベント
+    #region 作成ボタン押下イベント
     private void btCreate_Click(object sender, EventArgs e)
     {
-      string targetPath = tbTargetPath.Text;
+      string tgtPath = tbTgtPath.Text;
 
       // ねずみ返し
-      if (targetPath == "")
+      if (tgtPath == "")
       {
         MessageBox.Show("対象パスがありません");
         return;
       }
 
       // XML作成メソッド使用
-      CreateXml(targetPath);
+      CreateXml(tgtPath);
     }
     #endregion
 
 
     #region XML作成メソッド
-    public void CreateXml(string savePath)
+    private void CreateXml(string savePath)
     {
-      //XML型のインスタンス生成
-      XmlDocument xmlDocument = new XmlDocument();
-      //要素変数
+      // XML型のインスタンス生成
+      XmlDocument xmlDoc = new XmlDocument();
+      // 要素変数
       XmlElement nestElem;
 
-      //XML宣言
-      XmlDeclaration xmlDecl = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
-      //追加
-      xmlDocument.AppendChild(xmlDecl);
+      // XML宣言
+      XmlDeclaration xmlDecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+      // 追加
+      xmlDoc.AppendChild(xmlDecl);
 
-      //基底タグの作成
-      XmlElement baseElem = xmlDocument.CreateElement("catalog");
-      //追加
-      xmlDocument.AppendChild(baseElem);
+      // 基底タグの作成
+      XmlElement baseElem = xmlDoc.CreateElement("catalog");
+      // 追加
+      xmlDoc.AppendChild(baseElem);
 
-      //1階層目の作成
-      XmlElement nestElem1_1 = xmlDocument.CreateElement("book");
-      //属性の付加
+      // 1階層目の作成
+      XmlElement nestElem1_1 = xmlDoc.CreateElement("book");
+      // 属性の付加
       nestElem1_1.SetAttribute("id", "bk101");
-      //追加
+      // 追加
       baseElem.AppendChild(nestElem1_1);
-      //2階層目の作成
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("author");
+      // 2階層目の作成
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("author");
       nestElem.InnerText = "Gambardella, Matthew";
       nestElem1_1.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("title");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("title");
       nestElem.InnerText = "XML Developer's Guide";
       nestElem1_1.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("genre");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("genre");
       nestElem.InnerText = "Computer";
       nestElem1_1.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("price");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("price");
       nestElem.InnerText = "44.95";
       nestElem1_1.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("publish_date");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("publish_date");
       nestElem.InnerText = "2000-10-01";
       nestElem1_1.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("description");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("description");
       nestElem.InnerText = "test description bk101";
       nestElem1_1.AppendChild(nestElem);
 
-      //1階層目の作成
-      XmlElement nestElem1_2 = xmlDocument.CreateElement("book");
-      //属性の付加
+      // 1階層目の作成
+      XmlElement nestElem1_2 = xmlDoc.CreateElement("book");
+      // 属性の付加
       nestElem1_2.SetAttribute("id", "bk102");
-      //追加
+      // 追加
       baseElem.AppendChild(nestElem1_2);
-      //2階層目の作成
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("author");
+      // 2階層目の作成
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("author");
       nestElem.InnerText = "Ralls, Kim";
       nestElem1_2.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("title");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("title");
       nestElem.InnerText = "Midnight Rain";
       nestElem1_2.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("genre");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("genre");
       nestElem.InnerText = "Fantasy";
       nestElem1_2.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("price");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("price");
       nestElem.InnerText = "5.95";
       nestElem1_2.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("publish_date");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("publish_date");
       nestElem.InnerText = "2000-12-16";
       nestElem1_2.AppendChild(nestElem);
-      //タグの追加
-      nestElem = xmlDocument.CreateElement("description");
+      // タグの追加
+      nestElem = xmlDoc.CreateElement("description");
       nestElem.InnerText = "test description bk102";
       nestElem1_2.AppendChild(nestElem);
 
-      //XMLの保存
-      xmlDocument.Save(savePath);
+      // XMLの保存
+      xmlDoc.Save(savePath);
     }
     #endregion
 
@@ -324,10 +318,10 @@ namespace WFA
     private string DigWithoutThanSign(string targetPath, XmlReaderSettings setting)
     {
       // 返り値変数
-      string returnStr = string.Empty;
+      string retStr = string.Empty;
 
       // ファイル名
-      returnStr += Path.GetFileName(targetPath) + "\r\n";
+      retStr += Path.GetFileName(targetPath) + "\r\n";
 
       // ファイルからXMLを取得
       // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
@@ -352,31 +346,31 @@ namespace WFA
             case XmlNodeType.Attribute:
               break;
             case XmlNodeType.XmlDeclaration: // XML宣言
-              returnStr += "?" + xmlReader.Name;
-              returnStr += " " + xmlReader.Value + "?";
-              returnStr += "\r\n";
+              retStr += "?" + xmlReader.Name;
+              retStr += " " + xmlReader.Value + "?";
+              retStr += "\r\n";
               break;
             case XmlNodeType.Element: // 開始タグ
-              returnStr += depth + xmlReader.Name;
+              retStr += depth + xmlReader.Name;
 
               // 属性がある場合
               for (int i = 0; i < xmlReader.AttributeCount; i++)
               {
                 // 属性へリーダを移動
                 xmlReader.MoveToAttribute(i);
-                returnStr += " " + xmlReader.Name;
-                returnStr += @"=""" + xmlReader.Value + @"""";
+                retStr += " " + xmlReader.Name;
+                retStr += @"=""" + xmlReader.Value + @"""";
               }
-              returnStr += "\r\n";
+              retStr += "\r\n";
               break;
             case XmlNodeType.Text: // 値
-              returnStr += depth + xmlReader.Value + "\r\n";
+              retStr += depth + xmlReader.Value + "\r\n";
               break;
             case XmlNodeType.EndElement: // 終了タグ
-              returnStr += depth + "/" + xmlReader.Name + "\r\n";
+              retStr += depth + "/" + xmlReader.Name + "\r\n";
               break;
             case XmlNodeType.Comment: // コメントタグ
-              returnStr += depth + "!--" + xmlReader.Value + "--" + "\r\n";
+              retStr += depth + "!--" + xmlReader.Value + "--" + "\r\n";
               break;
             case XmlNodeType.None:
               break;
@@ -387,109 +381,109 @@ namespace WFA
       }
 
       // 改行
-      returnStr += "\r\n";
+      retStr += "\r\n";
 
-      return returnStr;
+      return retStr;
     }
     #endregion
 
     #region 生Xml取得メソッド
-    public string GetRawXml(string targetPath, XmlReaderSettings setting, string targetKey)
+    private string GetRawXml(string tgtStr, XmlReaderSettings xmlSet, string searchKey)
     {
       // 返り値変数
-      string returnStr = string.Empty;
+      string retStr = string.Empty;
 
       // ファイルからXmlReaderでXMLを取得
-      using (StreamReader reader = new StreamReader(targetPath))
+      using (StreamReader reader = new StreamReader(tgtStr))
       {
-        returnStr += reader.ReadToEnd();
+        retStr += reader.ReadToEnd();
       }
 
       // 改行
-      returnStr += "\r\n";
+      retStr += "\r\n";
 
-      return returnStr;
+      return retStr;
     }
     #endregion
 
 
     #region キー検索メソッド
-    private string DigKey(string targetPath, XmlReaderSettings setting, string targetKey)
+    private string DigKey(string tgtStr, XmlReaderSettings xmlSet, string searchKey)
     {
       // 返り値変数
-      string returnStr = string.Empty;
+      string retStr = string.Empty;
       // 対象ファイル名
-      string fileName = Path.GetFileName(targetPath);
+      string fileName = Path.GetFileName(tgtStr);
 
       // ファイル名出力チェックボックスかつファイル名出力カウンタが「1」の場合
-      if (cbOutFileName.Checked && i == 1)
+      if (cbIsOutFileName.Checked && fileCnt == 1)
       {
         // ファイル名出力
-        returnStr += fileName + "\r\n";
+        retStr += fileName + "\r\n";
       }
 
       // ファイルからXMLを取得
       // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
-      using (StreamReader streamReader = new StreamReader(targetPath))
-      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, setting))
+      using (StreamReader streamReader = new StreamReader(tgtStr))
+      using (XmlReader xmlStreamReader = XmlReader.Create(streamReader, xmlSet))
       using (XmlReader xmlReader = xmlStreamReader)
       {
         // 要素ループ
-        while (xmlReader.ReadToFollowing(targetKey))
+        while (xmlReader.ReadToFollowing(searchKey))
         {
           // 属性チェックボックス
-          if (cbOutAttr.Checked)
+          if (cbIsOutAttr.Checked)
           {
             // 属性取得メソッド使用
-            returnStr += GetAttr(xmlReader);
+            retStr += GetAttr(xmlReader);
           }
           // 値出力チェックボックス
-          if (cbOutValue.Checked)
+          if (cbIsOutVal.Checked)
           {
             // 返り値フォーマット
             string RETURN_FORMAT = "{0}\r\n";
             // キー名称チェックボックス
-            if (cbOutKeyName.Checked)
+            if (cbIsOutKeyName.Checked)
             {
-              RETURN_FORMAT = targetKey + "\t:" + RETURN_FORMAT;
+              RETURN_FORMAT = searchKey + "\t:" + RETURN_FORMAT;
             }
             // タブチェックボックス
-            if (cbTab.Checked)
+            if (cbIsTab.Checked)
             {
               RETURN_FORMAT = "\t" + RETURN_FORMAT;
             }
 
             // 値追加
             string value = xmlReader.ReadString();
-            returnStr += string.Format(RETURN_FORMAT, value);
+            retStr += string.Format(RETURN_FORMAT, value);
           }
         }
       }
 
       // 検索対象なし出力チェックボックス
-      if (cbNoting.Checked)
+      if (cbIsNoting.Checked)
       {
         // 検索結果が存在しない場合
-        if (returnStr == fileName + "\r\n" || returnStr == string.Empty)
+        if (retStr == fileName + "\r\n" || retStr == string.Empty)
         {
           // 返り値フォーマット
           string RETURN_FORMAT = "検索対象なし\r\n";
           // キー名称チェックボックス
-          if (cbOutKeyName.Checked)
+          if (cbIsOutKeyName.Checked)
           {
-            RETURN_FORMAT = targetKey + "\t:" + RETURN_FORMAT;
+            RETURN_FORMAT = searchKey + "\t:" + RETURN_FORMAT;
           }
           // タブチェックボックス
-          if (cbTab.Checked)
+          if (cbIsTab.Checked)
           {
             RETURN_FORMAT = "\t" + RETURN_FORMAT;
           }
 
-          returnStr += RETURN_FORMAT;
+          retStr += RETURN_FORMAT;
         }
       }
 
-      return returnStr;
+      return retStr;
     }
     #endregion
 
@@ -497,17 +491,17 @@ namespace WFA
     #region 属性取得メソッド
     private string GetAttr(XmlReader xmlReader)
     {
-      string preReturnStr = string.Empty;
-      string returnStr = string.Empty;
+      string preRetStr = string.Empty;
+      string retStr = string.Empty;
       string outHead = string.Empty;
       string HEAD_FORMAT = "値{0}\r\n";
       // キー名称チェックボックス
-      if (cbOutKeyName.Checked)
+      if (cbIsOutKeyName.Checked)
       {
         HEAD_FORMAT = "キー名称\t:" + HEAD_FORMAT;
       }
       // タブチェックボックス
-      if (cbTab.Checked)
+      if (cbIsTab.Checked)
       {
         HEAD_FORMAT = "\t" + HEAD_FORMAT;
       }
@@ -524,7 +518,7 @@ namespace WFA
         string Attr = xmlReader.GetAttribute(ii);
 
         // タブチェック
-        if (cbTab.Checked)
+        if (cbIsTab.Checked)
         {
           // 属性が一つしかない
           if (xmlReader.AttributeCount == 1)
@@ -547,27 +541,19 @@ namespace WFA
         // 属性名追加
         outHead += "\t" + AttrName;
         // 属性追加
-        preReturnStr += string.Format(RETURN_FORMAT, Attr);
+        preRetStr += string.Format(RETURN_FORMAT, Attr);
 
         ++ii;
       }
 
       // タブチェックかつヘッダー出力かつファイル名出力カウンタ「1」の場合
-      if (cbTab.Checked && cbHeader.Checked && i == 1)
+      if (cbIsTab.Checked && cbIsHeader.Checked && fileCnt == 1)
       {
-        returnStr += string.Format(HEAD_FORMAT, outHead);
+        retStr += string.Format(HEAD_FORMAT, outHead);
       }
-      returnStr += preReturnStr;
+      retStr += preRetStr;
 
-      return returnStr;
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    public void template()
-    {
-
+      return retStr;
     }
     #endregion
   }
