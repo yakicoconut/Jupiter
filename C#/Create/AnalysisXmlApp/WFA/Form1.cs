@@ -46,6 +46,9 @@ namespace WFA
     // ファイル名出力カウンタ(「1」の場合、出力)
     int fileCnt = 1;
 
+    // StringReader設定
+    XmlReaderSettings xmlSet;
+
     #endregion
 
 
@@ -58,6 +61,17 @@ namespace WFA
       cbDigMode.SelectedItem = 0;
       // 区切り文字を表示
       cbIsUseSearchKeySpr.Text = string.Format(cbIsUseSearchKeySpr.Text, searchKeySpr);
+
+      /* StringReader設定 */
+      xmlSet = new XmlReaderSettings();
+      // コメントを無視するかどうか
+      // ※デフォルトもfalseだが明示的に設定
+      xmlSet.IgnoreComments = false;
+      // 処理命令(スタイルシートの宣言等)を無視するかどうか
+      // ※デフォルトもfalseだが明示的に設定
+      xmlSet.IgnoreProcessingInstructions = false;
+      // 意味のない空白を無視するかどうか
+      xmlSet.IgnoreWhitespace = true;
     }
     #endregion
 
@@ -94,6 +108,9 @@ namespace WFA
         return;
       }
 
+      // 検索モードコンボボックス選択値取得
+      string digModeStr = cbDigMode.Text;
+
       /* 検索対象キー */
       // 変数スコープの都合上、配列として取得
       string[] searchKeys = { tbSearchKey.Text };
@@ -106,77 +123,20 @@ namespace WFA
         searchKeys = searchKeys[0].Split(del, StringSplitOptions.None);
       }
 
-      /* StringReader設定 */
-      XmlReaderSettings xmlSet = new XmlReaderSettings();
-      // コメントを無視するかどうか
-      // ※デフォルトもfalseだが明示的に設定
-      xmlSet.IgnoreComments = false;
-      // 処理命令(スタイルシートの宣言等)を無視するかどうか
-      // ※デフォルトもfalseだが明示的に設定
-      xmlSet.IgnoreProcessingInstructions = false;
-      // 意味のない空白を無視するかどうか
-      xmlSet.IgnoreWhitespace = true;
-
       // 表示用変数
       string tabDspStr = string.Empty;
       string rsltDspStr = string.Empty;
 
-      // ファイルかフォルダか
-      if (File.Exists(tgtPath))
+      // 対象パスがフォルダの場合
+      if(Directory.Exists(tgtPath))
       {
-        // 山括弧抜き検索メソッド使用
-        tabDspStr = DigWithoutThanSign(tgtPath, xmlSet);
-
-        // 検索対象キーをループ
-        foreach (string x in searchKeys)
-        {
-          // コンボボックスの値分岐
-          switch (cbDigMode.Text)
-          {
-            case "Raw":
-              // 生Xml取得メソッド使用
-              rsltDspStr += GetRawXml(tgtPath);
-              break;
-            case "Key":
-              // キー検索メソッド使用
-              rsltDspStr += DigKey(tgtPath, xmlSet, x);
-              break;
-          }
-        }
+        // フォルダ検索メソッド使用
+        FolderSearchXml(tgtPath, digModeStr, searchKeys, out tabDspStr, out rsltDspStr);
       }
-      else if (Directory.Exists(tgtPath))
+      else
       {
-        // フォルダからXMLファイルのパスだけ取得
-        string[] tgtFldr = Directory.GetFiles(tgtPath, "*.xml", SearchOption.TopDirectoryOnly);
-
-        // ループ
-        foreach (string x in tgtFldr)
-        {
-          // 山括弧抜き検索メソッド使用
-          tabDspStr += DigWithoutThanSign(x, xmlSet);
-          // 検索対象キーをループ
-          foreach (string y in searchKeys)
-          {
-            // コンボボックスの値分岐
-            switch (cbDigMode.Text)
-            {
-              case "Raw":
-                // 生Xml取得メソッド使用
-                rsltDspStr += GetRawXml(tgtPath);
-                break;
-              case "Key":
-                // キー検索メソッド使用
-                rsltDspStr += DigKey(tgtPath, xmlSet, x);
-                break;
-            }
-
-            // ファイル名出力カウンタ更新
-            ++fileCnt;
-          }
-
-          // ファイル名出力カウンタ初期化
-          fileCnt = 1;
-        }
+        // ファイル検索メソッド使用
+        FileSearchXml(tgtPath, digModeStr, searchKeys, out tabDspStr, out rsltDspStr);
       }
 
       // 結果表示
@@ -205,6 +165,69 @@ namespace WFA
 
       // XML作成メソッド使用
       CreateXml(tgtPath);
+    }
+    #endregion
+
+
+    #region フォルダ検索メソッド
+    private void FolderSearchXml(string tgtPath, string digModeStr, string[] searchKeys, out string tabDspStr, out string rsltDspStr)
+    {
+      // 返却用文字列格納変数
+      string retTabDspStr = string.Empty;
+      string retRsltDspStr = string.Empty;
+
+      // 参照引数初期化
+      tabDspStr = string.Empty;
+      rsltDspStr = string.Empty;
+
+
+      // フォルダからXMLファイルのパスだけ取得
+      string[] tgtFiles = Directory.GetFiles(tgtPath, "*.xml", SearchOption.TopDirectoryOnly);
+
+      // 対象XMLファイルループ
+      foreach (string x in tgtFiles)
+      {
+        // ファイル検索メソッド使用
+        FileSearchXml(x, digModeStr, searchKeys, out tabDspStr, out rsltDspStr);
+
+        // 取得した参照引数の内容を退避
+        retTabDspStr += tabDspStr;
+        retRsltDspStr += rsltDspStr;
+      }
+
+      // 退避した値を参照引数に設定
+      tabDspStr = retTabDspStr;
+      rsltDspStr = retRsltDspStr;
+    }
+    #endregion
+
+    #region ファイル検索メソッド
+    private void FileSearchXml(string tgtPath, string digModeStr, string[] searchKeys, out string tabDspStr, out string rsltDspStr)
+    {
+      tabDspStr = string.Empty;
+      rsltDspStr = string.Empty;
+
+      // 山括弧抜き検索メソッド使用
+      tabDspStr = DigWithoutThanSign(tgtPath);
+
+      // 検索対象キーをループ
+      foreach (string x in searchKeys)
+      {
+        // コンボボックスの値分岐
+        switch (digModeStr)
+        {
+          case "Raw":
+            // 生Xml取得メソッド使用
+            rsltDspStr += GetRawXml(tgtPath);
+            break;
+          case "Key":
+            // キー検索メソッド使用
+            rsltDspStr += DigKey(tgtPath, x);
+            break;
+        }
+      }
+
+      return;
     }
     #endregion
 
@@ -298,7 +321,7 @@ namespace WFA
 
 
     #region 山括弧抜き検索メソッド
-    private string DigWithoutThanSign(string tgtPath, XmlReaderSettings xmlSet)
+    private string DigWithoutThanSign(string tgtPath)
     {
       // 返り値変数
       string retStr = string.Empty;
@@ -390,15 +413,15 @@ namespace WFA
     #endregion
 
     #region キー検索メソッド
-    private string DigKey(string tgtStr, XmlReaderSettings xmlSet, string searchKey)
+    private string DigKey(string tgtStr, string searchKey)
     {
       // 返り値変数
       string retStr = string.Empty;
       // 対象ファイル名
       string fileName = Path.GetFileName(tgtStr);
 
-      // ファイル名出力チェックボックスかつファイル名出力カウンタが「1」の場合
-      if (cbIsOutFileName.Checked && fileCnt == 1)
+      // ファイル名出力チェックボックスの場合
+      if (cbIsOutFileName.Checked)
       {
         // ファイル名出力
         retStr += fileName + "\r\n";
@@ -528,8 +551,8 @@ namespace WFA
         ++ii;
       }
 
-      // タブチェックかつヘッダー出力かつファイル名出力カウンタ「1」の場合
-      if (cbIsTab.Checked && cbIsHeader.Checked && fileCnt == 1)
+      // タブチェックかつヘッダー出力の場合
+      if (cbIsTab.Checked && cbIsHeader.Checked)
       {
         retStr += string.Format(HEAD_FORMAT, outHead);
       }
