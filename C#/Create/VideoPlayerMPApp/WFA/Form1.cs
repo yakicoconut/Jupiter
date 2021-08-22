@@ -50,6 +50,16 @@ namespace WFA
       Text = WFACL.GetAppName();
       #endregion
 
+      // コマンドライン引数取得
+      string[] cmdArgs = Environment.GetCommandLineArgs();
+      string cmdArgVideoPath = string.Empty;
+      // 引数がある場合(自身のexeパスが1つ目なので2つ目以上が引数)
+      if (cmdArgs.Length == 2)
+      {
+        // 動画パス引数を取得
+        cmdArgVideoPath = cmdArgs[1];
+      }
+
       // コンフィグ取得メソッド使用
       GetConfig();
 
@@ -57,6 +67,8 @@ namespace WFA
       fmGetTime = new FrmGetTime(this);
       // オプションフォームインスタンス生成
       fmOption = new FrmOption();
+      // 起動引数から動画パスを指定
+      fmOption.CmdArgVideoPath = cmdArgVideoPath;
     }
     #endregion
 

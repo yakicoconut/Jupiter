@@ -62,6 +62,11 @@ namespace WFA
     /// </summary>
     public int DefGetAftBackPos { private get; set; }
 
+    /// <summary>
+    /// 起動引数動画パス
+    /// </summary>
+    public string CmdArgVideoPath { private get; set; }
+
     #endregion
 
 
@@ -85,6 +90,15 @@ namespace WFA
       nudBackPosSec.Value = DefBackPosSec;
       // 再生位置移動秒デフォルト値設定
       nudGoPosSec.Value = DefGoPosSec;
+
+      // 起動引数動画パスに値がある場合
+      if(CmdArgVideoPath != string.Empty)
+      {
+        // 動画パステキストボックスに設定
+        tbTgtPath.Text = CmdArgVideoPath;
+        // ファイル読込メソッド呼出しメソッド使用
+        CallReadVideo(CmdArgVideoPath);
+      }
     }
     #endregion
 
