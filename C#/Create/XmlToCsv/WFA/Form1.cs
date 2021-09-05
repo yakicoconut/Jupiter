@@ -72,19 +72,28 @@ namespace WFA
     }
     #endregion
 
-    #region ボタン1押下イベント
-    private void button1_Click(object sender, EventArgs e)
+    #region 実行ボタン押下イベント
+    private void btExec_Click(object sender, EventArgs e)
     {
       bool bRet = true;
+      // 対象パス
+      string tgtPath = tbTgtPath.Text;
       // データセットクラスインスタンス生成
       DataStore ds = new DataStore();
 
       // Xml採掘メソッド使用
-      bRet = MiningXml(ds, textBox1.Text);
+      bRet = MiningXml(ds, tgtPath);
+      if (!bRet)
+      {
+        return;
+      }
+
+      // ファイル名称取得
+      string tgtName = Path.GetFileName(tgtPath);
 
       // CSV出力
-      using (StreamWriter swMain = new StreamWriter(@"test.csv", false, Encoding.UTF8))
-      using (StreamWriter swSub = new StreamWriter(@"test_ElemNm.csv", false, Encoding.UTF8))
+      using (StreamWriter swMain = new StreamWriter(tgtName + ".csv", false, Encoding.UTF8))
+      using (StreamWriter swSub = new StreamWriter(tgtName + "_ElemInfo.csv", false, Encoding.UTF8))
       {
         // 階層数分ループ
         for (int i = 0; i < ds.TotalRowNum - 1; i++)
@@ -95,13 +104,6 @@ namespace WFA
           swSub.WriteLine(ds.ElemInfo2CsvList[i]);
         }
       }
-    }
-    #endregion
-
-    #region ボタン2押下イベント
-    private void button2_Click(object sender, EventArgs e)
-    {
-
     }
     #endregion
 
@@ -217,6 +219,8 @@ namespace WFA
     /// <returns>成否</returns>
     private bool AnlXmlElem(DataStore ds, int depNum, string elemNm)
     {
+      bool bRet = true;
+
       try
       {
         #region 階層数処理
@@ -263,7 +267,7 @@ namespace WFA
         return false;
       }
 
-      return true;
+      return bRet;
     }
     #endregion
 
@@ -278,6 +282,8 @@ namespace WFA
     /// <returns>成否</returns>
     private bool AnlXmlElemInfo(DataStore ds, bool isEmptyElem, int depNum, string elemNm)
     {
+      bool bRet = true;
+
       try
       {
         // 最大要素階層数を更新
@@ -309,7 +315,7 @@ namespace WFA
         return false;
       }
 
-      return true;
+      return bRet;
     }
     #endregion
 
@@ -322,6 +328,8 @@ namespace WFA
     /// <returns>成否</returns>
     private bool AnlXmlAttr(DataStore ds, XmlReader xmlRdr)
     {
+      bool bRet = true;
+
       try
       {
         // 最大属性数を更新
@@ -354,7 +362,7 @@ namespace WFA
         return false;
       }
 
-      return true;
+      return bRet;
     }
     #endregion
 
@@ -367,6 +375,8 @@ namespace WFA
     /// <returns>成否</returns>
     private bool AddConvdCsvList(DataStore ds)
     {
+      bool bRet = true;
+
       try
       {
         #region CSV変換後リスト
@@ -453,7 +463,7 @@ namespace WFA
         return false;
       }
 
-      return true;
+      return bRet;
     }
     #endregion
   }
