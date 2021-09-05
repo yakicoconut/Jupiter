@@ -75,23 +75,24 @@ namespace WFA
     #region ボタン1押下イベント
     private void button1_Click(object sender, EventArgs e)
     {
+      bool bRet = true;
       // データセットクラスインスタンス生成
       DataStore ds = new DataStore();
 
-      // Xml要素探索メソッド使用
-      DigXmlElem(ds, textBox1.Text);
+      // Xml採掘メソッド使用
+      bRet = MiningXml(ds, textBox1.Text);
 
       // CSV出力
       using (StreamWriter swMain = new StreamWriter(@"test.csv", false, Encoding.UTF8))
       using (StreamWriter swSub = new StreamWriter(@"test_ElemNm.csv", false, Encoding.UTF8))
       {
         // 階層数分ループ
-        for (int i = 0; i < ds.CrDepthNum - 1; i++)
+        for (int i = 0; i < ds.TotalRowNum - 1; i++)
         {
-          // CSV変換後値
-          swMain.WriteLine(ds.ConvdCsvList[i]);
-          // 階層順要素
-          swSub.WriteLine(ds.DepthElemList[i]);
+          // CSV変換後リスト
+          swMain.WriteLine(ds.Xml2CsvList[i]);
+          // 階層順要素情報リスト
+          swSub.WriteLine(ds.ElemInfo2CsvList[i]);
         }
       }
     }
@@ -105,51 +106,104 @@ namespace WFA
     #endregion
 
 
-    #region Xml要素探索メソッド
+    #region Xml採掘メソッド
     /// <summary>
-    /// Xml要素探索メソッド
+    /// Xml採掘メソッド
     /// </summary>
     /// <param name="ds">データストア</param>
     /// <param name="tgtPath">対象パス</param>
-    private void DigXmlElem(DataStore ds, string tgtPath)
+    private bool MiningXml(DataStore ds, string tgtPath)
     {
-      // ファイルからXMLを取得
-      // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
-      using (StreamReader strmRdr = new StreamReader(tgtPath))
-      using (XmlReader xmlRdr = XmlReader.Create(strmRdr, xmlSet))
+      bool bRet = true;
+
+      try
       {
-        // ノードループ
-        while (xmlRdr.Read())
+        // ファイルからXMLを取得
+        // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
+        using (StreamReader strmRdr = new StreamReader(tgtPath))
+        using (XmlReader xmlRdr = XmlReader.Create(strmRdr, xmlSet))
         {
-          // ノードタイプで分岐
-          switch (xmlRdr.NodeType)
+          // ノードループ
+          while (xmlRdr.Read())
           {
-            case XmlNodeType.Element: // 開始タグ
-              // タグ行数インクリメント
-              ds.CrDepthNum++;
+            // ノードタイプで分岐
+            switch (xmlRdr.NodeType)
+            {
+              case XmlNodeType.Element: // 開始タグ
+                // 現在階層取得
+                int depNum = xmlRdr.Depth;
+                // 要素名取得
+                string elemNm = xmlRdr.Name;
+                // 空要素フラグ
+                bool isEmptyElem = xmlRdr.IsEmptyElement;
+                // 属性存在フラグ
+                bool hasAttr = xmlRdr.HasAttributes;
 
-              // 要素解析メソッド使用
-              AnlXmlElem(ds, xmlRdr);
-              break;
+                // 合計行数インクリメント
+                ds.TotalRowNum++;
 
-            case XmlNodeType.Text: // 値
-              // 値カラムディクショナリ追加
-              ds.ValColDic.Add(ds.CrDepthNum, string.Format("\"{0}\"", xmlRdr.Value));
-              break;
+                // 要素解析メソッド使用
+                bRet = AnlXmlElem(ds, depNum, elemNm);
+                if (!bRet)
+                {
+                  return bRet;
+                }
 
-            case XmlNodeType.Comment: // コメントタグ
-            case XmlNodeType.Attribute: // 属性
-            case XmlNodeType.XmlDeclaration: // XML宣言
-            case XmlNodeType.EndElement: // 終了タグ
-            case XmlNodeType.None:
-            default:
-              continue;
+                // 要素情報解析メソッド使用
+                bRet = AnlXmlElemInfo(ds, isEmptyElem, depNum, elemNm);
+                if (!bRet)
+                {
+                  return bRet;
+                }
+
+                // 現在階層数を前回階層変数に引継ぎ
+                ds.PreDepthNum = depNum;
+
+                /* 属性系 */
+                // 属性がない場合
+                if (!hasAttr)
+                {
+                  break;
+                }
+
+                // 属性解析メソッド使用
+                bRet = AnlXmlAttr(ds, xmlRdr);
+                if (!bRet)
+                {
+                  return bRet;
+                }
+                break;
+
+              case XmlNodeType.Text: // 値
+                // 値カラムディクショナリ追加
+                ds.ValColDic.Add(ds.TotalRowNum, string.Format("\"{0}\"", xmlRdr.Value));
+                break;
+
+              case XmlNodeType.Comment: // コメントタグ
+              case XmlNodeType.Attribute: // 属性
+              case XmlNodeType.XmlDeclaration: // XML宣言
+              case XmlNodeType.EndElement: // 終了タグ
+              case XmlNodeType.None:
+              default:
+                continue;
+            }
           }
         }
+
+        // CSV変換後リスト追加メソッド使用
+        bRet = AddConvdCsvList(ds);
+        if (!bRet)
+        {
+          return bRet;
+        }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.ToString());
+        return false;
       }
 
-      // CSV変換後リスト追加メソッド使用
-      AddConvdCsvList(ds);
+      return bRet;
     }
     #endregion
 
@@ -158,56 +212,104 @@ namespace WFA
     /// 要素解析メソッド
     /// </summary>
     /// <param name="ds">データストア</param>
-    /// <param name="xmlRdr">リーダ</param>
-    private void AnlXmlElem(DataStore ds, XmlReader xmlRdr)
+    /// <param name="depNum">現在階層数</param>
+    /// <param name="elemNm">要素名称</param>
+    /// <returns>成否</returns>
+    private bool AnlXmlElem(DataStore ds, int depNum, string elemNm)
     {
-      // 現在階層取得
-      int depNum = xmlRdr.Depth;
-
-      // 前回階層との差を取得
-      int calcI = depNum - ds.PreDepthNum;
-      // 前回より深くなった場合は「1」を設定
-      int depI = calcI <= 0 ? calcI : 1;
-
-      // 前回階層差ループ
-      for (int i = depI; i <= 0; i++)
+      try
       {
-        // 累計パスリストに要素がない場合
-        int cnt = ds.CmlPathList.Count;
-        if (cnt == 0)
+        #region 階層数処理
+
+        // 前回階層との差を取得
+        int calcI = depNum - ds.PreDepthNum;
+        // 前回より深くなった場合は「1」を設定
+        int depI = calcI <= 0 ? calcI : 1;
+
+        // 前回階層差ループ
+        for (int i = depI; i <= 0; i++)
         {
-          break;
+          // 累計パスリストに要素がない場合
+          int cnt = ds.CmlPathList.Count;
+          if (cnt == 0)
+          {
+            break;
+          }
+
+          // 累計パスリストの後ろ1要素を削除
+          ds.CmlPathList.RemoveAt(cnt - 1);
         }
 
-        // 累計パスリストの後ろ1要素を削除
-        ds.CmlPathList.RemoveAt(cnt - 1);
+        #endregion
+
+        #region パス系
+
+        // 累計パスリストに追加
+        ds.CmlPathList.Add(elemNm);
+
+        // 累計パスリストを「/」で結合
+        string fullPathStr = string.Join("/", ds.CmlPathList);
+        // フルパスカラムディクショナリ追加
+        ds.FullPathColDic.Add(ds.TotalRowNum, string.Format("\"{0}\"", fullPathStr));
+
+        // 要素名称カラムディクショナリ追加
+        ds.ElemNmColDic.Add(ds.TotalRowNum, elemNm);
+
+        #endregion
       }
-
-      // 要素名取得
-      string elemName = xmlRdr.Name;
-
-      // 累計パスリストに追加
-      ds.CmlPathList.Add(elemName);
-
-      // 累計パスリストを「/」で結合
-      string fullPathStr = string.Join("/", ds.CmlPathList);
-      // フルパスカラムディクショナリ追加
-      ds.FullPathColDic.Add(ds.CrDepthNum, string.Format("\"{0}\"", fullPathStr));
-
-      // 階層数分カンマを頭につけて累計パスリストに追加
-      ds.DepthElemList.Add(new string(',', depNum) + elemName);
-
-      // 現在階層を前回階層変数に引継ぎ
-      ds.PreDepthNum = depNum;
-
-      // 属性がない場合
-      if (!xmlRdr.HasAttributes)
+      catch (Exception ex)
       {
-        return;
+        MessageBox.Show(ex.ToString());
+        return false;
       }
 
-      // 属性解析メソッド使用
-      AnlXmlAttr(ds, xmlRdr);
+      return true;
+    }
+    #endregion
+
+    #region 要素情報解析メソッド
+    /// <summary>
+    /// 要素情報解析メソッド
+    /// </summary>
+    /// <param name="ds">データストア</param>
+    /// <param name="IsEmptyElem">対象要素が空要素かどうか</param>
+    /// <param name="elemNm">要素名称</param>
+    /// <param name="depNum">現在階層数</param>
+    /// <returns>成否</returns>
+    private bool AnlXmlElemInfo(DataStore ds, bool isEmptyElem, int depNum, string elemNm)
+    {
+      try
+      {
+        // 最大要素階層数を更新
+        if (ds.ElemMaxDepthNum < depNum)
+        {
+          ds.ElemMaxDepthNum = depNum;
+        }
+
+        // 要素の階層数分カンマをつけて空白パディング
+        string depElemColStr = string.Format("{0}{1}", new string(',', depNum), elemNm);
+
+        // 階層順要素情報階層カラムディクショナリ追加
+        ds.DpElemInfoElemColDic.Add(ds.TotalRowNum, depElemColStr);
+
+        // 空要素の場合
+        string isEmptyStr = string.Empty;
+        if (isEmptyElem)
+        {
+          // 空要素判定設定
+          isEmptyStr = "空";
+        }
+
+        // 階層順要素情報空要素フラグカラムディクショナリ追加
+        ds.DpElemInfoEmptyFlgColDic.Add(ds.TotalRowNum, isEmptyStr);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.ToString());
+        return false;
+      }
+
+      return true;
     }
     #endregion
 
@@ -217,72 +319,141 @@ namespace WFA
     /// </summary>
     /// <param name="ds">データストア</param>
     /// <param name="xmlRdr">リーダ</param>
-    private void AnlXmlAttr(DataStore ds, XmlReader xmlRdr)
+    /// <returns>成否</returns>
+    private bool AnlXmlAttr(DataStore ds, XmlReader xmlRdr)
     {
-      // 最大属性数を更新
-      int attrCnt = xmlRdr.AttributeCount;
-      if (ds.AttrMaxDepthNum < attrCnt)
+      try
       {
-        ds.AttrMaxDepthNum = attrCnt;
+        // 最大属性数を更新
+        int attrCnt = xmlRdr.AttributeCount;
+        if (ds.AttrMaxDepthNum < attrCnt)
+        {
+          ds.AttrMaxDepthNum = attrCnt;
+        }
+
+        // 属性をループ
+        string attrStr = string.Empty;
+        string attrStrFmt = "\"{0}\",\"{1}\"";
+        for (int i = 0; i < attrCnt; i++)
+        {
+          // 属性へリーダを移動
+          xmlRdr.MoveToAttribute(i);
+
+          // 属性文字列設定
+          attrStr += string.Format(attrStrFmt, xmlRdr.Name, xmlRdr.Value);
+          // 次のフォーマット作成
+          attrStrFmt = ",\"{0}\",\"{1}\"";
+        }
+
+        // 属性ディクショナリ追加
+        ds.AttrColDic.Add(ds.TotalRowNum, attrStr);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.ToString());
+        return false;
       }
 
-      // 属性をループ
-      string attrStr = string.Empty;
-      string attrStrFmt = "\"{0}\",\"{1}\"";
-      for (int i = 0; i < attrCnt; i++)
-      {
-        // 属性へリーダを移動
-        xmlRdr.MoveToAttribute(i);
-
-        // 属性文字列設定
-        attrStr += string.Format(attrStrFmt, xmlRdr.Name, xmlRdr.Value);
-        // 次のフォーマット作成
-        attrStrFmt = ",\"{0}\",\"{1}\"";
-      }
-
-      // 属性ディクショナリ追加
-      ds.AttrColDic.Add(ds.CrDepthNum, attrStr);
+      return true;
     }
     #endregion
+
 
     #region CSV変換後リスト追加メソッド
     /// <summary>
     /// CSV変換後リスト追加メソッド
     /// </summary>
     /// <param name="ds">データストア</param>
-    private void AddConvdCsvList(DataStore ds)
+    /// <returns>成否</returns>
+    private bool AddConvdCsvList(DataStore ds)
     {
-      // ヘッダ初期値
-      string headerStr = "No,フルパス,値";
-      // 属性ヘッダ作成
-      for (int i = 1; i <= ds.AttrMaxDepthNum; i++)
+      try
       {
-        // 名称+二桁階層数
-        headerStr += string.Format(",属性名{0,2},属性値{0,2}", i.ToString());
-      }
-      // CSV変換後リストにヘッダ追加
-      ds.ConvdCsvList.Add(headerStr);
+        #region CSV変換後リスト
 
-      // タグ行数ループ
-      for (int i = 1; i <= ds.CrDepthNum; i++)
+        // ヘッダ初期値
+        string xmlHdrStr = "No,フルパス,要素名称,空要素,値";
+        // 属性ヘッダ作成
+        for (int i = 1; i <= ds.AttrMaxDepthNum; i++)
+        {
+          // 名称+二桁階層数
+          xmlHdrStr += string.Format(",属性名{0,2},属性値{0,2}", i.ToString());
+        }
+        // CSV変換後リストにヘッダ追加
+        ds.Xml2CsvList.Add(xmlHdrStr);
+
+        // タグ行数ループ
+        for (int i = 1; i <= ds.TotalRowNum; i++)
+        {
+          // ディクショナリに該当キーが存在するか
+          bool valExistFlg = ds.ValColDic.ContainsKey(i);
+          bool attrExistFlg = ds.AttrColDic.ContainsKey(i);
+          bool dpElemInfoExistFlg = ds.DpElemInfoEmptyFlgColDic.ContainsKey(i);
+
+          // 該当キー設定
+          string valStr = string.Empty;
+          string emptyFlgStr = string.Empty;
+          if (valExistFlg)
+          {
+            // 値を設定
+            valStr = ds.ValColDic[i];
+            // 空要素フラグ設定
+            emptyFlgStr = "値あり";
+          }
+          else if (dpElemInfoExistFlg)
+          {
+            emptyFlgStr = ds.DpElemInfoEmptyFlgColDic[i];
+          }
+          string attrStr = string.Empty;
+          if (attrExistFlg)
+          {
+            attrStr = ds.AttrColDic[i];
+          }
+
+          // フルパス、要素名称取得
+          string fullPathStr = ds.FullPathColDic[i];
+          string elemNmStr = ds.ElemNmColDic[i];
+
+          // CSV変換後リスト追加
+          ds.Xml2CsvList.Add(string.Format("{0},{1},{2},{3},{4},{5}", i.ToString(), fullPathStr, elemNmStr, emptyFlgStr, valStr, attrStr));
+        }
+
+        #endregion
+
+        #region 階層順要素情報リスト
+
+        // ヘッダ初期値
+        string elemInfoHdrStr = string.Empty;
+        // 要素ヘッダ作成
+        for (int i = 0; i <= ds.ElemMaxDepthNum; i++)
+        {
+          // 階層数0パディング
+          string iStr = (i + 1).ToString();
+          string hierarchyStr = iStr.PadLeft(ds.ElemMaxDepthNum.ToString().Length);
+
+          // 階層数
+          elemInfoHdrStr += string.Format("階層{0},", hierarchyStr, '0');
+        }
+
+        // 階層順要素情報リストにヘッダ追加
+        ds.ElemInfo2CsvList.Add(elemInfoHdrStr);
+
+        // タグ行数ループ
+        for (int i = 1; i <= ds.TotalRowNum; i++)
+        {
+          // CSV変換後リスト追加
+          ds.ElemInfo2CsvList.Add(ds.DpElemInfoElemColDic[i]);
+        }
+
+        #endregion
+      }
+      catch (Exception ex)
       {
-        string valStr = string.Empty;
-        string attrStr = string.Empty;
-
-        // 値カラムディクショナリに該当キーがある場合
-        if (ds.ValColDic.ContainsKey(i))
-        {
-          // 値を設定
-          valStr = ds.ValColDic[i];
-        }
-        if (ds.AttrColDic.ContainsKey(i))
-        {
-          attrStr = ds.AttrColDic[i];
-        }
-
-        // CSV変換後リスト追加
-        ds.ConvdCsvList.Add(string.Format("{0},{1},{2},{3}", i.ToString(), ds.FullPathColDic[i], valStr, attrStr));
+        MessageBox.Show(ex.ToString());
+        return false;
       }
+
+      return true;
     }
     #endregion
   }
