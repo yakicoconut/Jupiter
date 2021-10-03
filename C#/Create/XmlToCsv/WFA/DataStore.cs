@@ -28,6 +28,10 @@ namespace WFA
     /// </summary>
     public Dictionary<int, string> ElemNmColDic { get; set; }
     /// <summary>
+    /// 要素階層数カラムディクショナリ
+    /// </summary>
+    public Dictionary<int, string> ElemDepthColDic { get; set; }
+    /// <summary>
     /// 属性カラムディクショナリ
     /// </summary>
     public Dictionary<int, string> AttrColDic { get; set; }
@@ -82,6 +86,7 @@ namespace WFA
 
       FullPathColDic = new Dictionary<int, string>();
       ElemNmColDic = new Dictionary<int, string>();
+      ElemDepthColDic = new Dictionary<int, string>();
       AttrColDic = new Dictionary<int, string>();
       ValColDic = new Dictionary<int, string>();
 

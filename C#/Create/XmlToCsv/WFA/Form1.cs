@@ -256,6 +256,9 @@ namespace WFA
         // フルパスカラムディクショナリ追加
         ds.FullPathColDic.Add(ds.TotalRowNum, string.Format("\"{0}\"", fullPathStr));
 
+        // 要素階層数カラムディクショナリ追加
+        ds.ElemDepthColDic.Add(ds.TotalRowNum, depNum.ToString());
+
         // 要素名称カラムディクショナリ追加
         ds.ElemNmColDic.Add(ds.TotalRowNum, elemNm);
 
@@ -382,7 +385,7 @@ namespace WFA
         #region CSV変換後リスト
 
         // ヘッダ初期値
-        string xmlHdrStr = "No,フルパス,空要素,要素名称,値";
+        string xmlHdrStr = "No,フルパス,階層数,空要素,要素名称,値";
         // 属性ヘッダ作成
         for (int i = 1; i <= ds.AttrMaxDepthNum; i++)
         {
@@ -420,14 +423,16 @@ namespace WFA
             attrStr = ds.AttrColDic[i];
           }
 
-          // フルパス、要素名称取得
+          // フルパス、階層数、要素名称取得
           string fullPathStr = ds.FullPathColDic[i];
+          string elemDepthStr = ds.ElemDepthColDic[i];
           string elemNmStr = ds.ElemNmColDic[i];
 
           // 出力行内容作成
-          string outRow = string.Format("{0},{1},{2},{3},{4}"
+          string outRow = string.Format("{0},{1},{2},{3},{4},{5}"
             , i.ToString()
             , fullPathStr
+            , elemDepthStr
             , emptyFlgStr
             , elemNmStr
             , valStr
