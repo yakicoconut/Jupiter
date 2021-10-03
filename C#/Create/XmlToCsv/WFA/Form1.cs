@@ -202,7 +202,7 @@ namespace WFA
       catch (Exception ex)
       {
         MessageBox.Show(ex.ToString());
-        return false;
+        bRet = false;
       }
 
       return bRet;
@@ -264,7 +264,7 @@ namespace WFA
       catch (Exception ex)
       {
         MessageBox.Show(ex.ToString());
-        return false;
+        bRet = false;
       }
 
       return bRet;
@@ -312,7 +312,7 @@ namespace WFA
       catch (Exception ex)
       {
         MessageBox.Show(ex.ToString());
-        return false;
+        bRet = false;
       }
 
       return bRet;
@@ -359,7 +359,7 @@ namespace WFA
       catch (Exception ex)
       {
         MessageBox.Show(ex.ToString());
-        return false;
+        bRet = false;
       }
 
       return bRet;
@@ -382,12 +382,12 @@ namespace WFA
         #region CSV変換後リスト
 
         // ヘッダ初期値
-        string xmlHdrStr = "No,フルパス,要素名称,空要素,値";
+        string xmlHdrStr = "No,フルパス,空要素,要素名称,値";
         // 属性ヘッダ作成
         for (int i = 1; i <= ds.AttrMaxDepthNum; i++)
         {
           // 名称+二桁階層数
-          xmlHdrStr += string.Format(",属性名{0,2},属性値{0,2}", i.ToString());
+          xmlHdrStr += string.Format(",属性名{0},属性値{0}", i.ToString());
         }
         // CSV変換後リストにヘッダ追加
         ds.Xml2CsvList.Add(xmlHdrStr);
@@ -396,26 +396,26 @@ namespace WFA
         for (int i = 1; i <= ds.TotalRowNum; i++)
         {
           // ディクショナリに該当キーが存在するか
-          bool valExistFlg = ds.ValColDic.ContainsKey(i);
-          bool attrExistFlg = ds.AttrColDic.ContainsKey(i);
-          bool dpElemInfoExistFlg = ds.DpElemInfoEmptyFlgColDic.ContainsKey(i);
+          bool isExistVal = ds.ValColDic.ContainsKey(i);
+          bool isExistAttr = ds.AttrColDic.ContainsKey(i);
+          bool isExistDpElemInfo = ds.DpElemInfoEmptyFlgColDic.ContainsKey(i);
 
           // 該当キー設定
           string valStr = string.Empty;
           string emptyFlgStr = string.Empty;
-          if (valExistFlg)
+          if (isExistVal)
           {
             // 値を設定
             valStr = ds.ValColDic[i];
             // 空要素フラグ設定
             emptyFlgStr = "値あり";
           }
-          else if (dpElemInfoExistFlg)
+          else if (isExistDpElemInfo)
           {
             emptyFlgStr = ds.DpElemInfoEmptyFlgColDic[i];
           }
           string attrStr = string.Empty;
-          if (attrExistFlg)
+          if (isExistAttr)
           {
             attrStr = ds.AttrColDic[i];
           }
@@ -424,8 +424,17 @@ namespace WFA
           string fullPathStr = ds.FullPathColDic[i];
           string elemNmStr = ds.ElemNmColDic[i];
 
+          // 出力行内容作成
+          string outRow = string.Format("{0},{1},{2},{3},{4}"
+            , i.ToString()
+            , fullPathStr
+            , emptyFlgStr
+            , elemNmStr
+            , valStr
+            , attrStr);
+
           // CSV変換後リスト追加
-          ds.Xml2CsvList.Add(string.Format("{0},{1},{2},{3},{4},{5}", i.ToString(), fullPathStr, elemNmStr, emptyFlgStr, valStr, attrStr));
+          ds.Xml2CsvList.Add(outRow);
         }
 
         #endregion
@@ -460,7 +469,7 @@ namespace WFA
       catch (Exception ex)
       {
         MessageBox.Show(ex.ToString());
-        return false;
+        bRet = false;
       }
 
       return bRet;
