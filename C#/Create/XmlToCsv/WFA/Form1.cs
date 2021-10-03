@@ -429,7 +429,7 @@ namespace WFA
           string elemNmStr = ds.ElemNmColDic[i];
 
           // 出力行内容作成
-          string outRow = string.Format("{0},{1},{2},{3},{4},{5}"
+          string outRow = string.Format("{0},{1},{2},{3},{4},{5},{6}"
             , i.ToString()
             , fullPathStr
             , elemDepthStr
