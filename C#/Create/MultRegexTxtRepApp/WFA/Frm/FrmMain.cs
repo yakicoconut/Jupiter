@@ -368,6 +368,47 @@ namespace WFA
     #endregion
 
 
+    #region コンテキスト_検索ボックス_貼り付けイベント
+    private void rtbTargetTsmPaste_Click(object sender, EventArgs e)
+    {
+      // エクセルモードの場合
+      if (dataStore.IsExcelMode)
+      {
+        // リッチテキストのPasteメソッドで
+        // エクセルのセルコピーを張り付けると
+        // エクセルのコピー状態が自動解除されないため
+        // テキストボックスの貼り付けからテキストを取り出す
+        string clipStr;
+        using (TextBox tb = new TextBox())
+        {
+          // 最大桁数無制限
+          tb.MaxLength = 0;
+          // 改行有効化
+          tb.Multiline = true;
+          // 貼り付け
+          tb.Paste();
+          // テキスト取り出し
+          clipStr = tb.Text;
+        }
+
+        try
+        {
+          // クリップボード再設定
+          Clipboard.SetText(clipStr);
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.ToString());
+          return;
+        }
+      }
+
+      // 対象ボックスに張り付け
+      rtbTarget.Paste();
+    }
+    #endregion
+
+
     #region コントロール値初期化メソッド
     private void InitCtrlVal()
     {

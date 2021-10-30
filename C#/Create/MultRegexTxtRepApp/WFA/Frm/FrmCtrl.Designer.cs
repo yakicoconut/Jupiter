@@ -51,6 +51,7 @@
       this.tbTgtDirPath = new System.Windows.Forms.TextBox();
       this.cbIsCaseSens = new System.Windows.Forms.CheckBox();
       this.cbIsNewLine = new System.Windows.Forms.CheckBox();
+      this.cbIsExcelMode = new System.Windows.Forms.CheckBox();
       this.contextMenuStrip1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.groupBox2.SuspendLayout();
@@ -154,6 +155,7 @@
       this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.groupBox1.Controls.Add(this.cbIsExcelMode);
       this.groupBox1.Controls.Add(this.cbIsTab);
       this.groupBox1.Controls.Add(this.groupBox3);
       this.groupBox1.Controls.Add(this.cbIsCaseSens);
@@ -296,6 +298,18 @@
       this.cbIsNewLine.UseVisualStyleBackColor = true;
       this.cbIsNewLine.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
       // 
+      // cbIsExcelMode
+      // 
+      this.cbIsExcelMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.cbIsExcelMode.AutoSize = true;
+      this.cbIsExcelMode.Location = new System.Drawing.Point(343, 21);
+      this.cbIsExcelMode.Name = "cbIsExcelMode";
+      this.cbIsExcelMode.Size = new System.Drawing.Size(105, 19);
+      this.cbIsExcelMode.TabIndex = 17;
+      this.cbIsExcelMode.Text = "エクセルモード";
+      this.cbIsExcelMode.UseVisualStyleBackColor = true;
+      this.cbIsExcelMode.CheckedChanged += new System.EventHandler(this.Com_ChekBox_CheckedChanged);
+      // 
       // FrmCtrl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -347,5 +361,6 @@
     private System.Windows.Forms.Button btOpen;
     private System.Windows.Forms.TextBox tbDestDirPath;
     private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.CheckBox cbIsExcelMode;
   }
 }

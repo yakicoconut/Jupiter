@@ -111,6 +111,10 @@ namespace WFA
           tbDestDirPath.Enabled = chk;
           break;
 
+        case CheckBox ctrl when sender.Equals(cbIsExcelMode):
+          dataStore.IsExcelMode = cbIsExcelMode.Checked;
+          break;
+
         default:
           break;
       }

@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this.splcPatternResult = new System.Windows.Forms.SplitContainer();
       this.splcSearchReplace = new System.Windows.Forms.SplitContainer();
       this.cbAllCheck = new System.Windows.Forms.CheckBox();
@@ -97,6 +98,8 @@
       this.rtbTarget = new System.Windows.Forms.RichTextBox();
       this.rtbResult = new System.Windows.Forms.RichTextBox();
       this.tbPatternFileName = new System.Windows.Forms.TextBox();
+      this.rtbTargetTsm = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.rtbTargetTsmPaste = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.splcPatternResult)).BeginInit();
       this.splcPatternResult.Panel1.SuspendLayout();
       this.splcPatternResult.Panel2.SuspendLayout();
@@ -109,6 +112,7 @@
       this.splcTargetResult.Panel1.SuspendLayout();
       this.splcTargetResult.Panel2.SuspendLayout();
       this.splcTargetResult.SuspendLayout();
+      this.rtbTargetTsm.SuspendLayout();
       this.SuspendLayout();
       // 
       // splcPatternResult
@@ -894,6 +898,7 @@
       this.rtbTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
       | System.Windows.Forms.AnchorStyles.Left)
       | System.Windows.Forms.AnchorStyles.Right)));
+      this.rtbTarget.ContextMenuStrip = this.rtbTargetTsm;
       this.rtbTarget.Location = new System.Drawing.Point(0, 0);
       this.rtbTarget.Name = "rtbTarget";
       this.rtbTarget.Size = new System.Drawing.Size(319, 260);
@@ -926,6 +931,21 @@
       this.tbPatternFileName.TabStop = false;
       this.tbPatternFileName.Text = "-";
       // 
+      // contextMenuStrip1
+      // 
+      this.rtbTargetTsm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rtbTargetTsmPaste});
+      this.rtbTargetTsm.Name = "rtbTargetTsm";
+      this.rtbTargetTsm.Size = new System.Drawing.Size(156, 26);
+      // 
+      // tsmPaste
+      // 
+      this.rtbTargetTsmPaste.Name = "rtbTargetTsmPaste";
+      this.rtbTargetTsmPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+      this.rtbTargetTsmPaste.Size = new System.Drawing.Size(155, 22);
+      this.rtbTargetTsmPaste.Text = "貼り付け";
+      this.rtbTargetTsmPaste.Click += new System.EventHandler(this.rtbTargetTsmPaste_Click);
+      // 
       // FrmMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -950,6 +970,7 @@
       this.splcTargetResult.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splcTargetResult)).EndInit();
       this.splcTargetResult.ResumeLayout(false);
+      this.rtbTargetTsm.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1026,6 +1047,8 @@
     private System.Windows.Forms.SplitContainer splcTargetResult;
     private System.Windows.Forms.RichTextBox rtbTarget;
     private System.Windows.Forms.RichTextBox rtbResult;
+    private System.Windows.Forms.ContextMenuStrip rtbTargetTsm;
+    private System.Windows.Forms.ToolStripMenuItem rtbTargetTsmPaste;
   }
 }
 

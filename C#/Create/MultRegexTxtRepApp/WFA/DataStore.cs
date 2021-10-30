@@ -48,6 +48,11 @@ namespace WFA
     public bool IsTab { get; set; }
 
     /// <summary>
+    /// エクセルモード判断フラグ
+    /// </summary>
+    public bool IsExcelMode { get; set; }
+    
+    /// <summary>
     /// 置換後文字列
     /// </summary>
     public string ReplacedStr { get; set; }
