@@ -4,6 +4,11 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualBasic.FileIO;
+using System.Xml.XPath;
+using System.Xml.Linq;
+using System.Linq;
+
 
 namespace WFA
 {
@@ -96,7 +101,7 @@ namespace WFA
       using (StreamWriter swSub = new StreamWriter(tgtName + "_ElemInfo.csv", false, Encoding.UTF8))
       {
         // 階層数分ループ
-        for (int i = 0; i < ds.TotalRowNum - 1; i++)
+        for (int i = 0; i <= ds.TotalRowNum; i++)
         {
           // CSV変換後リスト
           swMain.WriteLine(ds.Xml2CsvList[i]);
@@ -104,6 +109,77 @@ namespace WFA
           swSub.WriteLine(ds.ElemInfo2CsvList[i]);
         }
       }
+    }
+    #endregion
+
+    #region 読み込みボタン押下イベント
+    private void btRead_Click(object sender, EventArgs e)
+    {
+      // 対象パス
+      string tgtPath = tbTgtPath.Text;
+      // ファイル名称取得
+      string tgtName = Path.GetFileName(tgtPath);
+
+      // CSV読み込みメソッド
+      List<List<string>> csvContents = DumpCsv(tgtPath);
+
+      #region ヘッダ確認
+
+      // ヘッダ行ループ
+      int colIdx = 0;
+      bool isErrColOrder = false;
+      foreach (string x in csvContents[0])
+      {
+        colIdx++;
+
+        // 列名分岐
+        switch (x)
+        {
+          case "No":
+            // 列番号が正しくない場合、エラーフラグを立てる
+            if (colIdx != 1) isErrColOrder = true;
+            break;
+          case "フルパス":
+            if (colIdx != 2) isErrColOrder = true;
+            break;
+          case "階層数":
+            if (colIdx != 3) isErrColOrder = true;
+            break;
+          case "空要素":
+            if (colIdx != 4) isErrColOrder = true;
+            break;
+          case "要素名称":
+            if (colIdx != 5) isErrColOrder = true;
+            break;
+          case "値":
+            if (colIdx != 6) isErrColOrder = true;
+            break;
+
+          default:
+            // 属性系の場合
+            if (x.Contains("属性"))
+            {
+              break;
+            }
+            isErrColOrder = true;
+            break;
+        }
+
+        // 列エラーフラグが立っている場合
+        if (isErrColOrder)
+        {
+          MessageBox.Show("ヘッダ列エラー");
+          return;
+        }
+      }
+
+      // ヘッダの内容が問題なかった場合、ヘッダ行削除
+      csvContents.RemoveAt(0);
+
+      #endregion
+
+      // XML復元メソッド
+      RestoreXml(csvContents, tgtName + ".xml");
     }
     #endregion
 
@@ -478,6 +554,163 @@ namespace WFA
       }
 
       return bRet;
+    }
+    #endregion
+
+
+    #region CSV読み込みメソッド
+    /// <summary>
+    /// CSV読み込みメソッド
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    private List<List<string>> DumpCsv(string file)
+    {
+      // 戻り値リスト
+      List<List<string>> retList = new List<List<string>>();
+
+      using (TextFieldParser csvRdr = new TextFieldParser(file))
+      {
+        // コメント判断文字
+        csvRdr.CommentTokens = new string[] { "#" };
+        // 区切り文字
+        csvRdr.SetDelimiters(new string[] { "," });
+        // クォーテーション有無
+        csvRdr.HasFieldsEnclosedInQuotes = true;
+
+        // 行ループ
+        while (!csvRdr.EndOfData)
+        {
+          // 行読み込み
+          List<string> row = new List<string>(csvRdr.ReadFields());
+
+          // 戻り値リスト追加
+          retList.Add(row);
+        }
+      }
+
+      return retList;
+    }
+    #endregion
+    
+
+    #region XML復元メソッド
+    private void RestoreXml(List<List<string>> csvContents, string savePath)
+    {
+      // XMLドキュメント
+      XDocument doc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+
+      // 内容ループ
+      int cntr = 0;
+      foreach (List<string> tgtRow in csvContents)
+      {
+        cntr++;
+
+        // フルパス
+        string fullPath = tgtRow[1];
+
+        // 行データXML要素変換
+        XElement elem = CngRowToXmlElem(tgtRow);
+
+        // 初回ループの場合
+        if (cntr == 1)
+        {
+          // ルート要素として設定
+          doc.Add(elem);
+          continue;
+        }
+
+        // 親パス作成
+        List<string> parentPathList = new List<string>(fullPath.Split('/'));
+        parentPathList.RemoveAt(parentPathList.Count - 1);
+        string parentPath = "/" + string.Join("/", parentPathList);
+
+        // 親要素取得
+        IEnumerable<XElement> parents = doc.XPathSelectElements(parentPath);
+        List<XElement> elemList = new List<XElement>(parents);
+
+        // 最終要素取得
+        XElement parentElem = elemList[elemList.Count - 1];
+
+        // 親要素に追加
+        parentElem.Add(elem);
+      }
+
+      // XMLの保存
+      doc.Save(savePath);
+    }
+    #endregion
+
+    #region 行データXML要素変換
+    private XElement CngRowToXmlElem(List<string> tgtRow)
+    {
+      #region 各値取得
+
+      // 要素名
+      string elemNm = tgtRow[4];
+      // 値
+      string val = tgtRow[5];
+      // 属性
+      List<string> attrNmList = new List<string>();
+      List<string> attrValList = new List<string>();
+      for (int i = 6; i < tgtRow.Count; i++)
+      {
+        // 属性名取得
+        string attrNmOrVal = tgtRow[i];
+
+        // 偶数(属性名)の場合
+        if (i % 2 == 0)
+        {
+          // 値が空の場合
+          if(string.IsNullOrEmpty(attrNmOrVal))
+          {
+            break;
+          }
+
+          // 属性名追加
+          attrNmList.Add(attrNmOrVal);
+          continue;
+        }
+
+        // 属性値追加
+        attrValList.Add(attrNmOrVal);
+      }
+
+      #endregion
+
+      // 返却用要素作成
+      XElement elem = new XElement(elemNm);
+
+      // 値設定
+      elem.SetValue(val);
+
+      // 属性付加
+      for (int i = 0; i <= attrNmList.Count - 1; i++)
+      {
+        string attrNm = attrNmList[i];
+        string attrVal = attrValList[i];
+        XNamespace ns = XNamespace.None;
+
+        // 属性名に「:」が存在する場合
+        if (attrNm.Contains(':'))
+        {
+          // 「:」で分割
+          string[] attrNmDivColon = attrNm.Split(':');
+          attrNm = attrNmDivColon[1];
+
+          // XML名前空間の場合
+          if (attrNmDivColon[0] == "xmlns")
+          {
+            // XML名前空間文字列設定
+            ns = XNamespace.Xmlns;
+          }
+        }
+
+        // 名前空間属性設定
+        elem.SetAttributeValue(ns + attrNm, attrVal);
+      }
+
+      return elem;
     }
     #endregion
   }
