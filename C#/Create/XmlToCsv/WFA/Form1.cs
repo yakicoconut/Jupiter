@@ -9,7 +9,6 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Linq;
 
-
 namespace WFA
 {
   /// <summary>
@@ -77,12 +76,12 @@ namespace WFA
     }
     #endregion
 
-    #region 実行ボタン押下イベント
-    private void btExec_Click(object sender, EventArgs e)
+    #region CSV出力ボタン押下イベント
+    private void btXmlToCsv_Click(object sender, EventArgs e)
     {
       bool bRet = true;
       // 対象パス
-      string tgtPath = tbTgtPath.Text;
+      string tgtPath = _comLogic.ExclIniEndWQuot(tbTgtPath.Text);
       // データセットクラスインスタンス生成
       DataStore ds = new DataStore();
 
@@ -112,11 +111,11 @@ namespace WFA
     }
     #endregion
 
-    #region 読み込みボタン押下イベント
-    private void btRead_Click(object sender, EventArgs e)
+    #region XML復元ボタン押下イベント
+    private void btRestoreCsv_Click(object sender, EventArgs e)
     {
       // 対象パス
-      string tgtPath = tbTgtPath.Text;
+      string tgtPath = _comLogic.ExclIniEndWQuot(tbTgtPath.Text);
       // ファイル名称取得
       string tgtName = Path.GetFileName(tgtPath);
 
@@ -592,7 +591,7 @@ namespace WFA
       return retList;
     }
     #endregion
-    
+
 
     #region XML復元メソッド
     private void RestoreXml(List<List<string>> csvContents, string savePath)
@@ -662,7 +661,7 @@ namespace WFA
         if (i % 2 == 0)
         {
           // 値が空の場合
-          if(string.IsNullOrEmpty(attrNmOrVal))
+          if (string.IsNullOrEmpty(attrNmOrVal))
           {
             break;
           }
