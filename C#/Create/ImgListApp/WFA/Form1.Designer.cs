@@ -46,8 +46,8 @@
       this.listView1.Size = new System.Drawing.Size(730, 374);
       this.listView1.TabIndex = 4;
       this.listView1.UseCompatibleStateImageBehavior = false;
-      this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommDragDrop);
-      this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommDragEnter);
+      this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Com_DragDrop);
+      this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Com_DragEnter);
       this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
       // 
       // imageList1
@@ -67,8 +67,8 @@
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
-      this.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommDragDrop);
-      this.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommDragEnter);
+      this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Com_DragDrop);
+      this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Com_DragEnter);
       this.ResumeLayout(false);
 
     }

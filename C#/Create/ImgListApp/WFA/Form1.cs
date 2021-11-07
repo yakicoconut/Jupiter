@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Reflection;
 using System.IO;
-using Microsoft.VisualBasic;
 using System.Diagnostics;
-using ImageMagick;
 using System.Threading;
 
 namespace WFA
@@ -22,6 +13,9 @@ namespace WFA
   public partial class Form1 : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public Form1()
     {
       InitializeComponent();
@@ -43,6 +37,9 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
+    /// <summary>
+    /// コンフィグ取得メソッド
+    /// </summary>
     private void GetConfig()
     {
       // 対象拡張子
@@ -71,6 +68,11 @@ namespace WFA
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_Load(object sender, EventArgs e)
     {
       // サムネサイズ
@@ -81,10 +83,15 @@ namespace WFA
     #endregion
 
 
-    #region マウスインされるファイルを開くイベント
+    #region D&Dイベント関連
 
     #region ドラッグエンターイベント
-    private void CommDragEnter(object sender, DragEventArgs e)
+    /// <summary>
+    /// ドラッグエンターイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Com_DragEnter(object sender, DragEventArgs e)
     {
       // AllowDropプロパティの許可が必要
 
@@ -113,7 +120,12 @@ namespace WFA
     #endregion
 
     #region フォームドラッグドロップイベント
-    private void CommDragDrop(object sender, DragEventArgs e)
+    /// <summary>
+    /// フォームドラッグドロップイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Com_DragDrop(object sender, DragEventArgs e)
     {
       // ドラッグ&ドロップされたファイルの一つ目を取得
       dsc.DropItem = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
@@ -138,6 +150,11 @@ namespace WFA
 
 
     #region リストビュウダブルクリックイベント
+    /// <summary>
+    /// リストビュウダブルクリックイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void listView1_DoubleClick(object sender, EventArgs e)
     {
       // 選択ファイルパス取得
@@ -145,14 +162,6 @@ namespace WFA
 
       // 外部アプリ起動
       Process.Start(dsc.LaunchAppPath, tgtPath);
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    private void template()
-    {
-
     }
     #endregion
   }

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ImageMagick;
 
@@ -108,6 +105,11 @@ namespace WFA
     #endregion
 
     #region 画像パスディクショナリ作成メソッド
+    /// <summary>
+    /// 画像パスディクショナリ作成メソッド
+    /// </summary>
+    /// <param name="tgtPath">対象パス</param>
+    /// <returns>画像パスディクショナリ(インデックス,ファイルパス)</returns>
     private Dictionary<int, string> CreateDic(string tgtPath)
     {
       // 返却用ディクショナリ
@@ -156,6 +158,11 @@ namespace WFA
     #endregion
 
     #region サムネイル作成メソッド
+    /// <summary>
+    /// サムネイル作成メソッド
+    /// </summary>
+    /// <param name="img">対象画像</param>
+    /// <returns>作成サムネ画像</returns>
     private Bitmap CreateThumb(Bitmap img)
     {
       // 表示用ビットマップ作成

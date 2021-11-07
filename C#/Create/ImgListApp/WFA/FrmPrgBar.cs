@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WFA
@@ -29,6 +22,9 @@ namespace WFA
     #endregion
 
     #region 初期設定メソッド
+    /// <summary>
+    /// 初期設定メソッド
+    /// </summary>
     private void InitSet()
     {
       // プログレスバー更新コールバックデリゲートインスタンス生成
@@ -44,9 +40,14 @@ namespace WFA
     UpdPrgBarCallback dlgUpdPrgBar;
 
     #endregion
-    
+
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmPrgBar_Load(object sender, EventArgs e)
     {
       // プログレスバー値初期化
@@ -55,6 +56,11 @@ namespace WFA
     #endregion
 
     #region プログレスバー更新メソッド
+    /// <summary>
+    /// プログレスバー更新メソッド
+    /// </summary>
+    /// <param name="val">更新値</param>
+    /// <param name="max">最大値</param>
     private void UpdPrgBar(int val, int max)
     {
       // 最大値
@@ -78,6 +84,7 @@ namespace WFA
     /// プログレスバー更新メソッド
     /// </summary>
     /// <param name="val">プログレスバー更新値</param>
+    /// <param name="max">最大値</param>
     public void UpdPrgBarOprt(int val, int max)
     {
       // プログレスバー更新メソッド起動
