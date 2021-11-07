@@ -164,5 +164,70 @@ namespace WFA
       Process.Start(dsc.LaunchAppPath, tgtPath);
     }
     #endregion
+
+
+    #region コンテキスト_削除
+    /// <summary>
+    /// コンテキスト_削除
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ToolStripMenuItem_Delete_Click(object sender, EventArgs e)
+    {
+      // ねずみ返し_選択ファイルが存在しない場合
+      ListView.SelectedIndexCollection chk = listView1.SelectedIndices;
+      if (chk.Count == 0)
+        return;
+
+      // 削除警告表示
+      DialogResult result = MessageBox.Show("ファイルを削除します。\r\nよろしいですか?", "実施", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+      if (result == DialogResult.No)
+        return;
+
+      // ファイル削除メソッド使用
+      DeleteFiles(chk);
+    }
+    #endregion
+
+
+    #region ファイル削除メソッド
+    /// <summary>
+    /// ファイル削除メソッド
+    /// </summary>
+    /// <param name="fileIndex"></param>
+    private void DeleteFiles(ListView.SelectedIndexCollection fileIndex)
+    {
+      // チェックされたファイルを処理
+      foreach (int x in fileIndex)
+      {
+        // ディクショナリから画像パスを取得
+        string targetImgPath = dsc.DicImgPath[x];
+
+        try
+        {
+          // ファイル削除
+          File.Delete(targetImgPath);
+        }
+        catch (Exception e)
+        {
+          MessageBox.Show(e.ToString());
+        }
+      }
+
+      // 画像コントロール表示クリア
+      imageList1.Images.Clear();
+      listView1.Items.Clear();
+
+      // 画像取り込み処理クラススタートメソッド使用
+      Thread threadA = inportImg.Start();
+
+      // スレッド終了待ち
+      threadA.Join();
+
+      // 画像表示
+      imageList1.Images.AddRange(dsc.SrcImgList);
+      listView1.Items.AddRange(dsc.SrcListViewItem);
+    }
+    #endregion
   }
 }

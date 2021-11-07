@@ -31,6 +31,9 @@
       this.components = new System.ComponentModel.Container();
       this.listView1 = new System.Windows.Forms.ListView();
       this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+      this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.ToolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
+      this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // listView1
@@ -56,12 +59,28 @@
       this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
       this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
       // 
+      // contextMenuStrip1
+      // 
+      this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+      this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Delete});
+      this.contextMenuStrip1.Name = "contextMenuStrip1";
+      this.contextMenuStrip1.Size = new System.Drawing.Size(301, 84);
+      // 
+      // ToolStripMenuItem_Delete
+      // 
+      this.ToolStripMenuItem_Delete.Name = "ToolStripMenuItem_Delete";
+      this.ToolStripMenuItem_Delete.Size = new System.Drawing.Size(300, 36);
+      this.ToolStripMenuItem_Delete.Text = "削除";
+      this.ToolStripMenuItem_Delete.Click += new System.EventHandler(this.ToolStripMenuItem_Delete_Click);
+      // 
       // Form1
       // 
       this.AllowDrop = true;
       this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(754, 398);
+      this.ContextMenuStrip = this.contextMenuStrip1;
       this.Controls.Add(this.listView1);
       this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
       this.Name = "Form1";
@@ -69,6 +88,7 @@
       this.Load += new System.EventHandler(this.Form1_Load);
       this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Com_DragDrop);
       this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Com_DragEnter);
+      this.contextMenuStrip1.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -76,6 +96,8 @@
     #endregion
     private System.Windows.Forms.ListView listView1;
     private System.Windows.Forms.ImageList imageList1;
+    private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Delete;
   }
 }
 
