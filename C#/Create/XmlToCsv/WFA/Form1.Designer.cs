@@ -36,10 +36,9 @@
       // btXmlToCsv
       // 
       this.btXmlToCsv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btXmlToCsv.Location = new System.Drawing.Point(26, 72);
-      this.btXmlToCsv.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btXmlToCsv.Location = new System.Drawing.Point(166, 68);
       this.btXmlToCsv.Name = "btXmlToCsv";
-      this.btXmlToCsv.Size = new System.Drawing.Size(163, 46);
+      this.btXmlToCsv.Size = new System.Drawing.Size(75, 23);
       this.btXmlToCsv.TabIndex = 1;
       this.btXmlToCsv.Text = "CSV出力";
       this.btXmlToCsv.UseVisualStyleBackColor = true;
@@ -50,20 +49,18 @@
       this.tbTgtPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbTgtPath.Location = new System.Drawing.Point(26, 24);
-      this.tbTgtPath.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.tbTgtPath.Location = new System.Drawing.Point(12, 12);
       this.tbTgtPath.Name = "tbTgtPath";
       this.tbTgtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.tbTgtPath.Size = new System.Drawing.Size(654, 31);
+      this.tbTgtPath.Size = new System.Drawing.Size(310, 19);
       this.tbTgtPath.TabIndex = 2;
       // 
       // btRestoreCsv
       // 
       this.btRestoreCsv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.btRestoreCsv.Location = new System.Drawing.Point(202, 72);
-      this.btRestoreCsv.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.btRestoreCsv.Location = new System.Drawing.Point(247, 68);
       this.btRestoreCsv.Name = "btRestoreCsv";
-      this.btRestoreCsv.Size = new System.Drawing.Size(163, 46);
+      this.btRestoreCsv.Size = new System.Drawing.Size(75, 23);
       this.btRestoreCsv.TabIndex = 3;
       this.btRestoreCsv.Text = "XML復元";
       this.btRestoreCsv.UseVisualStyleBackColor = true;
@@ -71,13 +68,13 @@
       // 
       // Form1
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(711, 140);
+      this.ClientSize = new System.Drawing.Size(339, 103);
       this.Controls.Add(this.btRestoreCsv);
       this.Controls.Add(this.tbTgtPath);
       this.Controls.Add(this.btXmlToCsv);
-      this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+      this.MinimumSize = new System.Drawing.Size(355, 142);
       this.Name = "Form1";
       this.Text = "Form1";
       this.Load += new System.EventHandler(this.Form1_Load);
