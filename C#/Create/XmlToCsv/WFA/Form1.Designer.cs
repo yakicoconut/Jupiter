@@ -48,6 +48,7 @@
       // 
       // tbTgtPath
       // 
+      this.tbTgtPath.AllowDrop = true;
       this.tbTgtPath.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -57,6 +58,8 @@
       this.tbTgtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
       this.tbTgtPath.Size = new System.Drawing.Size(651, 31);
       this.tbTgtPath.TabIndex = 2;
+      this.tbTgtPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbTgtPath_DragDrop);
+      this.tbTgtPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.tbTgtPath_DragEnter);
       // 
       // btRestoreCsv
       // 
