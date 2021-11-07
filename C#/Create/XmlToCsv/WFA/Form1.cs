@@ -17,6 +17,9 @@ namespace WFA
   public partial class Form1 : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public Form1()
     {
       InitializeComponent();
@@ -33,7 +36,10 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
-    public void GetConfig()
+    /// <summary>
+    /// コンフィグ取得メソッド
+    /// </summary>
+    private void GetConfig()
     {
       string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
     }
@@ -52,6 +58,9 @@ namespace WFA
 
 
     #region 初期設定メソッド
+    /// <summary>
+    /// 初期設定メソッド
+    /// </summary>
     private void SetInit()
     {
       /* StringReader設定 */
@@ -69,6 +78,11 @@ namespace WFA
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_Load(object sender, EventArgs e)
     {
       // 初期設定メソッド使用
@@ -77,6 +91,11 @@ namespace WFA
     #endregion
 
     #region CSV出力ボタン押下イベント
+    /// <summary>
+    /// CSV出力ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btXmlToCsv_Click(object sender, EventArgs e)
     {
       bool bRet = true;
@@ -112,6 +131,11 @@ namespace WFA
     #endregion
 
     #region XML復元ボタン押下イベント
+    /// <summary>
+    /// XML復元ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btRestoreCsv_Click(object sender, EventArgs e)
     {
       // 対象パス
@@ -562,7 +586,7 @@ namespace WFA
     /// CSV読み込みメソッド
     /// </summary>
     /// <param name="file"></param>
-    /// <returns></returns>
+    /// <returns>CSV内容二次元配列</returns>
     private List<List<string>> DumpCsv(string file)
     {
       // 戻り値リスト
@@ -594,6 +618,11 @@ namespace WFA
 
 
     #region XML復元メソッド
+    /// <summary>
+    /// XML復元メソッド
+    /// </summary>
+    /// <param name="csvContents">CSV内容二次元配列</param>
+    /// <param name="savePath">保存パス</param>
     private void RestoreXml(List<List<string>> csvContents, string savePath)
     {
       // XMLドキュメント
@@ -640,7 +669,12 @@ namespace WFA
     }
     #endregion
 
-    #region 行データXML要素変換
+    #region 行データXML要素変換メソッド
+    /// <summary>
+    /// 行データXML要素変換メソッド
+    /// </summary>
+    /// <param name="tgtRow">CSV行</param>
+    /// <returns>復元XML要素</returns>
     private XElement CngRowToXmlElem(List<string> tgtRow)
     {
       #region 各値取得
