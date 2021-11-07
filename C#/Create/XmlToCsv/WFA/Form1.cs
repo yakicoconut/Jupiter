@@ -63,6 +63,9 @@ namespace WFA
     /// </summary>
     private void SetInit()
     {
+      // 文字コードコンボボックス設定
+      cbChcp.DataSource = new string[] { "UTF8", "SJIS", "UTF7", "BigEndianUnicode", "Unicode", "Default", "ASCII", "UTF32" };
+
       /* StringReader設定 */
       xmlSet = new XmlReaderSettings();
       // コメントを無視するかどうか
@@ -217,11 +220,14 @@ namespace WFA
     {
       bool bRet = true;
 
+      // 文字列文字コード変換メソッド使用
+      Encoding enc = Str2Enc(cbChcp.Text);
+
       try
       {
         // ファイルからXMLを取得
         // インスタンスを生成する全てのクラスをusing化(しないとファイルが開放されない)
-        using (StreamReader strmRdr = new StreamReader(tgtPath))
+        using (StreamReader strmRdr = new StreamReader(tgtPath, enc))
         using (XmlReader xmlRdr = XmlReader.Create(strmRdr, xmlSet))
         {
           // ノードループ
@@ -592,7 +598,10 @@ namespace WFA
       // 戻り値リスト
       List<List<string>> retList = new List<List<string>>();
 
-      using (TextFieldParser csvRdr = new TextFieldParser(file))
+      // 文字列文字コード変換メソッド使用
+      Encoding enc = Str2Enc(cbChcp.Text);
+
+      using (TextFieldParser csvRdr = new TextFieldParser(file, enc))
       {
         // コメント判断文字
         csvRdr.CommentTokens = new string[] { "#" };
@@ -626,7 +635,7 @@ namespace WFA
     private void RestoreXml(List<List<string>> csvContents, string savePath)
     {
       // XMLドキュメント
-      XDocument doc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+      XDocument doc = new XDocument(new XDeclaration("1.0", cbChcp.Text, null));
 
       // 内容ループ
       int cntr = 0;
@@ -744,6 +753,57 @@ namespace WFA
       }
 
       return elem;
+    }
+    #endregion
+
+
+    #region 文字列文字コード変換メソッド
+    /// <summary>
+    /// 文字列文字コード変換メソッド
+    /// </summary>
+    /// <param name="encStr">文字コード文字列</param>
+    /// <returns>文字コード</returns>
+    public Encoding Str2Enc(string encStr)
+    {
+      // 拡張子コンボボックスからフォーマットを選判定する
+      Encoding enc;
+      switch (encStr)
+      {
+        default:
+        case "UTF8":
+          enc = Encoding.UTF8;
+          break;
+
+        case "SJIS":
+          enc = Encoding.GetEncoding("Shift_JIS");
+          break;
+
+        case "UTF7":
+          enc = Encoding.UTF7;
+          break;
+
+        case "BigEndianUnicode":
+          enc = Encoding.BigEndianUnicode;
+          break;
+
+        case "Unicode":
+          enc = Encoding.Unicode;
+          break;
+
+        case "Default":
+          enc = Encoding.Default;
+          break;
+
+        case "ASCII":
+          enc = Encoding.ASCII;
+          break;
+
+        case "UTF32":
+          enc = Encoding.UTF32;
+          break;
+      }
+
+      return enc;
     }
     #endregion
   }
