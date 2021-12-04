@@ -236,32 +236,28 @@ namespace WFA
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void cbIsCollMode_CheckedChanged(object sender, EventArgs e)
+    private void Com_Cb_CheckedChanged(object sender, EventArgs e)
     {
       // 各チェックボックス値合計
       int sumModeChk = Convert.ToInt32(cbIsCollMode.Checked) + Convert.ToInt32(cbIsReSendMode.Checked);
-
-      // モードチェックボックスがすべてチェックされていない場合
-      if (sumModeChk == 0)
+      if (sumModeChk != 0)
       {
-        // どれか一つは必ずチェックする
-        cbIsReSendMode.Checked = true;
+        return;
       }
-    }
-    #endregion
 
-    #region 再登録モードチェックボックス変更イベント
-    /// <summary>
-    /// 再登録モードチェックボックス変更イベント
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void cbIsReSendMode_CheckedChanged(object sender, EventArgs e)
-    {
-      int sumModeChk = Convert.ToInt32(cbIsCollMode.Checked) + Convert.ToInt32(cbIsReSendMode.Checked);
-      if (sumModeChk == 0)
+      // 発火元コントロール分岐
+      switch (sender)
       {
-        cbIsCollMode.Checked = true;
+        // 採取チェックボックス
+        case CheckBox ctrl when sender.Equals(cbIsCollMode):
+          // どれか一つは必ずチェックする
+          cbIsReSendMode.Checked = true;
+          break;
+
+        // 再登録チェックボックス
+        case CheckBox ctrl when sender.Equals(cbIsReSendMode):
+          cbIsCollMode.Checked = true;
+          break;
       }
     }
     #endregion

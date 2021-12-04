@@ -107,6 +107,7 @@
       this.cbIsReSendMode.TabIndex = 6;
       this.cbIsReSendMode.Text = "再登録";
       this.cbIsReSendMode.UseVisualStyleBackColor = true;
+      this.cbIsReSendMode.CheckedChanged += new System.EventHandler(this.Com_Cb_CheckedChanged);
       // 
       // cbIsCollMode
       // 
@@ -119,6 +120,7 @@
       this.cbIsCollMode.TabIndex = 5;
       this.cbIsCollMode.Text = "採取";
       this.cbIsCollMode.UseVisualStyleBackColor = true;
+      this.cbIsCollMode.CheckedChanged += new System.EventHandler(this.Com_Cb_CheckedChanged);
       // 
       // label3
       // 
@@ -313,6 +315,7 @@
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Form1";
       this.Text = "Form1";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
       this.Load += new System.EventHandler(this.Form1_Load);
       this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
       this.panel1.ResumeLayout(false);
