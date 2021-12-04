@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Reflection;
-using System.IO;
-using Microsoft.VisualBasic;
-using System.Diagnostics;
-using System.Configuration;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Text.RegularExpressions;
 
 #region 概要
@@ -49,14 +37,14 @@ using System.Text.RegularExpressions;
  *   	https://www.inasoft.org/webhelp/delattr/HLP000010.html
  *   WM_CLIPBOARDUPDATE message (Winuser.h) - Win32 apps | Microsoft Docs
  *   	https://docs.microsoft.com/ja-jp/windows/win32/dataxchg/wm-clipboardupdate
- * C#|クリップボードの変更を監視する | 貧脚レーサーのサボり日記
- * 	https://anis774.net/codevault/clipboardwatcher.html
- * ぶびびんぶろぐ: WndProc（ウインドウプロシージャ）
- * 	http://bubibinba.blogspot.com/2012/06/wndproc.html
- * 【WindowsAPIメモ】メッセージ一覧 | フィロの村note
- *  http://note.phyllo.net/?eid=1106271
- * API 関数解説
- * 	http://tokovalue.jp/function/SetClipboardViewer.htm
+ *   C#|クリップボードの変更を監視する | 貧脚レーサーのサボり日記
+ *   	https://anis774.net/codevault/clipboardwatcher.html
+ *   ぶびびんぶろぐ: WndProc（ウインドウプロシージャ）
+ *   	http://bubibinba.blogspot.com/2012/06/wndproc.html
+ *   【WindowsAPIメモ】メッセージ一覧 | フィロの村note
+ *    http://note.phyllo.net/?eid=1106271
+ *   API 関数解説
+ *   	http://tokovalue.jp/function/SetClipboardViewer.htm
  */
 #endregion
 namespace WFA
@@ -79,6 +67,9 @@ namespace WFA
 
 
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public Form1()
     {
       InitializeComponent();
@@ -95,6 +86,9 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
+    /// <summary>
+    /// コンフィグ取得メソッド
+    /// </summary>
     public void GetConfig()
     {
       string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
@@ -106,36 +100,59 @@ namespace WFA
 
     #region 定数
 
-    // エクセルセルフォーマット判定文字列
+    /// <summary>
+    /// エクセルセルフォーマット判定文字列 
+    /// </summary>
     const string EXXEL_CELL_FMT = "EnhancedMetafile,MetaFilePict,System.Drawing.Bitmap,Bitmap,Biff12,Biff8,Biff5,SymbolicLink,DataInterchangeFormat,XML Spreadsheet,HTML Format,System.String,UnicodeText,Text,Csv,Hyperlink,Rich Text Format,Embed Source,Object Descriptor,Link Source,Link Source Descriptor,Link,Format129";
 
-    // クリップボードSetTextメソッドからの登録判定文字列
+    /// <summary>
+    /// クリップボードSetTextメソッドからの登録判定文字列 
+    /// </summary>
     const string SET_TXT_FMT = "System.String,UnicodeText,Text";
 
     #endregion
 
-    // 共通ロジッククラスインスタンス
+    /// <summary>
+    /// 共通ロジッククラスインスタンス 
+    /// </summary>
     MCSComLogic _comLogic = new MCSComLogic();
 
-    // オンオフフラグ
+    /// <summary>
+    /// オンオフフラグ
+    /// </summary>
     bool isOnOff;
 
-    // 前回コピー文字列
+    /// <summary>
+    /// 前回コピー文字列
+    /// </summary>
     string preTxt = string.Empty;
-    // 前回処理後文字列
+    /// <summary>
+    /// 前回処理後文字列
+    /// </summary>
     string preResTxt = string.Empty;
 
-    // デフォルト不透明度
+    /// <summary>
+    /// デフォルト不透明度
+    /// </summary>
     double defaultOpacity;
-    // 不透明度増加値
+    /// <summary>
+    /// 不透明度増加値
+    /// </summary>
     double opacityUp;
-    // 不透明度減少値
+    /// <summary>
+    /// 不透明度減少値
+    /// </summary>
     double opacityDown;
 
     #endregion
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_Load(object sender, EventArgs e)
     {
       // フォーム不透明度調整
@@ -153,6 +170,11 @@ namespace WFA
     #endregion
 
     #region フォームサイズ変更イベント
+    /// <summary>
+    /// フォームサイズ変更イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_SizeChanged(object sender, EventArgs e)
     {
       // 最小化の場合
@@ -165,6 +187,11 @@ namespace WFA
     #endregion
 
     #region 常駐アイコンダブルクリックイベント
+    /// <summary>
+    /// 常駐アイコンダブルクリックイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
     {
       // フォーム表示
@@ -177,6 +204,11 @@ namespace WFA
 
 
     #region On/Offボタン押下イベント
+    /// <summary>
+    /// On/Offボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btOnOff_Click(object sender, EventArgs e)
     {
       // オンオフフラグ切り替え
@@ -199,6 +231,11 @@ namespace WFA
 
 
     #region 採取モードチェックボックス変更イベント
+    /// <summary>
+    /// 採取モードチェックボックス変更イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbIsCollMode_CheckedChanged(object sender, EventArgs e)
     {
       // 各チェックボックス値合計
@@ -214,6 +251,11 @@ namespace WFA
     #endregion
 
     #region 再登録モードチェックボックス変更イベント
+    /// <summary>
+    /// 再登録モードチェックボックス変更イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbIsReSendMode_CheckedChanged(object sender, EventArgs e)
     {
       int sumModeChk = Convert.ToInt32(cbIsCollMode.Checked) + Convert.ToInt32(cbIsReSendMode.Checked);
@@ -226,6 +268,10 @@ namespace WFA
 
 
     #region Winメッセージキャッチイベント
+    /// <summary>
+    /// Winメッセージキャッチイベント
+    /// </summary>
+    /// <param name="m">メッセージ</param>
     protected override void WndProc(ref Message m)
     {
       // ねずみ返し_クリップボード更新通知でない場合
@@ -267,6 +313,11 @@ namespace WFA
 
 
     #region クリップボード内容判定メソッド
+    /// <summary>
+    /// クリップボード内容判定メソッド
+    /// </summary>
+    /// <param name="crTxt">対象クリップボードテキスト</param>
+    /// <returns>成否</returns>
     private bool ChkClipData(string crTxt)
     {
       // ねずみ返し_文字列型が含まれない場合
@@ -312,6 +363,10 @@ namespace WFA
     #endregion
 
     #region 文字列操作メソッド
+    /// <summary>
+    /// 文字列操作メソッド
+    /// </summary>
+    /// <param name="crTxt">対象クリップボードテキスト</param>
     private void StrMan(string crTxt)
     {
       // 採取モードチェックボックス値
@@ -365,6 +420,13 @@ namespace WFA
     #endregion
 
     #region 文字列置き換えメソッド
+    /// <summary>
+    /// 文字列置き換えメソッド
+    /// </summary>
+    /// <param name="tgtStr">対象文字列</param>
+    /// <param name="regStr">検索文字列</param>
+    /// <param name="newStr">置き換え文字列</param>
+    /// <returns>置き換え結果文字列</returns>
     private string ReplaceTxt(string tgtStr, string regStr, string newStr)
     {
       string retStr = string.Empty;
@@ -378,6 +440,11 @@ namespace WFA
 
 
     #region コンテキスト不透明度押下イベント
+    /// <summary>
+    /// コンテキスト不透明度押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItem不透明度_Click(object sender, EventArgs e)
     {
       // デフォルトに戻す
@@ -386,6 +453,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト不透明度_上げ押下イベント
+    /// <summary>
+    /// コンテキスト不透明度_上げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItem不透明度_上げ_Click(object sender, EventArgs e)
     {
       // 不透明度を上げる
@@ -394,6 +466,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト不透明度_下げ押下イベント
+    /// <summary>
+    /// コンテキスト不透明度_下げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItem不透明度_下げ_Click(object sender, EventArgs e)
     {
       
@@ -403,6 +480,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト最前面押下イベント
+    /// <summary>
+    /// コンテキスト最前面押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItem最前面_Click(object sender, EventArgs e)
     {
       // フォームの最前面フラグを変更
@@ -411,15 +493,12 @@ namespace WFA
     #endregion
 
 
-    #region 雛形メソッド
-    private void template()
-    {
-
-    }
-    #endregion
-
-
     #region フォームクロージングイベント
+    /// <summary>
+    /// フォームクロージングイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
     {
       // クリップボードリスナー解除
