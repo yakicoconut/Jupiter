@@ -149,7 +149,7 @@
       this.lbOnOff.Name = "lbOnOff";
       this.lbOnOff.Size = new System.Drawing.Size(26, 13);
       this.lbOnOff.TabIndex = 2;
-      this.lbOnOff.Text = "ON";
+      this.lbOnOff.Text = "OFF";
       // 
       // label1
       // 

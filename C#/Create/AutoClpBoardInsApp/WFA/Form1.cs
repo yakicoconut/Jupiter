@@ -91,7 +91,11 @@ namespace WFA
     /// </summary>
     public void GetConfig()
     {
-      string hoge01 = _comLogic.GetConfigValue("Key01", "DefaultValue");
+      // 起動時オンフラグ取得
+      if(bool.TryParse(_comLogic.GetConfigValue("IsInitOn", "False"), out isOn))
+      {
+        isOn = false;
+      }
     }
     #endregion
 
@@ -118,9 +122,9 @@ namespace WFA
     MCSComLogic _comLogic = new MCSComLogic();
 
     /// <summary>
-    /// オンオフフラグ
+    /// オンフラグ
     /// </summary>
-    bool isOnOff;
+    bool isOn;
 
     /// <summary>
     /// 前回コピー文字列
@@ -162,10 +166,14 @@ namespace WFA
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
 
-      // オンオフフラグを立てる
-      isOnOff = true;
-      // クリップボードリスナー登録実行
-      AddClipboardFormatListener(Handle);
+      // オンの場合
+      if (isOn)
+      {
+        // クリップボードリスナー登録実行
+        AddClipboardFormatListener(Handle);
+        // オンオフラベル更新
+        lbOnOff.Text = "ON";
+      }
     }
     #endregion
 
@@ -212,10 +220,10 @@ namespace WFA
     private void btOnOff_Click(object sender, EventArgs e)
     {
       // オンオフフラグ切り替え
-      isOnOff = !isOnOff;
+      isOn = !isOn;
 
       // クリップボードリスナー登録/解除
-      if (isOnOff)
+      if (isOn)
       {
         AddClipboardFormatListener(Handle);
       }
@@ -225,7 +233,7 @@ namespace WFA
       }
 
       // オンオフラベル更新
-      lbOnOff.Text = isOnOff ? "ON" : "OFF";
+      lbOnOff.Text = isOn ? "ON" : "OFF";
     }
     #endregion
 
