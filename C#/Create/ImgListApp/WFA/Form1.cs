@@ -209,7 +209,7 @@ namespace WFA
         return;
 
       // ファイル移動メソッド使用
-      MoveFiles(chk);
+      MoveFiles(chk, commitPath);
     }
     #endregion
 
@@ -242,7 +242,8 @@ namespace WFA
     /// ファイル移動メソッド
     /// </summary>
     /// <param name="fileIndex"></param>
-    public void MoveFiles(ListView.SelectedIndexCollection fileIndex)
+    /// <param name="commitPath"></param>
+    public void MoveFiles(ListView.SelectedIndexCollection fileIndex, string commitPath)
     {
       // チェックされたファイルを処理
       foreach (int x in fileIndex)
@@ -253,7 +254,7 @@ namespace WFA
         try
         {
           // ファイル移動
-          File.Move(targetImgPath, @"E:\_work\Surface→PC2" + @"\" + Path.GetFileName(targetImgPath));
+          File.Move(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
         }
         catch (Exception ex)
         {
