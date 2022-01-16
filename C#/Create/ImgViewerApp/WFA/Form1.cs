@@ -98,10 +98,10 @@ namespace WFA
       launchViewKey = _comLogic.GetConfigValue("LaunchViewKey", "Enter").ToLower();
 
       // 対象拡張子
-      targetExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
+      tgtExtension = _comLogic.GetConfigValue("TargetExtension", ".jpg,.jepg,.png,.tiff,.gif,.bmp").Split(',');
 
       // ファイル読み込み対象範囲
-      targetRange = _comLogic.GetConfigValue("TargetRange", "OnlyCurrent");
+      tgtRange = _comLogic.GetConfigValue("TargetRange", "OnlyCurrent");
 
 
       // オプションフォーム
@@ -202,10 +202,10 @@ namespace WFA
     string launchViewKey;
 
     // 対象拡張子
-    string[] targetExtension;
+    string[] tgtExtension;
 
     // ファイル読み込み対象範囲
-    string targetRange;
+    string tgtRange;
 
     // オプションフォーム開始位置
     int defOptionFmLocationX;
@@ -923,8 +923,8 @@ namespace WFA
     /// <summary>
     /// 画像パスディクショナリ作成メソッド
     /// </summary>
-    /// <param name="targetPath"></param>
-    private void CreateDic(string targetPath)
+    /// <param name="tgtPath"></param>
+    private void CreateDic(string tgtPath)
     {
       // すでに読み込まれているものがある場合
       if (DicImgPath.Count >= 1)
@@ -935,27 +935,27 @@ namespace WFA
 
       /* 対象ディレクトリパス取得 */
       // デフォルトとしてはディレクトリを想定
-      string targetDirPath = targetPath;
+      string tgtDirPath = tgtPath;
       // ファイルの移動・削除直後を想定してディレクトリでない判定
-      if (!Directory.Exists(targetPath))
+      if (!Directory.Exists(tgtPath))
       {
         try
         {
           // ファイルからフォルダパスを取得
-          targetDirPath = Path.GetDirectoryName(targetPath);
+          tgtDirPath = Path.GetDirectoryName(tgtPath);
         }
         catch (Exception ex)
         {
-          MessageBox.Show(ex.ToString() + "\r\n\r\n" + targetPath);
+          MessageBox.Show(ex.ToString() + "\r\n\r\n" + tgtPath);
         }
       }
 
       // 対象ディレクトリ取得
-      DirectoryInfo dir = new DirectoryInfo(targetDirPath);
+      DirectoryInfo dir = new DirectoryInfo(tgtDirPath);
 
       // ファイル読み込み対象範囲分岐
       FileInfo[] files = null;
-      if (targetRange == "TopBottom")
+      if (tgtRange == "TopBottom")
       {
         // 対象フォルダ以下すべてのフォルダの中身を取得
         files = dir.GetFiles("*", SearchOption.AllDirectories);
@@ -1021,7 +1021,7 @@ namespace WFA
       foreach (FileInfo x in files)
       {
         // ねずみ返し_拡張子が設定したものではないときは次のループへ
-        if (Array.IndexOf(targetExtension, Path.GetExtension(x.FullName).ToLower()) == -1)
+        if (Array.IndexOf(tgtExtension, Path.GetExtension(x.FullName).ToLower()) == -1)
         {
           continue;
         }
@@ -1153,16 +1153,16 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = DicImgPath[x];
+        string tgtImgPath = DicImgPath[x];
 
         try
         {
           // ファイル移動
-          File.Move(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
+          File.Move(tgtImgPath, commitPath + @"\" + Path.GetFileName(tgtImgPath));
         }
         catch (Exception ex)
         {
-          MessageBox.Show(ex.ToString() + "\r\n\r\n" + targetImgPath);
+          MessageBox.Show(ex.ToString() + "\r\n\r\n" + tgtImgPath);
         }
       }
 
@@ -1182,12 +1182,12 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = DicImgPath[x];
+        string tgtImgPath = DicImgPath[x];
 
         try
         {
           // ファイル移動
-          File.Copy(targetImgPath, commitPath + @"\" + Path.GetFileName(targetImgPath));
+          File.Copy(tgtImgPath, commitPath + @"\" + Path.GetFileName(tgtImgPath));
         }
         catch (Exception e)
         {
@@ -1214,12 +1214,12 @@ namespace WFA
       foreach (int x in fileIndex)
       {
         // ディクショナリから画像パスを取得
-        string targetImgPath = DicImgPath[x];
+        string tgtImgPath = DicImgPath[x];
 
         try
         {
           // ファイル削除
-          File.Delete(targetImgPath);
+          File.Delete(tgtImgPath);
         }
         catch (Exception e)
         {
@@ -1684,8 +1684,8 @@ namespace WFA
     /// <summary>
     /// XML読み込みメソッド
     /// </summary>
-    /// <param name="targetPath">対象パス</param>
-    private void ReadXml(string targetPath)
+    /// <param name="tgtPath">対象パス</param>
+    private void ReadXml(string tgtPath)
     {
       // ディクショナリクリア
       DicImgPath.Clear();
@@ -1702,7 +1702,7 @@ namespace WFA
       setting.IgnoreWhitespace = true;
 
       // ファイルからXmlReaderでXMLを取得
-      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(targetPath), setting))
+      using (XmlReader xmlReader = XmlReader.Create(new StreamReader(tgtPath), setting))
       {
         // ルートタグへ移動
         bool root = xmlReader.ReadToFollowing("Root");
