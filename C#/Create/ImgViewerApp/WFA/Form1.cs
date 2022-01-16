@@ -2,17 +2,13 @@
 //#define DEBUG02 // クリック操作有効幅表示
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
-using Microsoft.VisualBasic;
 using System.Diagnostics;
-using System.Configuration;
 using System.Collections;
 using System.Threading;
 using System.Xml;
@@ -60,6 +56,9 @@ namespace WFA
     #endregion
 
     #region コンフィグ取得メソッド
+    /// <summary>
+    /// コンフィグ取得メソッド
+    /// </summary>
     private void GetConfig()
     {
       // 初期フォーム位置
@@ -139,6 +138,9 @@ namespace WFA
     #endregion
 
     #region メンバ初期化メソッド
+    /// <summary>
+    /// メンバ初期化メソッド
+    /// </summary>
     private void InitMember()
     {
       // ファイル管理フォームインスタンス生成
@@ -154,7 +156,9 @@ namespace WFA
 
     #region 宣言
 
-    // 共通ロジッククラスインスタンス
+    /// <summary>
+    /// 共通ロジッククラスインスタンス
+    /// </summary>
     MCSComLogic _comLogic = new MCSComLogic();
 
     // オプションフォームインスタンス生成
@@ -273,6 +277,9 @@ namespace WFA
 
 
     #region メインフォーム初期設定メソッド
+    /// <summary>
+    /// メインフォーム初期設定メソッド
+    /// </summary>
     private void MainFormInitSeting()
     {
       // フォーム位置
@@ -297,6 +304,9 @@ namespace WFA
 
 
     #region サブフォーム初期設定メソッド
+    /// <summary>
+    /// サブフォーム初期設定メソッド
+    /// </summary>
     private void SubFormInitSeting()
     {
       // オプションフォームのプロパティに本クラスを設定
@@ -340,6 +350,11 @@ namespace WFA
 
 
     #region ロードイベント
+    /// <summary>
+    /// ロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_Load(object sender, EventArgs e)
     {
       // メインフォーム初期設定メソッド使用
@@ -353,6 +368,11 @@ namespace WFA
     #region マウスインされるファイルを開くイベント
 
     #region フォームドラッグエンターイベント
+    /// <summary>
+    /// フォームドラッグエンターイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_DragEnter(object sender, DragEventArgs e)
     {
       //AllowDropプロパティの許可が必要
@@ -382,6 +402,11 @@ namespace WFA
     #endregion
 
     #region フォームドラッグドロップイベント
+    /// <summary>
+    /// フォームドラッグドロップイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_DragDrop(object sender, DragEventArgs e)
     {
       // ドラッグ&ドロップされたファイルの一つ目を取得
@@ -395,6 +420,11 @@ namespace WFA
     #endregion
 
     #region Paintイベント
+    /// <summary>
+    /// Paintイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void pictureBox1_Paint(object sender, PaintEventArgs e)
     {
       if (currentImage != null)
@@ -406,6 +436,11 @@ namespace WFA
     #endregion
 
     #region キー押下イベント
+    /// <summary>
+    /// キー押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
       // 共通キー押下処理メソッド
@@ -415,6 +450,11 @@ namespace WFA
 
 
     #region コンテキスト_チェック拡張縮小押下イベント
+    /// <summary>
+    /// コンテキスト_チェック拡張縮小押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemIsModeZoom_Click(object sender, EventArgs e)
     {
       // 拡大/縮小チェック
@@ -423,6 +463,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_チェックページ送り押下イベント
+    /// <summary>
+    /// コンテキスト_チェックページ送り押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemIsModePageEject_Click(object sender, EventArgs e)
     {
       // ページ送りチェック
@@ -431,6 +476,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_ファイルリスト押下イベント
+    /// <summary>
+    /// コンテキスト_ファイルリスト押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemFileListForm_Click(object sender, EventArgs e)
     {
       // マウスの位置にファイルリストを表示する
@@ -440,6 +490,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_操作パネル押下イベント
+    /// <summary>
+    /// コンテキスト_操作パネル押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemOptionForm_Click(object sender, EventArgs e)
     {
       // マウスの位置にオプションフォームを表示する
@@ -449,6 +504,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_Viewアプリ起動押下イベント
+    /// <summary>
+    /// コンテキスト_Viewアプリ起動押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemLaunchViewApp_Click(object sender, EventArgs e)
     {
       // ビュウアプリ起動メソッド使用
@@ -457,6 +517,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_コンフィグ押下イベント
+    /// <summary>
+    /// コンテキスト_コンフィグ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemConfig_Click(object sender, EventArgs e)
     {
       // 自身のコンフィグファイルパス取得
@@ -468,6 +533,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_リスト押下イベント
+    /// <summary>
+    /// コンテキスト_リスト押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemList_Click(object sender, EventArgs e)
     {
       // ファイル管理フォームのプロパティに本クラスを設定
@@ -507,6 +577,11 @@ namespace WFA
 
 
     #region ピクチャボックスWクリックイベント
+    /// <summary>
+    /// ピクチャボックスWクリックイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void pictureBox1_DoubleClick(object sender, EventArgs e)
     {
       // ピクチャボックスサイズを取得
@@ -662,6 +737,11 @@ namespace WFA
 
 
     #region 拡大/縮小キー押下判断メソッド
+    /// <summary>
+    /// 拡大/縮小キー押下判断メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private bool IsModeZoomKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
@@ -686,6 +766,11 @@ namespace WFA
     #endregion
 
     #region ページ送りキー押下判断メソッド
+    /// <summary>
+    /// ページ送りキー押下判断メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private bool IsModePageEjectKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
@@ -710,6 +795,11 @@ namespace WFA
     #endregion
 
     #region 0ポイントキー押下判断メソッド
+    /// <summary>
+    /// 0ポイントキー押下判断メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private bool IsModeZeroPointKey(KeyEventArgs e)
     {
       bool isFunctionOn = false;
@@ -734,6 +824,11 @@ namespace WFA
     #endregion
 
     #region チェックキー押下判断メソッド
+    /// <summary>
+    /// チェックキー押下判断メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private bool IsChkImgKey(KeyEventArgs e)
     {
       bool isChkOn = false;
@@ -755,6 +850,11 @@ namespace WFA
     #endregion
 
     #region ビュウアプリ起動キー押下判断メソッド
+    /// <summary>
+    /// ビュウアプリ起動キー押下判断メソッド
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private bool IsLaunchViewKey(KeyEventArgs e)
     {
       bool isLaunchView = false;
@@ -820,6 +920,10 @@ namespace WFA
     #endregion
 
     #region 画像パスディクショナリ作成メソッド
+    /// <summary>
+    /// 画像パスディクショナリ作成メソッド
+    /// </summary>
+    /// <param name="targetPath"></param>
     private void CreateDic(string targetPath)
     {
       // すでに読み込まれているものがある場合
@@ -868,7 +972,7 @@ namespace WFA
        *   【C#】ファイル一覧をファイル名でソートする : ubichupas.net
        *      http://ubichupas.blogspot.com/2011/04/cfilesort.html
        */
-      Array.Sort<FileInfo>(files, delegate(FileInfo a, FileInfo b)
+      Array.Sort<FileInfo>(files, delegate (FileInfo a, FileInfo b)
       {
         // ソートコンボボックスからソート方法を分岐
         int returnVar = 0;
@@ -931,6 +1035,9 @@ namespace WFA
     #endregion
 
     #region 画像初期化メソッド
+    /// <summary>
+    /// 画像初期化メソッド
+    /// </summary>
     private void ImgInit()
     {
       // 読み込み済みの場合
@@ -976,6 +1083,9 @@ namespace WFA
     #endregion
 
     #region 画像ズームメソッド
+    /// <summary>
+    /// 画像ズームメソッド
+    /// </summary>
     private void ImgZoom()
     {
       // 倍率変更後の画像のサイズと位置を計算する
@@ -994,6 +1104,9 @@ namespace WFA
     #endregion
 
     #region 画像移動メソッド
+    /// <summary>
+    /// 画像移動メソッド
+    /// </summary>
     private void ImgMove()
     {
       // 移動後ポイントを設定
@@ -1214,6 +1327,9 @@ namespace WFA
 
 
     #region ズームイン操作メソッド
+    /// <summary>
+    /// ズームイン操作メソッド
+    /// </summary>
     private void ZoomInOperation()
     {
       // 現在倍率を倍にする
@@ -1235,6 +1351,9 @@ namespace WFA
     #endregion
 
     #region ズームアウト操作メソッド
+    /// <summary>
+    /// ズームアウト操作メソッド
+    /// </summary>
     private void ZoomOutOperation()
     {
       // 現在倍率にズームアウト倍率を割る
@@ -1256,6 +1375,9 @@ namespace WFA
     #endregion
 
     #region 次ページ送り操作メソッド
+    /// <summary>
+    /// 次ページ送り操作メソッド
+    /// </summary>
     private void ImgFeedPostOperation()
     {
       // 現ページが最後の場合
@@ -1285,6 +1407,9 @@ namespace WFA
     #endregion
 
     #region 前ページ送り操作メソッド
+    /// <summary>
+    /// 前ページ送り操作メソッド
+    /// </summary>
     private void ImgFeedPreOperation()
     {
       // 現ページが最初の場合
@@ -1374,6 +1499,15 @@ namespace WFA
 
 
     #region 有効範囲算出横五縦十メソッド
+    /// <summary>
+    /// 有効範囲算出横五縦十メソッド
+    /// </summary>
+    /// <param name="ctrlSize"></param>
+    /// <param name="clickPosition"></param>
+    /// <param name="upSideClick"></param>
+    /// <param name="downSideClick"></param>
+    /// <param name="rightSideClick"></param>
+    /// <param name="leftSideClick"></param>
     private void EffectiveRangeFiveTen(Size ctrlSize, Point clickPosition, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
     {
       #region メモ
@@ -1453,6 +1587,19 @@ namespace WFA
     #endregion
 
     #region 有効範囲算出横全縦十メソッド
+    /// <summary>
+    /// 有効範囲算出横全縦十メソッド
+    /// </summary>
+    /// <param name="ctrlSize"></param>
+    /// <param name="clickPosition"></param>
+    /// <param name="leftUpClick"></param>
+    /// <param name="rightUpClick"></param>
+    /// <param name="leftDownClick"></param>
+    /// <param name="rightDownClick"></param>
+    /// <param name="upSideClick"></param>
+    /// <param name="downSideClick"></param>
+    /// <param name="rightSideClick"></param>
+    /// <param name="leftSideClick"></param>
     private void EffectiveRangeFullTen(Size ctrlSize, Point clickPosition, out bool leftUpClick, out bool rightUpClick, out bool leftDownClick, out bool rightDownClick, out bool upSideClick, out bool downSideClick, out bool rightSideClick, out bool leftSideClick)
     {
       #region メモ
@@ -1534,6 +1681,10 @@ namespace WFA
 
 
     #region XML読み込みメソッド
+    /// <summary>
+    /// XML読み込みメソッド
+    /// </summary>
+    /// <param name="targetPath">対象パス</param>
     private void ReadXml(string targetPath)
     {
       // ディクショナリクリア
@@ -1587,6 +1738,11 @@ namespace WFA
     #endregion
 
     #region XML保存メソッド
+    /// <summary>
+    /// XML保存メソッド
+    /// </summary>
+    /// <param name="outDirPath">出力フォルダパス</param>
+    /// <param name="outFileName">出力ファイル名</param>
     public void SaveXml(string outDirPath, string outFileName)
     {
       // 現在時刻取得
@@ -1620,14 +1776,6 @@ namespace WFA
           xmlRootEnd
           );
       }
-    }
-    #endregion
-
-
-    #region 雛形メソッド
-    private void template()
-    {
-
     }
     #endregion
   }

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
@@ -43,6 +37,11 @@ namespace WFA
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form2_Load(object sender, EventArgs e)
     {
       // タイトル設定
@@ -69,6 +68,11 @@ namespace WFA
 
 
     #region 拡大/縮小チェックボックスチェックチェンジイベント
+    /// <summary>
+    /// 拡大/縮小チェックボックスチェックチェンジイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbIsModeZoom_CheckedChanged(object sender, EventArgs e)
     {
       // チェック済の場合
@@ -81,6 +85,11 @@ namespace WFA
     #endregion
 
     #region ページ送りチェックボックスチェックチェンジイベント
+    /// <summary>
+    /// ページ送りチェックボックスチェックチェンジイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbIsModePageEject_CheckedChanged(object sender, EventArgs e)
     {
       // チェック済の場合
@@ -94,6 +103,11 @@ namespace WFA
 
 
     #region 共通キー押下イベント
+    /// <summary>
+    /// 共通キー押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmOption_ComKeyDown(object sender, KeyEventArgs e)
     {
       // デフォルトのボタン押下効果を無効化
@@ -108,6 +122,11 @@ namespace WFA
 
 
     #region 上ボタン押下イベント
+    /// <summary>
+    /// 上ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btUp_Click(object sender, EventArgs e)
     {
       // 上操作メソッド
@@ -116,6 +135,11 @@ namespace WFA
     #endregion
 
     #region 下ボタン押下イベント
+    /// <summary>
+    /// 下ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btDown_Click(object sender, EventArgs e)
     {
       // 下操作メソッド
@@ -124,6 +148,11 @@ namespace WFA
     #endregion
 
     #region 右ボタン押下イベント
+    /// <summary>
+    /// 右ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btRight_Click(object sender, EventArgs e)
     {
       // 右操作メソッド
@@ -132,6 +161,11 @@ namespace WFA
     #endregion
 
     #region 左ボタン押下イベント
+    /// <summary>
+    /// 左ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btLeft_Click(object sender, EventArgs e)
     {
       // 左操作メソッド
@@ -140,6 +174,11 @@ namespace WFA
     #endregion
 
     #region Viewボタン押下イベント
+    /// <summary>
+    /// Viewボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btView_Click(object sender, EventArgs e)
     {
       // ビュウアプリ起動メソッド
@@ -149,6 +188,11 @@ namespace WFA
 
 
     #region 設定コントロール値変更共通イベント
+    /// <summary>
+    /// 設定コントロール値変更共通イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Common_tb_ValueChanged(object sender, EventArgs e)
     {
       // イベント発生コントロール取得
@@ -193,6 +237,11 @@ namespace WFA
 
 
     #region コンテキスト_不透明度押下イベント
+    /// <summary>
+    /// コンテキスト_不透明度押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
       //デフォルトに戻す
@@ -201,6 +250,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_上げ押下イベント
+    /// <summary>
+    /// コンテキスト_上げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
       //不透明度を上げる
@@ -209,6 +263,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_下げ押下イベント
+    /// <summary>
+    /// コンテキスト_下げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
       //不透明度を下げる
@@ -217,6 +276,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_透明押下イベント
+    /// <summary>
+    /// コンテキスト_透明押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
     {
       // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
@@ -225,6 +289,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_ファイルリスト押下イベント
+    /// <summary>
+    /// コンテキスト_ファイルリスト押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemFileList_Click(object sender, EventArgs e)
     {
       // ファイルリストフォーム初期化メソッド使用
@@ -233,6 +302,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_開く
+    /// <summary>
+    /// コンテキスト_開く
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpenDir_Click(object sender, EventArgs e)
     {
       // アセンブリフォルダ開く
@@ -242,6 +316,11 @@ namespace WFA
 
 
     #region フォームクロージングイベント
+    /// <summary>
+    /// フォームクロージングイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Form2_FormClosing(object sender, FormClosingEventArgs e)
     {
       // クローズキャンセル

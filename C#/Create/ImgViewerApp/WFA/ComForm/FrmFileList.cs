@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Diagnostics;
@@ -47,6 +41,11 @@ namespace WFA
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmFileList_Load(object sender, EventArgs e)
     {
       // タイトル設定
@@ -59,6 +58,11 @@ namespace WFA
 
 
     #region リストビューダブルクリックイベント
+    /// <summary>
+    /// リストビューダブルクリックイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void lvFileList_MouseDoubleClick(object sender, MouseEventArgs e)
     {
       // ねずみ返し_項目が選択されていない場合
@@ -76,6 +80,11 @@ namespace WFA
     #endregion
 
     #region リストビューマウスダウンイベント
+    /// <summary>
+    /// リストビューマウスダウンイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void lvFileList_MouseDown(object sender, MouseEventArgs e)
     {
 
@@ -83,6 +92,11 @@ namespace WFA
     #endregion
 
     #region リストビューキー押下イベント
+    /// <summary>
+    /// リストビューキー押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void lvFileList_KeyDown(object sender, KeyEventArgs e)
     {
       // リストビュー内の項目選択を無効化
@@ -95,6 +109,11 @@ namespace WFA
     #endregion
 
     #region 参照ボタン押下イベント
+    /// <summary>
+    /// 参照ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btReferenceDir_Click(object sender, EventArgs e)
     {
       // 選択されたフォルダをbinパスに表示する
@@ -103,6 +122,11 @@ namespace WFA
     #endregion
 
     #region ソートコンボボックス値変更イベント
+    /// <summary>
+    /// ソートコンボボックス値変更イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbSort_SelectedIndexChanged(object sender, EventArgs e)
     {
       // ねずみ返し_画像パスディクショナリが空の場合
@@ -118,6 +142,11 @@ namespace WFA
 
 
     #region コンテキスト_不透明度押下イベント
+    /// <summary>
+    /// コンテキスト_不透明度押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
       //デフォルトに戻す
@@ -126,6 +155,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_上げ押下イベント
+    /// <summary>
+    /// コンテキスト_上げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
       //不透明度を上げる
@@ -134,6 +168,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_下げ押下イベント
+    /// <summary>
+    /// コンテキスト_下げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
       //不透明度を下げる
@@ -142,6 +181,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_透明押下イベント
+    /// <summary>
+    /// コンテキスト_透明押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityTransparent_Click(object sender, EventArgs e)
     {
       // 不透明度を0%にするとフォームが非表示扱いとなってしまうため
@@ -150,6 +194,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_移動押下イベント
+    /// <summary>
+    /// コンテキスト_移動押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemMove_Click(object sender, EventArgs e)
     {
       // コミット先パスを設定
@@ -173,6 +222,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_コピー押下イベント
+    /// <summary>
+    /// コンテキスト_コピー押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
     {
       // コミット先パスを設定
@@ -196,6 +250,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_削除押下イベント
+    /// <summary>
+    /// コンテキスト_削除押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
     {
       // ねずみ返し_ファイル操作判断メソッド使用
@@ -214,6 +273,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_開く押下イベント
+    /// <summary>
+    /// コンテキスト_開く押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
     {
       // ねずみ返し_項目が選択されていない場合
@@ -230,6 +294,11 @@ namespace WFA
 
 
     #region フォルダ参照メソッド
+    /// <summary>
+    /// フォルダ参照メソッド
+    /// </summary>
+    /// <param name="description"></param>
+    /// <returns></returns>
     private string ReferenceFolder(string description)
     {
       // インスタンス作成
@@ -256,6 +325,11 @@ namespace WFA
     #endregion
 
     #region ファイル操作判断メソッド
+    /// <summary>
+    /// ファイル操作判断メソッド
+    /// </summary>
+    /// <param name="chk"></param>
+    /// <returns></returns>
     private bool FileOperateDecision(ArrayList chk)
     {
       // ねずみ返し_項目がチェックされていない場合
@@ -277,6 +351,11 @@ namespace WFA
 
 
     #region コミット先テキストボックスドラッグエンターイベント
+    /// <summary>
+    /// コミット先テキストボックスドラッグエンターイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void tbCommitDir_DragEnter(object sender, DragEventArgs e)
     {
       // ねずみ返し_マウスがファイルを持っていない場合、イベント・ハンドラを抜ける
@@ -300,6 +379,11 @@ namespace WFA
     #endregion
 
     #region コミット先テキストボックスドラッグドロップイベント
+    /// <summary>
+    /// コミット先テキストボックスドラッグドロップイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void tbCommitDir_DragDrop(object sender, DragEventArgs e)
     {
       // ドラッグ&ドロップされたアイテムの取得
@@ -312,6 +396,11 @@ namespace WFA
 
 
     #region フォームクロージングイベント
+    /// <summary>
+    /// フォームクロージングイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmFileList_FormClosing(object sender, FormClosingEventArgs e)
     {
       // クローズキャンセル

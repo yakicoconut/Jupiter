@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -13,9 +7,16 @@ using System.Text.RegularExpressions;
 
 namespace WFA
 {
+  /// <summary>
+  /// ファイル操作フォーム
+  /// </summary>
   public partial class FrmFileMng : Form
   {
     #region コンストラクタ
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="fm1"></param>
     public FrmFileMng(Form1 fm1)
     {
       InitializeComponent();
@@ -28,13 +29,20 @@ namespace WFA
 
     #region 宣言
 
-    // 親フォーム
+    /// <summary>
+    /// 親フォーム
+    /// </summary>
     public Form1 form1 { get; set; }
 
     #endregion
 
 
     #region フォームロードイベント
+    /// <summary>
+    /// フォームロードイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmFileMng_Load(object sender, EventArgs e)
     {
       this.Text = "ファイル管理";
@@ -58,6 +66,11 @@ namespace WFA
 
 
     #region コンテキスト_不透明度押下イベント
+    /// <summary>
+    /// コンテキスト_不透明度押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacity_Click(object sender, EventArgs e)
     {
       //デフォルトに戻す
@@ -66,6 +79,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_上げ押下イベント
+    /// <summary>
+    /// コンテキスト_上げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityGain_Click(object sender, EventArgs e)
     {
       //不透明度を上げる
@@ -74,6 +92,11 @@ namespace WFA
     #endregion
 
     #region コンテキスト_下げ押下イベント
+    /// <summary>
+    /// コンテキスト_下げ押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void toolStripMenuItemOpacityDec_Click(object sender, EventArgs e)
     {
       //不透明度を下げる
@@ -83,6 +106,11 @@ namespace WFA
 
 
     #region 開くボタン押下イベント
+    /// <summary>
+    /// 開くボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btOpen_Click(object sender, EventArgs e)
     {
       // ねずみ返し_対象フォルダが存在しない場合
@@ -97,6 +125,11 @@ namespace WFA
     #endregion
 
     #region 確定ボタン押下イベント
+    /// <summary>
+    /// 確定ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btConfirm_Click(object sender, EventArgs e)
     {
       string searchPath = tbSearchPath.Text;
@@ -122,6 +155,11 @@ namespace WFA
 
 
     #region リストビュー選択変更イベント
+    /// <summary>
+    /// リストビュー選択変更イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void lvFileList_SelectedIndexChanged(object sender, EventArgs e)
     {
       // ねずみ返し_選択行が0以下の場合
@@ -185,6 +223,11 @@ namespace WFA
     #endregion
 
     #region リストビューダブルクリックイベント
+    /// <summary>
+    /// リストビューダブルクリックイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void lvFileList_DoubleClick(object sender, EventArgs e)
     {
       // ねずみ返し_項目が選択されていない場合
@@ -202,6 +245,11 @@ namespace WFA
 
 
     #region 保存ボタン押下イベント
+    /// <summary>
+    /// 保存ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btSaveXml_Click(object sender, EventArgs e)
     {
       // メインフォーム_XML保存メソッド使用
@@ -213,6 +261,11 @@ namespace WFA
     #endregion
 
     #region 取込ボタン押下イベント
+    /// <summary>
+    /// 取込ボタン押下イベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btInputXml_Click(object sender, EventArgs e)
     {
       // ねずみ返し_項目が選択されていない場合
@@ -233,6 +286,7 @@ namespace WFA
     /// <summary>
     /// ファイルリストフォーム初期化メソッド
     /// </summary>
+    /// <param name="searchPath"></param>
     private void InitFileListForm(string searchPath)
     {
       // 対象フォルダパス内のXMLファイルを全て取得
@@ -252,6 +306,11 @@ namespace WFA
 
 
     #region フォームクロージングイベント
+    /// <summary>
+    /// フォームクロージングイベント
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmFileMng_FormClosing(object sender, FormClosingEventArgs e)
     {
       // リストボックス破棄
