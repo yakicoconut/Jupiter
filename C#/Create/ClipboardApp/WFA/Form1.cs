@@ -38,6 +38,12 @@ namespace WFA
     #region コンフィグ取得メソッド
     public void GetConfig()
     {
+      // 起動時最小化フラグ取得
+      if (!bool.TryParse(_comLogic.GetConfigValue("IsInitMin", "False"), out isInitMin))
+      {
+        isInitMin = false;
+      }
+
       // コンパクトモードから復帰したときに使用するデフォルトの通常サイズ
       nmlHi = int.Parse(_comLogic.GetConfigValue("DefNmlHi", "250"));
       nmlWd = int.Parse(_comLogic.GetConfigValue("DefNmlWd", "480"));
@@ -88,6 +94,11 @@ namespace WFA
     // MultiRenameApp位置
     string multiRenameAppPath;
 
+    /// <summary>
+    /// 起動時最小化フラグ
+    /// </summary>
+    bool isInitMin;
+
     #endregion
 
     #region プロパティ
@@ -123,6 +134,13 @@ namespace WFA
 
       // サブフォームインスタンス生成
       fmCopyTgtEdit = new FrmPtComment(this);
+
+      // 起動時最小化の場合
+      if (isInitMin)
+      {
+        // フォーム最小化
+        this.WindowState = FormWindowState.Minimized;
+      }
     }
     #endregion
 
