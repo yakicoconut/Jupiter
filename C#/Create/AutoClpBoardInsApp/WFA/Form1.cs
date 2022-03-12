@@ -92,9 +92,14 @@ namespace WFA
     public void GetConfig()
     {
       // 起動時オンフラグ取得
-      if(bool.TryParse(_comLogic.GetConfigValue("IsInitOn", "False"), out isOn))
+      if(!bool.TryParse(_comLogic.GetConfigValue("IsInitOn", "False"), out isOn))
       {
         isOn = false;
+      }
+      // 起動時最小化フラグ取得
+      if (!bool.TryParse(_comLogic.GetConfigValue("IsInitMin", "False"), out isInitMin))
+      {
+        isInitMin = false;
       }
     }
     #endregion
@@ -125,7 +130,11 @@ namespace WFA
     /// オンフラグ
     /// </summary>
     bool isOn;
-
+    /// <summary>
+    /// 起動時最小化フラグ
+    /// </summary>
+    bool isInitMin;
+    
     /// <summary>
     /// 前回コピー文字列
     /// </summary>
@@ -166,13 +175,20 @@ namespace WFA
       // タスクバーにアイコンを表示しない
       this.ShowInTaskbar = false;
 
-      // オンの場合
+      // 起動時オンの場合
       if (isOn)
       {
         // クリップボードリスナー登録実行
         AddClipboardFormatListener(Handle);
         // オンオフラベル更新
         lbOnOff.Text = "ON";
+      }
+
+      // 起動時最小化の場合
+      if(isInitMin)
+      {
+        // フォーム最小化
+        this.WindowState = FormWindowState.Minimized;
       }
     }
     #endregion
